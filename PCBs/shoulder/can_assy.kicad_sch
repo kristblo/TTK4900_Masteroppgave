@@ -1,0 +1,15 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 8cb1e107-e740-4ae2-a850-f3a04785434a)
+
+  (paper "A4")
+
+  (title_block
+    (title "CAN assembly")
+    (rev "1.1")
+  )
+
+  (lib_symbols
+  )
+
+)

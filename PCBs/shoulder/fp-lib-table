@@ -1,0 +1,7 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "LSM6DSMTR")(type "KiCad")(uri "/home/ov_robotarm/TTK4550_Prosjektoppgave/documentation/new_parts/ul_LSM6DSMTR/KiCADv6/footprints.pretty")(options "")(descr ""))
+  (lib (name "DRV8251A")(type "KiCad")(uri "/home/ov_robotarm/TTK4550_Prosjektoppgave/documentation/new_parts/ul_DRV8251ADDAR/KiCADv6/footprints.pretty")(options "")(descr ""))
+  (lib (name "70543-0001")(type "KiCad")(uri "/home/ov_robotarm/TTK4550_Prosjektoppgave/documentation/new_parts/ul_705430001/KiCADv6/footprints.pretty")(options "")(descr ""))
+  (lib (name "JV-3S-KT")(type "KiCad")(uri "/home/ov_robotarm/TTK4550_Prosjektoppgave/documentation/new_parts/my_JV-3S-KT/JV-3S-KT.pretty")(options "")(descr ""))
+)

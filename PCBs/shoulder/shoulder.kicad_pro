@@ -471,6 +471,30 @@
     [
       "dd0c7be8-ccf1-412d-960e-d6705c0e249b",
       ""
+    ],
+    [
+      "23dd3c4a-da1f-44ef-acfb-616759cf75b9",
+      "Motor_assy"
+    ],
+    [
+      "432c4f30-2ecc-4269-9e31-b944688eceed",
+      "Low_voltage_assy"
+    ],
+    [
+      "17be556b-d689-4244-b026-6acd7273d658",
+      "USB_assy"
+    ],
+    [
+      "38d303e4-1bac-45b0-bb1f-2ed94c6162e0",
+      "CAN_assy"
+    ],
+    [
+      "6be0f257-0828-42e7-90f4-699eb509c9fd",
+      "OSC_RST_assy"
+    ],
+    [
+      "d7a9a2ca-7499-4b36-bbeb-2505b7182345",
+      "IMU_assy"
     ]
   ],
   "text_variables": {}

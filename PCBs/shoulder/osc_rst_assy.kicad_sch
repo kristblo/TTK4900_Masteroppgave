@@ -1,0 +1,15 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 0b8a7b9c-7718-4b75-982d-bfb2cef601b5)
+
+  (paper "A4")
+
+  (title_block
+    (title "Oscillator and reset assembly")
+    (rev "1.1")
+  )
+
+  (lib_symbols
+  )
+
+)
