@@ -16,7 +16,7 @@ Installed the recommended USBLC6 ESD protection from AN4879. Completed the shoul
 
 Voltage tuning resistors are connected with the other leg compared to MK1. Don't remember reassigning them in that design, but it shouldn't matter. Tested on OV.
 
-
+Consider setting up I2C headers such that it can be used instead of CAN if that really doesn't work. For the hand, that probably means committing to having both IMUs on the same bus.
 
 
 
