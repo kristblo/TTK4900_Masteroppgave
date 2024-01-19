@@ -23,6 +23,7 @@ Consider setting up I2C headers such that it can be used instead of CAN if that 
 The added hardware complexity of being able to switch between CAN and I2C is not worth it. Would need extra jumpers (or even DIP-switches) to enable or disable all relevant pins, and introducing two IMUs on one I2C w/o testing is asking for trouble. The TTK8 breadboard tests showed that the CAN hardware is probably correct.
 
 Changed end switch to PA5 to better fit torso layout.
+Decided against finding a new TVS. I'm not sure I'd find one actually able to protect my 48V lines w/o frying the other lines. All my data lines are protected with the old one, CDSC706, and the 48V lines are to some extent protected by diodes near all the voltage regulators.
 
 
 

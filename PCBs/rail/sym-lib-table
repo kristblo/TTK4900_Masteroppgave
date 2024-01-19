@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "2-1761603-6")(type "KiCad")(uri "/home/ov_robotarm/TTK4900_Masteroppgave/PCBs/lib/ul_2-1761603-6/KiCADv6/2023-09-14_11-35-19.kicad_sym")(options "")(descr ""))
+  (lib (name "CDSC706")(type "KiCad")(uri "/home/ov_robotarm/TTK4900_Masteroppgave/PCBs/lib/ul_CDSC706-0504C/KiCADv6/2023-10-26_11-30-19.kicad_sym")(options "")(descr ""))
+)
