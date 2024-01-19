@@ -1,82 +1,10 @@
 (kicad_sch (version 20230121) (generator eeschema)
 
-  (uuid f823586b-fc3f-41ba-9ff2-7c3e363ad2e5)
+  (uuid 021afb57-60fc-49a8-9c50-9943b5fe66e6)
 
   (paper "A4")
 
-  (title_block
-    (title "Motor driver assembly")
-    (rev "1.1")
-  )
-
   (lib_symbols
-    (symbol "70543-0001:705430001" (pin_names (offset 0.254)) (in_bom yes) (on_board yes)
-      (property "Reference" "J" (at 0 8.89 0)
-        (effects (font (size 1.524 1.524)))
-      )
-      (property "Value" "705430001" (at 0 6.35 0)
-        (effects (font (size 1.524 1.524)))
-      )
-      (property "Footprint" "70543-0001_MOL" (at -8.89 3.81 0)
-        (effects (font (size 1.27 1.27) italic) hide)
-      )
-      (property "Datasheet" "705430001" (at -13.97 6.35 0)
-        (effects (font (size 1.27 1.27) italic) hide)
-      )
-      (property "ki_locked" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "ki_keywords" "705430001" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "70543-0001_MOL" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "705430001_0_1"
-        (polyline
-          (pts
-            (xy -3.81 -5.08)
-            (xy 3.81 -5.08)
-          )
-          (stroke (width 0.127) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -3.81 5.08)
-            (xy -3.81 -5.08)
-          )
-          (stroke (width 0.127) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 3.81 -5.08)
-            (xy 3.81 5.08)
-          )
-          (stroke (width 0.127) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 3.81 5.08)
-            (xy -3.81 5.08)
-          )
-          (stroke (width 0.127) (type default))
-          (fill (type none))
-        )
-      )
-      (symbol "705430001_1_1"
-        (pin bidirectional line (at -11.43 0 0) (length 7.62)
-          (name "IN" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin bidirectional line (at 11.43 0 180) (length 7.62)
-          (name "OUT" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
     (symbol "705430001_1" (pin_names (offset 0.254)) (in_bom yes) (on_board yes)
       (property "Reference" "J" (at 0 8.89 0)
         (effects (font (size 1.524 1.524)))
@@ -521,6 +449,65 @@
         )
       )
     )
+    (symbol "Device:C_Polarized" (pin_numbers hide) (pin_names (offset 0.254)) (in_bom yes) (on_board yes)
+      (property "Reference" "C" (at 0.635 2.54 0)
+        (effects (font (size 1.27 1.27)) (justify left))
+      )
+      (property "Value" "C_Polarized" (at 0.635 -2.54 0)
+        (effects (font (size 1.27 1.27)) (justify left))
+      )
+      (property "Footprint" "" (at 0.9652 -3.81 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Datasheet" "~" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_keywords" "cap capacitor" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_description" "Polarized capacitor" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_fp_filters" "CP_*" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (symbol "C_Polarized_0_1"
+        (rectangle (start -2.286 0.508) (end 2.286 1.016)
+          (stroke (width 0) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy -1.778 2.286)
+            (xy -0.762 2.286)
+          )
+          (stroke (width 0) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy -1.27 2.794)
+            (xy -1.27 1.778)
+          )
+          (stroke (width 0) (type default))
+          (fill (type none))
+        )
+        (rectangle (start 2.286 -0.508) (end -2.286 -1.016)
+          (stroke (width 0) (type default))
+          (fill (type outline))
+        )
+      )
+      (symbol "C_Polarized_1_1"
+        (pin passive line (at 0 3.81 270) (length 2.794)
+          (name "~" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27))))
+        )
+        (pin passive line (at 0 -3.81 90) (length 2.794)
+          (name "~" (effects (font (size 1.27 1.27))))
+          (number "2" (effects (font (size 1.27 1.27))))
+        )
+      )
+    )
     (symbol "Device:Q_NIGBT_CGE" (pin_names (offset 0) hide) (in_bom yes) (on_board yes)
       (property "Reference" "Q" (at 5.08 1.27 0)
         (effects (font (size 1.27 1.27)) (justify left))
@@ -731,9 +718,6 @@
   (junction (at 107.95 80.01) (diameter 0) (color 0 0 0 0)
     (uuid 0fdab2a9-9c03-4445-a084-eea897ed603e)
   )
-  (junction (at 114.3 118.11) (diameter 0) (color 0 0 0 0)
-    (uuid 12493a91-4366-4d52-913c-6b1371bf7917)
-  )
   (junction (at 203.2 95.25) (diameter 0) (color 0 0 0 0)
     (uuid 24e50734-5964-4467-9123-971d9b59b472)
   )
@@ -754,6 +738,9 @@
   )
   (junction (at 208.28 128.27) (diameter 0) (color 0 0 0 0)
     (uuid b9408984-599e-4cd0-bf04-2acc9fbbe903)
+  )
+  (junction (at 114.3 118.11) (diameter 0) (color 0 0 0 0)
+    (uuid bc49c45a-e2f7-43ea-a91f-0e6ddf2a5c4a)
   )
   (junction (at 151.13 73.66) (diameter 0) (color 0 0 0 0)
     (uuid c3687dff-a394-4aa1-8657-913fbbd82eae)
@@ -785,9 +772,9 @@
     (stroke (width 0) (type default))
     (uuid 0138f8d3-973d-4306-8897-56c8d39cffcc)
   )
-  (wire (pts (xy 87.63 92.71) (xy 87.63 74.93))
+  (wire (pts (xy 78.74 120.65) (xy 78.74 102.87))
     (stroke (width 0) (type default))
-    (uuid 07fc85dc-64ee-4721-aaff-bab253b34158)
+    (uuid 0176f2f6-6f5e-4df8-9215-8013d17c040a)
   )
   (wire (pts (xy 200.66 97.79) (xy 218.44 97.79))
     (stroke (width 0) (type default))
@@ -825,6 +812,10 @@
     (stroke (width 0) (type default))
     (uuid 25c1329a-0754-45d9-80b1-eded1eeff1fa)
   )
+  (wire (pts (xy 48.26 97.79) (xy 139.7 97.79))
+    (stroke (width 0) (type default))
+    (uuid 2611f843-2dd3-4e6f-bad9-e2498044c790)
+  )
   (wire (pts (xy 210.82 125.73) (xy 210.82 142.24))
     (stroke (width 0) (type default))
     (uuid 2624223d-4966-4751-8272-d1b6f68ffa3b)
@@ -841,11 +832,7 @@
     (stroke (width 0) (type default))
     (uuid 389d85d7-8063-40d0-99eb-f945d0bf2697)
   )
-  (wire (pts (xy 87.63 120.65) (xy 139.7 120.65))
-    (stroke (width 0) (type default))
-    (uuid 3f19d6d1-d086-483b-9363-16788620e85d)
-  )
-  (wire (pts (xy 114.3 118.11) (xy 128.27 118.11))
+  (wire (pts (xy 107.95 118.11) (xy 114.3 118.11))
     (stroke (width 0) (type default))
     (uuid 45a85820-0aaf-4d7e-a296-4b7c293c2d60)
   )
@@ -865,6 +852,10 @@
     (stroke (width 0) (type default))
     (uuid 634f309d-a5db-4d35-83f3-b47c8399da5a)
   )
+  (wire (pts (xy 48.26 125.73) (xy 139.7 125.73))
+    (stroke (width 0) (type default))
+    (uuid 64c250ca-a4e4-4cc1-8cf5-f8263f0d955d)
+  )
   (wire (pts (xy 167.64 125.73) (xy 210.82 125.73))
     (stroke (width 0) (type default))
     (uuid 668742b4-f018-4d7b-bd89-c8fcc47611a0)
@@ -873,21 +864,17 @@
     (stroke (width 0) (type default))
     (uuid 750dc80d-b3ee-49b0-b23f-cfe61ca83405)
   )
-  (wire (pts (xy 67.31 97.79) (xy 139.7 97.79))
-    (stroke (width 0) (type default))
-    (uuid 7b46956d-5010-4e0b-a900-98e94585edc2)
-  )
   (wire (pts (xy 151.13 44.45) (xy 151.13 73.66))
     (stroke (width 0) (type default))
     (uuid 7cfdb50b-98ae-406c-8d50-820a96e253ad)
   )
-  (wire (pts (xy 67.31 125.73) (xy 139.7 125.73))
-    (stroke (width 0) (type default))
-    (uuid 7e005b86-a193-4be8-988b-78c1a657a88e)
-  )
   (wire (pts (xy 107.95 81.28) (xy 107.95 80.01))
     (stroke (width 0) (type default))
     (uuid 7fd04837-9d3b-47b6-a48a-4e74cc934653)
+  )
+  (wire (pts (xy 139.7 120.65) (xy 78.74 120.65))
+    (stroke (width 0) (type default))
+    (uuid 816e21de-342f-49eb-bff3-340393bb0452)
   )
   (wire (pts (xy 208.28 128.27) (xy 208.28 142.24))
     (stroke (width 0) (type default))
@@ -905,6 +892,10 @@
     (stroke (width 0) (type default))
     (uuid 90043b1e-5bff-41de-a69b-501f6b5582ed)
   )
+  (wire (pts (xy 78.74 102.87) (xy 48.26 102.87))
+    (stroke (width 0) (type default))
+    (uuid 9b377ff8-421b-4fd7-bc45-e9c4bdddc6f5)
+  )
   (wire (pts (xy 167.64 95.25) (xy 203.2 95.25))
     (stroke (width 0) (type default))
     (uuid 9c4b7bfb-36e1-4a02-8f47-69ac5497a1df)
@@ -917,9 +908,9 @@
     (stroke (width 0) (type default))
     (uuid a487f1be-acbb-4881-84dc-aaa8ba0b9bf0)
   )
-  (wire (pts (xy 87.63 74.93) (xy 67.31 74.93))
+  (wire (pts (xy 114.3 118.11) (xy 128.27 118.11))
     (stroke (width 0) (type default))
-    (uuid a6a1a246-861e-492e-b8ef-cc77a13384f6)
+    (uuid a6446db0-f70b-40f5-b3a7-c605a4b7a4e0)
   )
   (wire (pts (xy 107.95 110.49) (xy 114.3 110.49))
     (stroke (width 0) (type default))
@@ -940,10 +931,6 @@
   (wire (pts (xy 128.27 73.66) (xy 151.13 73.66))
     (stroke (width 0) (type default))
     (uuid b1f15e61-7c98-42a4-99fd-89022683ec0c)
-  )
-  (wire (pts (xy 87.63 102.87) (xy 87.63 120.65))
-    (stroke (width 0) (type default))
-    (uuid bd44d713-d031-465e-b486-a673d3e4bfa0)
   )
   (wire (pts (xy 217.17 64.77) (xy 219.71 64.77))
     (stroke (width 0) (type default))
@@ -969,10 +956,6 @@
     (stroke (width 0) (type default))
     (uuid e2089567-5753-4424-bd28-98d1aff7b5f7)
   )
-  (wire (pts (xy 107.95 118.11) (xy 114.3 118.11))
-    (stroke (width 0) (type default))
-    (uuid e5d65405-3146-47a7-abc9-b821147556bd)
-  )
   (wire (pts (xy 167.64 123.19) (xy 213.36 123.19))
     (stroke (width 0) (type default))
     (uuid e5f4c0c8-91f4-4069-bce3-037563b5c776)
@@ -981,13 +964,9 @@
     (stroke (width 0) (type default))
     (uuid e763d2d0-bf5e-4722-987d-2933831efb82)
   )
-  (wire (pts (xy 87.63 92.71) (xy 139.7 92.71))
+  (wire (pts (xy 48.26 92.71) (xy 139.7 92.71))
     (stroke (width 0) (type default))
-    (uuid eac56324-f9f3-4f8a-abef-4f6f81fb40a4)
-  )
-  (wire (pts (xy 67.31 102.87) (xy 87.63 102.87))
-    (stroke (width 0) (type default))
-    (uuid ed1f967c-5e74-4c49-87f9-ee4bbc33fd48)
+    (uuid f11aab01-4949-46a5-acbc-4318d198c97f)
   )
   (wire (pts (xy 128.27 90.17) (xy 128.27 118.11))
     (stroke (width 0) (type default))
@@ -1107,6 +1086,10 @@
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid a9cd741a-e0d4-4d2d-8e91-8792c5cd1c85)
   )
+  (hierarchical_label "MTR1_OUT" (shape bidirectional) (at 48.26 92.71 180) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid c0202656-e9dc-40ad-a204-f92eaf5a61dd)
+  )
   (hierarchical_label "DRV1_IN2" (shape output) (at 218.44 97.79 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid c80010a1-11e7-4ea0-b2be-8affd8e022f3)
@@ -1119,11 +1102,15 @@
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid efaa92f4-aa5f-47b0-bb07-1df180918422)
   )
+  (hierarchical_label "MTR1_IN" (shape bidirectional) (at 48.26 97.79 180) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid f09dc2d5-62b8-4675-8d5f-38077f91ed65)
+  )
 
   (symbol (lib_id "Device:R") (at 167.64 104.14 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 0de44cb9-7ece-4d1e-ae0c-b48ceeaf6982)
-    (property "Reference" "R1_IPROPI" (at 170.18 102.87 0)
+    (property "Reference" "R_IPROPI1" (at 170.18 102.87 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "510Ohm" (at 170.18 105.41 0)
@@ -1138,6 +1125,11 @@
     (pin "1" (uuid fb58aeb0-2eb1-436d-aac3-d00ffd3cacf8))
     (pin "2" (uuid 83cef964-cde2-48bb-aa28-8316e9b41633))
     (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "R_IPROPI1") (unit 1)
+        )
+      )
       (project "shoulder"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "R1_IPROPI") (unit 1)
@@ -1149,74 +1141,6 @@
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "R1_IPROPI1") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:C") (at 114.3 114.3 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 2c3017f4-5b50-44f2-a76f-8d94f2afb299)
-    (property "Reference" "C2_MTR1" (at 118.11 113.03 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "220muF" (at 118.11 115.57 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm" (at 115.2652 118.11 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 114.3 114.3 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 7697f049-8444-4db7-9f29-a7c6f0534503))
-    (pin "2" (uuid fe3199d9-ecaa-4e39-adc1-756177db953c))
-    (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C2_MTR1") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "C_MTR2") (unit 1)
-        )
-      )
-      (project "shoulder"
-        (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
-          (reference "C_MTR2") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:C") (at 114.3 85.09 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 4e763c79-4618-45e4-82dc-99106d4594b4)
-    (property "Reference" "C1_MTR0" (at 118.11 83.82 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "330muF" (at 118.11 86.36 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Capacitor_THT:CP_Radial_D16.0mm_P7.50mm" (at 115.2652 88.9 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 114.3 85.09 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 3751f356-aa65-413d-87f2-ff4f4cc15422))
-    (pin "2" (uuid f6f2d79a-c6b7-4f5d-bfd9-4dfc0a45b8b3))
-    (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C1_MTR0") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "C_MTR1") (unit 1)
-        )
-      )
-      (project "shoulder"
-        (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
-          (reference "C_MTR1") (unit 1)
         )
       )
     )
@@ -1247,6 +1171,11 @@
     (pin "6" (uuid 09bd2b94-ad0c-45e6-af4d-fcf7d7fd9d30))
     (pin "8" (uuid 2b1af676-3782-4f72-9d4f-1cf06a79449c))
     (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "MTR_DRV2") (unit 1)
+        )
+      )
       (project "shoulder"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
           (reference "MTR_DRV2") (unit 1)
@@ -1255,6 +1184,32 @@
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "MTR_DRV2") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "Device:C_Polarized") (at 114.3 85.09 180) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 82f7b184-4b76-43f1-b74b-2efce4402171)
+    (property "Reference" "C_MTR1" (at 118.11 84.709 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Value" "330uF" (at 118.11 87.249 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Footprint" "Capacitor_THT:CP_Radial_D16.0mm_P7.50mm" (at 113.3348 81.28 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 114.3 85.09 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid c16e699c-ca69-4613-921d-d101bff7549c))
+    (pin "2" (uuid ebaab2cc-da82-4879-be66-ae273c80a3ff))
+    (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "C_MTR1") (unit 1)
         )
       )
     )
@@ -1280,6 +1235,11 @@
     (pin "3" (uuid b208da63-b20f-4fcf-be25-372efc482c64))
     (pin "4" (uuid e9fd9532-e6ad-4ffd-b44d-75ee9657a8ae))
     (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "JV-3S-KT1") (unit 1)
+        )
+      )
       (project "shoulder"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "JV-3S-KT1") (unit 1)
@@ -1321,6 +1281,11 @@
     (pin "8" (uuid 9e0dd029-2008-4e7a-8afa-163150ffcb6b))
     (pin "9" (uuid 888df78f-8356-41db-9480-d8db70975ddb))
     (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "MTR_DRV1") (unit 1)
+        )
+      )
       (project "shoulder"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
           (reference "MTR_DRV1") (unit 1)
@@ -1352,6 +1317,11 @@
     (pin "1" (uuid 14151265-87dd-4e6d-ab00-fb4c86a6ad1d))
     (pin "2" (uuid ed63316d-d49f-46e1-815d-1038b65de2f8))
     (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "C4") (unit 1)
+        )
+      )
       (project "shoulder"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "C4") (unit 1)
@@ -1368,10 +1338,36 @@
     )
   )
 
+  (symbol (lib_id "Device:C_Polarized") (at 114.3 114.3 180) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid ad9933f7-d068-4a5c-9232-31f13b5d1a76)
+    (property "Reference" "C_MTR2" (at 118.11 113.919 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Value" "330uF" (at 118.11 116.459 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Footprint" "Capacitor_THT:CP_Radial_D16.0mm_P7.50mm" (at 113.3348 110.49 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 114.3 114.3 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid a8a052c0-0b8b-4548-9723-5bc75a1c016c))
+    (pin "2" (uuid f20bf690-d884-4021-bb09-7818af4015f4))
+    (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "C_MTR2") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "Device:Q_NIGBT_CGE") (at 128.27 68.58 270) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid b06740dc-1de0-49f5-aa26-0a8aae0ace30)
-    (property "Reference" "Q1_RLY_CTRL" (at 127 63.5 0)
+    (property "Reference" "Q1_RLY_CTRL1" (at 127 63.5 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "Q_NIGBT_CGE" (at 129.54 63.5 0)
@@ -1387,6 +1383,11 @@
     (pin "2" (uuid 16f29361-5d4a-433b-8e3c-63f699330a88))
     (pin "3" (uuid fc997551-db40-4762-a392-e115dd1cb726))
     (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "Q1_RLY_CTRL1") (unit 1)
+        )
+      )
       (project "shoulder"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "Q1_RLY_CTRL") (unit 1)
@@ -1403,58 +1404,29 @@
     )
   )
 
-  (symbol (lib_id "70543-0001:705430001") (at 67.31 114.3 90) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid bbe760da-e441-42a1-b2b3-a9ddd531d6d6)
-    (property "Reference" "J2_MTR1" (at 73.66 113.03 90)
-      (effects (font (size 1.524 1.524)) (justify right))
-    )
-    (property "Value" "705430001" (at 73.66 115.57 90)
-      (effects (font (size 1.524 1.524)) (justify right))
-    )
-    (property "Footprint" "70543-0001:70543-0001_MOL" (at 63.5 123.19 0)
-      (effects (font (size 1.27 1.27) italic) hide)
-    )
-    (property "Datasheet" "705430001" (at 60.96 128.27 0)
-      (effects (font (size 1.27 1.27) italic) hide)
-    )
-    (pin "1" (uuid 082b22d7-7f38-4cc7-a72a-d398c31cccb5))
-    (pin "2" (uuid 5586af2e-fa48-4d97-9dc0-77b49cabb35d))
-    (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "J2_MTR1") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "MTR2") (unit 1)
-        )
-      )
-      (project "shoulder"
-        (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
-          (reference "MTR2") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_name "705430001_1") (lib_id "70543-0001:705430001") (at 67.31 86.36 90) (unit 1)
+  (symbol (lib_name "705430001_1") (lib_id "70543-0001:705430001") (at 48.26 114.3 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid c08d85b9-1bb2-4124-9ea9-059f54b1258e)
-    (property "Reference" "J1_MTR0" (at 73.66 85.09 90)
+    (property "Reference" "MTR2" (at 54.61 113.03 90)
       (effects (font (size 1.524 1.524)) (justify right))
     )
-    (property "Value" "705430001" (at 73.66 87.63 90)
+    (property "Value" "705430001" (at 54.61 115.57 90)
       (effects (font (size 1.524 1.524)) (justify right))
     )
-    (property "Footprint" "70543-0001:70543-0001_MOL" (at 63.5 95.25 0)
+    (property "Footprint" "70543-0001:70543-0001_MOL" (at 44.45 123.19 0)
       (effects (font (size 1.27 1.27) italic) hide)
     )
-    (property "Datasheet" "705430001" (at 60.96 100.33 0)
+    (property "Datasheet" "705430001" (at 41.91 128.27 0)
       (effects (font (size 1.27 1.27) italic) hide)
     )
     (pin "1" (uuid 92a30947-c77f-4486-9ce0-b604296daddd))
     (pin "2" (uuid 9bb1099a-7348-4c7f-9c96-254ad05107e4))
     (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "MTR2") (unit 1)
+        )
+      )
       (project "shoulder"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "J1_MTR0") (unit 1)
@@ -1474,7 +1446,7 @@
   (symbol (lib_id "Device:R") (at 167.64 132.08 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ce4e174c-8aab-4752-9d39-a393f6b1ac44)
-    (property "Reference" "R2_IPROPI" (at 170.18 130.81 0)
+    (property "Reference" "R_IPROPI2" (at 170.18 130.81 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "510Ohm" (at 170.18 133.35 0)
@@ -1489,6 +1461,11 @@
     (pin "1" (uuid 95e47221-e555-45ec-84dc-e18f84f03734))
     (pin "2" (uuid f21cbdaf-92ca-4a71-8806-a6171afc342e))
     (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "R_IPROPI2") (unit 1)
+        )
+      )
       (project "shoulder"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "R2_IPROPI") (unit 1)
@@ -1508,7 +1485,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x07") (at 205.74 147.32 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid d4420ff9-4d54-4670-a570-c1a2cbf43fae)
-    (property "Reference" "J2" (at 205.74 151.13 90)
+    (property "Reference" "MTR_ASY_DBG1" (at 205.74 151.13 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Conn_01x07" (at 205.74 153.67 90)
@@ -1528,6 +1505,11 @@
     (pin "6" (uuid 9bad7ec8-48c5-4e02-b39e-697eed66c9c6))
     (pin "7" (uuid 80164534-f366-4739-9a39-2ec3ee61bca1))
     (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "MTR_ASY_DBG1") (unit 1)
+        )
+      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "J2") (unit 1)
@@ -1554,6 +1536,11 @@
     (pin "1" (uuid 92a16a96-cb73-468c-9d6c-841333f35a49))
     (pin "2" (uuid 232639e9-3770-48cb-b936-cd81681e8a94))
     (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "C3") (unit 1)
+        )
+      )
       (project "shoulder"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "C3") (unit 1)
@@ -1589,6 +1576,11 @@
     (pin "2" (uuid 197da73e-d8c4-41a3-bf7e-69752d94840c))
     (pin "3" (uuid 76030479-7ea5-4f40-8d30-cb361497c510))
     (instances
+      (project "torso"
+        (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592/ddcb839a-fbbb-46d4-8f0a-d6f5c8aaf6d6"
+          (reference "RLY_CTL_DBG1") (unit 1)
+        )
+      )
       (project "shoulder"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
           (reference "RLY_CTL_DBG1") (unit 1)

@@ -11,13 +11,18 @@ Looks like all the MCU changes are implementable without issues. Taking care to 
 
 Radical idea: Put the shoulder IMU on the shoulder. No need to have an extra board in the upper arm, it saves on wiring and the assembly can be reused in the hand.
 
-###180123
+###180124
 Installed the recommended USBLC6 ESD protection from AN4879. Completed the shoulder board with few notes. Rotated the MCU 90deg ccw relative to MK1 because it fit better with the motor drivers. Not a huge impact overall, if anything it made the whole layout simpler/easier to look at. Had some trouble with the encoder connector footprints not matching the symbol's pad enumeration, switched to odd/even compared to ccw in MK1. Electrically identical ofc.
 
 Voltage tuning resistors are connected with the other leg compared to MK1. Don't remember reassigning them in that design, but it shouldn't matter. Tested on OV.
 
 Consider setting up I2C headers such that it can be used instead of CAN if that really doesn't work. For the hand, that probably means committing to having both IMUs on the same bus.
 
+
+###180124
+The added hardware complexity of being able to switch between CAN and I2C is not worth it. Would need extra jumpers (or even DIP-switches) to enable or disable all relevant pins, and introducing two IMUs on one I2C w/o testing is asking for trouble. The TTK8 breadboard tests showed that the CAN hardware is probably correct.
+
+Changed end switch to PA5 to better fit torso layout.
 
 
 
