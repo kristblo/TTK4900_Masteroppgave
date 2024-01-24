@@ -19,14 +19,17 @@ Voltage tuning resistors are connected with the other leg compared to MK1. Don't
 Consider setting up I2C headers such that it can be used instead of CAN if that really doesn't work. For the hand, that probably means committing to having both IMUs on the same bus.
 
 
-###180124
+###190124
 The added hardware complexity of being able to switch between CAN and I2C is not worth it. Would need extra jumpers (or even DIP-switches) to enable or disable all relevant pins, and introducing two IMUs on one I2C w/o testing is asking for trouble. The TTK8 breadboard tests showed that the CAN hardware is probably correct.
 
 Changed end switch to PA5 to better fit torso layout.
 Decided against finding a new TVS. I'm not sure I'd find one actually able to protect my 48V lines w/o frying the other lines. All my data lines are protected with the old one, CDSC706, and the 48V lines are to some extent protected by diodes near all the voltage regulators.
 
 
+###240124
+Found dc-buck ZMR330FTA for use on the IMU board. This saves one wire (or 14%!) from the interface. Still need gnd, 5v, opt, int, sda, scl, but a simple test with jumper wires indicates that this will be OK. I'm increasingly unsure of how I'm supposed to route wires inside the hand, however.
 
+For wiring: try to rework the board outline to make space for them. The new IMU header solution was to remove the 2x2 interrupt header/jumper in favor of a 1x2 header for IMU and OPT interrupts, for a marginally smaller footprint than the previous design. The IMU board itself can have a pulldown and ENABLE jumper to pull all unused low -- plenty of space there.
 
 
 
