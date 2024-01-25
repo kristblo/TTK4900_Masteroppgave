@@ -32,4 +32,11 @@ Found dc-buck ZMR330FTA for use on the IMU board. This saves one wire (or 14%!) 
 For wiring: try to rework the board outline to make space for them. The new IMU header solution was to remove the 2x2 interrupt header/jumper in favor of a 1x2 header for IMU and OPT interrupts, for a marginally smaller footprint than the previous design. The IMU board itself can have a pulldown and ENABLE jumper to pull all unused low -- plenty of space there.
 
 
+###250124
+Further investigation of the hand board shows that I can expand it by 2mm right and fit all the connectors on vertical headers, similar to the original ribbon between A and B. Also made a similar tab to move the OPT header ~2.5mm up.
 
+Switched I2C ports for the IMUs such that the on-board IMU gets port 3. Fits better with the layout.
+
+Realised the larger damping caps on the MCU were connected between the zener and its LED instead of 3V3. Make sure that's not the case on other designs!
+
+Finished traces and silk on hand. IMPORTANT: Find a footprint for "Flush mount socket" on the encoder connectors before sending to JLC.
