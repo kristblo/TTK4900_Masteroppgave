@@ -10,4 +10,5 @@
   (lib (name "ABL-16.000MHZ-B1U-T")(type "KiCad")(uri "/home/ov_robotarm/TTK4900_Masteroppgave/PCBs/lib/ul_ABL-16-000MHZ-B2/KiCADv6/footprints.pretty")(options "")(descr ""))
   (lib (name "JV-3S-KT")(type "KiCad")(uri "/home/ov_robotarm/TTK4900_Masteroppgave/PCBs/lib/my_JV-3S-KT/JV-3S-KT.pretty")(options "")(descr ""))
   (lib (name "OPB971N51")(type "KiCad")(uri "/home/ov_robotarm/TTK4900_Masteroppgave/PCBs/lib/my_OPB971N51/OPB971N51.pretty")(options "")(descr ""))
+  (lib (name "PINSOCKET")(type "KiCad")(uri "/home/ov_robotarm/TTK4900_Masteroppgave/PCBs/lib/PINSOCKET.pretty")(options "")(descr ""))
 )

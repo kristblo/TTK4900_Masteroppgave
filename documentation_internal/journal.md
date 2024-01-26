@@ -40,3 +40,6 @@ Switched I2C ports for the IMUs such that the on-board IMU gets port 3. Fits bet
 Realised the larger damping caps on the MCU were connected between the zener and its LED instead of 3V3. Make sure that's not the case on other designs!
 
 Finished traces and silk on hand. IMPORTANT: Find a footprint for "Flush mount socket" on the encoder connectors before sending to JLC.
+
+###260124
+Decided to reuse the old sockets instead of trying to find a replacement model. Don't know enough about the type of connector etc. Made a new footprint by increasing the hole diameter of a standard 2.54mm header from 1.0mm to 1.5mm, and the pad diameter to 2.2mm to comply with JLC's requirement of 0.3mm minimum annular ring. Shifted both footprints 0.3mm left on the PCB, looked like that might be a better fit. Motivated by the observation that the sockets were not placed on the centerline between the square holes.
