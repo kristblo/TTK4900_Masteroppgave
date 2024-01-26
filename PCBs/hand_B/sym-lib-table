@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "OPB971N51")(type "KiCad")(uri "/home/ov_robotarm/TTK4900_Masteroppgave/PCBs/lib/my_OPB971N51/OPB971N51.kicad_sym")(options "")(descr ""))
+)

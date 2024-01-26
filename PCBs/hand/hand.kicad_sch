@@ -2611,30 +2611,6 @@
     )
   )
 
-  (symbol (lib_id "Mechanical:MountingHole") (at 248.92 153.67 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 3debb2a8-357a-4db2-be62-2cf4089b8b16)
-    (property "Reference" "H4" (at 251.46 152.4 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "MountingHole" (at 251.46 154.94 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "MountingHole:MountingHole_2.7mm_M2.5" (at 248.92 153.67 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 248.92 153.67 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (instances
-      (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "H4") (unit 1)
-        )
-      )
-    )
-  )
-
   (symbol (lib_id "Connector_Generic:Conn_02x04_Odd_Even") (at 29.21 36.83 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 3fdf7dc5-c82b-4c7c-82ac-d7783d522d2a)
@@ -3194,30 +3170,6 @@
       (project "hand"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "#PWR039") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Mechanical:MountingHole") (at 224.79 152.4 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 9db3f6a3-2e3f-4bf0-b850-6a5ae224b19a)
-    (property "Reference" "H3" (at 227.33 151.13 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "MountingHole" (at 227.33 153.67 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "MountingHole:MountingHole_2.7mm_M2.5" (at 224.79 152.4 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 224.79 152.4 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (instances
-      (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "H3") (unit 1)
         )
       )
     )
