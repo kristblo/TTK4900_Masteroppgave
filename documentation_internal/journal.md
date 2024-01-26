@@ -45,3 +45,5 @@ Finished traces and silk on hand. IMPORTANT: Find a footprint for "Flush mount s
 Decided to reuse the old sockets instead of trying to find a replacement model. Don't know enough about the type of connector etc. Made a new footprint by increasing the hole diameter of a standard 2.54mm header from 1.0mm to 1.5mm, and the pad diameter to 2.2mm to comply with JLC's requirement of 0.3mm minimum annular ring. Shifted both footprints 0.3mm left on the PCB, looked like that might be a better fit. Motivated by the observation that the sockets were not placed on the centerline between the square holes.
 
 Created Hand B as a separate Kicad project for the optical sensor in order to comply with the goal of avoiding multiboard production. Two layers, all standard settings.
+
+
