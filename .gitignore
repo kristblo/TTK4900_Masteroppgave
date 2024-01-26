@@ -21,6 +21,7 @@ _autosave-*
 *-save.kicad_pcb
 fp-info-cache
 *#auto_saved_files#*
+*#*
 
 
 #Kicad netlist files

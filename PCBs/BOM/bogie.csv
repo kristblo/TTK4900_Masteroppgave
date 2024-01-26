@@ -1,0 +1,7 @@
+"Id";"Designator";"Footprint";"Quantity";"Designation";"Supplier and ref";
+1;"OUT1";"2-1761603-6_TYC";1;"Conn_02x08_Top_Bottom";;;
+2;"ENC1";"PinHeader_2x05_P2.54mm_Vertical";1;"Conn_02x05_Odd_Even";;;
+3;"H2,H1";"MountingHole_3.5mm";2;"MountingHole";;;
+4;"END_SWITCH1";"PinHeader_1x03_P2.54mm_Vertical";1;"Conn_01x03";;;
+5;"MTR1";"70543-0001_MOL";1;"Conn_01x02";;;
+6;"MAIN1";"1761681-7_TYC";1;"Conn_02x10_Top_Bottom";;;

@@ -1,0 +1,5 @@
+"Id";"Designator";"Footprint";"Quantity";"Designation";"Supplier and ref";
+1;"R1";"R_0402_1005Metric";1;"220";;;
+2;"H2,H1";"MountingHole_2.7mm_M2.5";2;"MountingHole";;;
+3;"CON_B1";"PinHeader_1x03_P2.54mm_Vertical";1;"Conn_01x03";;;
+4;"OPT1";"OPB971N51";1;"~";;;

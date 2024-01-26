@@ -1,0 +1,6 @@
+"Id";"Designator";"Footprint";"Quantity";"Designation";"Supplier and ref";
+1;"H2,H3,H1";"MountingHole_3.2mm_M3_DIN965_Pad_TopBottom";3;"MountingHole_Pad";;;
+2;"OUT1";"2-1761603-6_TYC";1;"Conn_02x08_Top_Bottom";;;
+3;"DSUB1";"PinHeader_2x07_P2.54mm_Vertical";1;"Conn_02x07_Odd_Even";;;
+4;"CR1";"CDSC706-0504C_BRN";1;"CDSC706-0504C";;;
+5;"D1";"LED_0603_1608Metric";1;"LED";;;
