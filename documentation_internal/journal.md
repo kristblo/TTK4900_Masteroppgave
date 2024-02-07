@@ -46,4 +46,10 @@ Decided to reuse the old sockets instead of trying to find a replacement model. 
 
 Created Hand B as a separate Kicad project for the optical sensor in order to comply with the goal of avoiding multiboard production. Two layers, all standard settings.
 
+###020224
+Discovered that fitting all the wires inside the lower arm will be a challenge, at least w/o spaghetti wires. They don't really fit without interfering with the actuation belts. Not insurmountable, but probaby won't be able to put the covers back on without some minor modding.
 
+###030224
+Ordered the wrong CAN transcievers. Got GT instead of BT, which don't have the variable VIO pin. Will salvage the BTs from Mk1. The TRx on the test bench unit which iirc was attached to the test bench MCU is also GT, which may explain the negative result from the CAN tests.
+
+Opened the rail board to look at the DSUB pinout, found that the 48V fill zone is unfilled due to lower priority than the surrounding zone. Will need to be scraped and soldered on arrival!
