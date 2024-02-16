@@ -30,3 +30,6 @@ fp-info-cache
 #Kicad Autorouter files
 *.dsn
 *.ses
+
+#OS files
+*.swp

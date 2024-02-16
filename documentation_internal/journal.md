@@ -53,3 +53,12 @@ Discovered that fitting all the wires inside the lower arm will be a challenge, 
 Ordered the wrong CAN transcievers. Got GT instead of BT, which don't have the variable VIO pin. Will salvage the BTs from Mk1. The TRx on the test bench unit which iirc was attached to the test bench MCU is also GT, which may explain the negative result from the CAN tests.
 
 Opened the rail board to look at the DSUB pinout, found that the 48V fill zone is unfilled due to lower priority than the surrounding zone. Will need to be scraped and soldered on arrival!
+
+###180224
+Solved the CAN transceiver problem by salvaging from the old units. Strongly regretting not ordering a full complement of voltage regulators and relays. The relays were a pain in the ass to remove, and the voltage regs now have 40 week lead time if I ever need new ones. Still got two left from the old hand. Also forgot to order the 20 pins, so that's a delay.
+
+Something went wrong during the soldering of the shoulder, I think, as there now is a connection between the voltage regulators making them move in tandem when I tune them. Solution: this is why we isolate our heat sinks with silpads <3
+
+All three units tuned for voltage.
+
+
