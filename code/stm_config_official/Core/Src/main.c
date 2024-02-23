@@ -123,6 +123,59 @@ void whoami_test(){
 
 }
 
+int16_t get_acc_z(void){
+  uint8_t OUTZ_L_XL = 0x2C;
+  uint8_t OUTZ_H_XL = 0x2D;
+  uint8_t OUTX_L_XL = 0x28;
+  uint8_t OUTX_H_XL = 0x29;  
+  uint8_t READ = 0xD5;
+  uint8_t WRITE = 0xD4;
+
+  uint8_t txbufh[1] = {OUTX_H_XL};
+  uint8_t txbufl[1] = {OUTX_L_XL};
+  uint8_t rxbufh[1];
+  uint8_t rxbufl[1];
+
+  HAL_StatusTypeDef i2cret;
+  //receive high byte
+  char stringbuf[20];
+  i2cret = HAL_I2C_Master_Transmit(&hi2c3,(uint16_t)READ, txbufh,1,100);
+  if(i2cret != HAL_OK)
+  {
+    UART_msg_txt("high transmit failed\n\r");
+  }
+  i2cret = HAL_I2C_Master_Receive(&hi2c3, (uint16_t)READ, rxbufh,1,100);
+  if(i2cret != HAL_OK)
+  {
+    UART_msg_txt("high receive failed\n\r");
+  }
+
+
+  //receive low byte
+  i2cret = HAL_I2C_Master_Transmit(&hi2c3,(uint16_t)READ, txbufl,1,100);
+  if(i2cret != HAL_OK)
+  {
+    UART_msg_txt("low transmit failed\n\r");
+  }
+  i2cret = HAL_I2C_Master_Receive(&hi2c3, (uint16_t)READ, rxbufl,1,100);
+  if(i2cret != HAL_OK)
+  {
+    UART_msg_txt("low receive failed\n\r");
+  }
+  sprintf(stringbuf, "High byte: %X\n\r", rxbufh[0]);
+  UART_msg_txt(stringbuf);
+  sprintf(stringbuf, "Low byte: %X\n\r", rxbufl[0]);
+  UART_msg_txt(stringbuf);  
+
+  
+  int16_t accval = (int16_t)(rxbufh[0]<<8|rxbufl[1]);
+
+  return accval;
+
+
+}
+
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -170,16 +223,41 @@ int main(void)
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&huart5, Rx_data, 4);
-
   int num = 0;
   char str[20];
+
+  //Accelerometer setup
+  uint8_t CTRL1_XL = 0x10;
+  uint8_t initbuf[2] = {CTRL1_XL, 0b01010000};
+  uint8_t SLAVE_WRITE = 0xD4;
+  uint8_t SLAVE_READ = 0xD5;
+  HAL_StatusTypeDef ret;
+  ret = HAL_I2C_Master_Transmit(&hi2c3,(uint16_t)SLAVE_WRITE,initbuf,2,100);
+  if(ret != HAL_OK)
+  {
+    UART_msg_txt("Accelerometer setup failed");
+  }
+  
+  HAL_I2C_Master_Transmit(&hi2c3, (uint16_t)SLAVE_READ, initbuf, 1,100);
+  uint8_t i2cbuf_rx[1];
+  ret = HAL_I2C_Master_Receive(&hi2c3, (uint16_t)SLAVE_READ, i2cbuf_rx,1,100);
+  if(ret != HAL_OK)
+  {
+    UART_msg_txt("Could not read CTRL1_XL");
+  }
+  int ctrl_readback = (int)i2cbuf_rx[0];
+  char stringbuf[20];
+  sprintf(stringbuf, "CTRL1_XL: 0x%X\n\r", ctrl_readback);
+  UART_msg_txt(stringbuf);
+
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   UART_msg_txt("Program begin\n\r");
-  HAL_GPIO_WritePin(IMU_INT1_GPIO_Port, IMU_INT1_Pin, 1);
-  HAL_GPIO_WritePin(IMU_INT2_GPIO_Port, IMU_INT2_Pin, 1);
+  HAL_GPIO_WritePin(IMU_INT1_GPIO_Port, IMU_INT1_Pin, 0);
+  HAL_GPIO_WritePin(IMU_INT2_GPIO_Port, IMU_INT2_Pin, 0);
   HAL_Delay(2000);
 
   while (1)
@@ -187,8 +265,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    
+    ////Accelerometer
     whoami_test();
-    HAL_Delay(10);
+    UART_msg_txt("Accelerometer: ");
+    int acc = (int)get_acc_z();
+    sprintf(str, "%u", acc);
+    UART_msg_txt(str);
+    UART_msg_txt("\n\r");
+    
+    
+    HAL_Delay(100);
     sprintf(str, "%d", num);
     // HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin,1);
     // HAL_Delay(1000);
@@ -196,7 +283,7 @@ int main(void)
 
     //uint8_t buffer[] = "Hello, world! USB\r\n";
     //CDC_Transmit_FS(data, strlen(data));
-    UART_msg_txt("Hello world\n\r");
+    //UART_msg_txt("Hello world\n\r");
     UART_msg_txt(str);
     num++;
     // HAL_UART_Receive(&huart5, Rx_data,4,1000);
