@@ -61,4 +61,21 @@ Something went wrong during the soldering of the shoulder, I think, as there now
 
 All three units tuned for voltage.
 
+Set the relays to toggle on and off with one second intervals, workSet the relays to toggle on and off with one second intervals, works.
 
+###210224
+Discovered that I've flipped the resistors of the USB voltage divider. Switched them, still no detection. I realise that I probably need to activate the DP driver somehow, but I haven't found the right place to do it -- probably some callback function.
+
+UART works with the devkit, just had to remove two solder bridges. Makes USB less appealing.
+
+I2C does not seem to work, might be hardware. The waveform looks very unstable, unlike previously. Possibly need a different resistor value, or reworking the solder as the IMU board connector really is full of glue. On the other hand, the hand on-board IMU does not seem to work either. Next up: recreate the test bench IMU setup and hook it up to the hand. Find a 5V-3V3 buck somewhere.
+
+###220224
+Breadboard IMU works (got whoami) from hand, shoulder IMU also works. This means that the schematic is correct, and that the configuration of both I2C1 and I2C3 is viable. Poor soldering is improbable, as two IMU boards (soldered a second one) and the hand are not all likely to fail. Next up: a thorough review of the PCB layouts to look for possible fuckery, such as bad fill zones.
+
+###230224
+Found an Adafruit replacement for the IMUs, MMA8451 breakout. 5V supply, interrupt output etc. Will bite the bullet and order two before I go home if I can't find the solution to the I2C problem.
+
+Beeped all pads on the hand and IMU boards, all clear. Found one difference between shoulder (functional) and hand: C22 on the hand is connected to pin 5 VDDIO on hand, but not on the shoulder. Hand is technically correct, but shoulder is functional, so... Ditto for C1 on the IMU. Removing C1 did not change anything.
+
+	Tested with a new IMU on the IMU board, same result. Got one clue, however: when the breadboard unit's interrupts are left floating, it too becomes unable to respond. Unfortunately, setting the relevant GPIO pins high on the hand did not solve anythin. Got one clue, however: when the breadboard unit's interrupts are left floating, it too becomes unable to respond. Unfortunately, setting the relevant GPIO pins high on the hand did not solve anythingg. Looks like it's going to be Adafruit. Got screengrabs of the bad IMU board test and the successful breadboard test.

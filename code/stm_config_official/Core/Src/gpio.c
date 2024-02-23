@@ -55,6 +55,9 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOC, CAN_EN_Pin|RELAY_EN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, IMU_INT2_Pin|IMU_INT1_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(USB_DP_DRV_GPIO_Port, USB_DP_DRV_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PCPin PCPin */
@@ -72,8 +75,9 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : PBPin PBPin */
   GPIO_InitStruct.Pin = IMU_INT2_Pin|IMU_INT1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PtPin */

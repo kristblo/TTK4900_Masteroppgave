@@ -28,6 +28,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "usbd_cdc_if.h"
+#include "stm32f3xx_hal.h"
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>
+
 
 /* USER CODE END Includes */
 
@@ -38,6 +44,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define CTR_PRD 2880
 
 /* USER CODE END PD */
 
@@ -55,12 +62,72 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+void UART_msg_txt(char* txt)
+{
+  int len = 0;
+  char* cp = txt;
+  while(*cp)
+  {
+    len++;
+    cp++;
+  }
+  HAL_UART_Transmit(&huart5, (uint8_t*)txt, len, HAL_MAX_DELAY);
+}
+
+uint8_t Rx_data[10];
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  HAL_UART_Receive_IT(&huart5, Rx_data, 4);
+}
+
+void whoami_test(){
+  HAL_StatusTypeDef ret;
+  uint8_t SLAVE_WRITE = 0xD4;
+  uint8_t SLAVE_READ = 0xD5;  
+  uint8_t WHO_AM_I = 0x0F;
+  uint8_t i2cbuf_tx[1] = {WHO_AM_I};
+  uint8_t i2cbuf_rx[2];
+
+
+  ret = HAL_I2C_Master_Transmit(&hi2c3,(uint16_t)SLAVE_READ,i2cbuf_tx,1,2000); // Tell slave you want to read
+  if(ret != HAL_OK)
+  {
+    UART_msg_txt("transmit failed, check pullup in hal_i2c_mspinit\n\r");
+  }
+  //HAL_Delay(20);
+  ret = HAL_I2C_Master_Receive(&hi2c3, (uint16_t)SLAVE_READ, i2cbuf_rx,1,2000);
+  if(ret != HAL_OK)
+  {
+    UART_msg_txt("receive failed, check pullup in hal_i2c_mspinit\n\r");
+  }
+  double rxdata = (double)i2cbuf_rx[0];
+  if(rxdata == (double)0x6A){
+  //Blink LED 3 times
+  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 0);
+  // HAL_Delay(100);
+  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 1);
+  // HAL_Delay(500);
+  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 0);
+  // HAL_Delay(100);
+  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 1);
+  // HAL_Delay(500);
+  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 0);
+  // HAL_Delay(100);
+  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 1);
+  // HAL_Delay(500);
+  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 0);
+    uint8_t result[20];
+    UART_msg_txt("Got 0x6A on I2C");
+
+  }
+
+}
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+uint8_t *data = "Hello world from USB CDC\n";
 /* USER CODE END 0 */
 
 /**
@@ -102,16 +169,39 @@ int main(void)
   MX_TIM1_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
+  HAL_UART_Receive_IT(&huart5, Rx_data, 4);
 
+  int num = 0;
+  char str[20];
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  UART_msg_txt("Program begin\n\r");
+  HAL_GPIO_WritePin(IMU_INT1_GPIO_Port, IMU_INT1_Pin, 1);
+  HAL_GPIO_WritePin(IMU_INT2_GPIO_Port, IMU_INT2_Pin, 1);
+  HAL_Delay(2000);
+
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    whoami_test();
+    HAL_Delay(10);
+    sprintf(str, "%d", num);
+    // HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin,1);
+    // HAL_Delay(1000);
+    // HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin,0);
+
+    //uint8_t buffer[] = "Hello, world! USB\r\n";
+    //CDC_Transmit_FS(data, strlen(data));
+    UART_msg_txt("Hello world\n\r");
+    UART_msg_txt(str);
+    num++;
+    // HAL_UART_Receive(&huart5, Rx_data,4,1000);
+    // UART_msg_txt(Rx_data);
+
   }
   /* USER CODE END 3 */
 }
