@@ -81,3 +81,5 @@ Beeped all pads on the hand and IMU boards, all clear. Found one difference betw
 Tested with a new IMU on the IMU board, same result. Got one clue, however: when the breadboard unit's interrupts are left floating, it too becomes unable to respond. Unfortunately, setting the relevant GPIO pins high on the hand did not solve anythin. Got one clue, however: when the breadboard unit's interrupts are left floating, it too becomes unable to respond. Unfortunately, setting the relevant GPIO pins high on the hand did not solve anythingg. Looks like it's going to be Adafruit. Got screengrabs of the bad IMU board test and the successful breadboard test.
 
 Z axis of shoulder also seems to be dead, but not X axis. Might it actually be that this is not my fault, and I'm just dealing with a bad batch? I'll never know for sure. The shoulder Z axis would have been optimal, but X will work too!
+
+Motor drivers work as expected. Turns out the CCRs are unique to each channel, so the DT function currently always writes to CCR1, 2 and 3. Should probably be part of a motor driver struct in the real project.
