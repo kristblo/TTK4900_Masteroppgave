@@ -45,6 +45,8 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define CTR_PRD 2880
+#define MTR2 TIM1
+#define MTR1 TIM15
 
 /* USER CODE END PD */
 
@@ -175,12 +177,51 @@ int16_t get_acc_z(void){
 
 }
 
+void SetPWD_DT(uint32_t* timer_counter, double pct)
+{
+  int ticks = (pct / 100) * CTR_PRD;
+  *timer_counter = ticks;
+}
+
+void GoFWD(double pct, TIM_TypeDef* mtr)
+{
+  SetPWD_DT(&(mtr->CCR1), 100);
+  SetPWD_DT(&(mtr->CCR3), 100);
+  SetPWD_DT(&(mtr->CCR2), 100-pct);
+
+}
+
+void GoBWD(double pct, TIM_TypeDef* mtr)
+{
+  SetPWD_DT(&(mtr->CCR1), 100-pct);
+  SetPWD_DT(&(mtr->CCR3), 100-pct);
+  SetPWD_DT(&(mtr->CCR2), 100);
+
+}
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint8_t *data = "Hello world from USB CDC\n";
+
+////CAN setup
+CAN_TxHeaderTypeDef TxHeader;
+CAN_RxHeaderTypeDef RxHeader;
+uint32_t TxMailbox[3];
+uint8_t TxData[8];
+uint8_t RxData[8];
+uint8_t CAN_count = 0;
+
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
+  char stringbuf[32];
+  sprintf(stringbuf, "RxData: 0x%X\n\r", RxData[0]);
+  UART_msg_txt(stringbuf);
+  CAN_count++; //Mistenker at dette ikke funker, se HAL UM1786 s.92
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -222,6 +263,10 @@ int main(void)
   MX_TIM1_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
+  UART_msg_txt("Main begin\n\r");
+  HAL_Delay(2000);
+
+  
   HAL_UART_Receive_IT(&huart5, Rx_data, 4);
   int num = 0;
   char str[20];
@@ -249,45 +294,143 @@ int main(void)
   char stringbuf[20];
   sprintf(stringbuf, "CTRL1_XL: 0x%X\n\r", ctrl_readback);
   UART_msg_txt(stringbuf);
+  //End accelerometer setup
 
-  
+  //Timer setup
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);//MTR2
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);//MTR2
+  HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1);//MTR1
+  HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_2);//MTR1
+
+  //CAN init
+  HAL_CAN_Start(&hcan);
+  HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
+  TxHeader.DLC = 1;
+  TxHeader.ExtId = 0;
+  TxHeader.IDE = CAN_ID_STD;
+  TxHeader.RTR = CAN_RTR_DATA;
+  TxHeader.StdId = 0x102; //Transmit ID
+  TxHeader.TransmitGlobalTime = DISABLE;
+
+  TxData[0] = 0x00;
+  TxData[1] = 0x01;
+  TxData[2] = 0x02;
+  //TxData[3] = 0x03;
+  if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[0], &TxMailbox[0]) != HAL_OK)
+  {
+    Error_Handler();
+    UART_msg_txt("Mailbox 0 not OK\n\r");
+  }
+  if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[1], &TxMailbox[1]) != HAL_OK)
+  {
+    Error_Handler();
+    UART_msg_txt("Mailbox 1 not OK\n\r");
+  }
+  if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[2], &TxMailbox[2]) != HAL_OK)
+  {
+    Error_Handler();
+    UART_msg_txt("Mailbox 2 not OK\n\r");
+  }
+  // if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[3], &TxMailbox[3]) != HAL_OK)
+  // {
+  //   Error_Handler();
+  //   UART_msg_txt("Mailbox 3 not OK\n\r");
+  // }
+
+
+  HAL_Delay(10);
+  char can_stringbuf[32];
+  sprintf(can_stringbuf, "CAN counter: %d\n\r", CAN_count);
+  UART_msg_txt(can_stringbuf);
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  UART_msg_txt("Program begin\n\r");
   HAL_GPIO_WritePin(IMU_INT1_GPIO_Port, IMU_INT1_Pin, 0);
   HAL_GPIO_WritePin(IMU_INT2_GPIO_Port, IMU_INT2_Pin, 0);
-  HAL_Delay(2000);
+  UART_msg_txt("Loop begin\n\r");
+  HAL_Delay(1000);
 
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    
-    ////Accelerometer
-    whoami_test();
-    UART_msg_txt("Accelerometer: ");
-    int acc = (int)get_acc_z();
-    sprintf(str, "%u", acc);
-    UART_msg_txt(str);
-    UART_msg_txt("\n\r");
-    
-    
     HAL_Delay(100);
-    sprintf(str, "%d", num);
-    // HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin,1);
-    // HAL_Delay(1000);
-    // HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin,0);
+    
+    
+    ////Relay test, first contact
+    if(0)
+    {
+      HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin,1);
+      HAL_Delay(1000);
+      HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin,0);
+    }
 
-    //uint8_t buffer[] = "Hello, world! USB\r\n";
-    //CDC_Transmit_FS(data, strlen(data));
-    //UART_msg_txt("Hello world\n\r");
-    UART_msg_txt(str);
-    num++;
-    // HAL_UART_Receive(&huart5, Rx_data,4,1000);
-    // UART_msg_txt(Rx_data);
+    
+    ////UART test
+    if(0)
+    {
+      sprintf(str, "%d", num);
+      UART_msg_txt(str);
+      num++;
+      // HAL_UART_Receive(&huart5, Rx_data,4,1000);
+      // UART_msg_txt(Rx_data);
+    }
+    
+    ////Accelerometer test
+    if(0)
+    {
+      whoami_test();
+      UART_msg_txt("Accelerometer: ");
+      int acc = (int)get_acc_z();
+      sprintf(str, "%u", acc);
+      UART_msg_txt(str);
+      UART_msg_txt("\n\r");
+    }
+
+    ////Motor driver test
+    if(0)
+    {
+      char number[32];
+      uint32_t delay = 10;
+      double pct = 0;
+      
+      while(pct < 50)
+      {
+        GoFWD(pct, MTR1);
+        GoFWD(pct, MTR2);
+        ++pct;
+        HAL_Delay(delay);        
+        int current = (TIM1->CNT);
+        sprintf(number, "MTRCCR1: %d\n\r", current);
+        UART_msg_txt(number);
+        
+      }
+      while(pct > 0){
+        GoFWD(pct, MTR1);
+        GoFWD(pct, MTR2);
+        --pct;
+        HAL_Delay(delay);
+      }
+      while (pct < 50)
+      {
+        GoBWD(pct, MTR1);
+        GoBWD(pct, MTR2);
+        ++pct;
+        HAL_Delay(delay);
+      }
+      while (pct > 0)
+      {
+        GoBWD(pct, MTR1);
+        GoBWD(pct, MTR2);
+        --pct;
+        HAL_Delay(delay);
+      }
+      
+    }
 
   }
   /* USER CODE END 3 */

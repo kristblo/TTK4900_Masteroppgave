@@ -38,10 +38,10 @@ void MX_CAN_Init(void)
 
   /* USER CODE END CAN_Init 1 */
   hcan.Instance = CAN;
-  hcan.Init.Prescaler = 16;
-  hcan.Init.Mode = CAN_MODE_NORMAL;
+  hcan.Init.Prescaler = 18;
+  hcan.Init.Mode = CAN_MODE_LOOPBACK;
   hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;
-  hcan.Init.TimeSeg1 = CAN_BS1_1TQ;
+  hcan.Init.TimeSeg1 = CAN_BS1_2TQ;
   hcan.Init.TimeSeg2 = CAN_BS2_1TQ;
   hcan.Init.TimeTriggeredMode = DISABLE;
   hcan.Init.AutoBusOff = DISABLE;
@@ -54,6 +54,19 @@ void MX_CAN_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN_Init 2 */
+  CAN_FilterTypeDef canfilterconfig;
+  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
+  canfilterconfig.FilterBank = 10;
+  canfilterconfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+  canfilterconfig.FilterIdHigh = 0x103 << 5;
+  canfilterconfig.FilterIdLow = 0x0000;
+  canfilterconfig.FilterMaskIdHigh = 0x102 << 5; //0s are DC when incoming IDs are compared
+  canfilterconfig.FilterMaskIdLow = 0x0000;
+  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
+  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
+  canfilterconfig.SlaveStartFilterBank = 0;
+
+  HAL_CAN_ConfigFilter(&hcan, &canfilterconfig);
 
   /* USER CODE END CAN_Init 2 */
 
@@ -83,6 +96,11 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     GPIO_InitStruct.Alternate = GPIO_AF9_CAN;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+    /* CAN interrupt Init */
+    HAL_NVIC_SetPriority(USB_LP_CAN_RX0_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(USB_LP_CAN_RX0_IRQn);
+    HAL_NVIC_SetPriority(CAN_RX1_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(CAN_RX1_IRQn);
   /* USER CODE BEGIN CAN_MspInit 1 */
 
   /* USER CODE END CAN_MspInit 1 */
@@ -106,6 +124,16 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
     */
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_8|GPIO_PIN_9);
 
+    /* CAN interrupt Deinit */
+  /* USER CODE BEGIN CAN:USB_LP_CAN_RX0_IRQn disable */
+    /**
+    * Uncomment the line below to disable the "USB_LP_CAN_RX0_IRQn" interrupt
+    * Be aware, disabling shared interrupt may affect other IPs
+    */
+    /* HAL_NVIC_DisableIRQ(USB_LP_CAN_RX0_IRQn); */
+  /* USER CODE END CAN:USB_LP_CAN_RX0_IRQn disable */
+
+    HAL_NVIC_DisableIRQ(CAN_RX1_IRQn);
   /* USER CODE BEGIN CAN_MspDeInit 1 */
 
   /* USER CODE END CAN_MspDeInit 1 */
