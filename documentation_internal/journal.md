@@ -83,3 +83,8 @@ Tested with a new IMU on the IMU board, same result. Got one clue, however: when
 Z axis of shoulder also seems to be dead, but not X axis. Might it actually be that this is not my fault, and I'm just dealing with a bad batch? I'll never know for sure. The shoulder Z axis would have been optimal, but X will work too!
 
 Motor drivers work as expected. Turns out the CCRs are unique to each channel, so the DT function currently always writes to CCR1, 2 and 3. Should probably be part of a motor driver struct in the real project.
+
+###240224
+Got CAN working. Should probably cite the youtube video? After watching the first video I simply switched to normal mode, and flashed torso and shoulder with corresponding sender IDs and filters. Now I'm even more certain that my trouble with CAN before Christmas was due to having ordered the wrong transciever.
+
+Will need to read RM0316 chapters 8 (Peripheral interconnect matrix), 13 (DMA), 15 (ADC), 30 (UART) and 31 (bxCAN) as research for the architechture. A key point will be to offload the CPUs as much as possible, in particular CAN/UART should as far as possible avoid the CPU. Unfortunately, UART5 is not compatible with "continuous communication using DMA". Figures!

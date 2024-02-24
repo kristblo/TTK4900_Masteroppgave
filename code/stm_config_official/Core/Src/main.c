@@ -309,12 +309,12 @@ int main(void)
   TxHeader.ExtId = 0;
   TxHeader.IDE = CAN_ID_STD;
   TxHeader.RTR = CAN_RTR_DATA;
-  TxHeader.StdId = 0x102; //Transmit ID
+  TxHeader.StdId = 0x103; //Transmit ID
   TxHeader.TransmitGlobalTime = DISABLE;
 
-  TxData[0] = 0x00;
-  TxData[1] = 0x01;
-  TxData[2] = 0x02;
+  TxData[0] = 0x04;
+  TxData[1] = 0x56;
+  TxData[2] = 0x87;
   //TxData[3] = 0x03;
   if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[0], &TxMailbox[0]) != HAL_OK)
   {
