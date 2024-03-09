@@ -32,7 +32,7 @@ fp-info-cache
 *.ses
 
 #Kicad gerber files
-gerber.*
+**/*_gerber/*
 
 #OS files
 *.swp

@@ -44,9 +44,11 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define CTR_PRD 2880
+#define CTR_PRD 7200 //2880
 #define MTR2 TIM1
 #define MTR1 TIM15
+#define ENC1 TIM3
+#define ENC2 TIM8
 
 /* USER CODE END PD */
 
@@ -76,52 +78,158 @@ void UART_msg_txt(char* txt)
   HAL_UART_Transmit(&huart5, (uint8_t*)txt, len, HAL_MAX_DELAY);
 }
 
-uint8_t Rx_data[10];
+void process_uart_input(uint8_t* buffer, uint8_t buffer_length)
+{
+  char delim[] = " ";
+  // char debug[64];
+  // sprintf(debug, "length: %u\n\r", buffer_length);
+  // UART_msg_txt(debug);
+  char cpy[(int)buffer_length];
+  strcpy(cpy, buffer);
+
+  char *ptr = strtok(cpy, delim);
+  char parser[64][64];
+  int num_tokens = 0;
+  while(ptr != NULL)
+  {
+    strcpy(parser[num_tokens], ptr);
+    ptr = strtok(NULL, delim);
+    ++num_tokens;
+  }
+
+  //Individual command processing
+  char cmdbuf[64];
+  if((int)strcmp(parser[0], "M1") == 0)
+  {
+    UART_msg_txt("\n\rGot M1\n\r");
+    process_cmd_M1(parser[1]);
+  }
+  if((int)strcmp(parser[0], "M2") == 0)
+  {
+    UART_msg_txt("\n\rGot M2\n\r");
+    process_cmd_M2(parser[1]);
+  }
+
+
+  //Clean the command array
+  for(int i = 0; i < 64; i++)
+  {
+    for(int k = 0; k < 64; k++)
+    {
+      parser[i][k] = NULL;
+    }
+  }
+
+}
+
+uint16_t MTR1_setpoint = 0x7FFF;
+void process_cmd_M1(char* token)
+{
+  uint16_t enc_setpoint = (uint16_t)atoi(token);
+  char output[64];
+  sprintf(output, "Setting M1: %d\n\r", enc_setpoint);
+  UART_msg_txt(output);
+  MTR1_setpoint = enc_setpoint;
+
+
+
+}
+
+uint16_t MTR2_setpoint = 0x7FFF;
+void process_cmd_M2(char* token)
+{
+  uint16_t enc_setpoint = (uint16_t)atoi(token);
+  char output[64];
+  sprintf(output, "Setting M2: %d\n\r", enc_setpoint);
+  UART_msg_txt(output);
+  MTR2_setpoint = enc_setpoint;
+
+
+
+}
+
+void parse_uart_input(char* input, uint8_t* buffer, uint8_t buffer_length, uint8_t* buffer_pos)
+{
+
+  uint8_t found_cr = (input[0] == '\r') ? (uint8_t)1 : (uint8_t)0;
+  uint8_t found_bs = (input[0] == '\b') ? (uint8_t)1 : (uint8_t)0;
+  if(found_cr)
+  {
+    
+    process_uart_input(buffer, *buffer_pos);
+    uint8_t pos = 0;
+    while (pos < buffer_length)
+    {
+      buffer[pos] = (uint8_t)0;
+      pos++;
+    }
+    *buffer_pos = 0;
+    found_cr = 0;
+  }
+  else if(found_bs)
+  {
+    *buffer_pos = (--(*buffer_pos) < 0) ? (uint8_t)0 : --(*buffer_pos);
+    char* testbuf[64];
+    sprintf(testbuf, "Buffer pos: %d\n\r", *buffer_pos);
+    UART_msg_txt(testbuf);
+  }
+  else
+  {
+    buffer[*buffer_pos] = input[0];
+    *buffer_pos = (++(*buffer_pos))%buffer_length;
+  }
+}
+
+
+uint8_t Rx_receive[1];
+uint8_t Rx_holding_buffer[64];
+uint8_t buffer_pos = 0;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  HAL_UART_Receive_IT(&huart5, Rx_data, 4);
+  HAL_UART_Receive_IT(&huart5, Rx_receive, 1);
+  parse_uart_input(Rx_receive, Rx_holding_buffer, 64, &buffer_pos);
 }
+
+
 
 void whoami_test(){
   HAL_StatusTypeDef ret;
-  uint8_t SLAVE_WRITE = 0xD4;
-  uint8_t SLAVE_READ = 0xD5;  
-  uint8_t WHO_AM_I = 0x0F;
+  uint8_t SLAVE_READ = 0x3B;  
+  uint8_t SLAVE_WRITE = 0x3A;
+  uint8_t WHO_AM_I = 0x0D;
   uint8_t i2cbuf_tx[1] = {WHO_AM_I};
-  uint8_t i2cbuf_rx[2];
+  uint8_t i2cbuf_rx[2] = {0xDE, 0xAD};
 
+  uint8_t CTRL_REG1 = 0x2A;
+  uint8_t i2cbuf_setup[2] = {CTRL_REG1, 0x3};
+  // ret = HAL_I2C_Master_Transmit(&hi2c1, (uint16_t)SLAVE_WRITE,i2cbuf_setup, 2, 2000);
+  // if(ret != HAL_OK)
+  // {
+  //   UART_msg_txt("Setup failed\n\r");
+  // }
 
-  ret = HAL_I2C_Master_Transmit(&hi2c3,(uint16_t)SLAVE_READ,i2cbuf_tx,1,2000); // Tell slave you want to read
+  ret = HAL_I2C_Master_Transmit(&hi2c1,(uint16_t)SLAVE_READ,i2cbuf_tx,1,2000); // Tell slave you want to read
   if(ret != HAL_OK)
   {
-    UART_msg_txt("transmit failed, check pullup in hal_i2c_mspinit\n\r");
+    UART_msg_txt("transmit failed\n\r");
   }
   //HAL_Delay(20);
-  ret = HAL_I2C_Master_Receive(&hi2c3, (uint16_t)SLAVE_READ, i2cbuf_rx,1,2000);
+  ret = HAL_I2C_Master_Receive(&hi2c1, (uint16_t)SLAVE_READ, i2cbuf_rx,1,2000);
   if(ret != HAL_OK)
   {
-    UART_msg_txt("receive failed, check pullup in hal_i2c_mspinit\n\r");
+    UART_msg_txt("receive failed\n\r");
   }
   double rxdata = (double)i2cbuf_rx[0];
-  if(rxdata == (double)0x6A){
-  //Blink LED 3 times
-  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 0);
-  // HAL_Delay(100);
-  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 1);
-  // HAL_Delay(500);
-  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 0);
-  // HAL_Delay(100);
-  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 1);
-  // HAL_Delay(500);
-  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 0);
-  // HAL_Delay(100);
-  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 1);
-  // HAL_Delay(500);
-  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, 0);
-    uint8_t result[20];
-    UART_msg_txt("Got 0x6A on I2C");
+  char stringbuf[20];
+  sprintf(stringbuf, "Got %X on address %X\n\r", i2cbuf_rx[0], i2cbuf_tx[0]);
+  UART_msg_txt(stringbuf);
 
-  }
+
+  // if(rxdata == (double)0x1A){
+  //   uint8_t result[20];
+  //   UART_msg_txt("Got 0x1A on I2C\n\r");
+
+  // }
 
 }
 
@@ -177,6 +285,37 @@ int16_t get_acc_z(void){
 
 }
 
+int16_t get_acc_adafruit()
+{
+  uint8_t OUT_X = 0x1;
+  uint8_t OUT_Y = 0x3;
+  uint8_t OUT_Z = 0x5;
+  uint16_t READ = 0x3B;
+  uint16_t WRITE = 0x3A;
+
+  HAL_StatusTypeDef i2cret;
+  char stringbuf[20];
+  uint8_t txbuf[1] = {OUT_X};
+  uint8_t rxbuf[1];
+
+  i2cret = HAL_I2C_Master_Transmit(&hi2c1, READ, txbuf, 1, 100);
+  if(i2cret != HAL_OK)
+  {
+    UART_msg_txt("Transmit failed\n\r");
+  }
+  i2cret = HAL_I2C_Master_Receive(&hi2c1, READ, rxbuf, 1, 100);
+  if(i2cret != HAL_OK)
+  {
+    UART_msg_txt("Receive failed\n\r");
+  }
+
+  int8_t accval = (int8_t)rxbuf[0];
+
+  return accval;
+
+
+}
+
 void SetPWD_DT(uint32_t* timer_counter, double pct)
 {
   int ticks = (pct / 100) * CTR_PRD;
@@ -197,6 +336,14 @@ void GoBWD(double pct, TIM_TypeDef* mtr)
   SetPWD_DT(&(mtr->CCR3), 100-pct);
   SetPWD_DT(&(mtr->CCR2), 100);
 
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if(GPIO_Pin == OPT_SW1_Pin);
+  {
+    UART_msg_txt("Opt switch triggered\n\r");
+  }
 }
 
 /* USER CODE END PFP */
@@ -264,43 +411,73 @@ int main(void)
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
   UART_msg_txt("Main begin\n\r");
-  HAL_Delay(2000);
+  HAL_Delay(1000);
 
   
-  HAL_UART_Receive_IT(&huart5, Rx_data, 4);
+  HAL_UART_Receive_IT(&huart5, Rx_receive, 1);
   int num = 0;
   char str[20];
 
   //Accelerometer setup
-  uint8_t CTRL1_XL = 0x10;
-  uint8_t initbuf[2] = {CTRL1_XL, 0b01010000};
-  uint8_t SLAVE_WRITE = 0xD4;
-  uint8_t SLAVE_READ = 0xD5;
-  HAL_StatusTypeDef ret;
-  ret = HAL_I2C_Master_Transmit(&hi2c3,(uint16_t)SLAVE_WRITE,initbuf,2,100);
-  if(ret != HAL_OK)
-  {
-    UART_msg_txt("Accelerometer setup failed");
-  }
+  // uint8_t CTRL1_XL = 0x10;
+  // uint8_t initbuf[2] = {CTRL1_XL, 0b01010000};
+  // uint8_t SLAVE_WRITE = 0xD4;
+  // uint8_t SLAVE_READ = 0xD5;
+  // HAL_StatusTypeDef ret;
+  // ret = HAL_I2C_Master_Transmit(&hi2c3,(uint16_t)SLAVE_WRITE,initbuf,2,100);
+  // if(ret != HAL_OK)
+  // {
+  //   UART_msg_txt("Accelerometer setup failed\n\r");
+  // }
   
-  HAL_I2C_Master_Transmit(&hi2c3, (uint16_t)SLAVE_READ, initbuf, 1,100);
-  uint8_t i2cbuf_rx[1];
-  ret = HAL_I2C_Master_Receive(&hi2c3, (uint16_t)SLAVE_READ, i2cbuf_rx,1,100);
+  // HAL_I2C_Master_Transmit(&hi2c1, (uint16_t)SLAVE_READ, initbuf, 1,100);
+  // uint8_t i2cbuf_rx[1];
+  // ret = HAL_I2C_Master_Receive(&hi2c3, (uint16_t)SLAVE_READ, i2cbuf_rx,1,100);
+  // if(ret != HAL_OK)
+  // {
+  //   UART_msg_txt("Could not read CTRL1_XL");
+  // }
+  // int ctrl_readback = (int)i2cbuf_rx[0];
+  // char stringbuf[20];
+  // sprintf(stringbuf, "CTRL1_XL: 0x%X\n\r", ctrl_readback);
+  // UART_msg_txt(stringbuf);
+  //End accelerometer setup
+
+  //Start adafruit accelerometer setup
+  uint8_t CTRL_REG1 = 0x2A;
+  uint8_t i2cbuf_setup[2] = {CTRL_REG1, 0x3};
+  uint16_t WRITE = 0x3A;
+  uint16_t READ = 0x3B;
+  HAL_StatusTypeDef ret;
+  ret = HAL_I2C_Master_Transmit(&hi2c1, WRITE,i2cbuf_setup, 2, 2000);
   if(ret != HAL_OK)
   {
-    UART_msg_txt("Could not read CTRL1_XL");
+    UART_msg_txt("Setup failed: write\n\r");
   }
-  int ctrl_readback = (int)i2cbuf_rx[0];
-  char stringbuf[20];
-  sprintf(stringbuf, "CTRL1_XL: 0x%X\n\r", ctrl_readback);
-  UART_msg_txt(stringbuf);
-  //End accelerometer setup
+  ret = HAL_I2C_Master_Transmit(&hi2c1, READ,i2cbuf_setup, 1, 2000);
+  if(ret != HAL_OK)
+  {
+    UART_msg_txt("Setup failed: tx read\n\r");
+  }
+  ret = HAL_I2C_Master_Receive(&hi2c1, READ,i2cbuf_setup, 1, 2000);
+  if(ret != HAL_OK)
+  {
+    UART_msg_txt("Setup failed: rx read\n\r");
+  }
+
+
+  HAL_Delay(2000);
+  //End adafruit accelerometer setup
 
   //Timer setup
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);//MTR2
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);//MTR2
   HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1);//MTR1
   HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_2);//MTR1
+  //Encoder startup
+  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL); //ENC1
+  HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL); //ENC2
+
 
   //CAN init
   HAL_CAN_Start(&hcan);
@@ -309,12 +486,12 @@ int main(void)
   TxHeader.ExtId = 0;
   TxHeader.IDE = CAN_ID_STD;
   TxHeader.RTR = CAN_RTR_DATA;
-  TxHeader.StdId = 0x103; //Transmit ID
+  TxHeader.StdId = 0x107; //Transmit ID
   TxHeader.TransmitGlobalTime = DISABLE;
 
-  TxData[0] = 0x04;
-  TxData[1] = 0x56;
-  TxData[2] = 0x87;
+  TxData[0] = 0xDE;
+  TxData[1] = 0xAD;
+  TxData[2] = 0xBB;
   //TxData[3] = 0x03;
   if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[0], &TxMailbox[0]) != HAL_OK)
   {
@@ -343,6 +520,14 @@ int main(void)
   sprintf(can_stringbuf, "CAN counter: %d\n\r", CAN_count);
   UART_msg_txt(can_stringbuf);
 
+  //Encoder loop setup
+  uint16_t MID = 0x7FFF;
+  uint16_t STA = MID - 10000;
+  uint16_t END = MID + 10000;
+  ENC1->CNT = MID;
+  int setpoint = MID;
+  int fwd = 1;
+  ENC2->CNT = MID;
 
   /* USER CODE END 2 */
 
@@ -350,6 +535,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   HAL_GPIO_WritePin(IMU_INT1_GPIO_Port, IMU_INT1_Pin, 0);
   HAL_GPIO_WritePin(IMU_INT2_GPIO_Port, IMU_INT2_Pin, 0);
+  HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 1);
   UART_msg_txt("Loop begin\n\r");
   HAL_Delay(1000);
 
@@ -358,7 +544,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    HAL_Delay(100);
+    HAL_Delay(10);
     
     
     ////Relay test, first contact
@@ -367,38 +553,54 @@ int main(void)
       HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin,1);
       HAL_Delay(1000);
       HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin,0);
+      HAL_Delay(1000);
+      HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin,1);
     }
 
     
     ////UART test
-    if(0)
+    if(1)
     {
       sprintf(str, "%d", num);
-      UART_msg_txt(str);
-      num++;
-      // HAL_UART_Receive(&huart5, Rx_data,4,1000);
-      // UART_msg_txt(Rx_data);
+      //UART_msg_txt(str);
+      //HAL_Delay(200);
+      UART_msg_txt("\33[2K\r");
+      //num++;
+      //HAL_UART_Receive(&huart5, Rx_data,4,1000);
+      char* testbuf = "\33[2K\r";
+      HAL_UART_Transmit(&huart5, Rx_holding_buffer, 64, HAL_MAX_DELAY);
+      
     }
     
     ////Accelerometer test
     if(0)
     {
       whoami_test();
-      UART_msg_txt("Accelerometer: ");
-      int acc = (int)get_acc_z();
-      sprintf(str, "%u", acc);
-      UART_msg_txt(str);
-      UART_msg_txt("\n\r");
+      //UART_msg_txt("Accelerometer: ");
+      //int acc = (int)get_acc_z();
+      //sprintf(str, "%u", acc);
+      //UART_msg_txt(str);
+      //UART_msg_txt("\n\r");
+    }
+
+    ////Adafruit acc test
+    if(0)
+    {
+      char stringbuf[20];
+      int16_t accval = get_acc_adafruit();
+      sprintf(stringbuf, "Acceleration: %d\n\r", accval);
+      UART_msg_txt(stringbuf);
     }
 
     ////Motor driver test
     if(0)
     {
       char number[32];
-      uint32_t delay = 10;
+      uint32_t delay = 50;
+      double max_pct = 20;
       double pct = 0;
       
-      while(pct < 50)
+      while(pct < max_pct)
       {
         GoFWD(pct, MTR1);
         GoFWD(pct, MTR2);
@@ -415,7 +617,7 @@ int main(void)
         --pct;
         HAL_Delay(delay);
       }
-      while (pct < 50)
+      while (pct < max_pct)
       {
         GoBWD(pct, MTR1);
         GoBWD(pct, MTR2);
@@ -430,6 +632,125 @@ int main(void)
         HAL_Delay(delay);
       }
       
+    }
+
+    ///Motor encoder test
+    if(0)
+    {
+      //Waving setpoint generation START
+      if(setpoint < END && fwd)
+      {
+        setpoint += 100;
+      }
+      else if (setpoint >= END && fwd)
+      {
+        fwd = 0;
+        setpoint -= 100;
+      }
+      else if (setpoint > STA && !fwd)
+      {
+        setpoint -= 100;
+      }
+      else if (setpoint <= STA && !fwd)
+      {
+        fwd = 1;
+        setpoint += 100;
+      }
+      //Waving setpoint generation END
+
+      //print setpoint
+      char enc_stringbuf[16];
+      sprintf(enc_stringbuf, "S: %d, P: %u\n\r", setpoint, ENC1->CNT);
+      //sprintf(enc_stringbuf, "Setpoint: %d\n\r", MTR1_setpoint);
+      UART_msg_txt(enc_stringbuf);
+      sprintf(enc_stringbuf, "\33[2K\r");
+      UART_msg_txt(enc_stringbuf);
+
+
+      double pos = (double)(ENC1->CNT);
+      double e = (double)MTR1_setpoint - pos;
+      double padrag = e*0.05; //p-reg
+      int safe_cap_pct = 20;
+      if(abs(padrag) > safe_cap_pct) //100% cutoff
+      {
+        if(padrag > 0)
+        {
+          padrag = safe_cap_pct;
+        }
+        else
+        {
+          padrag = -safe_cap_pct;
+        }
+      }
+      if(padrag > 0)
+      {
+        GoFWD(abs(padrag), MTR1);
+      }
+      else if(padrag < 0)
+      {
+        GoBWD(abs(padrag), MTR1);
+      }
+    }
+
+    ///Concurrent motor control
+    if(1)
+    {
+      //MTR1
+      double mtr1_pos = (double)(ENC1->CNT);
+      double mtr1_e = (double)MTR1_setpoint - mtr1_pos;
+      double mtr1_pwr = mtr1_e*0.05;
+      int mtr1_cap = 20;
+      if(abs(mtr1_pwr) > mtr1_cap)
+      {
+        if(mtr1_pwr > 0)
+        {
+          mtr1_pwr = mtr1_cap;
+        }
+        else
+        {
+          mtr1_pwr = -mtr1_cap;
+        }
+      }
+      if(mtr1_pwr > 0)
+      {
+        GoFWD(abs(mtr1_pwr), MTR1);
+      }
+      else if(mtr1_pwr < 0)
+      {
+        GoBWD(abs(mtr1_pwr), MTR1);
+      }
+      // char printbuf[32];
+      // sprintf(printbuf, "POS1: %u\n\r", ENC1->CNT);
+      // UART_msg_txt(printbuf);
+
+
+      //MTR2
+      double mtr2_pos = (double)(ENC2->CNT);
+      double mtr2_e = (double)MTR2_setpoint - mtr2_pos;
+      double mtr2_pwr = mtr2_e*0.05;
+      int mtr2_cap = 10;
+      if(abs(mtr2_pwr) > mtr2_cap)
+      {
+        if(mtr2_pwr > 0)
+        {
+          mtr2_pwr = mtr2_cap;
+        }
+        else
+        {
+          mtr2_pwr = -mtr2_cap;
+        }
+      }
+      if(mtr2_pwr > 0)
+      {
+        GoBWD(abs(mtr2_pwr), MTR2);
+      }
+      else if(mtr2_pwr < 0)
+      {
+        GoFWD(abs(mtr2_pwr), MTR2);
+      }
+      // char printbuf[32];
+      // sprintf(printbuf, "POS2: %u\n\r", ENC2->CNT);
+      // UART_msg_txt(printbuf);
     }
 
   }

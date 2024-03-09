@@ -89,10 +89,13 @@ void Error_Handler(void);
 #define USB_DP_DRV_GPIO_Port GPIOA
 #define END_SW_BAK_Pin GPIO_PIN_15
 #define END_SW_BAK_GPIO_Port GPIOA
+#define END_SW_BAK_EXTI_IRQn EXTI15_10_IRQn
 #define OPT_SW2_Pin GPIO_PIN_10
 #define OPT_SW2_GPIO_Port GPIOC
+#define OPT_SW2_EXTI_IRQn EXTI15_10_IRQn
 #define OPT_SW1_Pin GPIO_PIN_11
 #define OPT_SW1_GPIO_Port GPIOC
+#define OPT_SW1_EXTI_IRQn EXTI15_10_IRQn
 #define ENC1A_Pin GPIO_PIN_4
 #define ENC1A_GPIO_Port GPIOB
 #define ENC1B_Pin GPIO_PIN_5
