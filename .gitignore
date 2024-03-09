@@ -31,5 +31,8 @@ fp-info-cache
 *.dsn
 *.ses
 
+#Kicad gerber files
+gerber.*
+
 #OS files
 *.swp
