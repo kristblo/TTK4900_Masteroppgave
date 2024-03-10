@@ -80,7 +80,7 @@ void UART_msg_txt(char* txt)
 CAN_TxHeaderTypeDef TxHeader;
 CAN_RxHeaderTypeDef RxHeader;
 
-uint32_t TxMailbox;
+uint32_t TxMailbox[3];
 
 uint8_t TxData[8];
 uint8_t RxData[8];
@@ -90,6 +90,7 @@ uint8_t count = 0;
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
   count++;
+  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
 }
 
 /* USER CODE END 0 */
@@ -144,15 +145,36 @@ int main(void)
   TxHeader.ExtId = 0;
   TxHeader.IDE = CAN_ID_STD;
   TxHeader.RTR = CAN_RTR_DATA;
-  TxHeader.StdId = 0x103;
+  TxHeader.StdId = 0x102;
   TxHeader.TransmitGlobalTime = DISABLE;
 
-  TxData[0] = 0xF3;
+  TxData[0] = 0xDE;
+  TxData[1] = 0xAD;
+  TxData[2] = 0xBB;
   HAL_StatusTypeDef ret;
-  HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[0], &TxMailbox);
+  
+  if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[0], &TxMailbox[0]) != HAL_OK)
+  {
+    Error_Handler();
+    UART_msg_txt("TxMailbox 0 not OK\n\r");
+  }
+  if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[1], &TxMailbox[1]) != HAL_OK)
+  {
+    Error_Handler();
+    UART_msg_txt("TxMailbox 1 not OK\n\r");
+  }
+  if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[2], &TxMailbox[2]) != HAL_OK)
+  {
+    Error_Handler();
+    UART_msg_txt("TxMailbox 2 not OK\n\r");
+  }
 
+  
+  HAL_Delay(100);
   char* stringbuf[64];
-  sprintf(stringbuf, "CAN counter: %u", count);
+  sprintf(stringbuf, "CAN counter: %u\n\r", count);
+  UART_msg_txt(stringbuf);
+  sprintf(stringbuf, "CAN msg: %u\n\r", RxData[0]);
   UART_msg_txt(stringbuf);
   /* USER CODE END 2 */
 
