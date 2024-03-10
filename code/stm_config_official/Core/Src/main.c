@@ -87,10 +87,48 @@ uint8_t RxData[8];
 
 uint8_t count = 0;
 
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if(GPIO_Pin == END_SW_Pin)
+  {
+    UART_msg_txt("End switch triggered\n\r");
+    TxData[0] = 100;
+    TxData[1] = 10;
+
+    HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox[0]);
+  }
+  if(GPIO_Pin == OPT_SW1_Pin)
+  {
+    UART_msg_txt("Twist switch triggered\n\r");
+    TxData[0] = 100;
+    TxData[1] = 10;
+
+    HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox[0]);
+  }
+}
+
+uint8_t clickflag = 0;
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
   count++;
   HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
+
+  char* debugbuf[64];
+  sprintf(debugbuf, "Data length: %u\n\r", RxHeader.DLC);
+  UART_msg_txt(debugbuf);
+  clickflag = 1;
+  clicker();
+
+}
+
+void clicker()
+{
+  if(1)
+  {
+    char* outputbuf[64];
+    sprintf(outputbuf, "Data0: %u, Data1: %u\n\r", RxData[0], RxData[1]);
+    UART_msg_txt(outputbuf);
+  }
 }
 
 /* USER CODE END 0 */
@@ -141,11 +179,11 @@ int main(void)
   HAL_CAN_Start(&hcan);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
 
-  TxHeader.DLC = 1;
+  TxHeader.DLC = 2;
   TxHeader.ExtId = 0;
   TxHeader.IDE = CAN_ID_STD;
   TxHeader.RTR = CAN_RTR_DATA;
-  TxHeader.StdId = 0x102;
+  TxHeader.StdId = 0x10A;
   TxHeader.TransmitGlobalTime = DISABLE;
 
   TxData[0] = 0xDE;
@@ -153,21 +191,21 @@ int main(void)
   TxData[2] = 0xBB;
   HAL_StatusTypeDef ret;
   
-  if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[0], &TxMailbox[0]) != HAL_OK)
-  {
-    Error_Handler();
-    UART_msg_txt("TxMailbox 0 not OK\n\r");
-  }
-  if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[1], &TxMailbox[1]) != HAL_OK)
-  {
-    Error_Handler();
-    UART_msg_txt("TxMailbox 1 not OK\n\r");
-  }
-  if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[2], &TxMailbox[2]) != HAL_OK)
-  {
-    Error_Handler();
-    UART_msg_txt("TxMailbox 2 not OK\n\r");
-  }
+  // if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[0], &TxMailbox[0]) != HAL_OK)
+  // {
+  //   Error_Handler();
+  //   UART_msg_txt("TxMailbox 0 not OK\n\r");
+  // }
+  // if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[1], &TxMailbox[1]) != HAL_OK)
+  // {
+  //   Error_Handler();
+  //   UART_msg_txt("TxMailbox 1 not OK\n\r");
+  // }
+  // if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[2], &TxMailbox[2]) != HAL_OK)
+  // {
+  //   Error_Handler();
+  //   UART_msg_txt("TxMailbox 2 not OK\n\r");
+  // }
 
   
   HAL_Delay(100);
@@ -176,6 +214,11 @@ int main(void)
   UART_msg_txt(stringbuf);
   sprintf(stringbuf, "CAN msg: %u\n\r", RxData[0]);
   UART_msg_txt(stringbuf);
+
+  HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 1);
+  HAL_Delay(1000);
+  HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 0);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -183,7 +226,21 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+    if(clickflag)
+    {
+      for(int i = 0; i < RxData[1]; i++)
+      {
+        char* debugbuf[64];
+        sprintf(debugbuf, "i: %i\n\r", i);
+        UART_msg_txt(debugbuf);
 
+
+        HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 1);
+        HAL_Delay(RxData[0]*10);
+        HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 0);
+      }    
+      clickflag = 0;
+    }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
