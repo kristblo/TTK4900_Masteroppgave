@@ -42,7 +42,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define CAN_SENDER_ID 0x10C
+#define CAN_RECPNT_ID 0x10A
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -87,6 +88,27 @@ uint8_t RxData[8];
 
 uint8_t count = 0;
 
+void SendCanMsg(uint8_t* data)
+{
+  CAN_TxHeaderTypeDef TxHeaderInternal;
+  uint32_t TxMailboxInternal[3];
+  uint8_t TxDataInternal[8];
+
+  TxHeaderInternal.DLC = 2;
+  TxHeaderInternal.ExtId = 0;
+  TxHeaderInternal.IDE = CAN_ID_STD;
+  TxHeaderInternal.RTR = CAN_RTR_DATA;
+  TxHeaderInternal.StdId = CAN_SENDER_ID;
+  TxHeaderInternal.TransmitGlobalTime = DISABLE;
+
+  TxDataInternal[0] = data[0];
+  TxDataInternal[1] = data[1];
+
+  HAL_CAN_AddTxMessage(&hcan, &TxHeaderInternal, TxDataInternal, &TxMailboxInternal[0]);
+
+}
+
+
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   if(GPIO_Pin == END_SW_Pin)
@@ -95,7 +117,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     TxData[0] = 100;
     TxData[1] = 10;
 
-    HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox[0]);
+    //HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox[0]);
+    SendCanMsg(TxData);
   }
   if(GPIO_Pin == OPT_SW1_Pin)
   {
@@ -103,30 +126,33 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     TxData[0] = 100;
     TxData[1] = 10;
 
-    HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox[0]);
+    //HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox[0]);
+    SendCanMsg(TxData);
   }
 }
 
 uint8_t clickflag = 0;
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
-  count++;
-  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
+  CAN_RxHeaderTypeDef RxHeaderInternal;
+  uint8_t RxDataInternal[8];
+  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeaderInternal, RxDataInternal);
 
   char* debugbuf[64];
-  sprintf(debugbuf, "Data length: %u\n\r", RxHeader.DLC);
+  sprintf(debugbuf, "Data length: %u\n\r", RxHeaderInternal.DLC);
   UART_msg_txt(debugbuf);
   clickflag = 1;
-  clicker();
+
+  clicker(RxDataInternal);
 
 }
 
-void clicker()
+void clicker(uint8_t* inputData)
 {
   if(1)
   {
     char* outputbuf[64];
-    sprintf(outputbuf, "Data0: %u, Data1: %u\n\r", RxData[0], RxData[1]);
+    sprintf(outputbuf, "Data0: %u, Data1: %u\n\r", inputData[0], inputData[1]);
     UART_msg_txt(outputbuf);
   }
 }
