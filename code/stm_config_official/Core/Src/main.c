@@ -29,6 +29,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "string.h"
+#include <stdio.h>
+#include <stdlib.h> 
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,19 +56,6 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-
-void UART_msg_txt(char* txt)
-{
-  int len = 0;
-  char* cp = txt;
-  while(*cp)
-  {
-    len++;
-    cp++;
-  }
-  HAL_UART_Transmit(&huart5, (uint8_t*)txt, len, HAL_MAX_DELAY);
-}
-
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -97,7 +86,13 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  UART_msg_txt("Hello world\n\r");
+  uint8_t data[] = "HELLO WORLD \r\n";
+  HAL_UART_Transmit (&huart5, data, sizeof (data), 10);
+
+  HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 1);
+  HAL_Delay(1000);
+  HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 0);
+  
 
   /* USER CODE END 1 */
 
