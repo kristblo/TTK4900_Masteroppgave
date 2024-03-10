@@ -152,19 +152,32 @@ void process_cmd_M2(char* token)
 
 }
 
+void SendCanMsg(uint8_t* data)
+{
+  CAN_TxHeaderTypeDef TxHeaderInternal;
+  uint32_t TxMailboxInternal[3];
+  uint8_t TxDataInternal[8];
+
+  TxHeaderInternal.DLC = 3;
+  TxHeaderInternal.ExtId = 0;
+  TxHeaderInternal.IDE = CAN_ID_STD;
+  TxHeaderInternal.RTR = CAN_RTR_DATA;
+  TxHeaderInternal.StdId = 0x10C;
+  TxHeaderInternal.TransmitGlobalTime = DISABLE;
+
+  TxDataInternal[0] = data[0];
+  TxDataInternal[1] = data[1];
+  TxDataInternal[2] = data[2];
+
+
+  HAL_CAN_AddTxMessage(&hcan, &TxHeaderInternal, TxDataInternal, &TxMailboxInternal[0]);
+  UART_msg_txt("Sent can msg\n\r");
+
+}
+
 void process_cmd_CAN(char* target, char* cmd)
 {
-  CAN_TxHeaderTypeDef CanFromUartHeader;
-  uint8_t CanUartData[8];
-  uint32_t CanUartTxMailbox[1];
-
-  CanFromUartHeader.DLC = 8; //data length, equals CanUartData
-  CanFromUartHeader.ExtId = 0;
-  CanFromUartHeader.IDE = CAN_ID_STD;
-  CanFromUartHeader.RTR = CAN_RTR_DATA;
-  CanFromUartHeader.StdId = 0x10A << 5; //must match recipient filter
-  CanFromUartHeader.TransmitGlobalTime = DISABLE;
-
+ 
   //Data processing
   uint8_t cmd_target = (uint8_t)atoi(target);
   uint16_t cmd_cmd = (uint16_t)atoi(cmd);
@@ -175,6 +188,7 @@ void process_cmd_CAN(char* target, char* cmd)
   UART_msg_txt(debugbuf);
 
   //Data construction, make a loop at some point
+  uint8_t CanUartData[3];
   CanUartData[0] = cmd_target;
   CanUartData[1] = cmd_bytes[0];
   CanUartData[2] = cmd_bytes[1];
@@ -185,11 +199,7 @@ void process_cmd_CAN(char* target, char* cmd)
   UART_msg_txt(debugbuf);
 
   //Queue for transmission
-  if(HAL_CAN_AddTxMessage(&hcan, &CanFromUartHeader, CanUartData, &CanUartTxMailbox[0]))
-  {
-    Error_Handler();
-    UART_msg_txt("CAN cmd sending unsuccessful");
-  }
+  SendCanMsg(CanUartData);
 }
 
 void parse_uart_input(char* input, uint8_t* buffer, uint8_t buffer_length, uint8_t* buffer_pos)
@@ -391,6 +401,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   else if(GPIO_Pin == END_SW_Pin)
   {
     UART_msg_txt("End switch triggered\n\r");
+    uint8_t candata[3] = "HEL";
+    SendCanMsg(candata);
   }
   else{
     __NOP();
@@ -411,16 +423,6 @@ uint8_t TxData[8];
 uint8_t RxData[8];
 uint8_t CAN_count = 0;
 
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
-{
-  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
-  char stringbuf[32];
-  sprintf(stringbuf, "RxData: 0x%X\n\r", RxData[0]);
-  UART_msg_txt(stringbuf);
-  handle_can_cmd(RxData);
-  CAN_count++; //Mistenker at dette ikke funker, se HAL UM1786 s.92
-}
-
 void handle_can_cmd(uint8_t* data)
 {
   uint8_t target = data[0];
@@ -429,12 +431,30 @@ void handle_can_cmd(uint8_t* data)
   if(target == 1)
   {
     //MTR1_setpoint = argument;
-    GoFWD(20, MTR1);
+    GoFWD(20, MTR2);
   }
   else if(target == 2)
   {
     //MTR2_setpoint = argument;
   }
+}
+
+
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+  CAN_RxHeaderTypeDef RxHeaderInternal;
+  uint8_t RxDataInternal[8];
+  
+  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeaderInternal, RxDataInternal);
+  
+  char stringbuf[32];
+  sprintf(stringbuf, "RxData: 0x%X\n\r", RxData[0]);
+  UART_msg_txt(stringbuf);
+  
+  handle_can_cmd(RxDataInternal);
+  
+  
+  CAN_count++; //Mistenker at dette ikke funker, se HAL UM1786 s.92
 }
 
 /* USER CODE END 0 */
@@ -758,7 +778,7 @@ int main(void)
     }
 
     ///Concurrent motor control
-    if(1)
+    if(0)
     {
       //MTR1
       double mtr1_pos = (double)(ENC1->CNT);
