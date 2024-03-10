@@ -75,6 +75,7 @@ void Error_Handler(void);
 #define DRV1_VIP_GPIO_Port GPIOA
 #define END_SW_Pin GPIO_PIN_5
 #define END_SW_GPIO_Port GPIOA
+#define END_SW_EXTI_IRQn EXTI9_5_IRQn
 #define IMU_INT2_Pin GPIO_PIN_12
 #define IMU_INT2_GPIO_Port GPIOB
 #define IMU_INT1_Pin GPIO_PIN_13
@@ -85,6 +86,7 @@ void Error_Handler(void);
 #define ENC2A_GPIO_Port GPIOC
 #define USB_VB_Pin GPIO_PIN_9
 #define USB_VB_GPIO_Port GPIOA
+#define USB_VB_EXTI_IRQn EXTI9_5_IRQn
 #define USB_DP_DRV_Pin GPIO_PIN_10
 #define USB_DP_DRV_GPIO_Port GPIOA
 #define END_SW_BAK_Pin GPIO_PIN_15

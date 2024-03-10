@@ -109,6 +109,12 @@ void process_uart_input(uint8_t* buffer, uint8_t buffer_length)
     UART_msg_txt("\n\rGot M2\n\r");
     process_cmd_M2(parser[1]);
   }
+  if((int)strcmp(parser[0], "CAN") == 0)
+  {
+    UART_msg_txt("\n\rGot CAN\n\r");
+
+    process_cmd_CAN(parser[1], parser[2]);
+  }
 
 
   //Clean the command array
@@ -144,8 +150,46 @@ void process_cmd_M2(char* token)
   UART_msg_txt(output);
   MTR2_setpoint = enc_setpoint;
 
+}
 
+void process_cmd_CAN(char* target, char* cmd)
+{
+  CAN_TxHeaderTypeDef CanFromUartHeader;
+  uint8_t CanUartData[8];
+  uint32_t CanUartTxMailbox[1];
 
+  CanFromUartHeader.DLC = 8; //data length, equals CanUartData
+  CanFromUartHeader.ExtId = 0;
+  CanFromUartHeader.IDE = CAN_ID_STD;
+  CanFromUartHeader.RTR = CAN_RTR_DATA;
+  CanFromUartHeader.StdId = 0x106 << 5; //must match recipient filter
+  CanFromUartHeader.TransmitGlobalTime = DISABLE;
+
+  //Data processing
+  uint8_t cmd_target = (uint8_t)atoi(target);
+  uint16_t cmd_cmd = (uint16_t)atoi(cmd);
+  uint8_t cmd_bytes[2] = {cmd_cmd & 0xFF, cmd_cmd >> 8};
+  
+  char debugbuf[64];
+  sprintf(debugbuf, "T: %u, C: %u\n\r", cmd_target, cmd_cmd);
+  UART_msg_txt(debugbuf);
+
+  //Data construction, make a loop at some point
+  CanUartData[0] = cmd_target;
+  CanUartData[1] = cmd_bytes[0];
+  CanUartData[2] = cmd_bytes[1];
+
+  uint8_t tgDebug = CanUartData[0];
+  uint16_t dtDebug = CanUartData[1] |  (CanUartData[2] << 8);
+  sprintf(debugbuf, "TD: %u CD: %u\n\r", tgDebug, dtDebug);
+  UART_msg_txt(debugbuf);
+
+  //Queue for transmission
+  if(HAL_CAN_AddTxMessage(&hcan, &CanFromUartHeader, CanUartData, &CanUartTxMailbox[0]))
+  {
+    Error_Handler();
+    UART_msg_txt("CAN cmd sending unsuccessful");
+  }
 }
 
 void parse_uart_input(char* input, uint8_t* buffer, uint8_t buffer_length, uint8_t* buffer_pos)
@@ -194,27 +238,27 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 void whoami_test(){
   HAL_StatusTypeDef ret;
-  uint8_t SLAVE_READ = 0x3B;  
-  uint8_t SLAVE_WRITE = 0x3A;
-  uint8_t WHO_AM_I = 0x0D;
+  uint8_t SLAVE_READ = 0xD4;  
+  uint8_t SLAVE_WRITE = 0xD5;
+  uint8_t WHO_AM_I = 0x0F;
   uint8_t i2cbuf_tx[1] = {WHO_AM_I};
   uint8_t i2cbuf_rx[2] = {0xDE, 0xAD};
 
-  uint8_t CTRL_REG1 = 0x2A;
-  uint8_t i2cbuf_setup[2] = {CTRL_REG1, 0x3};
+  // uint8_t CTRL_REG1 = 0x2A;
+  // uint8_t i2cbuf_setup[2] = {CTRL_REG1, 0x3};
   // ret = HAL_I2C_Master_Transmit(&hi2c1, (uint16_t)SLAVE_WRITE,i2cbuf_setup, 2, 2000);
   // if(ret != HAL_OK)
   // {
   //   UART_msg_txt("Setup failed\n\r");
   // }
 
-  ret = HAL_I2C_Master_Transmit(&hi2c1,(uint16_t)SLAVE_READ,i2cbuf_tx,1,2000); // Tell slave you want to read
+  ret = HAL_I2C_Master_Transmit(&hi2c3,(uint16_t)SLAVE_READ,i2cbuf_tx,1,2000); // Tell slave you want to read
   if(ret != HAL_OK)
   {
     UART_msg_txt("transmit failed\n\r");
   }
   //HAL_Delay(20);
-  ret = HAL_I2C_Master_Receive(&hi2c1, (uint16_t)SLAVE_READ, i2cbuf_rx,1,2000);
+  ret = HAL_I2C_Master_Receive(&hi2c3, (uint16_t)SLAVE_READ, i2cbuf_rx,1,2000);
   if(ret != HAL_OK)
   {
     UART_msg_txt("receive failed\n\r");
@@ -340,9 +384,16 @@ void GoBWD(double pct, TIM_TypeDef* mtr)
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  if(GPIO_Pin == OPT_SW1_Pin);
+  if(GPIO_Pin == OPT_SW1_Pin)
   {
-    UART_msg_txt("Opt switch triggered\n\r");
+    UART_msg_txt("Optical switch triggered\n\r");
+  }
+  else if(GPIO_Pin == END_SW_Pin)
+  {
+    UART_msg_txt("End switch triggered\n\r");
+  }
+  else{
+    __NOP();
   }
 }
 
@@ -366,7 +417,24 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
   char stringbuf[32];
   sprintf(stringbuf, "RxData: 0x%X\n\r", RxData[0]);
   UART_msg_txt(stringbuf);
+  //handle_can_cmd(RxData);
   CAN_count++; //Mistenker at dette ikke funker, se HAL UM1786 s.92
+}
+
+void handle_can_cmd(uint8_t* data)
+{
+  uint8_t target = data[0];
+  uint16_t argument = data[1] | (data[2] << 8);
+
+  if(target == 1)
+  {
+    //MTR1_setpoint = argument;
+    GoFWD(20, MTR1);
+  }
+  else if(target == 2)
+  {
+    //MTR2_setpoint = argument;
+  }
 }
 
 /* USER CODE END 0 */
@@ -419,55 +487,58 @@ int main(void)
   char str[20];
 
   //Accelerometer setup
-  // uint8_t CTRL1_XL = 0x10;
-  // uint8_t initbuf[2] = {CTRL1_XL, 0b01010000};
-  // uint8_t SLAVE_WRITE = 0xD4;
-  // uint8_t SLAVE_READ = 0xD5;
-  // HAL_StatusTypeDef ret;
-  // ret = HAL_I2C_Master_Transmit(&hi2c3,(uint16_t)SLAVE_WRITE,initbuf,2,100);
-  // if(ret != HAL_OK)
-  // {
-  //   UART_msg_txt("Accelerometer setup failed\n\r");
-  // }
+  uint8_t CTRL1_XL = 0x10;
+  uint8_t initbuf[2] = {CTRL1_XL, 0b11110000};
+  uint8_t SLAVE_WRITE = 0xD4;
+  uint8_t SLAVE_READ = 0xD5;
+  HAL_StatusTypeDef ret;
+  ret = HAL_I2C_Master_Transmit(&hi2c3,(uint16_t)SLAVE_WRITE,initbuf,2,100);
+  if(ret != HAL_OK)
+  {
+    UART_msg_txt("Accelerometer setup failed\n\r");
+  }
   
-  // HAL_I2C_Master_Transmit(&hi2c1, (uint16_t)SLAVE_READ, initbuf, 1,100);
-  // uint8_t i2cbuf_rx[1];
-  // ret = HAL_I2C_Master_Receive(&hi2c3, (uint16_t)SLAVE_READ, i2cbuf_rx,1,100);
-  // if(ret != HAL_OK)
-  // {
-  //   UART_msg_txt("Could not read CTRL1_XL");
-  // }
-  // int ctrl_readback = (int)i2cbuf_rx[0];
-  // char stringbuf[20];
-  // sprintf(stringbuf, "CTRL1_XL: 0x%X\n\r", ctrl_readback);
-  // UART_msg_txt(stringbuf);
+  HAL_I2C_Master_Transmit(&hi2c3, (uint16_t)SLAVE_READ, initbuf, 1,100);
+  uint8_t i2cbuf_rx[1];
+  ret = HAL_I2C_Master_Receive(&hi2c3, (uint16_t)SLAVE_READ, i2cbuf_rx,1,100);
+  if(ret != HAL_OK)
+  {
+    UART_msg_txt("Could not read CTRL1_XL");
+  }
+  else{
+    int ctrl_readback = (int)i2cbuf_rx[0];
+    char stringbuf[20];
+    sprintf(stringbuf, "CTRL1_XL: 0x%X\n\r", ctrl_readback);
+    UART_msg_txt(stringbuf);
+
+  }
   //End accelerometer setup
 
   //Start adafruit accelerometer setup
-  uint8_t CTRL_REG1 = 0x2A;
-  uint8_t i2cbuf_setup[2] = {CTRL_REG1, 0x3};
-  uint16_t WRITE = 0x3A;
-  uint16_t READ = 0x3B;
-  HAL_StatusTypeDef ret;
-  ret = HAL_I2C_Master_Transmit(&hi2c1, WRITE,i2cbuf_setup, 2, 2000);
-  if(ret != HAL_OK)
-  {
-    UART_msg_txt("Setup failed: write\n\r");
-  }
-  ret = HAL_I2C_Master_Transmit(&hi2c1, READ,i2cbuf_setup, 1, 2000);
-  if(ret != HAL_OK)
-  {
-    UART_msg_txt("Setup failed: tx read\n\r");
-  }
-  ret = HAL_I2C_Master_Receive(&hi2c1, READ,i2cbuf_setup, 1, 2000);
-  if(ret != HAL_OK)
-  {
-    UART_msg_txt("Setup failed: rx read\n\r");
-  }
+  // uint8_t CTRL_REG1 = 0x2A;
+  // uint8_t i2cbuf_setup[2] = {CTRL_REG1, 0x3};
+  // uint16_t WRITE = 0x3A;
+  // uint16_t READ = 0x3B;
+  // HAL_StatusTypeDef ret;
+  // ret = HAL_I2C_Master_Transmit(&hi2c1, WRITE,i2cbuf_setup, 2, 2000);
+  // if(ret != HAL_OK)
+  // {
+  //   UART_msg_txt("Setup failed: write\n\r");
+  // }
+  // ret = HAL_I2C_Master_Transmit(&hi2c1, READ,i2cbuf_setup, 1, 2000);
+  // if(ret != HAL_OK)
+  // {
+  //   UART_msg_txt("Setup failed: tx read\n\r");
+  // }
+  // ret = HAL_I2C_Master_Receive(&hi2c1, READ,i2cbuf_setup, 1, 2000);
+  // if(ret != HAL_OK)
+  // {
+  //   UART_msg_txt("Setup failed: rx read\n\r");
+  // }
+  //End adafruit accelerometer setup
 
 
   HAL_Delay(2000);
-  //End adafruit accelerometer setup
 
   //Timer setup
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);//MTR2
@@ -480,19 +551,20 @@ int main(void)
 
 
   //CAN init
+  HAL_GPIO_WritePin(CAN_EN_GPIO_Port, CAN_EN_Pin, 1);
+  //HAL_Delay(2000);
   HAL_CAN_Start(&hcan);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
   TxHeader.DLC = 1;
   TxHeader.ExtId = 0;
   TxHeader.IDE = CAN_ID_STD;
   TxHeader.RTR = CAN_RTR_DATA;
-  TxHeader.StdId = 0x107; //Transmit ID
+  TxHeader.StdId = 0x103; //Transmit ID
   TxHeader.TransmitGlobalTime = DISABLE;
 
   TxData[0] = 0xDE;
   TxData[1] = 0xAD;
   TxData[2] = 0xBB;
-  //TxData[3] = 0x03;
   if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[0], &TxMailbox[0]) != HAL_OK)
   {
     Error_Handler();
@@ -508,12 +580,6 @@ int main(void)
     Error_Handler();
     UART_msg_txt("Mailbox 2 not OK\n\r");
   }
-  // if(HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[3], &TxMailbox[3]) != HAL_OK)
-  // {
-  //   Error_Handler();
-  //   UART_msg_txt("Mailbox 3 not OK\n\r");
-  // }
-
 
   HAL_Delay(10);
   char can_stringbuf[32];
@@ -661,14 +727,13 @@ int main(void)
       //print setpoint
       char enc_stringbuf[16];
       sprintf(enc_stringbuf, "S: %d, P: %u\n\r", setpoint, ENC1->CNT);
-      //sprintf(enc_stringbuf, "Setpoint: %d\n\r", MTR1_setpoint);
       UART_msg_txt(enc_stringbuf);
       sprintf(enc_stringbuf, "\33[2K\r");
       UART_msg_txt(enc_stringbuf);
 
 
       double pos = (double)(ENC1->CNT);
-      double e = (double)MTR1_setpoint - pos;
+      double e = (double)setpoint - pos;
       double padrag = e*0.05; //p-reg
       int safe_cap_pct = 20;
       if(abs(padrag) > safe_cap_pct) //100% cutoff

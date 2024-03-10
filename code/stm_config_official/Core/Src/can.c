@@ -58,9 +58,9 @@ void MX_CAN_Init(void)
   canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
   canfilterconfig.FilterBank = 10;
   canfilterconfig.FilterFIFOAssignment = CAN_RX_FIFO0;
-  canfilterconfig.FilterIdHigh = 0x106 << 5;
+  canfilterconfig.FilterIdHigh = 0x103<<5;//0x106 << 5;
   canfilterconfig.FilterIdLow = 0x0000;
-  canfilterconfig.FilterMaskIdHigh = 0x106 << 5; //0s are DC when incoming IDs are compared
+  canfilterconfig.FilterMaskIdHigh = 103<< 5;//0x106 << 5; //0s are DC when incoming IDs are compared
   canfilterconfig.FilterMaskIdLow = 0x0000;
   canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
   canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;

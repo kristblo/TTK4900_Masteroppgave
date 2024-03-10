@@ -126,3 +126,5 @@ Not registering input from the bogie encoder. Could be HW.
 
 ###090324
 The encoder bug was indeed HW, the 5V pin on the torso connector was not properly soldered. Neither was one of the ground pins on the bogie, but I don't think that was related.
+
+CAN is not working. Open a new branch with a clean slate and follow the youtube video again.
