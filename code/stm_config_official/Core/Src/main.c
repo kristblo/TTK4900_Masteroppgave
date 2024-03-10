@@ -28,7 +28,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,12 +54,39 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+
+void UART_msg_txt(char* txt)
+{
+  int len = 0;
+  char* cp = txt;
+  while(*cp)
+  {
+    len++;
+    cp++;
+  }
+  HAL_UART_Transmit(&huart5, (uint8_t*)txt, len, HAL_MAX_DELAY);
+}
+
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+CAN_TxHeaderTypeDef TxHeader;
+CAN_RxHeaderTypeDef RxHeader;
+
+uint32_t TxMailbox;
+
+uint8_t TxData[8];
+uint8_t RxData[8];
+
+uint8_t count = 0;
+
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+  count++;
+}
 
 /* USER CODE END 0 */
 
@@ -70,6 +97,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  UART_msg_txt("Hello world\n\r");
 
   /* USER CODE END 1 */
 
@@ -102,7 +130,18 @@ int main(void)
   MX_TIM1_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
+  HAL_CAN_Start(&hcan);
+  HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
 
+  TxHeader.DLC = 1;
+  TxHeader.ExtId = 0;
+  TxHeader.IDE = CAN_ID_STD;
+  TxHeader.RTR = CAN_RTR_DATA;
+  TxHeader.StdId = 0x103;
+  TxHeader.TransmitGlobalTime = DISABLE;
+
+  TxData[0] = 0xF3;
+  HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox);
   /* USER CODE END 2 */
 
   /* Infinite loop */
