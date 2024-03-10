@@ -58,6 +58,19 @@
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
+void UART_msg_txt(char* txt)
+{
+  int len = 0;
+  char* cp = txt;
+  while(*cp)
+  {
+    len++;
+    cp++;
+  }
+
+  HAL_UART_Transmit(&huart5, (uint8_t*)txt, len, HAL_MAX_DELAY);
+}
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -74,6 +87,12 @@ uint8_t count = 0;
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
+  UART_msg_txt("Entered CAN rx interrupt\n\r");
+  if(HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, &RxHeader, RxData) != HAL_OK)
+  {
+    UART_msg_txt("CAN rx unsuccessful\n\r");
+  }
+  
   count++;
 }
 
@@ -86,13 +105,6 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  uint8_t data[] = "HELLO WORLD \r\n";
-  HAL_UART_Transmit (&huart5, data, sizeof (data), 10);
-
-  HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 1);
-  HAL_Delay(1000);
-  HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 0);
-  
 
   /* USER CODE END 1 */
 
@@ -125,6 +137,10 @@ int main(void)
   MX_TIM1_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
+
+  UART_msg_txt("Hello world\n\r");
+
+
   HAL_CAN_Start(&hcan);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
 
@@ -136,7 +152,17 @@ int main(void)
   TxHeader.TransmitGlobalTime = DISABLE;
 
   TxData[0] = 0xF3;
-  HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox);
+  HAL_StatusTypeDef ret;
+  ret = HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox);
+  if(ret != HAL_OK)
+  {
+    Error_Handler();
+    UART_msg_txt("CAN sending unsuccessful");
+  }
+
+  char* stringbuf[64];
+  sprintf(stringbuf, "CAN counter: %u", count);
+  UART_msg_txt(stringbuf);
   /* USER CODE END 2 */
 
   /* Infinite loop */
