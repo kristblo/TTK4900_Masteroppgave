@@ -162,7 +162,7 @@ void process_cmd_CAN(char* target, char* cmd)
   CanFromUartHeader.ExtId = 0;
   CanFromUartHeader.IDE = CAN_ID_STD;
   CanFromUartHeader.RTR = CAN_RTR_DATA;
-  CanFromUartHeader.StdId = 0x106 << 5; //must match recipient filter
+  CanFromUartHeader.StdId = 0x10A << 5; //must match recipient filter
   CanFromUartHeader.TransmitGlobalTime = DISABLE;
 
   //Data processing
@@ -417,7 +417,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
   char stringbuf[32];
   sprintf(stringbuf, "RxData: 0x%X\n\r", RxData[0]);
   UART_msg_txt(stringbuf);
-  //handle_can_cmd(RxData);
+  handle_can_cmd(RxData);
   CAN_count++; //Mistenker at dette ikke funker, se HAL UM1786 s.92
 }
 
