@@ -44,6 +44,9 @@
 /* USER CODE BEGIN PD */
 #define CAN_SENDER_ID 0x10C
 #define CAN_RECPNT_ID 0x10A
+#define MTR1 TIM15
+#define MTR2 TIM1
+#define CTR_PRD 7200
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -73,7 +76,27 @@ void UART_msg_txt(char* txt)
 
   HAL_UART_Transmit(&huart5, (uint8_t*)txt, len, HAL_MAX_DELAY);
 }
+void SetPWD_DT(uint32_t* timer_counter, double pct)
+{
+  int ticks = (pct / 100) * CTR_PRD;
+  *timer_counter = ticks;
+}
 
+void GoFWD(double pct, TIM_TypeDef* mtr)
+{
+  SetPWD_DT(&(mtr->CCR1), 100);
+  SetPWD_DT(&(mtr->CCR3), 100);
+  SetPWD_DT(&(mtr->CCR2), 100-pct);
+
+}
+
+void GoBWD(double pct, TIM_TypeDef* mtr)
+{
+  SetPWD_DT(&(mtr->CCR1), 100-pct);
+  SetPWD_DT(&(mtr->CCR3), 100-pct);
+  SetPWD_DT(&(mtr->CCR2), 100);
+
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -154,6 +177,8 @@ void clicker(uint8_t* inputData)
     char* outputbuf[64];
     sprintf(outputbuf, "Data0: %u, Data1: %u\n\r", inputData[0], inputData[1]);
     UART_msg_txt(outputbuf);
+    
+    GoFWD(20, MTR2);
   }
 }
 
@@ -198,7 +223,11 @@ int main(void)
   MX_TIM1_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);//MTR2
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);//MTR2
+  HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1);//MTR1
+  HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_2);//MTR1
+  
   UART_msg_txt("Hello world\n\r");
 
 
@@ -252,21 +281,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    if(clickflag)
-    {
-      for(int i = 0; i < RxData[1]; i++)
-      {
-        char* debugbuf[64];
-        sprintf(debugbuf, "i: %i\n\r", i);
-        UART_msg_txt(debugbuf);
 
-
-        HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 1);
-        HAL_Delay(RxData[0]*10);
-        HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 0);
-      }    
-      clickflag = 0;
-    }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
