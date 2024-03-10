@@ -36,33 +36,6 @@ BUILD_DIR = build
 ######################################
 # C sources
 C_SOURCES =  \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dma.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_exti.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash_ex.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_gpio.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c_ex.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pcd.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pcd_ex.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr_ex.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc_ex.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart_ex.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_ll_usb.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c \
-/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c \
 Core/Src/adc.c \
 Core/Src/can.c \
 Core/Src/gpio.c \
@@ -73,6 +46,33 @@ Core/Src/stm32f3xx_it.c \
 Core/Src/system_stm32f3xx.c \
 Core/Src/tim.c \
 Core/Src/usart.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dma.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_exti.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash_ex.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_gpio.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c_ex.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pcd.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pcd_ex.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr_ex.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc_ex.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart_ex.c \
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_ll_usb.c \
+Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c \
+Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c \
+Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c \
+Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c \
 USB_DEVICE/App/usb_device.c \
 USB_DEVICE/App/usbd_cdc_if.c \
 USB_DEVICE/App/usbd_desc.c \
@@ -148,13 +148,13 @@ AS_INCLUDES = \
 
 # C includes
 C_INCLUDES =  \
--I/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/CMSIS/Device/ST/STM32F3xx/Include \
--I/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/CMSIS/Include \
--I/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Inc \
--I/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Drivers/STM32F3xx_HAL_Driver/Inc/Legacy \
--I/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc \
--I/home/ov_robotarm/STM32Cube/Repository/STM32Cube_FW_F3_V1.11.4/Middlewares/ST/STM32_USB_Device_Library/Core/Inc \
 -ICore/Inc \
+-IDrivers/CMSIS/Device/ST/STM32F3xx/Include \
+-IDrivers/CMSIS/Include \
+-IDrivers/STM32F3xx_HAL_Driver/Inc \
+-IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy \
+-IMiddlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc \
+-IMiddlewares/ST/STM32_USB_Device_Library/Core/Inc \
 -IUSB_DEVICE/App \
 -IUSB_DEVICE/Target
 

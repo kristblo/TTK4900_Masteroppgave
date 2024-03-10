@@ -28,6 +28,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stm32f3xx_hal.h"
+#include "stm32f3xx_hal_can.h"
 #include "string.h"
 #include <stdio.h>
 #include <stdlib.h> 
@@ -87,12 +89,6 @@ uint8_t count = 0;
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
-  UART_msg_txt("Entered CAN rx interrupt\n\r");
-  if(HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, &RxHeader, RxData) != HAL_OK)
-  {
-    UART_msg_txt("CAN rx unsuccessful\n\r");
-  }
-  
   count++;
 }
 
@@ -153,12 +149,7 @@ int main(void)
 
   TxData[0] = 0xF3;
   HAL_StatusTypeDef ret;
-  ret = HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox);
-  if(ret != HAL_OK)
-  {
-    Error_Handler();
-    UART_msg_txt("CAN sending unsuccessful");
-  }
+  HAL_CAN_AddTxMessage(&hcan, &TxHeader, &TxData[0], &TxMailbox);
 
   char* stringbuf[64];
   sprintf(stringbuf, "CAN counter: %u", count);
