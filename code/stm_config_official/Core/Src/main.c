@@ -28,7 +28,13 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stm32f3xx_hal.h"
+#include "stm32f3xx_hal_can.h"
 
+#include "unit_config.h"
+#include "can_driver.h"
+#include "gpio_driver.h"
+#include "uart_driver.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -102,6 +108,14 @@ int main(void)
   MX_TIM1_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
+  uart_send_string("Hello world\n\r");
+  
+  HAL_CAN_Start(&hcan);
+  HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);//MTR2
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);//MTR2
+  HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1);//MTR1
+  HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_2);//MTR1  
 
   /* USER CODE END 2 */
 
