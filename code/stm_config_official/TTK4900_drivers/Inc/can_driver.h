@@ -13,16 +13,14 @@
 typedef struct 
 {
   uint8_t* data[8]; //Max data size for CAN message is 8
-  int dlc;
-  int extId;
-  int ide;
-  int rtr;
-  int stdId;
-  int transmitGlobalTime;
+  int dlc;  //Bytes of data to transfer
+  int stdId; //Transmission ID
+  uint8_t mailbox; //Between 0 and 2
+
 
 } can_send_msg_args;
-#define can_send_msg(...) can_send_msg_wrp((can_send_msg_args){__VA_ARGS__});
-void can_send_msg_base(uint8_t* data, int dlc, int extId, int ide, int rtr, int stdId, int transmitGlobalTime);
-void can_send_msg_wrp(can_send_msg_args input);
+void can_send_msg_base(uint8_t* data, int dlc, int stdId, uint8_t mailbox);
+void can_send_msg_wrp(can_send_msg_args* input);
+#define can_send_msg(...) can_send_msg_wrp((can_send_msg_args*){__VA_ARGS__});
 
 void can_rx_handler(uint8_t* data);

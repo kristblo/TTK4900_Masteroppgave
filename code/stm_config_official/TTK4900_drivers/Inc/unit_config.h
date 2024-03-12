@@ -4,7 +4,7 @@
 #define ENC1 TIM3
 #define ENC2 TIM8
 
-#define CTR_PRD 7200
+#define PWM_CTR_PRD 7200
 #define GLOBAL_DEBUG 1
 
 
@@ -13,7 +13,7 @@
 #define TORSO 0
 #define SHOULDER 1
 #define HAND 2
-#define ACTIVE_UNIT HAND //Change before flashing another unit
+#define ACTIVE_UNIT SHOULDER //Change before flashing another unit
 
 #if ACTIVE_UNIT == TORSO
   #define CAN_TXID 0x10A //CAN transmit ID

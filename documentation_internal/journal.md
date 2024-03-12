@@ -132,5 +132,8 @@ CAN is not working. Open a new branch with a clean slate and follow the youtube 
 ###120324
 Got CAN working again, as well as set up a structure for the project.
 CAN: Followed the instructions carefully, and it worked. Then I replicated the setup in the main branch, and it did not work. For some reason, the rx interrupt callback wouldn't trigger. Solution: delete the generated can.c file from main, and check it back out from can\_verification onto main. Then it worked again.
+NOTE: restarted cubemx, the generated code. CAN did not break, so I assume this means it is safe to continue.
 
 Structure: my own \_driver files are in a separate folder. Modifying the Makefile between generation in cubeMx is safe. Also discovered a way to make default variables using structs and variable define statements, see can\_driver.c and can\_driver.h.
+
+Got more trouble as soon as I started to send data. Can't find the correct data type for IDE and RTR, which corrupts the whole frame apparently. Fair enough, wasn't really interested in them anyway. They're hardcoded to their default values of STD and DATA now. Instead, I added an argument for mailbox, which I might actually end up needing. Also added the shoulder back into the loop, works.

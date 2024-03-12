@@ -21,7 +21,10 @@
 #include "tim.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "unit_config.h"
+//NOTE: htim1.Init.Period and htim15.Init.Period should be
+//set to PWM_CTR_PRD. This setting will be destroyed when
+//regenerating in CubeMX!
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim1;
@@ -48,7 +51,7 @@ void MX_TIM1_Init(void)
   htim1.Instance = TIM1;
   htim1.Init.Prescaler = 0;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 7200;
+  htim1.Init.Period = PWM_CTR_PRD;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -216,7 +219,7 @@ void MX_TIM15_Init(void)
   htim15.Instance = TIM15;
   htim15.Init.Prescaler = 0;
   htim15.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim15.Init.Period = 7200;
+  htim15.Init.Period = PWM_CTR_PRD;
   htim15.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim15.Init.RepetitionCounter = 0;
   htim15.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;

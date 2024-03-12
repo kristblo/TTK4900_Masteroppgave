@@ -4,67 +4,67 @@
 #endif
 
 void can_send_msg_base(uint8_t* data, 
-                        int dlc, 
-                        int extId, 
-                        int ide, 
-                        int rtr,
-                        int stdId, 
-                        int transmitGlobalTime)
+                        int dlc,
+                        int stdId,
+                        uint8_t mailbox)
 {
   CAN_TxHeaderTypeDef txHeader;
-  uint32_t txMailbox;
+  uint32_t txMailbox[3];
   
-  txHeader.DLC = dlc;
-  txHeader.ExtId = extId;
-  txHeader.IDE = ide;
-  txHeader.RTR = rtr;
+  txHeader.DLC = 8;
+  txHeader.ExtId = 0;
+  txHeader.IDE = CAN_ID_STD;
+  txHeader.RTR = CAN_RTR_DATA;
   txHeader.StdId = stdId;
-  txHeader.TransmitGlobalTime = transmitGlobalTime;
+  txHeader.TransmitGlobalTime = DISABLE;
 
+  if(HAL_CAN_AddTxMessage(&hcan, &txHeader, data, &txMailbox[mailbox]) != HAL_OK)
+  {
+    uart_send_string("CAN TX not successful");
+  }
 #if GLOBAL_DEBUG
   char* debugbuffer[128];
-  sprintf(debugbuffer, "DLC: %i\n\r ID: %i\n\r, Data: %s\n\r",
-          txHeader.DLC, txHeader.StdId, data);
+  sprintf(debugbuffer, "DLC: %u\n\r TXData: %s\n\r",txHeader.DLC, data);
   uart_send_string(debugbuffer);
 #endif
 
-  HAL_CAN_AddTxMessage(&hcan, &txHeader, data, &txMailbox);
 }
 
-void can_send_msg_wrp(can_send_msg_args input)
+void can_send_msg_wrp(can_send_msg_args* input)
 {
-  int dlc_out = input.dlc ? input.dlc : 8;
-  int extId_out = input.extId ? input.extId : 0;
-  int ide_out = input.ide ? input.ide : CAN_ID_STD;
-  int rtr_out = input.rtr ? input.rtr : CAN_RTR_DATA;
-  int stdId_out = input.stdId ? input.stdId : CAN_TXID;
-  int transmitGlobalTime_out = input.transmitGlobalTime ? input.transmitGlobalTime : DISABLE;    
+  int dlc_out = input->dlc ? input->dlc : 8;
+  int stdId_out = input->stdId ? input->stdId : CAN_TXID;
+  int mailbox_out = input->mailbox && input->mailbox < 3 ? input->mailbox : 0;
 
-  can_send_msg_base(input.data,
+  can_send_msg_base(input->data,
                     dlc_out,
-                    extId_out,
-                    ide_out,
-                    rtr_out,
-                    stdId_out,
-                    transmitGlobalTime_out);
+                    CAN_TXID,
+                    mailbox_out);
 }
 
 void can_rx_handler(uint8_t* data)
 {
   uart_send_string("Got a CAN message\n\r");
+
+#if GLOBAL_DEBUG
+  char* debugbuffer[128];
+  sprintf(debugbuffer, "Data survives rx handler: %s\n\r", data);
+  uart_send_string(debugbuffer);
+#endif
+
+
 }
 
 //Declared in stm32fxx_hal_can.h
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
-  CAN_RxHeaderTypeDef rxHeader;
   uint8_t rxData[8];
+  CAN_RxHeaderTypeDef rxHeader;
   HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &rxHeader, rxData);
 
 #if GLOBAL_DEBUG
   char* debugbuffer[128];
-  sprintf(debugbuffer, "DLC: %i\n\r ID: %i\n\r, Data: %s\n\r",
-          rxHeader.DLC, rxHeader.StdId, rxData);
+  sprintf(debugbuffer, "DLC: %i\n\r RXData: %s\n\r",rxHeader.DLC, rxData);
   uart_send_string(debugbuffer);
 #endif
 
