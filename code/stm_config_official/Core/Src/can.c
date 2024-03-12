@@ -21,7 +21,7 @@
 #include "can.h"
 
 /* USER CODE BEGIN 0 */
-#include "unit_config.h"
+
 /* USER CODE END 0 */
 
 CAN_HandleTypeDef hcan;
@@ -58,13 +58,16 @@ void MX_CAN_Init(void)
   canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
   canfilterconfig.FilterBank = 10;
   canfilterconfig.FilterFIFOAssignment = CAN_RX_FIFO0;
-  canfilterconfig.FilterIdHigh = 0x10A<<5;
+  canfilterconfig.FilterIdHigh = 0x10A<<5;//0x106 << 5;
   canfilterconfig.FilterIdLow = 0x0000;
-  canfilterconfig.FilterMaskIdHigh = 0x10A<<5; //0 bits are DC when comparing incoming ID to own ID
+  canfilterconfig.FilterMaskIdHigh = 0x10A<< 5;//0x106 << 5; //0s are DC when incoming IDs are compared
   canfilterconfig.FilterMaskIdLow = 0x0000;
   canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
   canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
   canfilterconfig.SlaveStartFilterBank = 0;
+
+  HAL_CAN_ConfigFilter(&hcan, &canfilterconfig);
+
   /* USER CODE END CAN_Init 2 */
 
 }
