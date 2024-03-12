@@ -128,3 +128,9 @@ Not registering input from the bogie encoder. Could be HW.
 The encoder bug was indeed HW, the 5V pin on the torso connector was not properly soldered. Neither was one of the ground pins on the bogie, but I don't think that was related.
 
 CAN is not working. Open a new branch with a clean slate and follow the youtube video again.
+
+###120324
+Got CAN working again, as well as set up a structure for the project.
+CAN: Followed the instructions carefully, and it worked. Then I replicated the setup in the main branch, and it did not work. For some reason, the rx interrupt callback wouldn't trigger. Solution: delete the generated can.c file from main, and check it back out from can\_verification onto main. Then it worked again.
+
+Structure: my own \_driver files are in a separate folder. Modifying the Makefile between generation in cubeMx is safe. Also discovered a way to make default variables using structs and variable define statements, see can\_driver.c and can\_driver.h.
