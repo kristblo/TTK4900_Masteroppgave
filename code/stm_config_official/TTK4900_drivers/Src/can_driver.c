@@ -55,18 +55,3 @@ void can_rx_handler(uint8_t* data)
 }
 
 //Declared in stm32fxx_hal_can.h
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
-{
-  CAN_RxHeaderTypeDef rxHeader;
-  uint8_t rxData[8];
-  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &rxHeader, rxData);
-
-#if GLOBAL_DEBUG
-  char* debugbuffer[128];
-  sprintf(debugbuffer, "DLC: %i\n\r ID: %i\n\r, Data: %s\n\r",
-          rxHeader.DLC, rxHeader.StdId, rxData);
-  uart_send_string(debugbuffer);
-#endif
-
-  can_rx_handler(rxData);
-}

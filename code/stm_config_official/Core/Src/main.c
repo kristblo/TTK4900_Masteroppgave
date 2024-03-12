@@ -61,7 +61,21 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+  CAN_RxHeaderTypeDef rxHeader;
+  uint8_t rxData[8];
+  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &rxHeader, rxData);
 
+#if GLOBAL_DEBUG
+  char* debugbuffer[128];
+  sprintf(debugbuffer, "DLC: %i\n\r ID: %i\n\r, Data: %s\n\r",
+          rxHeader.DLC, rxHeader.StdId, rxData);
+  uart_send_string(debugbuffer);
+#endif
+
+  can_rx_handler(rxData);
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -110,13 +124,13 @@ int main(void)
   /* USER CODE BEGIN 2 */
   uart_send_string("Hello world\n\r");
   
-  HAL_CAN_Start(&hcan);
-  HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);//MTR2
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);//MTR2
   HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1);//MTR1
   HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_2);//MTR1  
 
+  HAL_CAN_Start(&hcan);
+  HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
   /* USER CODE END 2 */
 
   /* Infinite loop */
