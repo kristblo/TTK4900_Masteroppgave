@@ -55,6 +55,11 @@ void Error_Handler(void);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
+void UART_msg_txt(char* txt);
+void SetPWD_DT(uint32_t* timer_counter, double pct);
+void GoFWD(double pct, TIM_TypeDef* mtr);
+void GoBWD(double pct, TIM_TypeDef* mtr);
+
 
 /* Private defines -----------------------------------------------------------*/
 #define CAN_EN_Pin GPIO_PIN_13

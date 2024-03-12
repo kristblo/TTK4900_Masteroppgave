@@ -33,6 +33,7 @@
 #include "string.h"
 #include <stdio.h>
 #include <stdlib.h> 
+#include "can_driver.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,10 +102,10 @@ void GoBWD(double pct, TIM_TypeDef* mtr)
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-CAN_TxHeaderTypeDef TxHeader;
-CAN_RxHeaderTypeDef RxHeader;
+// CAN_TxHeaderTypeDef TxHeader;
+// CAN_RxHeaderTypeDef RxHeader;
 
-uint32_t TxMailbox[3];
+// uint32_t TxMailbox[3];
 
 uint8_t TxData[8];
 uint8_t RxData[8];
@@ -154,33 +155,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   }
 }
 
-uint8_t clickflag = 0;
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
-{
-  CAN_RxHeaderTypeDef RxHeaderInternal;
-  uint8_t RxDataInternal[8];
-  HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeaderInternal, RxDataInternal);
-
-  char* debugbuf[64];
-  sprintf(debugbuf, "Data length: %u\n\r", RxHeaderInternal.DLC);
-  UART_msg_txt(debugbuf);
-  clickflag = 1;
-
-  clicker(RxDataInternal);
-
-}
-
-void clicker(uint8_t* inputData)
-{
-  if(1)
-  {
-    char* outputbuf[64];
-    sprintf(outputbuf, "Data0: %u, Data1: %u\n\r", inputData[0], inputData[1]);
-    UART_msg_txt(outputbuf);
-    
-    GoFWD(20, MTR2);
-  }
-}
 
 /* USER CODE END 0 */
 
@@ -234,12 +208,12 @@ int main(void)
   HAL_CAN_Start(&hcan);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
 
-  TxHeader.DLC = 2;
-  TxHeader.ExtId = 0;
-  TxHeader.IDE = CAN_ID_STD;
-  TxHeader.RTR = CAN_RTR_DATA;
-  TxHeader.StdId = 0x10A;
-  TxHeader.TransmitGlobalTime = DISABLE;
+  // TxHeader.DLC = 2;
+  // TxHeader.ExtId = 0;
+  // TxHeader.IDE = CAN_ID_STD;
+  // TxHeader.RTR = CAN_RTR_DATA;
+  // TxHeader.StdId = 0x10A;
+  // TxHeader.TransmitGlobalTime = DISABLE;
 
   TxData[0] = 0xDE;
   TxData[1] = 0xAD;
