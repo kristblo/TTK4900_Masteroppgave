@@ -61,4 +61,70 @@ Something went wrong during the soldering of the shoulder, I think, as there now
 
 All three units tuned for voltage.
 
+Set the relays to toggle on and off with one second intervals, workSet the relays to toggle on and off with one second intervals, works.
 
+###210224
+Discovered that I've flipped the resistors of the USB voltage divider. Switched them, still no detection. I realise that I probably need to activate the DP driver somehow, but I haven't found the right place to do it -- probably some callback function.
+
+UART works with the devkit, just had to remove two solder bridges. Makes USB less appealing.
+
+I2C does not seem to work, might be hardware. The waveform looks very unstable, unlike previously. Possibly need a different resistor value, or reworking the solder as the IMU board connector really is full of glue. On the other hand, the hand on-board IMU does not seem to work either. Next up: recreate the test bench IMU setup and hook it up to the hand. Find a 5V-3V3 buck somewhere.
+
+###220224
+Breadboard IMU works (got whoami) from hand, shoulder IMU also works. This means that the schematic is correct, and that the configuration of both I2C1 and I2C3 is viable. Poor soldering is improbable, as two IMU boards (soldered a second one) and the hand are not all likely to fail. Next up: a thorough review of the PCB layouts to look for possible fuckery, such as bad fill zones.
+
+###230224
+Found an Adafruit replacement for the IMUs, MMA8451 breakout. 5V supply, interrupt output etc. Will bite the bullet and order two before I go home if I can't find the solution to the I2C problem.
+
+Beeped all pads on the hand and IMU boards, all clear. Found one difference between shoulder (functional) and hand: C22 on the hand is connected to pin 5 VDDIO on hand, but not on the shoulder. Hand is technically correct, but shoulder is functional, so... Ditto for C1 on the IMU. Removing C1 did not change anything.
+
+Tested with a new IMU on the IMU board, same result. Got one clue, however: when the breadboard unit's interrupts are left floating, it too becomes unable to respond. Unfortunately, setting the relevant GPIO pins high on the hand did not solve anythin. Got one clue, however: when the breadboard unit's interrupts are left floating, it too becomes unable to respond. Unfortunately, setting the relevant GPIO pins high on the hand did not solve anythingg. Looks like it's going to be Adafruit. Got screengrabs of the bad IMU board test and the successful breadboard test.
+
+Z axis of shoulder also seems to be dead, but not X axis. Might it actually be that this is not my fault, and I'm just dealing with a bad batch? I'll never know for sure. The shoulder Z axis would have been optimal, but X will work too!
+
+Motor drivers work as expected. Turns out the CCRs are unique to each channel, so the DT function currently always writes to CCR1, 2 and 3. Should probably be part of a motor driver struct in the real project.
+
+###240224
+Got CAN working. Should probably cite the youtube video? After watching the first video I simply switched to normal mode, and flashed torso and shoulder with corresponding sender IDs and filters. Now I'm even more certain that my trouble with CAN before Christmas was due to having ordered the wrong transciever.
+
+Will need to read RM0316 chapters 8 (Peripheral interconnect matrix), 13 (DMA), 15 (ADC), 30 (UART) and 31 (bxCAN) as research for the architechture. A key point will be to offload the CPUs as much as possible, in particular CAN/UART should as far as possible avoid the CPU. Unfortunately, UART5 is not compatible with "continuous communication using DMA". Figures!
+
+Discovered that the main connector on bogie is still wrong, most likely a 180 degree rotation around the Z axis. Other than that, all units seem to fit acceptably well. Measures will need to be taken to properly isolate the hand, such as filing down all solder points and taping conductive contact surfaces in the chassis.
+
+###260224
+Main connector was 180 degrees around the X axis, i.e. pins 1 and 11 switched places with 10 and 20, respectively. Bogie Mk1.2 changes: Edited bogie schematic by "flipping the symbol from top to bottom", and leaving everything else. Retraced PCB accordingly. Changed mount points from 3.5mm to 3.7mm. Updated silk of main connector to match new layout, version to 1.2. Now feel relatively confident that it will work.
+
+As the rail board was missing a fill zone, I figure I might as well reorder that too. Rail Mk1.2 changes: Updated version silk, fixed fill zones and some additional stitching.
+
+Decided to check Hand B as well, and it is faulted. Will need to debug that before ordering the next batch.
+
+###280224
+Didn't explicitly find the source of the Hand B fault, but footprint pins 1 and 2 of the optical switched were swapped. Fixed and sent Hand B, Rail and Bogie Mk1.2 to production. Also ordered full complement of parts from Mouser, don't want to spend the time trying to dismantle Mk1.1 for parts.
+
+###060324
+Bogie OK. Optical sensor works, but the MCU will always measure between OUT and GND, not Vcc and OUT as the design is made for. Solution: Put resistors between Vcc and OUT, and OUT and GND of equal size (or possibly slightly higher between OUT and GND). During normal operation, the output pin will measure 2.5V (or higher) which is sufficient for FT VIH (1.85V). When the sensor is triggered, the lower half will be shorted to ground, making the OUT voltage 0V. Configure interrupt for falling edge, and Bob's your uncle. Tested on breadboard, not irl. Soldered resistors on Hand B.
+
+The connection from torso to rail seems OK, except the rows on the silk of the rail card are switched horisontally as the signals reach the actual DSUB connector.
+
+Before properly getting to work, I will shorten the hand A/B connector, remove the IMU board wires, and fasten the torso power regs with silpads and nylon bolts.
+
+###070324
+Something wrong with the PWM generation, need to look up the counter period calculation stuff.
+
+###080324
+The counter period in the timer init is what actually decides the pwm fqc, CTR_PRD needs to mirror that. The higher the frequency, the lower the resolution -> Can probably survive a lower frequency than 25kHz to get more precise control than 1/2880th. This may be part of the motor characterisation and can be solved analytically, but experimentally 10kHz (7200) is also okay.
+
+Got a funny bug trying to use strcpy to parse input strings. My parser sets all indeces in a holding buffer to 0 upon registering an enter key press. In any other case, it increases the pointer to the holding buffer and then inserts the character. This makes the first entry of the buffer always 0, which strcpy (and sprintf) interprets as EOF. Solution: insert character, then increase pointer.
+
+Various bugs later, I have positioning over UART. Need to figure out how to safely translate full rotational range and count, i.e. overflow from the encoders. Important note: The encoder timers must be activated to function. Also, positive paadrag means the GoFWD should be called.
+
+Will probably need to get interrupts if multiple motors are to be controlled outside of the main loop.
+
+Forwards and backwards is not the same for all motors.
+
+Not registering input from the bogie encoder. Could be HW.
+
+###090324
+The encoder bug was indeed HW, the 5V pin on the torso connector was not properly soldered. Neither was one of the ground pins on the bogie, but I don't think that was related.
+
+CAN is not working. Open a new branch with a clean slate and follow the youtube video again.
