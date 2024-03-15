@@ -137,3 +137,18 @@ NOTE: restarted cubemx, the generated code. CAN did not break, so I assume this 
 Structure: my own \_driver files are in a separate folder. Modifying the Makefile between generation in cubeMx is safe. Also discovered a way to make default variables using structs and variable define statements, see can\_driver.c and can\_driver.h.
 
 Got more trouble as soon as I started to send data. Can't find the correct data type for IDE and RTR, which corrupts the whole frame apparently. Fair enough, wasn't really interested in them anyway. They're hardcoded to their default values of STD and DATA now. Instead, I added an argument for mailbox, which I might actually end up needing. Also added the shoulder back into the loop, works.
+
+###130324
+Set up a system of function pointers to call on string commands, but having trouble passing data into them. Will probably need use pointers.
+
+###140324
+Got a ways further on the string parsing system, but passing information between entities remains a problem. I thought I'd solved motor control by having a static struct writeable by functions in the motor driver header, but apparently even changes to that fall out of scope once the interrupt handler is done (haven't been able to confirm that entirely). Consider running an "update motor power" function in main while, with the function definition in the motor driver.
+
+###150324
+Having serious trouble understanding how to use static variables for motor control, i.e. where their scope ends. The solution seems to be to make the static variable in the .c file, and local functions to use it via pointer. Then, to provide an interface outside of the .c file, make interface functions which call the driver functions without passing the static variable directly.
+Ex:
+motor\_driver\_set\_power(&static\_var, power) is called by
+motor\_interface\_set\_power(power),
+where the latter SHOULD work from any file which includes the relevant .h file.
+
+All in the name of clean interfaces and memory protection. Additionally, I had a good time debugging the fact that writing to uart doesn't always work in main unless a delay of at least 20ms is inserted. Not sure why, but I suspect it's related to interrupt routines somehow.

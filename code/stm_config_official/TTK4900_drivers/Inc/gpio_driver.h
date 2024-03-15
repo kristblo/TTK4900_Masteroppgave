@@ -1,3 +1,5 @@
+#ifndef GPIO_DRIVER_H
+#define GPIO_DRIVER_H
 //External library includes
 #include "stdint.h"
 //CubeMX generated includes
@@ -9,3 +11,5 @@
 //------FILE BEGIN------
 void gpio_end_switch_handler();
 void gpio_twist_switch_handler();
+
+#endif //GPIO_DRIVER_H

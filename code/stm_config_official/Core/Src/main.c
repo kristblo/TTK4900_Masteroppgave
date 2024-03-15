@@ -35,6 +35,9 @@
 #include "can_driver.h"
 #include "gpio_driver.h"
 #include "uart_driver.h"
+#include "motor_driver.h"
+#include "string_cmd_parser.h"
+#include "test_unit.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -61,6 +64,7 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+
 
 /* USER CODE END PFP */
 
@@ -113,18 +117,76 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);//MTR2
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);//MTR2
   HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1);//MTR1
-  HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_2);//MTR1  
+  HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_2);//MTR1
+
+  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
+  HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
 
   HAL_CAN_Start(&hcan);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
+
+  ENC1->CNT = 0x7FFF;
+  ENC2->CNT = 0x7FFF;
+
+#if (HW_INTERFACE == UART_INTERFACE)  && (SW_INTERFACE == CMD_MODE_TERMINAL)
+  uart_hmi_init();
+#endif
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  //HAL_Delay(2000);
+  HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 1);
+  // motor_driver_controller_init(mtr1);
+  // motor_driver_controller_init(mtr2);
+
+  // int32_t mtr1Setpoint = 0;//motor_driver_get_setpoint(&mtr1);
+  // int32_t mtr2Setpoint = 0;//motor_driver_get_setpoint(&mtr2);
+  // int32_t mtr1Position = motor_driver_get_total(&mtr1);
+  // int32_t mtr2Position = motor_driver_get_total(&mtr2);
+  // int32_t mtr1Error = mtr1Setpoint - mtr1Position;
+  // int32_t mtr2Error = mtr2Setpoint - mtr2Position;
+
+  // motor_driver_init_motors(mtr3);
+
   while (1)
   {
-    /* USER CODE END WHILE */
+    motor_interface_update_power(1);
+    //HAL_Delay(20); //20ms fastest for driver update to work.
+    // motor_driver_set_setpoint(1, 36000);
+    // updategbvar();
+    // mtr1Setpoint = motor_driver_get_setpoint(&mtr1);
+    // mtr2Setpoint = motor_driver_get_setpoint(&mtr2);
+    // mtr1Position = (int32_t)motor_driver_get_encoder_cnt(&mtr1);
+    // mtr2Position = (int32_t)motor_driver_get_encoder_cnt(&mtr2);
+    // mtr1Error = mtr1Setpoint - mtr1Position;
+    // mtr2Error = mtr2Setpoint - mtr2Position;
 
+    // float mtr1Power = (float)(mtr1Error*0.05);
+    // float mtr2Power = (float)(mtr2Error*0.05);
+
+    // // char* debug[64];
+    // // sprintf(debug, "Error: %i\n\r", (int)mtr2Position);
+    // // uart_send_string(debug);
+
+    // if(mtr1Power > 0)
+    // {
+    //   motor_driver_set_power(&mtr1, 1, (float)abs(mtr1Power));
+    // }
+    // else if(mtr1Power <= 0)
+    // {
+    //   motor_driver_set_power(&mtr1, 0, (float)abs(mtr1Power));
+    // }
+    // if(mtr2Power > 0)
+    // {
+    //   motor_driver_set_power(&mtr2, 1, (float)abs(mtr2Power));
+    // }
+    // else if(mtr2Power <= 0)
+    // {
+    //   motor_driver_set_power(&mtr2, 0, (float)abs(mtr2Power));
+    // }
+    /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

@@ -4,8 +4,8 @@
 #endif
 
 void can_send_msg_base(uint8_t* data, 
-                        int dlc,
                         int stdId,
+                        int dlc,
                         uint8_t mailbox)
 {
   CAN_TxHeaderTypeDef txHeader;
@@ -37,8 +37,8 @@ void can_send_msg_wrp(can_send_msg_args* input)
   int mailbox_out = input->mailbox && input->mailbox < 3 ? input->mailbox : 0;
 
   can_send_msg_base(input->data,
-                    dlc_out,
                     CAN_TXID,
+                    dlc_out,
                     mailbox_out);
 }
 
