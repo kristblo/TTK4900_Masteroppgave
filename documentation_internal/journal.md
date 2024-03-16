@@ -163,3 +163,9 @@ module\_driver\_update\_thing(): Use a heuristic to automatically update the val
 module\_interface\_get\_thing(): Call the corresponding driver function. This function is avaiable outside the module, and is the intended way to interact with a module.
 
 That is: driver functions are for module internal usage and communicate directly with hardware. Interface functions are for external usage. Why? Want to minimise the use of global variables, but also need somewhere to store data. Module internal variables (such as the motor controller descriptor) should be static, which prevents their useage outside of their compilation module (data encapsulation). This necessitates a set of interface functions not directly using the static variables.
+
+Pinch polarity is opposite of everything else, gotta rewrite some stuff.
+
+Rail has a movement range of approximately 145000 encoder counts.
+Shoulder range approx 70000 counts.
+
