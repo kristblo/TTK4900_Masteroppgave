@@ -26,20 +26,22 @@ void string_cmd_processor_wrp(string_cmd_processor_args* input);
 void string_cmd_processor_base(char* inputString, uint8_t stringLength);
 #define string_cmd_processor(...) string_cmd_processor_wrp((string_cmd_processor_args*){__VA_ARGS__})
 
-void string_cmd_category_motor();
+void string_cmd_category_local_motor(uint8_t motor, char (*inputTokens)[64]);
+void string_cmd_category_remote_motor(uint8_t motor, char (*inputTokens)[64]);
 void string_cmd_category_adc();
 void string_cmd_category_accelerometer();
 void string_cmd_category_encoder();
 
 //List of valid commands to process
-#define NUM_STRING_COMMANDS 7
-void string_cmd_rail(char** inputTokens);
+#define NUM_STRING_COMMANDS 8
+void string_cmd_rail(char (*inputTokens)[64]);
 void string_cmd_shoulder(char (*inputTokens)[64]);
-void string_cmd_elbow(char** inputTokens);
-void string_cmd_wrist(char** inputTokens);
-void string_cmd_twist(char** inputTokens);
-void string_cmd_pinch(char** inputTokens);
-void string_cmd_can(char** inputTokens);
+void string_cmd_elbow(char (*inputTokens)[64]);
+void string_cmd_wrist(char (*inputTokens)[64]);
+void string_cmd_twist(char (*inputTokens)[64]);
+void string_cmd_pinch(char (*inputTokens)[64]);
+void string_cmd_can(char (*inputTokens)[64]);
+void string_cmd_stop(char (*inputTokens)[64]);
 typedef struct 
 {
   char* cmdString;
@@ -55,7 +57,8 @@ static string_cmd_pair stringCmdList[NUM_STRING_COMMANDS] =
   {"wrist", string_cmd_wrist},
   {"twist", string_cmd_twist},
   {"pinch", string_cmd_pinch},
-  {"can", string_cmd_can}
+  {"can", string_cmd_can},
+  {"S", string_cmd_stop}
   };
 
 #endif //STRING_CMD_PARSER_H

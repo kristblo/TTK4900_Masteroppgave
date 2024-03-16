@@ -152,3 +152,14 @@ motor\_interface\_set\_power(power),
 where the latter SHOULD work from any file which includes the relevant .h file.
 
 All in the name of clean interfaces and memory protection. Additionally, I had a good time debugging the fact that writing to uart doesn't always work in main unless a delay of at least 20ms is inserted. Not sure why, but I suspect it's related to interrupt routines somehow.
+
+Implemented encoder counter which doesn't entirely shit itself after just 16 bits. Interprets a difference in measurement of more than 1000 as a jump in the encoder register, which means it's entirely reliant on being able to measure this faster than every 2 rotations of the motor. Probably safe for low speeds, possibly entirely unsafe for higher.
+
+###160324
+Description of module function names:
+module\_driver\_get\_thing(): Return a value relevant to the module, effectively only useable inside the module if using static var.
+module\_driver\_set\_thing(thingVal): Set the same value, also only for internal useage.
+module\_driver\_update\_thing(): Use a heuristic to automatically update the value, may or may not make use of the setter function.
+module\_interface\_get\_thing(): Call the corresponding driver function. This function is avaiable outside the module, and is the intended way to interact with a module.
+
+That is: driver functions are for module internal usage and communicate directly with hardware. Interface functions are for external usage. Why? Want to minimise the use of global variables, but also need somewhere to store data. Module internal variables (such as the motor controller descriptor) should be static, which prevents their useage outside of their compilation module (data encapsulation). This necessitates a set of interface functions not directly using the static variables.

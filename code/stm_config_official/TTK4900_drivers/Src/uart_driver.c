@@ -22,6 +22,7 @@ void uart_parse_input(char* input,
 {
 
   uint8_t flag_cr = (input[0] == '\r') ? (uint8_t)1 : (uint8_t)0;
+  uint8_t flag_bs = (input[0] == '\b' || input[0] == 127) ? (uint8_t)1 : (uint8_t)0;
   if(flag_cr)
   {
     string_cmd_processor(buffer);
@@ -33,6 +34,11 @@ void uart_parse_input(char* input,
     }
     *bufferPos = 0;
     flag_cr = 0;
+  }
+  else if(flag_bs)
+  {
+    *bufferPos = (--(*bufferPos))%bufferLength;
+    buffer[*bufferPos] = (uint8_t)0;
   }
   else
   {

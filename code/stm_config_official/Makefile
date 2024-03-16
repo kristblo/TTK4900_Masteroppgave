@@ -51,7 +51,6 @@ TTK4900_drivers/Src/gpio_driver.c \
 TTK4900_drivers/Src/i2c_driver.c \
 TTK4900_drivers/Src/motor_driver.c \
 TTK4900_drivers/Src/string_cmd_parser.c \
-TTK4900_drivers/Src/test_unit.c \
 TTK4900_drivers/Src/uart_driver.c \
 TTK4900_drivers/Src/unit_config.c \
 USB_DEVICE/App/usb_device.c \

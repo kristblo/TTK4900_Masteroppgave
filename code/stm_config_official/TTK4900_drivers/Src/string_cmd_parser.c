@@ -32,12 +32,7 @@ void string_cmd_processor_base(char* inputString, uint8_t stringLength)
   }
 
   //Flush token array
-  // for(int i = 0; i < 64; i++){
-  //   for(int k = 0; i < 64; k++)
-  //   {
-  //     tokensToProcess[i][k] = '\0';
-  //   }
-  // }
+  memset(tokensToProcess, '\0', sizeof(tokensToProcess));
 
 }
 
@@ -49,11 +44,17 @@ void string_cmd_processor_wrp(string_cmd_processor_args* input)
   string_cmd_processor_base(string_out, stringLength_out);
 }
 
-void string_cmd_rail(char** inputTokens)
+void string_cmd_rail(char (*inputTokens)[64])
 {
 #if HW_INTERFACE == UART_INTERFACE
   uart_send_string("Got rail command\n\r");
 #endif
+
+#if ACTIVE_UNIT == TORSO
+  string_cmd_category_local_motor(0, inputTokens);
+#endif
+
+
 }
 
 void string_cmd_shoulder(char (*inputTokens)[64])
@@ -61,23 +62,72 @@ void string_cmd_shoulder(char (*inputTokens)[64])
 #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG
   uart_send_string("Got shoulder command\n\r");
 #endif
-  
-  float power = (float)atof(inputTokens[2]);
 
+#if ACTIVE_UNIT == TORSO
+  string_cmd_category_local_motor(1, inputTokens);
+#endif
+
+}
+
+void string_cmd_elbow(char (*inputTokens)[64])
+{
+#if HW_INTERFACE == UART_INTERFACE
+  uart_send_string("Got elbow command\n\r");
+#endif
+}
+
+void string_cmd_wrist(char (*inputTokens)[64])
+{
+#if HW_INTERFACE == UART_INTERFACE
+  uart_send_string("Got wrist command\n\r");
+#endif
+}
+void string_cmd_twist(char (*inputTokens)[64])
+{
+#if HW_INTERFACE == UART_INTERFACE
+  uart_send_string("Got twist command\n\r");
+#endif
+}
+void string_cmd_pinch(char (*inputTokens)[64])
+{
+#if HW_INTERFACE == UART_INTERFACE
+  uart_send_string("Got pinch command\n\r");
+#endif
+}
+void string_cmd_can(char (*inputTokens)[64])
+{
+#if HW_INTERFACE == UART_INTERFACE
+  uart_send_string("Got can command\n\r");
+#endif
+}
+void string_cmd_stop(char (*inputTokens)[64])
+{
+  //TODO: STOP non-local motors
+  motor_interface_set_power(0, 1, 0);
+  motor_interface_set_power(1, 1, 0);
+#if HW_INTERFACE == UART_INTERFACE
+  uart_send_string("Got STOP command\n\r");
+#endif
+}
+
+void string_cmd_category_local_motor(uint8_t motor, char (*inputTokens)[64])
+{
   if((int)strcmp(inputTokens[1], "fwd") == 0)
   {
-    //motor_driver_set_power(&mtr2, 1, power);
+    float power = (float)atof(inputTokens[2]);
+    motor_interface_set_power(motor, 1, power);
   }
   else if((int)strcmp(inputTokens[1], "bwd") == 0)
   {
-    //motor_driver_set_power(&mtr2, 0, power);
+    float power = (float)atof(inputTokens[2]);
+    motor_interface_set_power(motor, 0, power);
   }
   else if((int)strcmp(inputTokens[1], "stp") == 0)
   {
     int32_t setpoint = (int32_t)atoi(inputTokens[2]);
-    motor_interface_set_setpoint((uint8_t)1, setpoint);
+    motor_interface_set_setpoint(motor, setpoint);
 
-    int32_t setpointRb = motor_interface_get_setpoint((uint8_t)1);
+    int32_t setpointRb = motor_interface_get_setpoint(motor);
     char* debug[64];
     sprintf(debug, "SetpointRb: %i\n\r", setpointRb);
     uart_send_string(debug);
@@ -89,37 +139,8 @@ void string_cmd_shoulder(char (*inputTokens)[64])
     uart_send_string("ERROR no valid direction\n\r");
 #endif    
   }
+}
+void string_cmd_category_remote_motor(uint8_t motor, char (*inputTokens)[64])
+{
 
-}
-
-void string_cmd_elbow(char** inputTokens)
-{
-#if HW_INTERFACE == UART_INTERFACE
-  uart_send_string("Got elbow command\n\r");
-#endif
-}
-
-void string_cmd_wrist(char** inputTokens)
-{
-#if HW_INTERFACE == UART_INTERFACE
-  uart_send_string("Got wrist command\n\r");
-#endif
-}
-void string_cmd_twist(char** inputTokens)
-{
-#if HW_INTERFACE == UART_INTERFACE
-  uart_send_string("Got twist command\n\r");
-#endif
-}
-void string_cmd_pinch(char** inputTokens)
-{
-#if HW_INTERFACE == UART_INTERFACE
-  uart_send_string("Got pinch command\n\r");
-#endif
-}
-void string_cmd_can(char** inputTokens)
-{
-#if HW_INTERFACE == UART_INTERFACE
-  uart_send_string("Got can command\n\r");
-#endif
 }
