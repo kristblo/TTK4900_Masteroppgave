@@ -28,11 +28,11 @@ HAL_GPIO_EXTI_Callback(uint16_t GPIO_pin)
 void gpio_end_switch_handler()
 {
   char* data = "HELLO ES";
-  can_send_msg(data);
+  can_interface_send_msg(data);
 }
 
 void gpio_twist_switch_handler()
 {
   char* data = "HELLO TW";
-  can_send_msg(data);
+  can_interface_send_msg(data);
 }

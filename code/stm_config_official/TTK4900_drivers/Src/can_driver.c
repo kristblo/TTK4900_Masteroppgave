@@ -3,7 +3,7 @@
   #include "uart_driver.h"
 #endif
 
-void can_send_msg_base(uint8_t* data, 
+void can_driver_send_msg_base(uint8_t* data, 
                         int stdId,
                         int dlc,
                         uint8_t mailbox)
@@ -34,64 +34,30 @@ void can_send_msg_base(uint8_t* data,
 
 }
 
-void can_send_msg_wrp(can_send_msg_args* input)
+void can_driver_send_msg_wrp(can_send_msg_args* input)
 {
   int dlc_out = input->dlc ? input->dlc : 8;
   int stdId_out = input->stdId ? input->stdId : CAN_TXID;
   int mailbox_out = input->mailbox && input->mailbox < 3 ? input->mailbox : 0;
 
-  can_send_msg_base(input->data,
+  can_driver_send_msg_base(input->data,
                     CAN_TXID,
                     dlc_out,
                     mailbox_out);
 }
 
-void can_rx_handler(uint8_t* data)
+void can_driver_rx_handler(uint8_t* data)
 {
   uart_send_string("Got a CAN message\n\r");
 
   if(data[0] == 'M')
   {
-    uint8_t motorId = (data[1] & 0xF0) >> 4;
-    uint8_t command = data[1] & 0x0F;
-    int32_t argument;
-    memcpy(&argument, &data[2], 4);
-    uint8_t motorSelect = 255;
-
-#if ACTIVE_UNIT == SHOULDER
-    if(motorId == 2)
-    {
-      motorSelect = 1;
-    }
-    else if(motorId == 3)
-    {
-      motorSelect = 0;
-    }
-#else if ACTIVE_UNIT == HAND
-    if(motorId == 4)
-    {
-      motorSelect = 1;
-    }
-    else if(motorId == 5)
-    {
-      motorSelect = 0;
-    }
-#endif
-
-    if(command == 1)
-    {
-      motor_interface_set_power(motorSelect, 1, (double)argument);
-    }
-    else if(command == 2)
-    {
-      motor_interface_set_power(motorSelect, 0, (double)argument);
-    }
-    else if(command == 3)
-    {
-      motor_interface_set_setpoint(motorSelect, argument);
-    }
+    can_driver_rx_motor_cmd(data);
   }
+  else if(data[0] == 'A')
+  {
 
+  }
 
 #if GLOBAL_DEBUG
   // char* debugbuffer[128];
@@ -101,6 +67,54 @@ void can_rx_handler(uint8_t* data)
   //   uart_send_string(debugbuffer);
   // }
 #endif
+
+}
+
+void can_driver_rx_motor_cmd(uint8_t* data)
+{
+  uint8_t motorId = (data[1] & 0xF0) >> 4;
+  uint8_t command = data[1] & 0x0F;
+  int32_t argument;
+  memcpy(&argument, &data[2], 4);
+  uint8_t motorSelect = 255;
+
+#if ACTIVE_UNIT == SHOULDER
+  if(motorId == 2)
+  {
+    motorSelect = 1;
+  }
+  else if(motorId == 3)
+  {
+    motorSelect = 0;
+  }
+#else if ACTIVE_UNIT == HAND
+  if(motorId == 4)
+  {
+    motorSelect = 1;
+  }
+  else if(motorId == 5)
+  {
+    motorSelect = 0;
+  }
+#endif
+  //Opted not to make an fpointer array as motor interface cmds
+  //have varying number of args
+  if(command == 1)
+  {
+    motor_interface_set_power(motorSelect, 1, (double)argument);
+  }
+  else if(command == 2)
+  {
+    motor_interface_set_power(motorSelect, 0, (double)argument);
+  }
+  else if(command == 3)
+  {
+    motor_interface_set_setpoint(motorSelect, argument);
+  }
+
+}
+void can_driver_rx_accelerometer_cmd(uint8_t* data)
+{
 
 }
 
@@ -117,5 +131,5 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
   uart_send_string(debugbuffer);
 #endif
 
-  can_rx_handler(rxData);
+  can_driver_rx_handler(rxData);
 }

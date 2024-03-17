@@ -157,12 +157,6 @@ void string_cmd_category_local_motor(uint8_t motor, char (*inputTokens)[64])
   {
     int32_t setpoint = (int32_t)atoi(inputTokens[2]);
     motor_interface_set_setpoint(motor, setpoint);
-
-    int32_t setpointRb = motor_interface_get_setpoint(motor);
-    char* debug[64];
-    sprintf(debug, "SetpointRb: %i\n\r", setpointRb);
-    uart_send_string(debug);
-
   }
   else
   {  
@@ -188,7 +182,7 @@ void string_cmd_category_remote_motor(uint8_t motor, char (*inputTokens)[64])
     {
       data[i+2] = powerToBytes[i];
     }
-    can_send_msg(data);
+    can_interface_send_msg(data);
 
     // int32_t decoded_int;
     // memcpy(&decoded_int, &data[2], 4);
@@ -208,7 +202,7 @@ void string_cmd_category_remote_motor(uint8_t motor, char (*inputTokens)[64])
     {
       data[i+2] = powerToBytes[i];
     }
-    can_send_msg(data);
+    can_interface_send_msg(data);
     
   }
   else if((int)strcmp(inputTokens[1], "stp") == 0)
@@ -221,7 +215,7 @@ void string_cmd_category_remote_motor(uint8_t motor, char (*inputTokens)[64])
     {
       data[i+2] = setpointToBytes[i];
     }
-    can_send_msg(data);
+    can_interface_send_msg(data);
   }
   else
   {  
