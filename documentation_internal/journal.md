@@ -173,3 +173,9 @@ The CAN driver function names need to be rewritten to conform to the above namin
 
 ###170324
 Got CAN control working! Also fixed some of the function names. I think I should probably make the rx handler more slim, e.g. by storing data in one static uint8 array per type of command rather than parsing it in the interrupt handler directly. Could set a flag which is polled by the main function to look for new messages. However, the MCU runs at 72MHz, the CAN bus at 500kHz, and the UART at 115kHz. I ultimately don't think it'll be a problem that the interrupt handler takes too long, as long as any "real" computation happens in the main function. Besides, what is the point of the CAN FIFO if not to store unread messages?
+
+Next priority is to make an accelerometer driver. It absolutely has to accommodate the shoulder unit, and it should be adaptable for both I2C handles on both hand and shoulder. A set of CAN and string commands should let a motor be controlled such that the accelerometer reaches a certain G measurement.
+
+Thoughts on zero calibration, state estimation: Rail has the end switch, and I think the encoder counter is reliable enough that a range of 145000 clicks is always safe. Shoulder has accelerometer, all good. Twist has the optical sensor, and can probably rely on encoder. Pinch can be gently run until it stops in either end during a calibration phase, then rely on encoder, ditto for wrist after twist has been secured 90 deg on the joint. Elbow may be run until stop while elbow points straight up, but that is inelegant.
+
+As a last-ditch, desperate attempt at making the Adafruits work, I could try to make a voltage divider to get the 5V down to 3.3V, which I suppose is really the "logic level" of my STMs.
