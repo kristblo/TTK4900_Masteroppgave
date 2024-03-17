@@ -7,7 +7,7 @@
 
 //TTK4900 library includes
 #include "unit_config.h"
-
+#include "motor_driver.h"
 
 //------FILE BEGIN------
 

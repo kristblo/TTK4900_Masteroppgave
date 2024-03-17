@@ -21,6 +21,7 @@ typedef struct
   uint8_t motorId;
   uint8_t voltageLimit;
   uint8_t voltagePctCap;
+  int8_t motorPolarity;
   TIM_TypeDef* motorTimer;
   TIM_TypeDef* encoderTimer;
   uint16_t encoderInitCount;
@@ -68,6 +69,10 @@ int32_t motor_interface_get_total_count(uint8_t motorSelect);
 /// @return TIMx->CNT
 uint16_t motor_interface_get_encoder_count(uint8_t motorSelect);
 
+/// @brief 
+/// @param motorSelect 
+/// @return 
+uint8_t motor_interface_get_id(uint8_t motorSelect);
 
 /// @brief Lets the user set the motor power setting directly
 /// @param motorSelect 0 or 1 for motor0 or motor1 respectively
@@ -80,7 +85,6 @@ void motor_interface_set_power(uint8_t motorSelect, uint8_t direction, double po
 /// @param motorSelect 0 or 1 for motor0 or motor1 respectively
 /// @param setpoint int32_t
 void motor_interface_set_setpoint(uint8_t motorSelect, int32_t setpoint);
-
 
 
 //-----Driver functions (private)-----
@@ -119,6 +123,11 @@ int32_t motor_driver_get_total_cnt(motor_control_descriptor* motor);
 uint16_t motor_driver_get_encoder_cnt(motor_control_descriptor* motor);
 
 
+/// @brief 
+/// @param motorSelect 
+/// @return 
+uint8_t motor_driver_get_id(motor_control_descriptor* motor);
+
 /// @brief Set the power of a motor, limited by the motor's safety cap
 /// @param motor Pointer to the relevant motor struct, motor0 or motor1
 /// @param direction 0 or 1 for forwards or backwards, respectively
@@ -146,13 +155,13 @@ void motor_driver_calc_safe_vlt(motor_control_descriptor* motor);
 /// @brief Forward is the direction of increasing encoder count
 /// @param pct Percentage of input voltage
 /// @param mtr Pointer to timer
-void motor_driver_go_forward(double pct, TIM_TypeDef* mtr);
+void motor_driver_go_forward(double pct, TIM_TypeDef* mtr, int8_t polarity);
 
 
 /// @brief Backward is the direction of decreasing encoder count
 /// @param pct Percentage of input voltage
 /// @param mtr Pointer to timer
-void motor_driver_go_backward(double pct, TIM_TypeDef* mtr);
+void motor_driver_go_backward(double pct, TIM_TypeDef* mtr, int8_t polarity);
 
 
 #endif //MOTOR_DRIVER_H

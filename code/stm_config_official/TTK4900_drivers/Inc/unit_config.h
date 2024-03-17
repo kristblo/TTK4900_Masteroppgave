@@ -46,7 +46,7 @@
 #elif ACTIVE_UNIT == HAND
   #define CAN_TXID 0x10C //CAN transmit ID
   #define CAN_FILTER_IDH 0x10A //CAN message filtering
-  #define MTR_POL 1 //Motor polarity, i.e. whether "forward" increases or decreases encoder count
+  #define MTR_POL -1 //Motor polarity, i.e. whether "forward" increases or decreases encoder count
   #define UART_INPUT 1 //Include UART input parsing in build
 #else
   #error NO VALID CONTROL UNIT SELECTED

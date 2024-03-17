@@ -7,6 +7,7 @@ static motor_control_descriptor motor0 =
     .motorId = 0,
     .voltageLimit = 35,
     .voltagePctCap = 30,
+    .motorPolarity = -1,
     .motorTimer = TIM15,
     .encoderTimer = TIM3,
     .encoderInitCount = 0,
@@ -21,14 +22,79 @@ static motor_control_descriptor motor1 =
     .motorId = 1,
     .voltageLimit = 50,
     .voltagePctCap = 20,
+    .motorPolarity = -1,
     .motorTimer = TIM1,
     .encoderTimer = TIM8,
-    .encoderInitCount = 0x7FFF,
-    .encoderTotalInit = 0x7FFF,
-    .encoderTotalSetpoint = 0x7FFF,
+    .encoderInitCount = 0,
+    .encoderTotalInit = 0,
+    .encoderTotalSetpoint = 0,
     .encoderTotalCount = 0,
     .encoderPreviousCount = 0,
     .motorName = "shoulder"
+  };
+#endif
+#if ACTIVE_UNIT == SHOULDER
+static motor_control_descriptor motor0 =
+  {
+    .motorId = 3,
+    .voltageLimit = 20,
+    .voltagePctCap = 20,
+    .motorPolarity = 1,
+    .motorTimer = TIM15,
+    .encoderTimer = TIM3,
+    .encoderInitCount = 0,
+    .encoderTotalInit = 0,
+    .encoderTotalSetpoint = 0,
+    .encoderTotalCount = 0,
+    .encoderPreviousCount = 0,
+    .motorName = "wrist"
+  };
+static motor_control_descriptor motor1 =
+  {
+    .motorId = 2,
+    .voltageLimit = 20,
+    .voltagePctCap = 20,
+    .motorPolarity = 1,
+    .motorTimer = TIM1,
+    .encoderTimer = TIM8,
+    .encoderInitCount = 0,
+    .encoderTotalInit = 0,
+    .encoderTotalSetpoint = 0,
+    .encoderTotalCount = 0,
+    .encoderPreviousCount = 0,
+    .motorName = "elbow"
+  };
+#endif
+#if ACTIVE_UNIT == HAND
+static motor_control_descriptor motor0 =
+  {
+    .motorId = 5,
+    .voltageLimit = 12,
+    .voltagePctCap = 20,
+    .motorPolarity = 1,
+    .motorTimer = TIM15,
+    .encoderTimer = TIM3,
+    .encoderInitCount = 0,
+    .encoderTotalInit = 0,
+    .encoderTotalSetpoint = 0,
+    .encoderTotalCount = 0,
+    .encoderPreviousCount = 0,
+    .motorName = "pinch"
+  };
+static motor_control_descriptor motor1 =
+  {
+    .motorId = 4,
+    .voltageLimit = 12,
+    .voltagePctCap = 20,
+    .motorPolarity = -1,
+    .motorTimer = TIM1,
+    .encoderTimer = TIM8,
+    .encoderInitCount = 0,
+    .encoderTotalInit = 0,
+    .encoderTotalSetpoint = 0,
+    .encoderTotalCount = 0,
+    .encoderPreviousCount = 0,
+    .motorName = "twist"
   };
 #endif
 
@@ -155,6 +221,18 @@ uint16_t motor_interface_get_encoder_count(uint8_t motorSelect)
   }
 }
 
+uint8_t motor_interface_get_id(uint8_t motorSelect)
+{
+  if(motorSelect == 0)
+  {
+    return motor_driver_get_id(&motor0);
+  }
+  else if(motorSelect == 1)
+  {
+    return motor_driver_get_id(&motor1);
+  }
+}
+
 
 void motor_driver_update_power(motor_control_descriptor* motor)
 {
@@ -177,11 +255,11 @@ void motor_driver_set_power(motor_control_descriptor* motor, uint8_t direction, 
   double mPower = power > (double)(motor->voltagePctCap) ? (double)(motor1.voltagePctCap) : power;
   if(direction)
   {
-    motor_driver_go_forward(mPower, motor->motorTimer);
+    motor_driver_go_forward(mPower, motor->motorTimer, motor->motorPolarity);
   }
   else
   {
-    motor_driver_go_backward(mPower, motor->motorTimer);
+    motor_driver_go_backward(mPower, motor->motorTimer, motor->motorPolarity);
   }    
 
 }
@@ -210,6 +288,11 @@ int32_t motor_driver_get_total_cnt(motor_control_descriptor* motor)
 uint16_t motor_driver_get_encoder_cnt(motor_control_descriptor* motor)
 {
   return (motor->encoderTimer)->CNT;
+}
+
+uint8_t motor_driver_get_id(motor_control_descriptor* motor)
+{
+  return motor->motorId;
 }
 
 void motor_driver_controller_init(motor_control_descriptor* motor)
@@ -242,63 +325,67 @@ void motor_driver_update_tot_cnt(motor_control_descriptor* motor)
 
 }
 
-void motor_driver_go_forward(double pct, TIM_TypeDef* mtr)
+void motor_driver_go_forward(double pct, TIM_TypeDef* mtr, int8_t polarity)
 {
   // char* debugbuf[200];
-  // sprintf(debugbuf, "double: %i\n\r", (int)pct);
+  // sprintf(debugbuf, "double: %i\n\r", (int)polarity);
   // uart_send_string(debugbuf);
-#if MTR_POL == 1
-  if(mtr == MTR1)
+  if(polarity == 1)
   {
-    motor_driver_set_pwm_dc(&(mtr->CCR1), 100);
-    motor_driver_set_pwm_dc(&(mtr->CCR2), 100-pct);
+    if(mtr == MTR1)
+    {
+      motor_driver_set_pwm_dc(&(mtr->CCR1), 100);
+      motor_driver_set_pwm_dc(&(mtr->CCR2), 100-pct);
+    }
+    else if(mtr == MTR2)
+    {
+      motor_driver_set_pwm_dc(&(mtr->CCR3), 100);
+      motor_driver_set_pwm_dc(&(mtr->CCR2), 100-pct);
+    }
   }
-  else if(mtr == MTR2)
+  else if(polarity == -1)
   {
-    motor_driver_set_pwm_dc(&(mtr->CCR3), 100);
-    motor_driver_set_pwm_dc(&(mtr->CCR2), 100-pct);
+    if(mtr == MTR1)
+    {
+      motor_driver_set_pwm_dc(&(mtr->CCR1), 100-pct);
+      motor_driver_set_pwm_dc(&(mtr->CCR2), 100);
+    }
+    else if(mtr == MTR2)
+    {
+      motor_driver_set_pwm_dc(&(mtr->CCR3), 100-pct);
+      motor_driver_set_pwm_dc(&(mtr->CCR2), 100);
+    }
   }
-
-#elif MTR_POL == -1
-  if(mtr == MTR1)
-  {
-    motor_driver_set_pwm_dc(&(mtr->CCR1), 100-pct);
-    motor_driver_set_pwm_dc(&(mtr->CCR2), 100);
-  }
-  else if(mtr == MTR2)
-  {
-    motor_driver_set_pwm_dc(&(mtr->CCR3), 100-pct);
-    motor_driver_set_pwm_dc(&(mtr->CCR2), 100);
-  }
-#endif
 }
 
-void motor_driver_go_backward(double pct, TIM_TypeDef* mtr)
+void motor_driver_go_backward(double pct, TIM_TypeDef* mtr, int8_t polarity)
 {
-#if MTR_POL == 1
-  if(mtr == MTR1)
+  if(polarity == 1)
   {
-    motor_driver_set_pwm_dc(&(mtr->CCR1), 100-pct);
-    motor_driver_set_pwm_dc(&(mtr->CCR2), 100);
+    if(mtr == MTR1)
+    {
+      motor_driver_set_pwm_dc(&(mtr->CCR1), 100-pct);
+      motor_driver_set_pwm_dc(&(mtr->CCR2), 100);
+    }
+    else if(mtr == MTR2)
+    {
+      motor_driver_set_pwm_dc(&(mtr->CCR3), 100-pct);
+      motor_driver_set_pwm_dc(&(mtr->CCR2), 100);
+    }
   }
-  else if(mtr == MTR2)
+  else if (polarity == -1)
   {
-    motor_driver_set_pwm_dc(&(mtr->CCR3), 100-pct);
-    motor_driver_set_pwm_dc(&(mtr->CCR2), 100);
+    if(mtr == MTR1)
+    {
+      motor_driver_set_pwm_dc(&(mtr->CCR1), 100);
+      motor_driver_set_pwm_dc(&(mtr->CCR2), 100-pct);
+    }
+    else if(mtr == MTR2)
+    {
+      motor_driver_set_pwm_dc(&(mtr->CCR3), 100);
+      motor_driver_set_pwm_dc(&(mtr->CCR2), 100-pct);
+    }    
   }
-#elif MTR_POL == -1
-  if(mtr == MTR1)
-  {
-    motor_driver_set_pwm_dc(&(mtr->CCR1), 100);
-    motor_driver_set_pwm_dc(&(mtr->CCR2), 100-pct);
-  }
-  else if(mtr == MTR2)
-  {
-    motor_driver_set_pwm_dc(&(mtr->CCR3), 100);
-    motor_driver_set_pwm_dc(&(mtr->CCR2), 100-pct);
-  }
-
-#endif
 }
 
 //Calculates the highest acceptable voltage input

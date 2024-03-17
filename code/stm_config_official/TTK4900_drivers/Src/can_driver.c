@@ -23,9 +23,13 @@ void can_send_msg_base(uint8_t* data,
     uart_send_string("CAN TX not successful");
   }
 #if GLOBAL_DEBUG
-  char* debugbuffer[128];
-  sprintf(debugbuffer, "DLC: %u\n\r TXData: %s\n\r",txHeader.DLC, data);
-  uart_send_string(debugbuffer);
+  //char* debugbuffer[128];
+  //sprintf(debugbuffer, "DLC: %u\n\r TXData: %s\n\r",txHeader.DLC, data);
+  // for(int i = 0; i < txHeader.DLC; i++)
+  // {
+  //   sprintf(debugbuffer, "TXdata %i: %X\n\r", i, data[i]);
+  //   uart_send_string(debugbuffer);
+  // }
 #endif
 
 }
@@ -46,12 +50,57 @@ void can_rx_handler(uint8_t* data)
 {
   uart_send_string("Got a CAN message\n\r");
 
-#if GLOBAL_DEBUG
-  char* debugbuffer[128];
-  sprintf(debugbuffer, "Data survives rx handler: %s\n\r", data);
-  uart_send_string(debugbuffer);
+  if(data[0] == 'M')
+  {
+    uint8_t motorId = (data[1] & 0xF0) >> 4;
+    uint8_t command = data[1] & 0x0F;
+    int32_t argument;
+    memcpy(&argument, &data[2], 4);
+    uint8_t motorSelect = 255;
+
+#if ACTIVE_UNIT == SHOULDER
+    if(motorId == 2)
+    {
+      motorSelect = 1;
+    }
+    else if(motorId == 3)
+    {
+      motorSelect = 0;
+    }
+#else if ACTIVE_UNIT == HAND
+    if(motorId == 4)
+    {
+      motorSelect = 1;
+    }
+    else if(motorId == 5)
+    {
+      motorSelect = 0;
+    }
 #endif
 
+    if(command == 1)
+    {
+      motor_interface_set_power(motorSelect, 1, (double)argument);
+    }
+    else if(command == 2)
+    {
+      motor_interface_set_power(motorSelect, 0, (double)argument);
+    }
+    else if(command == 3)
+    {
+      motor_interface_set_setpoint(motorSelect, argument);
+    }
+  }
+
+
+#if GLOBAL_DEBUG
+  // char* debugbuffer[128];
+  // for(int i = 0; i < 8; i++)
+  // {
+  //   sprintf(debugbuffer, "Data rx %i: %X\n\r", i, data[i]);
+  //   uart_send_string(debugbuffer);
+  // }
+#endif
 
 }
 

@@ -169,3 +169,7 @@ Pinch polarity is opposite of everything else, gotta rewrite some stuff.
 Rail has a movement range of approximately 145000 encoder counts.
 Shoulder range approx 70000 counts.
 
+The CAN driver function names need to be rewritten to conform to the above naming scheme. Started writing the CAN rx handler, and there needs to be multiple message handlers, possibly make another set of function pointers. Immediately, having the unique motor ids internal to the structs and thus changing with each build seems cumbersome. Arguably rewrite the current to do an ACTIVE UNIT check and select manually, as the number of motors is not subject to change. Encoding string input to the can messsages is not difficult, however.
+
+###170324
+Got CAN control working!
