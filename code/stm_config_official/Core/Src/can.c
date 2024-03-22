@@ -59,9 +59,22 @@ void MX_CAN_Init(void)
   canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
   canfilterconfig.FilterBank = 10;
   canfilterconfig.FilterFIFOAssignment = CAN_RX_FIFO0;
-  canfilterconfig.FilterIdHigh = CAN_FILTER_IDH<<5;//0x106 << 5;
+  canfilterconfig.FilterIdHigh = CAN_FILTER_M<<5;//0x106 << 5;
   canfilterconfig.FilterIdLow = 0x0000;
-  canfilterconfig.FilterMaskIdHigh = CAN_FILTER_IDH<< 5;//0x106 << 5; //0s are DC when incoming IDs are compared
+  canfilterconfig.FilterMaskIdHigh = CAN_FILTERMASK_M<< 5;//0x106 << 5; //0s are DC when incoming IDs are compared
+  canfilterconfig.FilterMaskIdLow = 0x0000;
+  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
+  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
+  canfilterconfig.SlaveStartFilterBank = 0;
+
+  HAL_CAN_ConfigFilter(&hcan, &canfilterconfig);
+
+  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
+  canfilterconfig.FilterBank = 11;
+  canfilterconfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+  canfilterconfig.FilterIdHigh = CAN_FILTER_A<<5;//0x106 << 5;
+  canfilterconfig.FilterIdLow = 0x0000;
+  canfilterconfig.FilterMaskIdHigh = CAN_FILTERMASK_A<< 5;//0x106 << 5; //0s are DC when incoming IDs are compared
   canfilterconfig.FilterMaskIdLow = 0x0000;
   canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
   canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
@@ -100,8 +113,6 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     /* CAN interrupt Init */
     HAL_NVIC_SetPriority(USB_LP_CAN_RX0_IRQn, 0, 0);
     HAL_NVIC_EnableIRQ(USB_LP_CAN_RX0_IRQn);
-    HAL_NVIC_SetPriority(CAN_RX1_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(CAN_RX1_IRQn);
   /* USER CODE BEGIN CAN_MspInit 1 */
 
   /* USER CODE END CAN_MspInit 1 */
@@ -134,7 +145,6 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
     /* HAL_NVIC_DisableIRQ(USB_LP_CAN_RX0_IRQn); */
   /* USER CODE END CAN:USB_LP_CAN_RX0_IRQn disable */
 
-    HAL_NVIC_DisableIRQ(CAN_RX1_IRQn);
   /* USER CODE BEGIN CAN_MspDeInit 1 */
 
   /* USER CODE END CAN_MspDeInit 1 */

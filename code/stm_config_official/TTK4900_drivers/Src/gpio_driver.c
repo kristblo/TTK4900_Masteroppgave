@@ -27,12 +27,17 @@ HAL_GPIO_EXTI_Callback(uint16_t GPIO_pin)
 
 void gpio_end_switch_handler()
 {
-  char* data = "HELLO ES";
-  can_interface_send_msg(data);
+  //char* data = "HELLO ES";
+  
+  //Equivalent of "twist stp e -15000"
+  uint8_t data[8] = {0x65, 0x68, 0xC5, 0xFF, 0xFF, 0,0,0};
+  uint8_t id = 0xA5;
+  can_interface_queue_tx(MOTOR_POS_SP, data, id);
+  
 }
 
 void gpio_twist_switch_handler()
 {
   char* data = "HELLO TW";
-  can_interface_send_msg(data);
+  //can_interface_send_msg(data);
 }

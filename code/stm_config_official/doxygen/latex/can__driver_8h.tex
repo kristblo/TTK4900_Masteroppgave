@@ -1,0 +1,526 @@
+\hypertarget{can__driver_8h}{}\doxysection{can\+\_\+driver.\+h File Reference}
+\label{can__driver_8h}\index{can\_driver.h@{can\_driver.h}}
+{\ttfamily \#include \char`\"{}stdint.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}can.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}unit\+\_\+config.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}motor\+\_\+driver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}accelerometer\+\_\+driver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}shoulder\+\_\+controller.\+h\char`\"{}}\newline
+Include dependency graph for can\+\_\+driver.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{can__driver_8h_a3c66e588a1b9793a4c9625ccb4e0a90d}{CAN\+\_\+\+MOTOR\+\_\+\+CMD\+\_\+\+OFFSET}}~5
+\item 
+\#define \mbox{\hyperlink{can__driver_8h_ab83d3977ef5c7e8cee9b25988f65e47d}{CAN\+\_\+\+ACC\+\_\+\+CMD\+\_\+\+OFFSET}}~8
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8d}{can\+\_\+message\+\_\+types}} \{ \newline
+\mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da0c85e26e115711e72e4fa1d06d845c59}{ACC\+\_\+\+X\+\_\+\+RX}}
+, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da4f5d4cee67922e4726958b5738d39d7f}{ACC\+\_\+\+Y\+\_\+\+RX}}
+, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da304e84108400ee25508bff8d293435eb}{ACC\+\_\+\+Z\+\_\+\+RX}}
+, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8daf56c7d6db7238bf44ef0913eb1dbd4f1}{ACC\+\_\+\+REG\+\_\+\+RX}}
+, \newline
+\mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dabd452b2633df9b3b134801ab6f542377}{ACC\+\_\+\+REG\+\_\+\+REQ}}
+, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da74071e28da5aaa12249c95c29465cb72}{MOTOR\+\_\+\+POS\+\_\+\+SP}}
+, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dafce3600594040c413c9808f7eaf13d95}{MOTOR\+\_\+\+VLT\+\_\+\+SP}}
+, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dac9160f66632b4a368c376ab07399be1b}{MOTOR\+\_\+\+POS\+\_\+\+REQ}}
+, \newline
+\mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da0149f02b22a536d0f659ab008f8652f3}{MOTOR\+\_\+\+POS\+\_\+\+RX}}
+, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da2e38ded379aa03be65fd88e7bdeee84f}{num\+\_\+types}}
+ \}
+\begin{DoxyCompactList}\small\item\em CAN message types, also dictate CAN priority. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{can__driver_8h_ac94b647e3aab5df2e4f27abc0b64c648}{can\+\_\+interface\+\_\+queue\+\_\+tx}} (uint8\+\_\+t mailbox, uint8\+\_\+t $\ast$out\+Data, uint32\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Queues a CAN message for transmit, for external use. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a4becd73c8a8e895c54495a029b7ca729}{can\+\_\+rx\+\_\+executive}} ()
+\begin{DoxyCompactList}\small\item\em Looks for new incoming CAN messages and handles them. MAIN LOOP ONLY. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_ad9b9d2c463b2afda53181c5c26c6a9df}{can\+\_\+tx\+\_\+executive}} ()
+\begin{DoxyCompactList}\small\item\em Looks for new CAN messages to send, sends. MAIN LOOP ONLY. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a33de2e4a3ebfa23ee5bf3e2336ff6f52}{can\+\_\+mailbox\+\_\+set\+\_\+data}} (\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$mailbox, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em Sets the data field of the given mailbox. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a0a2f0ff77529c01f1dc55441c0269a8e}{can\+\_\+mailbox\+\_\+get\+\_\+data}} (\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$mailbox, uint8\+\_\+t $\ast$target)
+\begin{DoxyCompactList}\small\item\em Inserts the data field of the given mailbox to target. CAUTION\+: memcpy 8 bytes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_aa09da09334de5b49c95b506c7e03f846}{can\+\_\+mailbox\+\_\+set\+\_\+flag}} (\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$mailbox)
+\begin{DoxyCompactList}\small\item\em Sets the newmsg flag of the given mailbox. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{can__driver_8h_aff6884a8ca6bfd78484dc21c15ab6995}{can\+\_\+mailbox\+\_\+get\+\_\+flag}} (\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$mailbox)
+\begin{DoxyCompactList}\small\item\em Gets the newmsg flag of the given mailbox. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_aadb3bece8f51a8e655abbecfad9c2d23}{can\+\_\+mailbox\+\_\+clear\+\_\+flag}} (\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$mailbox)
+\begin{DoxyCompactList}\small\item\em Clears the newmsg flag of the given mailbox. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a5b3793cd100f85db71cb3af3d9ae1a5d}{can\+\_\+mailbox\+\_\+set\+\_\+id}} (\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$mailbox, uint32\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Sets the CAN message ID field of the given mailbox. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{can__driver_8h_a22d9228c327ae00e284094fef1ff84b6}{can\+\_\+mailbox\+\_\+get\+\_\+id}} (\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$mailbox)
+\begin{DoxyCompactList}\small\item\em Gets the CAN message ID of the given mailbox. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a70388e5ce428cab82181bda2c1a58e7b}{can\+\_\+driver\+\_\+queue\+\_\+tx}} (\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$mailbox, uint8\+\_\+t $\ast$out\+Data, uint32\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Queues a can message for transmit, driver internal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a98cce463816efe33b5a4a6ce04ace7cb}{can\+\_\+driver\+\_\+send\+\_\+msg}} (uint8\+\_\+t $\ast$data, uint32\+\_\+t std\+Id, int dlc, uint8\+\_\+t hw\+Mailbox)
+\begin{DoxyCompactList}\small\item\em Sends a CAN message, is called by can\+\_\+interface\+\_\+send\+\_\+msg. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a6b8a9cc15b74dbe789df2644af40fbff}{can\+\_\+driver\+\_\+rx\+\_\+accelerometer\+\_\+cmd}} (uint8\+\_\+t $\ast$data)
+\begin{DoxyCompactList}\small\item\em CAN accelerometer message handler. DEPRECATED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a1ed4cd3f7e72fbd483111f7bb2f7b767}{can\+\_\+driver\+\_\+cmd\+\_\+rx0}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+RX \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a99847543494d07d858bc1d390eae77c4}{can\+\_\+driver\+\_\+cmd\+\_\+rx1}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Y\+\_\+\+RX \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_acf19bd7182c481172c37045b6b66a6cc}{can\+\_\+driver\+\_\+cmd\+\_\+rx2}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Z\+\_\+\+RX \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a85cca83e9e2b92b1dd645388a54cb324}{can\+\_\+driver\+\_\+cmd\+\_\+rx3}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+REG\+\_\+\+RX \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a6d6a3621f32af397fee5a3b9a9c54ccf}{can\+\_\+driver\+\_\+cmd\+\_\+rx4}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+REG\+\_\+\+REQ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a60bfd6dacec0e0cbb1ce36705dcda271}{can\+\_\+driver\+\_\+cmd\+\_\+rx5}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type MOTOR\+\_\+\+POS\+\_\+\+SP \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_aea4a62a0fc8bebbcf12527544ab0c693}{can\+\_\+driver\+\_\+cmd\+\_\+rx6}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type MOTOR\+\_\+\+VLT\+\_\+\+SP \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a0ab94d767f5ccdecb109b7d6f2168a23}{can\+\_\+driver\+\_\+cmd\+\_\+rx7}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+RX \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_ab0960419cdb98a93a4cf28a47b744fe4}{can\+\_\+driver\+\_\+cmd\+\_\+rx8}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type MOTOR\+\_\+\+POS\+\_\+\+RX \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{can__driver_8h_ab83d3977ef5c7e8cee9b25988f65e47d}\label{can__driver_8h_ab83d3977ef5c7e8cee9b25988f65e47d}} 
+\index{can\_driver.h@{can\_driver.h}!CAN\_ACC\_CMD\_OFFSET@{CAN\_ACC\_CMD\_OFFSET}}
+\index{CAN\_ACC\_CMD\_OFFSET@{CAN\_ACC\_CMD\_OFFSET}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CAN\_ACC\_CMD\_OFFSET}{CAN\_ACC\_CMD\_OFFSET}}
+{\footnotesize\ttfamily \#define CAN\+\_\+\+ACC\+\_\+\+CMD\+\_\+\+OFFSET~8}
+
+\mbox{\Hypertarget{can__driver_8h_a3c66e588a1b9793a4c9625ccb4e0a90d}\label{can__driver_8h_a3c66e588a1b9793a4c9625ccb4e0a90d}} 
+\index{can\_driver.h@{can\_driver.h}!CAN\_MOTOR\_CMD\_OFFSET@{CAN\_MOTOR\_CMD\_OFFSET}}
+\index{CAN\_MOTOR\_CMD\_OFFSET@{CAN\_MOTOR\_CMD\_OFFSET}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CAN\_MOTOR\_CMD\_OFFSET}{CAN\_MOTOR\_CMD\_OFFSET}}
+{\footnotesize\ttfamily \#define CAN\+\_\+\+MOTOR\+\_\+\+CMD\+\_\+\+OFFSET~5}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8d}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8d}} 
+\index{can\_driver.h@{can\_driver.h}!can\_message\_types@{can\_message\_types}}
+\index{can\_message\_types@{can\_message\_types}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_message\_types}{can\_message\_types}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8d}{can\+\_\+message\+\_\+types}}}
+
+
+
+CAN message types, also dictate CAN priority. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_X\_RX@{ACC\_X\_RX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_X\_RX@{ACC\_X\_RX}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da0c85e26e115711e72e4fa1d06d845c59}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da0c85e26e115711e72e4fa1d06d845c59}} 
+ACC\+\_\+\+X\+\_\+\+RX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_Y\_RX@{ACC\_Y\_RX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_Y\_RX@{ACC\_Y\_RX}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da4f5d4cee67922e4726958b5738d39d7f}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da4f5d4cee67922e4726958b5738d39d7f}} 
+ACC\+\_\+\+Y\+\_\+\+RX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_Z\_RX@{ACC\_Z\_RX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_Z\_RX@{ACC\_Z\_RX}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da304e84108400ee25508bff8d293435eb}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da304e84108400ee25508bff8d293435eb}} 
+ACC\+\_\+\+Z\+\_\+\+RX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_REG\_RX@{ACC\_REG\_RX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_REG\_RX@{ACC\_REG\_RX}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8daf56c7d6db7238bf44ef0913eb1dbd4f1}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8daf56c7d6db7238bf44ef0913eb1dbd4f1}} 
+ACC\+\_\+\+REG\+\_\+\+RX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_REG\_REQ@{ACC\_REG\_REQ}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_REG\_REQ@{ACC\_REG\_REQ}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dabd452b2633df9b3b134801ab6f542377}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dabd452b2633df9b3b134801ab6f542377}} 
+ACC\+\_\+\+REG\+\_\+\+REQ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_POS\_SP@{MOTOR\_POS\_SP}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!MOTOR\_POS\_SP@{MOTOR\_POS\_SP}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da74071e28da5aaa12249c95c29465cb72}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da74071e28da5aaa12249c95c29465cb72}} 
+MOTOR\+\_\+\+POS\+\_\+\+SP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_VLT\_SP@{MOTOR\_VLT\_SP}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!MOTOR\_VLT\_SP@{MOTOR\_VLT\_SP}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dafce3600594040c413c9808f7eaf13d95}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dafce3600594040c413c9808f7eaf13d95}} 
+MOTOR\+\_\+\+VLT\+\_\+\+SP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_POS\_REQ@{MOTOR\_POS\_REQ}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!MOTOR\_POS\_REQ@{MOTOR\_POS\_REQ}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dac9160f66632b4a368c376ab07399be1b}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dac9160f66632b4a368c376ab07399be1b}} 
+MOTOR\+\_\+\+POS\+\_\+\+REQ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_POS\_RX@{MOTOR\_POS\_RX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!MOTOR\_POS\_RX@{MOTOR\_POS\_RX}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da0149f02b22a536d0f659ab008f8652f3}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da0149f02b22a536d0f659ab008f8652f3}} 
+MOTOR\+\_\+\+POS\+\_\+\+RX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{num\_types@{num\_types}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!num\_types@{num\_types}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da2e38ded379aa03be65fd88e7bdeee84f}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da2e38ded379aa03be65fd88e7bdeee84f}} 
+num\+\_\+types&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{can__driver_8h_a1ed4cd3f7e72fbd483111f7bb2f7b767}\label{can__driver_8h_a1ed4cd3f7e72fbd483111f7bb2f7b767}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rx0@{can\_driver\_cmd\_rx0}}
+\index{can\_driver\_cmd\_rx0@{can\_driver\_cmd\_rx0}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_cmd\_rx0()}{can\_driver\_cmd\_rx0()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+cmd\+\_\+rx0 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+RX 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & CAN message ID \\
+\hline
+{\em in\+Data} & CAN message data field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a99847543494d07d858bc1d390eae77c4}\label{can__driver_8h_a99847543494d07d858bc1d390eae77c4}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rx1@{can\_driver\_cmd\_rx1}}
+\index{can\_driver\_cmd\_rx1@{can\_driver\_cmd\_rx1}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_cmd\_rx1()}{can\_driver\_cmd\_rx1()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+cmd\+\_\+rx1 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Y\+\_\+\+RX 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & CAN message ID \\
+\hline
+{\em in\+Data} & CAN message data field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_acf19bd7182c481172c37045b6b66a6cc}\label{can__driver_8h_acf19bd7182c481172c37045b6b66a6cc}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rx2@{can\_driver\_cmd\_rx2}}
+\index{can\_driver\_cmd\_rx2@{can\_driver\_cmd\_rx2}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_cmd\_rx2()}{can\_driver\_cmd\_rx2()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+cmd\+\_\+rx2 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Z\+\_\+\+RX 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & CAN message ID \\
+\hline
+{\em in\+Data} & CAN message data field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a85cca83e9e2b92b1dd645388a54cb324}\label{can__driver_8h_a85cca83e9e2b92b1dd645388a54cb324}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rx3@{can\_driver\_cmd\_rx3}}
+\index{can\_driver\_cmd\_rx3@{can\_driver\_cmd\_rx3}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_cmd\_rx3()}{can\_driver\_cmd\_rx3()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+cmd\+\_\+rx3 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+REG\+\_\+\+RX 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & CAN message ID \\
+\hline
+{\em in\+Data} & CAN message data field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a6d6a3621f32af397fee5a3b9a9c54ccf}\label{can__driver_8h_a6d6a3621f32af397fee5a3b9a9c54ccf}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rx4@{can\_driver\_cmd\_rx4}}
+\index{can\_driver\_cmd\_rx4@{can\_driver\_cmd\_rx4}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_cmd\_rx4()}{can\_driver\_cmd\_rx4()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+cmd\+\_\+rx4 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+REG\+\_\+\+REQ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & CAN message ID \\
+\hline
+{\em in\+Data} & CAN message data field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a60bfd6dacec0e0cbb1ce36705dcda271}\label{can__driver_8h_a60bfd6dacec0e0cbb1ce36705dcda271}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rx5@{can\_driver\_cmd\_rx5}}
+\index{can\_driver\_cmd\_rx5@{can\_driver\_cmd\_rx5}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_cmd\_rx5()}{can\_driver\_cmd\_rx5()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+cmd\+\_\+rx5 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type MOTOR\+\_\+\+POS\+\_\+\+SP 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & CAN message ID \\
+\hline
+{\em in\+Data} & CAN message data field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_aea4a62a0fc8bebbcf12527544ab0c693}\label{can__driver_8h_aea4a62a0fc8bebbcf12527544ab0c693}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rx6@{can\_driver\_cmd\_rx6}}
+\index{can\_driver\_cmd\_rx6@{can\_driver\_cmd\_rx6}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_cmd\_rx6()}{can\_driver\_cmd\_rx6()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+cmd\+\_\+rx6 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type MOTOR\+\_\+\+VLT\+\_\+\+SP 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & CAN message ID \\
+\hline
+{\em in\+Data} & CAN message data field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a0ab94d767f5ccdecb109b7d6f2168a23}\label{can__driver_8h_a0ab94d767f5ccdecb109b7d6f2168a23}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rx7@{can\_driver\_cmd\_rx7}}
+\index{can\_driver\_cmd\_rx7@{can\_driver\_cmd\_rx7}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_cmd\_rx7()}{can\_driver\_cmd\_rx7()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+cmd\+\_\+rx7 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+RX 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & CAN message ID \\
+\hline
+{\em in\+Data} & CAN message data field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_ab0960419cdb98a93a4cf28a47b744fe4}\label{can__driver_8h_ab0960419cdb98a93a4cf28a47b744fe4}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rx8@{can\_driver\_cmd\_rx8}}
+\index{can\_driver\_cmd\_rx8@{can\_driver\_cmd\_rx8}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_cmd\_rx8()}{can\_driver\_cmd\_rx8()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+cmd\+\_\+rx8 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type MOTOR\+\_\+\+POS\+\_\+\+RX 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & CAN message ID \\
+\hline
+{\em in\+Data} & CAN message data field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a70388e5ce428cab82181bda2c1a58e7b}\label{can__driver_8h_a70388e5ce428cab82181bda2c1a58e7b}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_queue\_tx@{can\_driver\_queue\_tx}}
+\index{can\_driver\_queue\_tx@{can\_driver\_queue\_tx}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_queue\_tx()}{can\_driver\_queue\_tx()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+queue\+\_\+tx (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$}]{mailbox,  }\item[{uint8\+\_\+t $\ast$}]{out\+Data,  }\item[{uint32\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Queues a can message for transmit, driver internal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mailbox} & Mailbox struct in which data will be placed \\
+\hline
+{\em out\+Data} & Data to send (8 bytes) \\
+\hline
+{\em id} & CAN transmit ID \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a6b8a9cc15b74dbe789df2644af40fbff}\label{can__driver_8h_a6b8a9cc15b74dbe789df2644af40fbff}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_rx\_accelerometer\_cmd@{can\_driver\_rx\_accelerometer\_cmd}}
+\index{can\_driver\_rx\_accelerometer\_cmd@{can\_driver\_rx\_accelerometer\_cmd}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_rx\_accelerometer\_cmd()}{can\_driver\_rx\_accelerometer\_cmd()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+rx\+\_\+accelerometer\+\_\+cmd (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+CAN accelerometer message handler. DEPRECATED. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & CAN message data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a98cce463816efe33b5a4a6ce04ace7cb}\label{can__driver_8h_a98cce463816efe33b5a4a6ce04ace7cb}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_send\_msg@{can\_driver\_send\_msg}}
+\index{can\_driver\_send\_msg@{can\_driver\_send\_msg}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_send\_msg()}{can\_driver\_send\_msg()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+send\+\_\+msg (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{data,  }\item[{uint32\+\_\+t}]{std\+Id,  }\item[{int}]{dlc,  }\item[{uint8\+\_\+t}]{hw\+Mailbox }\end{DoxyParamCaption})}
+
+
+
+Sends a CAN message, is called by can\+\_\+interface\+\_\+send\+\_\+msg. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Data to send, max 8 bytes \\
+\hline
+{\em std\+Id} & Message ID required for rx handling \\
+\hline
+{\em dlc} & Number of bytes to send \\
+\hline
+{\em mailbox} & Hardware(!) mailbox to queue to \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_ac94b647e3aab5df2e4f27abc0b64c648}\label{can__driver_8h_ac94b647e3aab5df2e4f27abc0b64c648}} 
+\index{can\_driver.h@{can\_driver.h}!can\_interface\_queue\_tx@{can\_interface\_queue\_tx}}
+\index{can\_interface\_queue\_tx@{can\_interface\_queue\_tx}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_interface\_queue\_tx()}{can\_interface\_queue\_tx()}}
+{\footnotesize\ttfamily void can\+\_\+interface\+\_\+queue\+\_\+tx (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{mailbox,  }\item[{uint8\+\_\+t $\ast$}]{out\+Data,  }\item[{uint32\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Queues a CAN message for transmit, for external use. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mailbox} & Mailbox number, must correspond to the correct message type \\
+\hline
+{\em out\+Data} & Data to send \\
+\hline
+{\em id} & CAN transmit ID \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_aadb3bece8f51a8e655abbecfad9c2d23}\label{can__driver_8h_aadb3bece8f51a8e655abbecfad9c2d23}} 
+\index{can\_driver.h@{can\_driver.h}!can\_mailbox\_clear\_flag@{can\_mailbox\_clear\_flag}}
+\index{can\_mailbox\_clear\_flag@{can\_mailbox\_clear\_flag}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_mailbox\_clear\_flag()}{can\_mailbox\_clear\_flag()}}
+{\footnotesize\ttfamily void can\+\_\+mailbox\+\_\+clear\+\_\+flag (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$}]{mailbox }\end{DoxyParamCaption})}
+
+
+
+Clears the newmsg flag of the given mailbox. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mailbox} & Mailbox to clear flag from \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a0a2f0ff77529c01f1dc55441c0269a8e}\label{can__driver_8h_a0a2f0ff77529c01f1dc55441c0269a8e}} 
+\index{can\_driver.h@{can\_driver.h}!can\_mailbox\_get\_data@{can\_mailbox\_get\_data}}
+\index{can\_mailbox\_get\_data@{can\_mailbox\_get\_data}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_mailbox\_get\_data()}{can\_mailbox\_get\_data()}}
+{\footnotesize\ttfamily void can\+\_\+mailbox\+\_\+get\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$}]{mailbox,  }\item[{uint8\+\_\+t $\ast$}]{target }\end{DoxyParamCaption})}
+
+
+
+Inserts the data field of the given mailbox to target. CAUTION\+: memcpy 8 bytes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mailbox} & Mailbox to retrieve data from \\
+\hline
+{\em target} & Pointer to data target \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_aff6884a8ca6bfd78484dc21c15ab6995}\label{can__driver_8h_aff6884a8ca6bfd78484dc21c15ab6995}} 
+\index{can\_driver.h@{can\_driver.h}!can\_mailbox\_get\_flag@{can\_mailbox\_get\_flag}}
+\index{can\_mailbox\_get\_flag@{can\_mailbox\_get\_flag}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_mailbox\_get\_flag()}{can\_mailbox\_get\_flag()}}
+{\footnotesize\ttfamily uint8\+\_\+t can\+\_\+mailbox\+\_\+get\+\_\+flag (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$}]{mailbox }\end{DoxyParamCaption})}
+
+
+
+Gets the newmsg flag of the given mailbox. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mailbox} & Mailbox to get \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Mailbox\textquotesingle{} newmsg flag 
+\end{DoxyReturn}
+\mbox{\Hypertarget{can__driver_8h_a22d9228c327ae00e284094fef1ff84b6}\label{can__driver_8h_a22d9228c327ae00e284094fef1ff84b6}} 
+\index{can\_driver.h@{can\_driver.h}!can\_mailbox\_get\_id@{can\_mailbox\_get\_id}}
+\index{can\_mailbox\_get\_id@{can\_mailbox\_get\_id}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_mailbox\_get\_id()}{can\_mailbox\_get\_id()}}
+{\footnotesize\ttfamily uint32\+\_\+t can\+\_\+mailbox\+\_\+get\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$}]{mailbox }\end{DoxyParamCaption})}
+
+
+
+Gets the CAN message ID of the given mailbox. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mailbox} & Mailbox to get ID from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+CAN message ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{can__driver_8h_a33de2e4a3ebfa23ee5bf3e2336ff6f52}\label{can__driver_8h_a33de2e4a3ebfa23ee5bf3e2336ff6f52}} 
+\index{can\_driver.h@{can\_driver.h}!can\_mailbox\_set\_data@{can\_mailbox\_set\_data}}
+\index{can\_mailbox\_set\_data@{can\_mailbox\_set\_data}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_mailbox\_set\_data()}{can\_mailbox\_set\_data()}}
+{\footnotesize\ttfamily void can\+\_\+mailbox\+\_\+set\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$}]{mailbox,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+Sets the data field of the given mailbox. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mailbox} & Mailbox to insert data into \\
+\hline
+{\em in\+Data} & Data to insert \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_aa09da09334de5b49c95b506c7e03f846}\label{can__driver_8h_aa09da09334de5b49c95b506c7e03f846}} 
+\index{can\_driver.h@{can\_driver.h}!can\_mailbox\_set\_flag@{can\_mailbox\_set\_flag}}
+\index{can\_mailbox\_set\_flag@{can\_mailbox\_set\_flag}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_mailbox\_set\_flag()}{can\_mailbox\_set\_flag()}}
+{\footnotesize\ttfamily void can\+\_\+mailbox\+\_\+set\+\_\+flag (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$}]{mailbox }\end{DoxyParamCaption})}
+
+
+
+Sets the newmsg flag of the given mailbox. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mailbox} & Mailbox to set flag \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a5b3793cd100f85db71cb3af3d9ae1a5d}\label{can__driver_8h_a5b3793cd100f85db71cb3af3d9ae1a5d}} 
+\index{can\_driver.h@{can\_driver.h}!can\_mailbox\_set\_id@{can\_mailbox\_set\_id}}
+\index{can\_mailbox\_set\_id@{can\_mailbox\_set\_id}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_mailbox\_set\_id()}{can\_mailbox\_set\_id()}}
+{\footnotesize\ttfamily void can\+\_\+mailbox\+\_\+set\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}} $\ast$}]{mailbox,  }\item[{uint32\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Sets the CAN message ID field of the given mailbox. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mailbox} & Mailbox to insert ID \\
+\hline
+{\em id} & CAN message ID to insert \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a4becd73c8a8e895c54495a029b7ca729}\label{can__driver_8h_a4becd73c8a8e895c54495a029b7ca729}} 
+\index{can\_driver.h@{can\_driver.h}!can\_rx\_executive@{can\_rx\_executive}}
+\index{can\_rx\_executive@{can\_rx\_executive}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_rx\_executive()}{can\_rx\_executive()}}
+{\footnotesize\ttfamily void can\+\_\+rx\+\_\+executive (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Looks for new incoming CAN messages and handles them. MAIN LOOP ONLY. 
+
+\mbox{\Hypertarget{can__driver_8h_ad9b9d2c463b2afda53181c5c26c6a9df}\label{can__driver_8h_ad9b9d2c463b2afda53181c5c26c6a9df}} 
+\index{can\_driver.h@{can\_driver.h}!can\_tx\_executive@{can\_tx\_executive}}
+\index{can\_tx\_executive@{can\_tx\_executive}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_tx\_executive()}{can\_tx\_executive()}}
+{\footnotesize\ttfamily void can\+\_\+tx\+\_\+executive (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Looks for new CAN messages to send, sends. MAIN LOOP ONLY. 
+

@@ -1,0 +1,204 @@
+\hypertarget{string__cmd__parser_8h}{}\doxysection{string\+\_\+cmd\+\_\+parser.\+h File Reference}
+\label{string__cmd__parser_8h}\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+{\ttfamily \#include \char`\"{}string.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}stdint.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}unit\+\_\+config.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}motor\+\_\+driver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}can\+\_\+driver.\+h\char`\"{}}\newline
+Include dependency graph for string\+\_\+cmd\+\_\+parser.\+h\+:
+% FIG 0
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structstring__cmd__processor__args}{string\+\_\+cmd\+\_\+processor\+\_\+args}}
+\item 
+struct \mbox{\hyperlink{structstring__cmd__pair}{string\+\_\+cmd\+\_\+pair}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{string__cmd__parser_8h_a37e9bdda72907cdcfe81e65096ee7c57}{string\+\_\+cmd\+\_\+processor}}(...)~\mbox{\hyperlink{string__cmd__parser_8h_a8faebf6ecf17b5ec8b4720525bc97ada}{string\+\_\+cmd\+\_\+processor\+\_\+wrp}}((\mbox{\hyperlink{structstring__cmd__processor__args}{string\+\_\+cmd\+\_\+processor\+\_\+args}}$\ast$)\{\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+\})
+\item 
+\#define \mbox{\hyperlink{string__cmd__parser_8h_afd8ceddd75c30cc4ec36492c57b0358e}{NUM\+\_\+\+STRING\+\_\+\+COMMANDS}}~9
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_a8faebf6ecf17b5ec8b4720525bc97ada}{string\+\_\+cmd\+\_\+processor\+\_\+wrp}} (\mbox{\hyperlink{structstring__cmd__processor__args}{string\+\_\+cmd\+\_\+processor\+\_\+args}} $\ast$input)
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_ae3697f4d904b28b3e7f6dc579696bcf0}{string\+\_\+cmd\+\_\+processor\+\_\+base}} (char $\ast$input\+String, uint8\+\_\+t string\+Length)
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_a1f66a8347e7b6fc1cee2c40078af04b0}{string\+\_\+cmd\+\_\+category\+\_\+local\+\_\+motor}} (uint8\+\_\+t motor, char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_ae0bbe7106f3933499c68e105cfb19144}{string\+\_\+cmd\+\_\+category\+\_\+remote\+\_\+motor}} (uint8\+\_\+t motor, char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_a78b6e16af84d79528c0fffab2bf9b564}{string\+\_\+cmd\+\_\+category\+\_\+adc}} ()
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_ae197295365851331579ddfdf3612298a}{string\+\_\+cmd\+\_\+category\+\_\+accelerometer}} ()
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_a135e8d014af4aa7f25a872be108375c6}{string\+\_\+cmd\+\_\+category\+\_\+encoder}} ()
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_a141a6e866ccd9ffa383693c5911601d8}{string\+\_\+cmd\+\_\+rail}} (char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_a7063cab04680ab423df2ef61d072af9d}{string\+\_\+cmd\+\_\+shoulder}} (char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_a00fefed69d5e05cd8540e21892a901cd}{string\+\_\+cmd\+\_\+elbow}} (char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_a6a2a640966493a2fd9cbf5bb44318578}{string\+\_\+cmd\+\_\+wrist}} (char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_a0b544565597d46fc427b1b88b352af87}{string\+\_\+cmd\+\_\+twist}} (char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_a24aebd63c863804090e86159aa91e424}{string\+\_\+cmd\+\_\+pinch}} (char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_afceac69ed494827fbd4b996c1de05f4d}{string\+\_\+cmd\+\_\+can}} (char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_a80b72e079d3e3d500fafc4187a596baa}{string\+\_\+cmd\+\_\+stop}} (char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_aa685d63b80d3b0890b7e1f5d9590b7be}{string\+\_\+cmd\+\_\+acc1}} (char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{structstring__cmd__pair}{string\+\_\+cmd\+\_\+pair}} \mbox{\hyperlink{string__cmd__parser_8h_a3fd8229afa2ba541c48cbab423930336}{string\+Cmd\+List}} \mbox{[}\mbox{\hyperlink{string__cmd__parser_8h_afd8ceddd75c30cc4ec36492c57b0358e}{NUM\+\_\+\+STRING\+\_\+\+COMMANDS}}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{string__cmd__parser_8h_afd8ceddd75c30cc4ec36492c57b0358e}\label{string__cmd__parser_8h_afd8ceddd75c30cc4ec36492c57b0358e}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!NUM\_STRING\_COMMANDS@{NUM\_STRING\_COMMANDS}}
+\index{NUM\_STRING\_COMMANDS@{NUM\_STRING\_COMMANDS}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{NUM\_STRING\_COMMANDS}{NUM\_STRING\_COMMANDS}}
+{\footnotesize\ttfamily \#define NUM\+\_\+\+STRING\+\_\+\+COMMANDS~9}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_a37e9bdda72907cdcfe81e65096ee7c57}\label{string__cmd__parser_8h_a37e9bdda72907cdcfe81e65096ee7c57}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_processor@{string\_cmd\_processor}}
+\index{string\_cmd\_processor@{string\_cmd\_processor}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_processor}{string\_cmd\_processor}}
+{\footnotesize\ttfamily \#define string\+\_\+cmd\+\_\+processor(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{string__cmd__parser_8h_a8faebf6ecf17b5ec8b4720525bc97ada}{string\+\_\+cmd\+\_\+processor\+\_\+wrp}}((\mbox{\hyperlink{structstring__cmd__processor__args}{string\+\_\+cmd\+\_\+processor\+\_\+args}}$\ast$)\{\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+\})}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{string__cmd__parser_8h_aa685d63b80d3b0890b7e1f5d9590b7be}\label{string__cmd__parser_8h_aa685d63b80d3b0890b7e1f5d9590b7be}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_acc1@{string\_cmd\_acc1}}
+\index{string\_cmd\_acc1@{string\_cmd\_acc1}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_acc1()}{string\_cmd\_acc1()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+acc1 (\begin{DoxyParamCaption}\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_afceac69ed494827fbd4b996c1de05f4d}\label{string__cmd__parser_8h_afceac69ed494827fbd4b996c1de05f4d}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_can@{string\_cmd\_can}}
+\index{string\_cmd\_can@{string\_cmd\_can}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_can()}{string\_cmd\_can()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+can (\begin{DoxyParamCaption}\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_ae197295365851331579ddfdf3612298a}\label{string__cmd__parser_8h_ae197295365851331579ddfdf3612298a}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_category\_accelerometer@{string\_cmd\_category\_accelerometer}}
+\index{string\_cmd\_category\_accelerometer@{string\_cmd\_category\_accelerometer}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_category\_accelerometer()}{string\_cmd\_category\_accelerometer()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+category\+\_\+accelerometer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_a78b6e16af84d79528c0fffab2bf9b564}\label{string__cmd__parser_8h_a78b6e16af84d79528c0fffab2bf9b564}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_category\_adc@{string\_cmd\_category\_adc}}
+\index{string\_cmd\_category\_adc@{string\_cmd\_category\_adc}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_category\_adc()}{string\_cmd\_category\_adc()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+category\+\_\+adc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_a135e8d014af4aa7f25a872be108375c6}\label{string__cmd__parser_8h_a135e8d014af4aa7f25a872be108375c6}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_category\_encoder@{string\_cmd\_category\_encoder}}
+\index{string\_cmd\_category\_encoder@{string\_cmd\_category\_encoder}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_category\_encoder()}{string\_cmd\_category\_encoder()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+category\+\_\+encoder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_a1f66a8347e7b6fc1cee2c40078af04b0}\label{string__cmd__parser_8h_a1f66a8347e7b6fc1cee2c40078af04b0}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_category\_local\_motor@{string\_cmd\_category\_local\_motor}}
+\index{string\_cmd\_category\_local\_motor@{string\_cmd\_category\_local\_motor}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_category\_local\_motor()}{string\_cmd\_category\_local\_motor()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+category\+\_\+local\+\_\+motor (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{motor,  }\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_ae0bbe7106f3933499c68e105cfb19144}\label{string__cmd__parser_8h_ae0bbe7106f3933499c68e105cfb19144}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_category\_remote\_motor@{string\_cmd\_category\_remote\_motor}}
+\index{string\_cmd\_category\_remote\_motor@{string\_cmd\_category\_remote\_motor}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_category\_remote\_motor()}{string\_cmd\_category\_remote\_motor()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+category\+\_\+remote\+\_\+motor (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{motor,  }\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_a00fefed69d5e05cd8540e21892a901cd}\label{string__cmd__parser_8h_a00fefed69d5e05cd8540e21892a901cd}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_elbow@{string\_cmd\_elbow}}
+\index{string\_cmd\_elbow@{string\_cmd\_elbow}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_elbow()}{string\_cmd\_elbow()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+elbow (\begin{DoxyParamCaption}\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_a24aebd63c863804090e86159aa91e424}\label{string__cmd__parser_8h_a24aebd63c863804090e86159aa91e424}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_pinch@{string\_cmd\_pinch}}
+\index{string\_cmd\_pinch@{string\_cmd\_pinch}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_pinch()}{string\_cmd\_pinch()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+pinch (\begin{DoxyParamCaption}\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_ae3697f4d904b28b3e7f6dc579696bcf0}\label{string__cmd__parser_8h_ae3697f4d904b28b3e7f6dc579696bcf0}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_processor\_base@{string\_cmd\_processor\_base}}
+\index{string\_cmd\_processor\_base@{string\_cmd\_processor\_base}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_processor\_base()}{string\_cmd\_processor\_base()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+processor\+\_\+base (\begin{DoxyParamCaption}\item[{char $\ast$}]{input\+String,  }\item[{uint8\+\_\+t}]{string\+Length }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_a8faebf6ecf17b5ec8b4720525bc97ada}\label{string__cmd__parser_8h_a8faebf6ecf17b5ec8b4720525bc97ada}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_processor\_wrp@{string\_cmd\_processor\_wrp}}
+\index{string\_cmd\_processor\_wrp@{string\_cmd\_processor\_wrp}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_processor\_wrp()}{string\_cmd\_processor\_wrp()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+processor\+\_\+wrp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__cmd__processor__args}{string\+\_\+cmd\+\_\+processor\+\_\+args}} $\ast$}]{input }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_a141a6e866ccd9ffa383693c5911601d8}\label{string__cmd__parser_8h_a141a6e866ccd9ffa383693c5911601d8}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_rail@{string\_cmd\_rail}}
+\index{string\_cmd\_rail@{string\_cmd\_rail}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_rail()}{string\_cmd\_rail()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+rail (\begin{DoxyParamCaption}\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_a7063cab04680ab423df2ef61d072af9d}\label{string__cmd__parser_8h_a7063cab04680ab423df2ef61d072af9d}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_shoulder@{string\_cmd\_shoulder}}
+\index{string\_cmd\_shoulder@{string\_cmd\_shoulder}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_shoulder()}{string\_cmd\_shoulder()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+shoulder (\begin{DoxyParamCaption}\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_a80b72e079d3e3d500fafc4187a596baa}\label{string__cmd__parser_8h_a80b72e079d3e3d500fafc4187a596baa}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_stop@{string\_cmd\_stop}}
+\index{string\_cmd\_stop@{string\_cmd\_stop}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_stop()}{string\_cmd\_stop()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+stop (\begin{DoxyParamCaption}\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_a0b544565597d46fc427b1b88b352af87}\label{string__cmd__parser_8h_a0b544565597d46fc427b1b88b352af87}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_twist@{string\_cmd\_twist}}
+\index{string\_cmd\_twist@{string\_cmd\_twist}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_twist()}{string\_cmd\_twist()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+twist (\begin{DoxyParamCaption}\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string__cmd__parser_8h_a6a2a640966493a2fd9cbf5bb44318578}\label{string__cmd__parser_8h_a6a2a640966493a2fd9cbf5bb44318578}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_wrist@{string\_cmd\_wrist}}
+\index{string\_cmd\_wrist@{string\_cmd\_wrist}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_wrist()}{string\_cmd\_wrist()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+wrist (\begin{DoxyParamCaption}\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{string__cmd__parser_8h_a3fd8229afa2ba541c48cbab423930336}\label{string__cmd__parser_8h_a3fd8229afa2ba541c48cbab423930336}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!stringCmdList@{stringCmdList}}
+\index{stringCmdList@{stringCmdList}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{stringCmdList}{stringCmdList}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstring__cmd__pair}{string\+\_\+cmd\+\_\+pair}} string\+Cmd\+List\mbox{[}\mbox{\hyperlink{string__cmd__parser_8h_afd8ceddd75c30cc4ec36492c57b0358e}{NUM\+\_\+\+STRING\+\_\+\+COMMANDS}}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{  \{}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}rail"{}}, \mbox{\hyperlink{string__cmd__parser_8h_a141a6e866ccd9ffa383693c5911601d8}{string\_cmd\_rail}}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}shoulder"{}}, \mbox{\hyperlink{string__cmd__parser_8h_a7063cab04680ab423df2ef61d072af9d}{string\_cmd\_shoulder}}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}elbow"{}}, \mbox{\hyperlink{string__cmd__parser_8h_a00fefed69d5e05cd8540e21892a901cd}{string\_cmd\_elbow}}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}wrist"{}}, \mbox{\hyperlink{string__cmd__parser_8h_a6a2a640966493a2fd9cbf5bb44318578}{string\_cmd\_wrist}}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}twist"{}}, \mbox{\hyperlink{string__cmd__parser_8h_a0b544565597d46fc427b1b88b352af87}{string\_cmd\_twist}}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}pinch"{}}, \mbox{\hyperlink{string__cmd__parser_8h_a24aebd63c863804090e86159aa91e424}{string\_cmd\_pinch}}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}can"{}}, \mbox{\hyperlink{string__cmd__parser_8h_afceac69ed494827fbd4b996c1de05f4d}{string\_cmd\_can}}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}S"{}}, \mbox{\hyperlink{string__cmd__parser_8h_a80b72e079d3e3d500fafc4187a596baa}{string\_cmd\_stop}}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}acc1"{}}, \mbox{\hyperlink{string__cmd__parser_8h_aa685d63b80d3b0890b7e1f5d9590b7be}{string\_cmd\_acc1}}\}}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}

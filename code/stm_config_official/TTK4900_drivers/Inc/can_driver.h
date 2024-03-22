@@ -8,48 +8,160 @@
 //TTK4900 library includes
 #include "unit_config.h"
 #include "motor_driver.h"
+#include "accelerometer_driver.h"
+#include "shoulder_controller.h"
 
 //------FILE BEGIN------
+#define CAN_MOTOR_CMD_OFFSET 5
+#define CAN_ACC_CMD_OFFSET 8
 
-//Generate default values for CAN messages
-typedef struct 
+
+typedef struct
 {
-  uint8_t* data[8]; //Max data size for CAN message is 8
-  int dlc;  //Bytes of data to transfer
-  int stdId; //Transmission ID
-  uint8_t mailbox; //Between 0 and 2
+  uint8_t newMsg;
+  uint32_t msgId;
+  uint8_t data[8];
+} can_mailbox;
 
-} can_send_msg_args;
+/// @brief CAN message types, also dictate CAN priority
+typedef enum 
+{
+  ACC_X_RX,
+  ACC_Y_RX,
+  ACC_Z_RX,
+  ACC_REG_RX,
+  ACC_REG_REQ,
+  MOTOR_POS_SP,
+  MOTOR_VLT_SP,
+  MOTOR_POS_REQ,
+  MOTOR_POS_RX,
+  num_types, //This must always be last
+} can_message_types;
 
-//User level function, allows variable arguments 
-#define can_interface_send_msg(...) can_driver_send_msg_wrp((can_send_msg_args*){__VA_ARGS__});
 
+/// @brief Queues a CAN message for transmit, for external use
+/// @param mailbox Mailbox number, must correspond to the correct message type
+/// @param outData Data to send
+/// @param id CAN transmit ID
+void can_interface_queue_tx(uint8_t mailbox, uint8_t* outData, uint32_t id);
+
+
+/// @brief Looks for new incoming CAN messages and handles them. MAIN LOOP ONLY
+void can_rx_executive();
+
+
+/// @brief Looks for new CAN messages to send, sends. MAIN LOOP ONLY
+void can_tx_executive();
+
+
+/// @brief Sets the data field of the given mailbox
+/// @param mailbox Mailbox to insert data into
+/// @param inData Data to insert
+void can_mailbox_set_data(can_mailbox* mailbox, uint8_t* inData);
+
+
+/// @brief Inserts the data field of the given mailbox to target. CAUTION: memcpy 8 bytes
+/// @param mailbox Mailbox to retrieve data from
+/// @param target Pointer to data target
+void can_mailbox_get_data(can_mailbox* mailbox, uint8_t* target);
+
+
+/// @brief Sets the newmsg flag of the given mailbox
+/// @param mailbox Mailbox to set flag
+void can_mailbox_set_flag(can_mailbox* mailbox);
+
+
+/// @brief Gets the newmsg flag of the given mailbox
+/// @param mailbox Mailbox to get
+/// @return Mailbox' newmsg flag
+uint8_t can_mailbox_get_flag(can_mailbox* mailbox);
+
+
+/// @brief Clears the newmsg flag of the given mailbox
+/// @param mailbox Mailbox to clear flag from
+void can_mailbox_clear_flag(can_mailbox* mailbox);
+
+
+/// @brief Sets the CAN message ID field of the given mailbox
+/// @param mailbox Mailbox to insert ID
+/// @param id CAN message ID to insert
+void can_mailbox_set_id(can_mailbox* mailbox, uint32_t id);
+
+
+/// @brief Gets the CAN message ID of the given mailbox
+/// @param mailbox Mailbox to get ID from
+/// @return CAN message ID
+uint32_t can_mailbox_get_id(can_mailbox* mailbox);
+
+
+/// @brief Queues a can message for transmit, driver internal
+/// @param mailbox Mailbox struct in which data will be placed
+/// @param outData Data to send (8 bytes)
+/// @param id CAN transmit ID
+void can_driver_queue_tx(can_mailbox* mailbox, uint8_t* outData, uint32_t id);
 
 /// @brief Sends a CAN message, is called by can_interface_send_msg
 /// @param data Data to send, max 8 bytes
-/// @param stdId Message ID, defaults to CAN_TXID
-/// @param dlc Number of bytes to send, defaults to 8
-/// @param mailbox Transmit mailbox to send from, defaults to 0
-void can_driver_send_msg_base(uint8_t* data, int stdId, int dlc, uint8_t mailbox);
+/// @param stdId Message ID required for rx handling
+/// @param dlc Number of bytes to send
+/// @param hwMailbox Hardware(!) mailbox to queue to
+void can_driver_send_msg(uint8_t* data, uint32_t stdId, int dlc, uint8_t hwMailbox);
 
 
-/// @brief Wrapper function to allow default args
-/// @param input CAN argument struct, essentially the message header
-void can_driver_send_msg_wrp(can_send_msg_args* input);
-
-
-/// @brief CAN receive interrupt handler
-/// @param data CAN message data
-void can_driver_rx_handler(uint8_t* data);
-
-
-/// @brief CAN motor control message handler
-/// @param data CAN message data
-void can_driver_rx_motor_cmd(uint8_t* data);
-
-
-/// @brief CAN accelerometer message handler
+/// @brief CAN accelerometer message handler. DEPRECATED
 /// @param data CAN message data
 void can_driver_rx_accelerometer_cmd(uint8_t* data);
+
+
+//The following rxn functions MUST match with the number of
+//available can_message_types, and MUST be added to the
+//canRxFunctions list in the .c file
+
+/// @brief "Generic" function to handle CAN message type ACC_X_RX
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rx0(uint32_t id, uint8_t* inData);
+
+/// @brief "Generic" function to handle CAN message type ACC_Y_RX
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rx1(uint32_t id, uint8_t* inData);
+
+/// @brief "Generic" function to handle CAN message type ACC_Z_RX
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rx2(uint32_t id, uint8_t* inData);
+
+/// @brief "Generic" function to handle CAN message type ACC_REG_RX
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rx3(uint32_t id, uint8_t* inData);
+
+/// @brief "Generic" function to handle CAN message type ACC_REG_REQ
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rx4(uint32_t id, uint8_t* inData);
+
+/// @brief "Generic" function to handle CAN message type MOTOR_POS_SP
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rx5(uint32_t id, uint8_t* inData);
+
+/// @brief "Generic" function to handle CAN message type MOTOR_VLT_SP
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rx6(uint32_t id, uint8_t* inData);
+
+/// @brief "Generic" function to handle CAN message type ACC_X_RX
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rx7(uint32_t id, uint8_t* inData);
+
+/// @brief "Generic" function to handle CAN message type MOTOR_POS_RX
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rx8(uint32_t id, uint8_t* inData);
+
+
 
 #endif //CAN_DRIVER_H

@@ -1,0 +1,224 @@
+\hypertarget{shoulder__controller_8h}{}\doxysection{shoulder\+\_\+controller.\+h File Reference}
+\label{shoulder__controller_8h}\index{shoulder\_controller.h@{shoulder\_controller.h}}
+{\ttfamily \#include \char`\"{}string.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}uart\+\_\+driver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}accelerometer\+\_\+driver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}motor\+\_\+driver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}can\+\_\+driver.\+h\char`\"{}}\newline
+Include dependency graph for shoulder\+\_\+controller.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{shoulder__controller_8h_a819d355a4439e96608fa25084ef8ef9b}{controller\+\_\+interface\+\_\+get\+\_\+setpoint}} ()
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_a07d0bea053ea758148fed964851297f7}{controller\+\_\+interface\+\_\+update\+\_\+power}} ()
+\item 
+float \mbox{\hyperlink{shoulder__controller_8h_a1744da759b5f5b160e0dbf462216c2b8}{controller\+\_\+interface\+\_\+get\+\_\+position}} ()
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_a2f6397ff2a687b9704ee8af90822611a}{controller\+\_\+interface\+\_\+update\+\_\+position}} ()
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_a920bb95ae3736d9f4b2626cdf708eca6}{controller\+\_\+interface\+\_\+request\+\_\+position}} ()
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_a8c7542d1af14023715dda94a54c1a94f}{controller\+\_\+interface\+\_\+set\+\_\+setpoint}} (float rad\+Setpoint)
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_ab775c204b33a19e3d2dae797cb5ce750}{controller\+\_\+interface\+\_\+update\+\_\+pos\+\_\+error}} ()
+\item 
+int32\+\_\+t \mbox{\hyperlink{shoulder__controller_8h_a7b1e750a85fb32e1cce5a0ee0721b410}{controller\+\_\+interface\+\_\+error\+\_\+as\+\_\+clicks}} ()
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_a483611e11fbc266efa29d7396d6acd1c}{controller\+\_\+interface\+\_\+adjust\+\_\+enc\+\_\+sp}} ()
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shoulder__controller_8h_ac71c1a08dd9a8bc039eeb6ffb1a1eb38}{controller\+\_\+interface\+\_\+get\+\_\+moving}} ()
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_ab5bbb4a92093477f318e7da1f2149000}{controller\+\_\+interface\+\_\+set\+\_\+moving}} ()
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_ad37d94f98959ee1e111506e3decda4ad}{controller\+\_\+interface\+\_\+clear\+\_\+moving}} ()
+\item 
+float \mbox{\hyperlink{shoulder__controller_8h_a43dc099f7ad8c65e4f8c39db684cb7ae}{controller\+\_\+get\+\_\+setpoint}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller)
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_a2555c2dfad63a435b8280188abc2d8e4}{controller\+\_\+set\+\_\+setpoint}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller, float rad\+Setpoint)
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_abdd84e0aa31aa898cd96c09e12c67c42}{controller\+\_\+update\+\_\+power}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller)
+\item 
+float \mbox{\hyperlink{shoulder__controller_8h_a39dd5f531b21f534e482057c46545e18}{controller\+\_\+get\+\_\+position}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller)
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_ae724c4fc3430b71d80739df854f8b01a}{controller\+\_\+request\+\_\+position}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller)
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_a5b42712bf0bab012bf50893c6936ee72}{controller\+\_\+update\+\_\+position}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller)
+\item 
+float \mbox{\hyperlink{shoulder__controller_8h_a94c4cef8a1dac7e4943a78e55d8a5f70}{controller\+\_\+acc\+\_\+to\+\_\+radians}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller, int16\+\_\+t raw\+Acc)
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_a3573b2675d16870a01264a709fd3d26f}{controller\+\_\+update\+\_\+pos\+\_\+error}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller)
+\item 
+int32\+\_\+t \mbox{\hyperlink{shoulder__controller_8h_a8278482fef8763205974a8c35357e255}{controller\+\_\+error\+\_\+as\+\_\+clicks}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller)
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_a26f213701ee0ccaaddaa6510eb0be193}{controller\+\_\+adjust\+\_\+enc\+\_\+sp}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{shoulder__controller_8h_a9dada78720184a30680e2c15d4df2261}{controller\+\_\+get\+\_\+moving}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller)
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_a0d24cf4ea615e8d5e0a63df6572cc601}{controller\+\_\+set\+\_\+moving}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller)
+\item 
+void \mbox{\hyperlink{shoulder__controller_8h_aa1d0f7447c26e4ffb9acfd93c89d3050}{controller\+\_\+clear\+\_\+moving}} (\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$controller)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{shoulder__controller_8h_a94c4cef8a1dac7e4943a78e55d8a5f70}\label{shoulder__controller_8h_a94c4cef8a1dac7e4943a78e55d8a5f70}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_acc\_to\_radians@{controller\_acc\_to\_radians}}
+\index{controller\_acc\_to\_radians@{controller\_acc\_to\_radians}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_acc\_to\_radians()}{controller\_acc\_to\_radians()}}
+{\footnotesize\ttfamily float controller\+\_\+acc\+\_\+to\+\_\+radians (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller,  }\item[{int16\+\_\+t}]{raw\+Acc }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a26f213701ee0ccaaddaa6510eb0be193}\label{shoulder__controller_8h_a26f213701ee0ccaaddaa6510eb0be193}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_adjust\_enc\_sp@{controller\_adjust\_enc\_sp}}
+\index{controller\_adjust\_enc\_sp@{controller\_adjust\_enc\_sp}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_adjust\_enc\_sp()}{controller\_adjust\_enc\_sp()}}
+{\footnotesize\ttfamily void controller\+\_\+adjust\+\_\+enc\+\_\+sp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_aa1d0f7447c26e4ffb9acfd93c89d3050}\label{shoulder__controller_8h_aa1d0f7447c26e4ffb9acfd93c89d3050}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_clear\_moving@{controller\_clear\_moving}}
+\index{controller\_clear\_moving@{controller\_clear\_moving}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_clear\_moving()}{controller\_clear\_moving()}}
+{\footnotesize\ttfamily void controller\+\_\+clear\+\_\+moving (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a8278482fef8763205974a8c35357e255}\label{shoulder__controller_8h_a8278482fef8763205974a8c35357e255}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_error\_as\_clicks@{controller\_error\_as\_clicks}}
+\index{controller\_error\_as\_clicks@{controller\_error\_as\_clicks}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_error\_as\_clicks()}{controller\_error\_as\_clicks()}}
+{\footnotesize\ttfamily int32\+\_\+t controller\+\_\+error\+\_\+as\+\_\+clicks (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a9dada78720184a30680e2c15d4df2261}\label{shoulder__controller_8h_a9dada78720184a30680e2c15d4df2261}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_get\_moving@{controller\_get\_moving}}
+\index{controller\_get\_moving@{controller\_get\_moving}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_get\_moving()}{controller\_get\_moving()}}
+{\footnotesize\ttfamily uint8\+\_\+t controller\+\_\+get\+\_\+moving (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a39dd5f531b21f534e482057c46545e18}\label{shoulder__controller_8h_a39dd5f531b21f534e482057c46545e18}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_get\_position@{controller\_get\_position}}
+\index{controller\_get\_position@{controller\_get\_position}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_get\_position()}{controller\_get\_position()}}
+{\footnotesize\ttfamily float controller\+\_\+get\+\_\+position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a43dc099f7ad8c65e4f8c39db684cb7ae}\label{shoulder__controller_8h_a43dc099f7ad8c65e4f8c39db684cb7ae}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_get\_setpoint@{controller\_get\_setpoint}}
+\index{controller\_get\_setpoint@{controller\_get\_setpoint}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_get\_setpoint()}{controller\_get\_setpoint()}}
+{\footnotesize\ttfamily float controller\+\_\+get\+\_\+setpoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a483611e11fbc266efa29d7396d6acd1c}\label{shoulder__controller_8h_a483611e11fbc266efa29d7396d6acd1c}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_interface\_adjust\_enc\_sp@{controller\_interface\_adjust\_enc\_sp}}
+\index{controller\_interface\_adjust\_enc\_sp@{controller\_interface\_adjust\_enc\_sp}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_interface\_adjust\_enc\_sp()}{controller\_interface\_adjust\_enc\_sp()}}
+{\footnotesize\ttfamily void controller\+\_\+interface\+\_\+adjust\+\_\+enc\+\_\+sp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_ad37d94f98959ee1e111506e3decda4ad}\label{shoulder__controller_8h_ad37d94f98959ee1e111506e3decda4ad}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_interface\_clear\_moving@{controller\_interface\_clear\_moving}}
+\index{controller\_interface\_clear\_moving@{controller\_interface\_clear\_moving}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_interface\_clear\_moving()}{controller\_interface\_clear\_moving()}}
+{\footnotesize\ttfamily void controller\+\_\+interface\+\_\+clear\+\_\+moving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a7b1e750a85fb32e1cce5a0ee0721b410}\label{shoulder__controller_8h_a7b1e750a85fb32e1cce5a0ee0721b410}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_interface\_error\_as\_clicks@{controller\_interface\_error\_as\_clicks}}
+\index{controller\_interface\_error\_as\_clicks@{controller\_interface\_error\_as\_clicks}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_interface\_error\_as\_clicks()}{controller\_interface\_error\_as\_clicks()}}
+{\footnotesize\ttfamily int32\+\_\+t controller\+\_\+interface\+\_\+error\+\_\+as\+\_\+clicks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_ac71c1a08dd9a8bc039eeb6ffb1a1eb38}\label{shoulder__controller_8h_ac71c1a08dd9a8bc039eeb6ffb1a1eb38}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_interface\_get\_moving@{controller\_interface\_get\_moving}}
+\index{controller\_interface\_get\_moving@{controller\_interface\_get\_moving}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_interface\_get\_moving()}{controller\_interface\_get\_moving()}}
+{\footnotesize\ttfamily uint8\+\_\+t controller\+\_\+interface\+\_\+get\+\_\+moving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a1744da759b5f5b160e0dbf462216c2b8}\label{shoulder__controller_8h_a1744da759b5f5b160e0dbf462216c2b8}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_interface\_get\_position@{controller\_interface\_get\_position}}
+\index{controller\_interface\_get\_position@{controller\_interface\_get\_position}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_interface\_get\_position()}{controller\_interface\_get\_position()}}
+{\footnotesize\ttfamily float controller\+\_\+interface\+\_\+get\+\_\+position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a819d355a4439e96608fa25084ef8ef9b}\label{shoulder__controller_8h_a819d355a4439e96608fa25084ef8ef9b}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_interface\_get\_setpoint@{controller\_interface\_get\_setpoint}}
+\index{controller\_interface\_get\_setpoint@{controller\_interface\_get\_setpoint}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_interface\_get\_setpoint()}{controller\_interface\_get\_setpoint()}}
+{\footnotesize\ttfamily float controller\+\_\+interface\+\_\+get\+\_\+setpoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a920bb95ae3736d9f4b2626cdf708eca6}\label{shoulder__controller_8h_a920bb95ae3736d9f4b2626cdf708eca6}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_interface\_request\_position@{controller\_interface\_request\_position}}
+\index{controller\_interface\_request\_position@{controller\_interface\_request\_position}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_interface\_request\_position()}{controller\_interface\_request\_position()}}
+{\footnotesize\ttfamily void controller\+\_\+interface\+\_\+request\+\_\+position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_ab5bbb4a92093477f318e7da1f2149000}\label{shoulder__controller_8h_ab5bbb4a92093477f318e7da1f2149000}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_interface\_set\_moving@{controller\_interface\_set\_moving}}
+\index{controller\_interface\_set\_moving@{controller\_interface\_set\_moving}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_interface\_set\_moving()}{controller\_interface\_set\_moving()}}
+{\footnotesize\ttfamily void controller\+\_\+interface\+\_\+set\+\_\+moving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a8c7542d1af14023715dda94a54c1a94f}\label{shoulder__controller_8h_a8c7542d1af14023715dda94a54c1a94f}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_interface\_set\_setpoint@{controller\_interface\_set\_setpoint}}
+\index{controller\_interface\_set\_setpoint@{controller\_interface\_set\_setpoint}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_interface\_set\_setpoint()}{controller\_interface\_set\_setpoint()}}
+{\footnotesize\ttfamily void controller\+\_\+interface\+\_\+set\+\_\+setpoint (\begin{DoxyParamCaption}\item[{float}]{rad\+Setpoint }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_ab775c204b33a19e3d2dae797cb5ce750}\label{shoulder__controller_8h_ab775c204b33a19e3d2dae797cb5ce750}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_interface\_update\_pos\_error@{controller\_interface\_update\_pos\_error}}
+\index{controller\_interface\_update\_pos\_error@{controller\_interface\_update\_pos\_error}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_interface\_update\_pos\_error()}{controller\_interface\_update\_pos\_error()}}
+{\footnotesize\ttfamily void controller\+\_\+interface\+\_\+update\+\_\+pos\+\_\+error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a2f6397ff2a687b9704ee8af90822611a}\label{shoulder__controller_8h_a2f6397ff2a687b9704ee8af90822611a}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_interface\_update\_position@{controller\_interface\_update\_position}}
+\index{controller\_interface\_update\_position@{controller\_interface\_update\_position}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_interface\_update\_position()}{controller\_interface\_update\_position()}}
+{\footnotesize\ttfamily void controller\+\_\+interface\+\_\+update\+\_\+position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a07d0bea053ea758148fed964851297f7}\label{shoulder__controller_8h_a07d0bea053ea758148fed964851297f7}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_interface\_update\_power@{controller\_interface\_update\_power}}
+\index{controller\_interface\_update\_power@{controller\_interface\_update\_power}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_interface\_update\_power()}{controller\_interface\_update\_power()}}
+{\footnotesize\ttfamily void controller\+\_\+interface\+\_\+update\+\_\+power (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_ae724c4fc3430b71d80739df854f8b01a}\label{shoulder__controller_8h_ae724c4fc3430b71d80739df854f8b01a}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_request\_position@{controller\_request\_position}}
+\index{controller\_request\_position@{controller\_request\_position}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_request\_position()}{controller\_request\_position()}}
+{\footnotesize\ttfamily void controller\+\_\+request\+\_\+position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a0d24cf4ea615e8d5e0a63df6572cc601}\label{shoulder__controller_8h_a0d24cf4ea615e8d5e0a63df6572cc601}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_set\_moving@{controller\_set\_moving}}
+\index{controller\_set\_moving@{controller\_set\_moving}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_set\_moving()}{controller\_set\_moving()}}
+{\footnotesize\ttfamily void controller\+\_\+set\+\_\+moving (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a2555c2dfad63a435b8280188abc2d8e4}\label{shoulder__controller_8h_a2555c2dfad63a435b8280188abc2d8e4}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_set\_setpoint@{controller\_set\_setpoint}}
+\index{controller\_set\_setpoint@{controller\_set\_setpoint}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_set\_setpoint()}{controller\_set\_setpoint()}}
+{\footnotesize\ttfamily void controller\+\_\+set\+\_\+setpoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller,  }\item[{float}]{rad\+Setpoint }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a3573b2675d16870a01264a709fd3d26f}\label{shoulder__controller_8h_a3573b2675d16870a01264a709fd3d26f}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_update\_pos\_error@{controller\_update\_pos\_error}}
+\index{controller\_update\_pos\_error@{controller\_update\_pos\_error}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_update\_pos\_error()}{controller\_update\_pos\_error()}}
+{\footnotesize\ttfamily void controller\+\_\+update\+\_\+pos\+\_\+error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_a5b42712bf0bab012bf50893c6936ee72}\label{shoulder__controller_8h_a5b42712bf0bab012bf50893c6936ee72}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_update\_position@{controller\_update\_position}}
+\index{controller\_update\_position@{controller\_update\_position}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_update\_position()}{controller\_update\_position()}}
+{\footnotesize\ttfamily void controller\+\_\+update\+\_\+position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{shoulder__controller_8h_abdd84e0aa31aa898cd96c09e12c67c42}\label{shoulder__controller_8h_abdd84e0aa31aa898cd96c09e12c67c42}} 
+\index{shoulder\_controller.h@{shoulder\_controller.h}!controller\_update\_power@{controller\_update\_power}}
+\index{controller\_update\_power@{controller\_update\_power}!shoulder\_controller.h@{shoulder\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controller\_update\_power()}{controller\_update\_power()}}
+{\footnotesize\ttfamily void controller\+\_\+update\+\_\+power (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcontroller__descriptor}{controller\+\_\+descriptor}} $\ast$}]{controller }\end{DoxyParamCaption})}
+

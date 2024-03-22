@@ -37,6 +37,11 @@
 #include "uart_driver.h"
 #include "motor_driver.h"
 #include "string_cmd_parser.h"
+#include "shoulder_controller.h"
+
+#if ACTIVE_UNIT == SHOULDER
+#include "accelerometer_driver.h"
+#endif
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -64,6 +69,46 @@
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
+// void whoami_test(){
+//   HAL_StatusTypeDef ret;
+//   uint8_t SLAVE_READ = 0xD4;  
+//   uint8_t SLAVE_WRITE = 0xD5;
+//   uint8_t WHO_AM_I = 0x0F;
+//   uint8_t i2cbuf_tx[1] = {WHO_AM_I};
+//   uint8_t i2cbuf_rx[2] = {0xDE, 0xAD};
+
+//   // uint8_t CTRL_REG1 = 0x2A;
+//   // uint8_t i2cbuf_setup[2] = {CTRL_REG1, 0x3};
+//   // ret = HAL_I2C_Master_Transmit(&hi2c1, (uint16_t)SLAVE_WRITE,i2cbuf_setup, 2, 2000);
+//   // if(ret != HAL_OK)
+//   // {
+//   //   UART_msg_txt("Setup failed\n\r");
+//   // }
+
+//   ret = HAL_I2C_Master_Transmit(&hi2c3,(uint16_t)SLAVE_READ,i2cbuf_tx,1,2000); // Tell slave you want to read
+//   if(ret != HAL_OK)
+//   {
+//     uart_send_string("transmit failed\n\r");
+//   }
+//   //HAL_Delay(20);
+//   ret = HAL_I2C_Master_Receive(&hi2c3, (uint16_t)SLAVE_READ, i2cbuf_rx,1,2000);
+//   if(ret != HAL_OK)
+//   {
+//     uart_send_string("receive failed\n\r");
+//   }
+//   double rxdata = (double)i2cbuf_rx[0];
+//   char stringbuf[20];
+//   sprintf(stringbuf, "Got %X on address %X\n\r", i2cbuf_rx[0], i2cbuf_tx[0]);
+//   uart_send_string(stringbuf);
+
+
+//   // if(rxdata == (double)0x1A){
+//   //   uint8_t result[20];
+//   //   UART_msg_txt("Got 0x1A on I2C\n\r");
+
+//   // }
+
+// }
 
 /* USER CODE END PFP */
 
@@ -123,9 +168,9 @@ int main(void)
 
   HAL_CAN_Start(&hcan);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
+  HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO1_MSG_PENDING);
 
-  //ENC1->CNT = 0x7FFF;
-  //ENC2->CNT = 0x7FFF;
+  
 
 #if (HW_INTERFACE == UART_INTERFACE)  && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_hmi_init();
@@ -138,25 +183,56 @@ int main(void)
   HAL_Delay(2000);
   HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 1);
 
-  motor_interface_controller_init(1);
-  motor_interface_controller_init(0);
+  //motor_interface_controller_init(1);
+  //motor_interface_controller_init(0);
+  //controller_interface_request_position();
+
+#if ACTIVE_UNIT == SHOULDER
+  accl_interface_set_byte(0x10, 0b01110000); //Init acc 2g
+  accl_interface_set_byte(0x11, 0b01110000); //Init rotation 250dps
+#endif
+
+  uint8_t canData[8] = {0x41, 0x1, 0x2A, 0x0, 0x0, 0x0, 0, 0};
+  uint8_t canrx[8];
 
   while (1)
   {
+
+    // uart_send_string("not dead while\n\r");
+    
+    // controller_interface_update_position();
+
+    // if(can_interface_get_newrxflag() == 0)
+    // {
+    //   controller_interface_request_position();
+    // }
+
+    // HAL_Delay(200);
+    can_rx_executive();
+    can_tx_executive();
+
+    //HAL_Delay(200);
+    // // controller_interface_update_power();
+    // if(can_interface_get_newrxflag() == 1)
+    // {
+    //   uint8_t mailbox[8];
+    //   can_interface_get_acc_rxMailbox(mailbox);
+    //   int16_t test = (int16_t)((mailbox[2]<<8)|mailbox[3]);
+    //   char* debug[64];
+    //   sprintf(debug, "Decoded rx: %i\n\r", test);
+    //   uart_send_string(debug);
+    //   can_interface_clear_newrx();
+    // }
+
+
     motor_interface_update_power(0);
     motor_interface_update_tot_cnt(0);    
     motor_interface_update_power(1);
     motor_interface_update_tot_cnt(1);
 
-    // int32_t tot0 = motor_interface_get_total_count(0);
-    // int32_t tot1 = motor_interface_get_total_count(1);
-    // char* debug[64];
-    // sprintf(debug, "tot1: %i\n\r", tot1);
-    // uart_send_string(debug);
-    // sprintf(debug, "tot0: %i\n\r", tot0);
-    // uart_send_string(debug);    
-    // HAL_Delay(200); //20ms fastest for driver update to work.
+
     /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

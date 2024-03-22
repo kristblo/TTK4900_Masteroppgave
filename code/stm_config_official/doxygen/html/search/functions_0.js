@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['acc_5fdriver_5fset_5fbytes_228',['acc_driver_set_bytes',['../accelerometer__driver_8h.html#a323472810525671e9e4fc094a0d830cf',1,'accelerometer_driver.h']]],
+  ['accl_5fdriver_5fget_5fx_5facc_229',['accl_driver_get_x_acc',['../accelerometer__driver_8h.html#ad569d46e307a3a3e312deac49b8aa71b',1,'accelerometer_driver.h']]],
+  ['accl_5fdriver_5fget_5fx_5frot_230',['accl_driver_get_x_rot',['../accelerometer__driver_8h.html#aeb4bde1c6028cc200e1777b4ad5d7a18',1,'accelerometer_driver.h']]],
+  ['accl_5fdriver_5fget_5fy_5facc_231',['accl_driver_get_y_acc',['../accelerometer__driver_8h.html#aad7ba34ef70ade1d9d7a2ab42b9bd31d',1,'accelerometer_driver.h']]],
+  ['accl_5fdriver_5fget_5fy_5frot_232',['accl_driver_get_y_rot',['../accelerometer__driver_8h.html#aa9583b9b8709bae551c1aab0117209b5',1,'accelerometer_driver.h']]],
+  ['accl_5fdriver_5fget_5fz_5facc_233',['accl_driver_get_z_acc',['../accelerometer__driver_8h.html#a1bebb2d45720cefbc04f7406d501adfe',1,'accelerometer_driver.h']]],
+  ['accl_5fdriver_5fget_5fz_5frot_234',['accl_driver_get_z_rot',['../accelerometer__driver_8h.html#ab11d015499804d2552f5acdd4cd23756',1,'accelerometer_driver.h']]],
+  ['accl_5fdriver_5fread_5fbyte_235',['accl_driver_read_byte',['../accelerometer__driver_8h.html#a27ceeccc45404ed343fd0fd5ef3541f7',1,'accelerometer_driver.h']]],
+  ['accl_5fdriver_5fread_5fbytes_236',['accl_driver_read_bytes',['../accelerometer__driver_8h.html#a39b5053e1d78b7bdb1025976ea96e84a',1,'accelerometer_driver.h']]],
+  ['accl_5fdriver_5fread_5fregister_237',['accl_driver_read_register',['../accelerometer__driver_8h.html#a6090c10a44c05cf181262e2ce043f029',1,'accelerometer_driver.h']]],
+  ['accl_5fdriver_5fset_5fbyte_238',['accl_driver_set_byte',['../accelerometer__driver_8h.html#afeba8c5b62cfc9a4e71c52c780e10efc',1,'accelerometer_driver.h']]],
+  ['accl_5fdriver_5fset_5fregister_239',['accl_driver_set_register',['../accelerometer__driver_8h.html#a4c27d698cbc6cd9daf8f7c79ad09fbba',1,'accelerometer_driver.h']]],
+  ['accl_5finterface_5fget_5fx_5facc_240',['accl_interface_get_x_acc',['../accelerometer__driver_8h.html#aae8dc72c8e4cf2f31c07fb9813925707',1,'accelerometer_driver.h']]],
+  ['accl_5finterface_5fget_5fx_5frot_241',['accl_interface_get_x_rot',['../accelerometer__driver_8h.html#a9822265df1c948ebaa31faf0facd1aa6',1,'accelerometer_driver.h']]],
+  ['accl_5finterface_5fget_5fy_5facc_242',['accl_interface_get_y_acc',['../accelerometer__driver_8h.html#afdbe9d4107cdef1d0f896cfa25c3ef95',1,'accelerometer_driver.h']]],
+  ['accl_5finterface_5fget_5fy_5frot_243',['accl_interface_get_y_rot',['../accelerometer__driver_8h.html#a78a832012f9f0f616885918efabe5882',1,'accelerometer_driver.h']]],
+  ['accl_5finterface_5fget_5fz_5facc_244',['accl_interface_get_z_acc',['../accelerometer__driver_8h.html#ae6bef4428d25745d5bbbe94345bf08be',1,'accelerometer_driver.h']]],
+  ['accl_5finterface_5fget_5fz_5frot_245',['accl_interface_get_z_rot',['../accelerometer__driver_8h.html#a641a4c8acfc1d932f56cc468e6399be7',1,'accelerometer_driver.h']]],
+  ['accl_5finterface_5fread_5fbyte_246',['accl_interface_read_byte',['../accelerometer__driver_8h.html#a3cd5077718f19b7d2fcbe40d37a41d37',1,'accelerometer_driver.h']]],
+  ['accl_5finterface_5fread_5fbytes_247',['accl_interface_read_bytes',['../accelerometer__driver_8h.html#ace4e2763b09e07678bbd5b79aced737b',1,'accelerometer_driver.h']]],
+  ['accl_5finterface_5fread_5fregister_248',['accl_interface_read_register',['../accelerometer__driver_8h.html#aa359d9031b1214498878dbca504d58eb',1,'accelerometer_driver.h']]],
+  ['accl_5finterface_5fset_5fbyte_249',['accl_interface_set_byte',['../accelerometer__driver_8h.html#a751c30a67c896749e5e7b1e07473ef0f',1,'accelerometer_driver.h']]],
+  ['activate_5fperipherals_250',['activate_peripherals',['../unit__config_8h.html#ab203ac9a3f8ef115894db91cefee2194',1,'unit_config.h']]]
+];

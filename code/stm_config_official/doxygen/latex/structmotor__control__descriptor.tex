@@ -1,0 +1,141 @@
+\hypertarget{structmotor__control__descriptor}{}\doxysection{motor\+\_\+control\+\_\+descriptor Struct Reference}
+\label{structmotor__control__descriptor}\index{motor\_control\_descriptor@{motor\_control\_descriptor}}
+
+
+Contains static and state information relevant to the operation of a motor driver.  
+
+
+
+
+{\ttfamily \#include $<$motor\+\_\+driver.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structmotor__control__descriptor_a62593296d6dfb7e5e4d532c50f33b188}{motor\+Id}}
+\begin{DoxyCompactList}\small\item\em test \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{structmotor__control__descriptor_a8d0e2d75d1df7a1cca42208705a3b1cc}{voltage\+Limit}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structmotor__control__descriptor_a672431bba1322673ed356a9ecea3b8fc}{voltage\+Pct\+Cap}}
+\item 
+int8\+\_\+t \mbox{\hyperlink{structmotor__control__descriptor_ae13ec0ff0330e2201e8f594769a14a22}{motor\+Polarity}}
+\item 
+TIM\+\_\+\+Type\+Def $\ast$ \mbox{\hyperlink{structmotor__control__descriptor_ae9bce1a96c0b1a1fe4a820650a85f908}{motor\+Timer}}
+\item 
+TIM\+\_\+\+Type\+Def $\ast$ \mbox{\hyperlink{structmotor__control__descriptor_aadb43fee57793e3e312a35e302477501}{encoder\+Timer}}
+\item 
+int32\+\_\+t \mbox{\hyperlink{structmotor__control__descriptor_a51eccf0acd53cc6fdc3300a183c958e0}{resolution}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{structmotor__control__descriptor_ac073ef8257099791049fb5c951a2ec60}{encoder\+Init\+Count}}
+\item 
+int32\+\_\+t \mbox{\hyperlink{structmotor__control__descriptor_af90086a6dc04c9b3627dd1e7b4758c9c}{encoder\+Total\+Init}}
+\item 
+int32\+\_\+t \mbox{\hyperlink{structmotor__control__descriptor_a1cbf66ec8d802c92a35ae8d3b612187f}{encoder\+Total\+Setpoint}}
+\item 
+int32\+\_\+t \mbox{\hyperlink{structmotor__control__descriptor_a535a504c3d79cb6b6adb15870544f8f7}{encoder\+Total\+Count}}
+\item 
+int32\+\_\+t \mbox{\hyperlink{structmotor__control__descriptor_a8e6507fe2b1ed06aad14e4b3b680e41b}{encoder\+Previous\+Count}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structmotor__control__descriptor_a40970493a6761e77ac85fc1928187317}{is\+Moving}}
+\item 
+char $\ast$ \mbox{\hyperlink{structmotor__control__descriptor_a995edf9d390a42181dd7f00b0f9c7294}{motor\+Name}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains static and state information relevant to the operation of a motor driver. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structmotor__control__descriptor_ac073ef8257099791049fb5c951a2ec60}\label{structmotor__control__descriptor_ac073ef8257099791049fb5c951a2ec60}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!encoderInitCount@{encoderInitCount}}
+\index{encoderInitCount@{encoderInitCount}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{encoderInitCount}{encoderInitCount}}
+{\footnotesize\ttfamily uint16\+\_\+t motor\+\_\+control\+\_\+descriptor\+::encoder\+Init\+Count}
+
+\mbox{\Hypertarget{structmotor__control__descriptor_a8e6507fe2b1ed06aad14e4b3b680e41b}\label{structmotor__control__descriptor_a8e6507fe2b1ed06aad14e4b3b680e41b}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!encoderPreviousCount@{encoderPreviousCount}}
+\index{encoderPreviousCount@{encoderPreviousCount}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{encoderPreviousCount}{encoderPreviousCount}}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+control\+\_\+descriptor\+::encoder\+Previous\+Count}
+
+\mbox{\Hypertarget{structmotor__control__descriptor_aadb43fee57793e3e312a35e302477501}\label{structmotor__control__descriptor_aadb43fee57793e3e312a35e302477501}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!encoderTimer@{encoderTimer}}
+\index{encoderTimer@{encoderTimer}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{encoderTimer}{encoderTimer}}
+{\footnotesize\ttfamily TIM\+\_\+\+Type\+Def$\ast$ motor\+\_\+control\+\_\+descriptor\+::encoder\+Timer}
+
+\mbox{\Hypertarget{structmotor__control__descriptor_a535a504c3d79cb6b6adb15870544f8f7}\label{structmotor__control__descriptor_a535a504c3d79cb6b6adb15870544f8f7}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!encoderTotalCount@{encoderTotalCount}}
+\index{encoderTotalCount@{encoderTotalCount}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{encoderTotalCount}{encoderTotalCount}}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+control\+\_\+descriptor\+::encoder\+Total\+Count}
+
+\mbox{\Hypertarget{structmotor__control__descriptor_af90086a6dc04c9b3627dd1e7b4758c9c}\label{structmotor__control__descriptor_af90086a6dc04c9b3627dd1e7b4758c9c}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!encoderTotalInit@{encoderTotalInit}}
+\index{encoderTotalInit@{encoderTotalInit}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{encoderTotalInit}{encoderTotalInit}}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+control\+\_\+descriptor\+::encoder\+Total\+Init}
+
+\mbox{\Hypertarget{structmotor__control__descriptor_a1cbf66ec8d802c92a35ae8d3b612187f}\label{structmotor__control__descriptor_a1cbf66ec8d802c92a35ae8d3b612187f}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!encoderTotalSetpoint@{encoderTotalSetpoint}}
+\index{encoderTotalSetpoint@{encoderTotalSetpoint}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{encoderTotalSetpoint}{encoderTotalSetpoint}}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+control\+\_\+descriptor\+::encoder\+Total\+Setpoint}
+
+\mbox{\Hypertarget{structmotor__control__descriptor_a40970493a6761e77ac85fc1928187317}\label{structmotor__control__descriptor_a40970493a6761e77ac85fc1928187317}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!isMoving@{isMoving}}
+\index{isMoving@{isMoving}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{isMoving}{isMoving}}
+{\footnotesize\ttfamily uint8\+\_\+t motor\+\_\+control\+\_\+descriptor\+::is\+Moving}
+
+\mbox{\Hypertarget{structmotor__control__descriptor_a62593296d6dfb7e5e4d532c50f33b188}\label{structmotor__control__descriptor_a62593296d6dfb7e5e4d532c50f33b188}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!motorId@{motorId}}
+\index{motorId@{motorId}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{motorId}{motorId}}
+{\footnotesize\ttfamily uint8\+\_\+t motor\+\_\+control\+\_\+descriptor\+::motor\+Id}
+
+
+
+test 
+
+\mbox{\Hypertarget{structmotor__control__descriptor_a995edf9d390a42181dd7f00b0f9c7294}\label{structmotor__control__descriptor_a995edf9d390a42181dd7f00b0f9c7294}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!motorName@{motorName}}
+\index{motorName@{motorName}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{motorName}{motorName}}
+{\footnotesize\ttfamily char$\ast$ motor\+\_\+control\+\_\+descriptor\+::motor\+Name}
+
+\mbox{\Hypertarget{structmotor__control__descriptor_ae13ec0ff0330e2201e8f594769a14a22}\label{structmotor__control__descriptor_ae13ec0ff0330e2201e8f594769a14a22}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!motorPolarity@{motorPolarity}}
+\index{motorPolarity@{motorPolarity}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{motorPolarity}{motorPolarity}}
+{\footnotesize\ttfamily int8\+\_\+t motor\+\_\+control\+\_\+descriptor\+::motor\+Polarity}
+
+\mbox{\Hypertarget{structmotor__control__descriptor_ae9bce1a96c0b1a1fe4a820650a85f908}\label{structmotor__control__descriptor_ae9bce1a96c0b1a1fe4a820650a85f908}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!motorTimer@{motorTimer}}
+\index{motorTimer@{motorTimer}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{motorTimer}{motorTimer}}
+{\footnotesize\ttfamily TIM\+\_\+\+Type\+Def$\ast$ motor\+\_\+control\+\_\+descriptor\+::motor\+Timer}
+
+\mbox{\Hypertarget{structmotor__control__descriptor_a51eccf0acd53cc6fdc3300a183c958e0}\label{structmotor__control__descriptor_a51eccf0acd53cc6fdc3300a183c958e0}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!resolution@{resolution}}
+\index{resolution@{resolution}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{resolution}{resolution}}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+control\+\_\+descriptor\+::resolution}
+
+\mbox{\Hypertarget{structmotor__control__descriptor_a8d0e2d75d1df7a1cca42208705a3b1cc}\label{structmotor__control__descriptor_a8d0e2d75d1df7a1cca42208705a3b1cc}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!voltageLimit@{voltageLimit}}
+\index{voltageLimit@{voltageLimit}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{voltageLimit}{voltageLimit}}
+{\footnotesize\ttfamily uint8\+\_\+t motor\+\_\+control\+\_\+descriptor\+::voltage\+Limit}
+
+\mbox{\Hypertarget{structmotor__control__descriptor_a672431bba1322673ed356a9ecea3b8fc}\label{structmotor__control__descriptor_a672431bba1322673ed356a9ecea3b8fc}} 
+\index{motor\_control\_descriptor@{motor\_control\_descriptor}!voltagePctCap@{voltagePctCap}}
+\index{voltagePctCap@{voltagePctCap}!motor\_control\_descriptor@{motor\_control\_descriptor}}
+\doxysubsubsection{\texorpdfstring{voltagePctCap}{voltagePctCap}}
+{\footnotesize\ttfamily uint8\+\_\+t motor\+\_\+control\+\_\+descriptor\+::voltage\+Pct\+Cap}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{motor__driver_8h}{motor\+\_\+driver.\+h}}\end{DoxyCompactItemize}

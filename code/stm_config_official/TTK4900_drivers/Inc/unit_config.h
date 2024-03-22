@@ -16,7 +16,7 @@
 #define TORSO 0
 #define SHOULDER 1
 #define HAND 2
-#define ACTIVE_UNIT HAND //Change before flashing another unit
+#define ACTIVE_UNIT TORSO //Change before flashing another unit
 
 //Choose between UART and USB for communication
 #define UART_INTERFACE 0
@@ -29,23 +29,29 @@
 #define SW_INTERFACE CMD_MODE_TERMINAL
 
 #if ACTIVE_UNIT == TORSO
-  #define CAN_TXID 0x10A //CAN transmit ID
-  #define CAN_FILTER_IDH 0x0 //CAN message filtering
+  #define CAN_FILTER_M 0x000 //Motor message filter
+  #define CAN_FILTERMASK_M 0x300 //Motor message filtermask
+  #define CAN_FILTER_A 0x000 //Accelerometer message filter
+  #define CAN_FILTERMASK_A 0x0E0 //Accelerometer message filtermask
   #define MTR_POL -1 //Motor polarity, i.e. whether "forward" increases or decreases encoder count
   #define UART_INPUT 1 //Include UART input parsing in build
 
 
 #elif ACTIVE_UNIT == SHOULDER
-  #define CAN_TXID 0x10B //CAN transmit ID
-  #define CAN_FILTER_IDH 0x10A //CAN message filtering
+  #define CAN_FILTER_M 0x040 //Motor message filter
+  #define CAN_FILTERMASK_M 0x3C0 //Motor message filtermask
+  #define CAN_FILTER_A 0x000 //Accelerometer message filter
+  #define CAN_FILTERMASK_A 0x2E0 //Accelerometer message filtermask
   #define MTR_POL 1 //Motor polarity, i.e. whether "forward" increases or decreases encoder count
   #define UART_INPUT 1 //Include UART input parsing in build
 
 
 
 #elif ACTIVE_UNIT == HAND
-  #define CAN_TXID 0x10C //CAN transmit ID
-  #define CAN_FILTER_IDH 0x10A //CAN message filtering
+  #define CAN_FILTER_M 0x080 //Motor message filter
+  #define CAN_FILTERMASK_M 0x3C0 //Motor message filtermask
+  #define CAN_FILTER_A 0x200 //Accelerometer message filter
+  #define CAN_FILTERMASK_A 0x2E0 //Accelerometer message filtermask
   #define MTR_POL -1 //Motor polarity, i.e. whether "forward" increases or decreases encoder count
   #define UART_INPUT 1 //Include UART input parsing in build
 #else

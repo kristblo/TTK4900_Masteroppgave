@@ -73,11 +73,12 @@ Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c \
 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c \
 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c \
 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c \
+TTK4900_drivers/Src/accelerometer_driver.c \
 TTK4900_drivers/Src/adc_driver.c \
 TTK4900_drivers/Src/can_driver.c \
 TTK4900_drivers/Src/gpio_driver.c \
-TTK4900_drivers/Src/i2c_driver.c \
 TTK4900_drivers/Src/motor_driver.c \
+TTK4900_drivers/Src/shoulder_controller.c \
 TTK4900_drivers/Src/string_cmd_parser.c \
 TTK4900_drivers/Src/uart_driver.c \
 TTK4900_drivers/Src/unit_config.c \

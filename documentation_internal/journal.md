@@ -179,3 +179,34 @@ Next priority is to make an accelerometer driver. It absolutely has to accommoda
 Thoughts on zero calibration, state estimation: Rail has the end switch, and I think the encoder counter is reliable enough that a range of 145000 clicks is always safe. Shoulder has accelerometer, all good. Twist has the optical sensor, and can probably rely on encoder. Pinch can be gently run until it stops in either end during a calibration phase, then rely on encoder, ditto for wrist after twist has been secured 90 deg on the joint. Elbow may be run until stop while elbow points straight up, but that is inelegant.
 
 As a last-ditch, desperate attempt at making the Adafruits work, I could try to make a voltage divider to get the 5V down to 3.3V, which I suppose is really the "logic level" of my STMs.
+
+###190324
+Shoulder accelerometer: acceleration works for x and y axes. X is irrelevant (always 0), Y will be 0 when joint point upwards, plus/minus 1 when horizontal. Needs an offset of approximately 2500, probably due to slighty skewed installation. Rotation rate works for all axes, but only X is relevant.
+
+Wrote a motor controller.h, it almost completely shoulder centric. The loop now works, but is completely unstable. Will need to implement something so that the motor doesn't spaz out, such as setting isMoving to 0 or simply lowering the gain even more.
+
+###200324
+Struggling to make the torso to shoulder update loop work. I seems almost random whether or not the function call stack actually results in a correct read or not, will need some debugging.
+
+Got an angle measurement thingy:
+Shoulder has -332 encoder clicks per degree forward (CCW when sitting at the desk)
+Elbow: 703 clicks/deg forward CW
+Wrist: 300 clicks/deg forward CCW
+Twist: 155 clicks/deg forward CCW viewed from the front
+Pinch: 500 clicks/mm forward opening
+Rail: 95 clicks/mm forward towards the end switch
+
+Spent a couple hours debugging a compiler error that only solved by rebooting the computer ffs. Seemed like the CAN rx interrupt read a message twice, returning trash. Wrote an algorithm for controlling the shoulder on paper. FIND OUT: does the accelerometer do the sine conversion to angle for me, or will I need trig?
+
+###210324
+For some reason, the CAN rx interrupt seems to trigger twice when receiving a message from the shoulder/accelerometer, and it contains only trash on the second reading. The second interrupt is handled before the control loop finishes, so all accelerometer readings via CAN are trash as far as the control loop is concerned. The solution is to only handle the message when newmsg is 0. Feels very hacky. The printing of debug messages, understandably, seems to alter behaviour in a very hard to predict manner. I really wish the debugger worked. 
+Edit: The messages now come in random order, effectively making it impossible to incorporate accelerometer data. Tried manually clearing the CAN_IT_RX_FIFO0_MSG_PENDING flag as well, but no luck.
+
+
+Decided to rewrite the can driver such that the interrupts almost don't do anything, and a poller/handler in the main does most of the work. Made two lists of 8 functions, one for rx handling and one for tx handling. The idea is that each function corresponds to a mailbox, defined as a struct of a newmsg flag and a data container, and represents an action. I.e. breaking up the large handlers from earlier. Things look okay on the transmit side, but rx must be implemented. The first byte in a CAN message now represents the mailbox and corresponding handler functions, so rx must be rewritten so that they don't contain M or A. There probably should be a global list somewhere so that I don't need to remember which mailbox/function pair is dedicated to which functions, but then again it's an embedded system.
+
+When the CAN rewrite is done, I should do a VERY SELECTIVE merge with main. Don't want the accelerometer loop disturbing things, but also don't want to lose the math stuff as it's still relevant for encoder setpoints. Next goal should be to write controllers for each joint, like with the shoulder/accelerometer loop, just without CAN.
+
+###220324
+Rewrote the CAN driver. ID is structured with three fields, accelerometer, motor and command. Accelerometer is ID9..8, motor ID7..5, and command ID4..0. Set up another filter bank so that the accelerometer field is DC for motor commands and vice versa. Main loop runs two loops, one for handling each of tx and rx. Rx has a set of action functions associated with it, and an enum to keep track of valid commands. The HAL_rx now only pushes the message into an array of rx messages, which the main loop responds to. As the rx and tx mailboxes are both of equal length, some will probably not be used: the message type decides which mailbox is used, and message types are mostly explicitly either rx or tx. However, we're not short on space and this seems like a safe structure. I've ditched the set of accelerometer commands for now, but may reimplement. Also added doxygen to the driver files, seems to look good! Updated from the command palette, be sure to have the right file open/selected before running. Had to enable basically every 'EXTRACT_' flag to make it realise I actually want every function.
+

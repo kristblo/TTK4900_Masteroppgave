@@ -1,0 +1,64 @@
+\hypertarget{uart__driver_8h}{}\doxysection{uart\+\_\+driver.\+h File Reference}
+\label{uart__driver_8h}\index{uart\_driver.h@{uart\_driver.h}}
+{\ttfamily \#include \char`\"{}string.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}usart.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}unit\+\_\+config.\+h\char`\"{}}\newline
+Include dependency graph for uart\+\_\+driver.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{uart__driver_8h_ad97960cd0cea98fc46a3a58cd7fd6d1b}{uart\+\_\+send\+\_\+string}} (char $\ast$str)
+\item 
+void \mbox{\hyperlink{uart__driver_8h_a61599f862b59e9052736d4d9668df327}{uart\+\_\+parse\+\_\+input}} (char $\ast$input, uint8\+\_\+t $\ast$buffer, uint8\+\_\+t buffer\+Length, uint8\+\_\+t $\ast$buffer\+Pos)
+\item 
+void \mbox{\hyperlink{uart__driver_8h_ab7e1f9962c77f123428b3c1ca4481170}{uart\+\_\+hmi\+\_\+rx\+\_\+handler}} ()
+\item 
+void \mbox{\hyperlink{uart__driver_8h_a2e15726743ad3a989870beb4d150e3b3}{uart\+\_\+hmi\+\_\+init}} ()
+\item 
+void \mbox{\hyperlink{uart__driver_8h_ada24ad222239404cec9a86a207399fa0}{uart\+\_\+ros\+\_\+rx\+\_\+handler}} ()
+\item 
+void \mbox{\hyperlink{uart__driver_8h_a5546540844ec27b2ff30dc8fec830af5}{uart\+\_\+ros\+\_\+init}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{uart__driver_8h_a2e15726743ad3a989870beb4d150e3b3}\label{uart__driver_8h_a2e15726743ad3a989870beb4d150e3b3}} 
+\index{uart\_driver.h@{uart\_driver.h}!uart\_hmi\_init@{uart\_hmi\_init}}
+\index{uart\_hmi\_init@{uart\_hmi\_init}!uart\_driver.h@{uart\_driver.h}}
+\doxysubsubsection{\texorpdfstring{uart\_hmi\_init()}{uart\_hmi\_init()}}
+{\footnotesize\ttfamily void uart\+\_\+hmi\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{uart__driver_8h_ab7e1f9962c77f123428b3c1ca4481170}\label{uart__driver_8h_ab7e1f9962c77f123428b3c1ca4481170}} 
+\index{uart\_driver.h@{uart\_driver.h}!uart\_hmi\_rx\_handler@{uart\_hmi\_rx\_handler}}
+\index{uart\_hmi\_rx\_handler@{uart\_hmi\_rx\_handler}!uart\_driver.h@{uart\_driver.h}}
+\doxysubsubsection{\texorpdfstring{uart\_hmi\_rx\_handler()}{uart\_hmi\_rx\_handler()}}
+{\footnotesize\ttfamily void uart\+\_\+hmi\+\_\+rx\+\_\+handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{uart__driver_8h_a61599f862b59e9052736d4d9668df327}\label{uart__driver_8h_a61599f862b59e9052736d4d9668df327}} 
+\index{uart\_driver.h@{uart\_driver.h}!uart\_parse\_input@{uart\_parse\_input}}
+\index{uart\_parse\_input@{uart\_parse\_input}!uart\_driver.h@{uart\_driver.h}}
+\doxysubsubsection{\texorpdfstring{uart\_parse\_input()}{uart\_parse\_input()}}
+{\footnotesize\ttfamily void uart\+\_\+parse\+\_\+input (\begin{DoxyParamCaption}\item[{char $\ast$}]{input,  }\item[{uint8\+\_\+t $\ast$}]{buffer,  }\item[{uint8\+\_\+t}]{buffer\+Length,  }\item[{uint8\+\_\+t $\ast$}]{buffer\+Pos }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{uart__driver_8h_a5546540844ec27b2ff30dc8fec830af5}\label{uart__driver_8h_a5546540844ec27b2ff30dc8fec830af5}} 
+\index{uart\_driver.h@{uart\_driver.h}!uart\_ros\_init@{uart\_ros\_init}}
+\index{uart\_ros\_init@{uart\_ros\_init}!uart\_driver.h@{uart\_driver.h}}
+\doxysubsubsection{\texorpdfstring{uart\_ros\_init()}{uart\_ros\_init()}}
+{\footnotesize\ttfamily void uart\+\_\+ros\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{uart__driver_8h_ada24ad222239404cec9a86a207399fa0}\label{uart__driver_8h_ada24ad222239404cec9a86a207399fa0}} 
+\index{uart\_driver.h@{uart\_driver.h}!uart\_ros\_rx\_handler@{uart\_ros\_rx\_handler}}
+\index{uart\_ros\_rx\_handler@{uart\_ros\_rx\_handler}!uart\_driver.h@{uart\_driver.h}}
+\doxysubsubsection{\texorpdfstring{uart\_ros\_rx\_handler()}{uart\_ros\_rx\_handler()}}
+{\footnotesize\ttfamily void uart\+\_\+ros\+\_\+rx\+\_\+handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{uart__driver_8h_ad97960cd0cea98fc46a3a58cd7fd6d1b}\label{uart__driver_8h_ad97960cd0cea98fc46a3a58cd7fd6d1b}} 
+\index{uart\_driver.h@{uart\_driver.h}!uart\_send\_string@{uart\_send\_string}}
+\index{uart\_send\_string@{uart\_send\_string}!uart\_driver.h@{uart\_driver.h}}
+\doxysubsubsection{\texorpdfstring{uart\_send\_string()}{uart\_send\_string()}}
+{\footnotesize\ttfamily void uart\+\_\+send\+\_\+string (\begin{DoxyParamCaption}\item[{char $\ast$}]{str }\end{DoxyParamCaption})}
+
