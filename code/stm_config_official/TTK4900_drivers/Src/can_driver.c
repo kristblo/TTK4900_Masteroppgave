@@ -147,6 +147,10 @@ void can_driver_send_msg(uint8_t* data,
 #endif
 }
 
+void can_cmd_handle_yAcc(uint32_t id, uint8_t* inData)
+{
+  
+}
 
 void can_cmd_handle_regVal(uint32_t id, uint8_t* inData)
 {
@@ -171,12 +175,22 @@ void can_cmd_handle_regReq(uint32_t id, uint8_t* inData)
   //is one of the x/y/z registers, as well as embedding the
   //correct accelerometer ID into the message
   accSelect = 0;
-  uint32_t outId = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_REG_RX;
-  uint8_t outData[8];
-  outData[0] = regSelect;
-  memcpy(&outData[1], &regVal, 2);
+  if(regSelect == 0x2A)
+  {
+    uint32_t outId = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_Y_RX;
+    uint8_t outData[8];
+    memcpy(&outData, &regVal, 2);
+    can_interface_queue_tx(ACC_REG_RX, outData, outId);
+  }
+  else
+  {
+    uint32_t outId = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_REG_RX;
+    uint8_t outData[8];
+    outData[0] = regSelect;
+    memcpy(&outData[1], &regVal, 2);
 
-  can_interface_queue_tx(ACC_REG_RX, outData, outId);
+    can_interface_queue_tx(ACC_REG_RX, outData, outId);    
+  }
 }
 
 

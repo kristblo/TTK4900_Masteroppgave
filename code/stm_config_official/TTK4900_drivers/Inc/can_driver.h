@@ -112,6 +112,7 @@ void can_driver_send_msg(uint8_t* data, uint32_t stdId, int dlc, uint8_t hwMailb
 /// @param data CAN message data
 void can_driver_rx_accelerometer_cmd(uint8_t* data);
 
+void can_cmd_handle_yAcc(uint32_t id, uint8_t* inData);
 
 /// @brief Handles an incoming accelerometer register message
 /// @param id Incoming CAN ID

@@ -160,7 +160,7 @@ int main(void)
 
 
 #if ACTIVE_UNIT == TORSO
-    //HAL_Delay(200);
+    HAL_Delay(20);
 #endif    
     can_rx_executive();
     can_tx_executive();
