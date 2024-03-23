@@ -148,6 +148,56 @@ void can_driver_send_msg(uint8_t* data,
 }
 
 
+void can_cmd_handle_regVal(uint32_t id, uint8_t* inData)
+{
+  uint8_t accId = (id >> CAN_ACC_CMD_OFFSET) & 3;
+  uint8_t regId = inData[0];
+  uint16_t regVal;
+  memcpy(&regVal, &inData[1], 2);
+
+  char* debug[64];
+  sprintf(debug, "Regval: %i\n\r", regVal);
+  uart_send_string(debug);  
+}
+
+
+void can_cmd_handle_regReq(uint32_t id, uint8_t* inData)
+{
+  uint8_t accSelect = (uint8_t)(id >> CAN_ACC_CMD_OFFSET) & 1; //Relevant if more accs are ever implemented
+  uint8_t regSelect = inData[0];
+  uint16_t regVal = accl_interface_read_register(regSelect);
+  
+  //TODO: imeplement logic to check if the requested register
+  //is one of the x/y/z registers, as well as embedding the
+  //correct accelerometer ID into the message
+  accSelect = 0;
+  uint32_t outId = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_REG_RX;
+  uint8_t outData[8];
+  outData[0] = regSelect;
+  memcpy(&outData[1], &regVal, 2);
+
+  can_interface_queue_tx(ACC_REG_RX, outData, outId);
+}
+
+
+void can_cmd_handle_motorSp(uint32_t id, uint8_t* inData)
+{
+  uint8_t motorSelect = (uint8_t)(id >> CAN_MOTOR_CMD_OFFSET) & 1;
+  if(inData[0] == 'e')
+  {
+    int32_t setpoint;
+    memcpy(&setpoint, &inData[1], 4);
+    motor_interface_set_setpoint(motorSelect, setpoint);
+  }
+  else if(inData[0] == 'r')
+  {
+    //TODO: Implement setpoint from radians. This is joint control stuff.
+  }
+
+}
+
+
+
 void can_driver_cmd_rxTEMPLATE(uint32_t id, uint8_t* inData)
 {
   //Template for rx handlers
@@ -217,15 +267,7 @@ void can_driver_cmd_rx3(uint32_t id, uint8_t* inData)
   uint8_t cmd = (uint8_t)(id & 0x1F);
   if(cmd == ACC_REG_RX)
   {
-    uint8_t accId = (id >> CAN_ACC_CMD_OFFSET) & 3;
-    uint8_t regId = inData[0];
-    uint16_t regVal;
-    memcpy(&regVal, &inData[1], 2);
-
-    char* debug[64];
-    sprintf(debug, "Regval: %i\n\r", regVal);
-    uart_send_string(debug);  
-
+    can_cmd_handle_regVal(id, inData);
   }
   else
   {
@@ -240,23 +282,7 @@ void can_driver_cmd_rx4(uint32_t id, uint8_t* inData)
   uint8_t cmd = (uint8_t)(id & 0x1F);
   if(cmd == ACC_REG_REQ)
   {
-    uint8_t accSelect = (uint8_t)(id >> CAN_ACC_CMD_OFFSET) & 1; //Relevant if more accs are ever implemented
-    uint8_t regSelect = inData[0];
-    uint16_t regVal = accl_interface_read_register(regSelect);
-    
-    //TODO: imeplement logic to check if the requested register
-    //is one of the x/y/z registers, as well as embedding the
-    //correct accelerometer ID into the message
-    accSelect = 0;
-    int32_t id = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_REG_RX;
-    uint8_t outData[8];
-    outData[0] = regSelect;
-    memcpy(&outData[1], &regVal, 2);
-
-    can_interface_queue_tx(ACC_REG_RX, outData, id);
-
-
-
+    can_cmd_handle_regReq(id, inData);
   }
   else
   {
@@ -280,17 +306,7 @@ void can_driver_cmd_rx5(uint32_t id, uint8_t* inData)
 
   if(cmd == MOTOR_POS_SP)
   {
-    uint8_t motorSelect = (uint8_t)(id >> CAN_MOTOR_CMD_OFFSET) & 1;
-    if(inData[0] == 'e')
-    {
-      int32_t setpoint;
-      memcpy(&setpoint, &inData[1], 4);
-      motor_interface_set_setpoint(motorSelect, setpoint);
-    }
-    else if(inData[0] == 'r')
-    {
-      //TODO: Implement setpoint from radians. This is joint control stuff.
-    }
+    can_cmd_handle_motorSp(id, inData);
   }
   else
   {

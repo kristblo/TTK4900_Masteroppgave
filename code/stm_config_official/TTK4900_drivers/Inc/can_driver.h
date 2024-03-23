@@ -113,6 +113,25 @@ void can_driver_send_msg(uint8_t* data, uint32_t stdId, int dlc, uint8_t hwMailb
 void can_driver_rx_accelerometer_cmd(uint8_t* data);
 
 
+/// @brief Handles an incoming accelerometer register message
+/// @param id Incoming CAN ID
+/// @param inData Incoming CAN data
+void can_cmd_handle_regVal(uint32_t id, uint8_t* inData);
+
+
+/// @brief Handles an incoming accelerometer read request
+/// @param id Incoming CAN ID
+/// @param inData Incoming CAN data
+void can_cmd_handle_regReq(uint32_t id, uint8_t* inData);
+
+
+/// @brief Handles an incoming motor setpoint
+/// @param id Incoming CAN ID
+/// @param inData Incoming CAN data
+void can_cmd_handle_motorSp(uint32_t id, uint8_t* inData);
+
+
+
 //The following rxn functions MUST match with the number of
 //available can_message_types, and MUST be added to the
 //canRxFunctions list in the .c file
