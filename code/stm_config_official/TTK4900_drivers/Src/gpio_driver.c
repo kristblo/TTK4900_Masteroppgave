@@ -27,14 +27,11 @@ HAL_GPIO_EXTI_Callback(uint16_t GPIO_pin)
 
 void gpio_end_switch_handler()
 {
-  //char* data = "HELLO ES";
-  
-  //Equivalent of "twist stp e -15000"
-  uint8_t accSelect = 0;
-  uint8_t data[8];
-  data[0] = 0x2A;
-  int32_t id = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_REG_REQ;
-  can_interface_queue_tx(ACC_REG_REQ, data, id);
+  //Turn the rail motor off asap
+  controller_interface_set_position(0, 0);
+  controller_interface_set_setpoint(0, 0);
+  controller_interface_set_error(0, 0);
+  controller_interface_set_power(0, 0);
   
 }
 

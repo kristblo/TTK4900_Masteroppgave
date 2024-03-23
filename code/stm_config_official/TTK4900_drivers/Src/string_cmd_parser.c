@@ -155,42 +155,6 @@ void string_cmd_acc1(char (*inputTokens)[64])
 
 #endif
 
-  // if(cmd == 1)
-  // {
-  //   uint8_t regAddr = (uint8_t)strtol(inputTokens[2], '\0', 16);
-  //   data[0] = type;
-  //   data[1] = cmd;
-  //   data[2] = regAddr;
-  //   //data = {type, cmd, regAddr, 0, 0, 0, 0, 0};
-  //   can_interface_send_msg(data);
-  
-  // }
-  // //CMD 2 not relevant for string commands
-  // else if(cmd == 3)
-  // {
-    
-  //   if(can_interface_get_newrxflag() == 0)
-  //   {
-  //     uint8_t data[8] = {0x41, 0x1, 0x2A, 0x0, 0x0, 0x0, 0, 0};
-  //     can_interface_send_msg(data);
-  //   }
-    
-  //   // float setpointRads = (float)atof(inputTokens[2]);
-  //   // memcpy(&data[2], &setpointRads, 4);
-  //   // controller_interface_set_setpoint(setpointRads);
-  // }
-  // else if(cmd ==4)
-  // {
-  //   float setpoint = atof(inputTokens[2]);
-  //   controller_interface_set_setpoint(setpoint);
-  //   controller_interface_set_moving();
-
-  //   float setpointRb = controller_interface_get_setpoint();
-  //   char* debug[64];
-  //   sprintf(debug, "Setpointrb: %i\n\r", (int32_t)(setpointRb*10));
-  //   uart_send_string(debug);
-  // }
-
 }
 
 void string_cmd_stop(char (*inputTokens)[64])
@@ -223,11 +187,21 @@ void string_cmd_category_local_motor(uint8_t motor, char (*inputTokens)[64])
     if(mode == 'e')
     {      
       int32_t setpoint = (int32_t)atoi(inputTokens[3]);
-      motor_interface_set_setpoint(motor, setpoint);
+      int32_t resolution = motor_interface_get_resolution(motor);
+      float setpointRads = (float)(setpoint/resolution);
+      controller_interface_set_setpoint(motor, setpointRads);
+
     }
     else if(mode == 'r')
     {
       //TODO: implement radians
+      float setpoint = (float)atof(inputTokens[3]);
+      controller_interface_set_setpoint(motor, setpoint);
+
+      // int32_t sp = (int32_t)(controller_interface_get_setpoint(motor)*10);
+      // char* debug[64];
+      // sprintf(debug, "Setpoint rb: %i\n\r", sp);
+      // uart_send_string(debug);
     }
   }
   else
@@ -253,7 +227,7 @@ void string_cmd_category_remote_motor(uint8_t motor, char (*inputTokens)[64])
   else if((int)strcmp(inputTokens[1], "stp") == 0)
   {
     uint8_t mode = inputTokens[2][0];
-    int32_t setpoint = (int32_t)atoi(inputTokens[3]);
+    float setpoint = (float)atof(inputTokens[3]);
     memcpy(data, &mode, 1);
     memcpy(&data[1], &setpoint, 4);
     uint32_t id = (motor << CAN_MOTOR_CMD_OFFSET) | MOTOR_POS_SP;

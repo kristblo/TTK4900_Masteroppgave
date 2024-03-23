@@ -213,3 +213,6 @@ Rewrote the CAN driver. ID is structured with three fields, accelerometer, motor
 ###230324
 Changed the CAN config filter names and bank numbers to be less youtubey, including giving the configs unique names on the off chance that reusing them is bad. Making one last attempt at getting stable accelerometer readings, if for no other reason than having a proof of concept.
 
+Got accelerometer readings back, works when only trying to read one value. Will test a bit more.
+
+Otherwise: Got joint control back up with a primitive PI controller, can now set rads/mm setpoints. Set Ki to 0 for most joints as the friction in the system makes it a bit unstable -- either spends too long stabilizing or overshoots heavily. Got more accurate estimates for the resolution of all joints, works quite well. Still working on low speeds ofc, but the encoder counter seems to keep track without issue.

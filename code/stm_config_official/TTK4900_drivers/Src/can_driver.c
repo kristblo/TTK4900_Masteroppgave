@@ -188,10 +188,16 @@ void can_cmd_handle_motorSp(uint32_t id, uint8_t* inData)
     int32_t setpoint;
     memcpy(&setpoint, &inData[1], 4);
     motor_interface_set_setpoint(motorSelect, setpoint);
+    int32_t resolution = motor_interface_get_resolution(motorSelect);
+    float setpointRads = (float)(setpoint/resolution);
+    controller_interface_set_setpoint(motorSelect, setpointRads);
+
   }
   else if(inData[0] == 'r')
   {
-    //TODO: Implement setpoint from radians. This is joint control stuff.
+    float setpoint;
+    memcpy(&setpoint, &inData[1], 4);
+    controller_interface_set_setpoint(motorSelect, setpoint);
   }
 
 }

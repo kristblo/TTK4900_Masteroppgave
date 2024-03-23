@@ -5,6 +5,7 @@
 //CubeMX generated includes
 #include "gpio.h"
 #include "can_driver.h"
+#include "joint_controller.h"
 
 //TTK4900 library includes
 #include "unit_config.h"

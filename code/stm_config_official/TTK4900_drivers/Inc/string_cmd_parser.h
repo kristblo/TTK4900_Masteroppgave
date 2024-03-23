@@ -12,6 +12,7 @@
 #include "unit_config.h"
 #include "motor_driver.h"
 #include "can_driver.h"
+#include "joint_controller.h"
 
 //------FILE BEGIN------
 

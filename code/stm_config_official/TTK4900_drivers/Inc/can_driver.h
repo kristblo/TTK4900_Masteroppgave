@@ -9,7 +9,7 @@
 #include "unit_config.h"
 #include "motor_driver.h"
 #include "accelerometer_driver.h"
-#include "shoulder_controller.h"
+#include "joint_controller.h"
 
 //------FILE BEGIN------
 #define CAN_MOTOR_CMD_OFFSET 5
