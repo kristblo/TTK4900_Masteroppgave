@@ -130,10 +130,10 @@ void can_driver_send_msg(uint8_t* data,
   //   uart_send_string(debug);
   // }
 
-  // if(HAL_CAN_AddTxMessage(&hcan, &txHeader, data, &txMailbox[hwMailbox]) != HAL_OK)
-  // {
-  //   uart_send_string("CAN TX not successful");
-  // }
+  if(HAL_CAN_AddTxMessage(&hcan, &txHeader, data, &txMailbox[hwMailbox]) != HAL_OK)
+  {
+    uart_send_string("CAN TX not successful");
+  }
 
 #if GLOBAL_DEBUG
   // char* debugbuffer[128];

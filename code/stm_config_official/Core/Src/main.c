@@ -207,7 +207,9 @@ int main(void)
     //   controller_interface_request_position();
     // }
 
-    // HAL_Delay(200);
+#if ACTIVE_UNIT == TORSO
+    HAL_Delay(200);
+#endif    
     can_rx_executive();
     can_tx_executive();
 

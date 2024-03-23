@@ -55,32 +55,33 @@ void MX_CAN_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN_Init 2 */
-  CAN_FilterTypeDef canfilterconfig;
-  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
-  canfilterconfig.FilterBank = 10;
-  canfilterconfig.FilterFIFOAssignment = CAN_RX_FIFO0;
-  canfilterconfig.FilterIdHigh = CAN_FILTER_M<<5;//0x106 << 5;
-  canfilterconfig.FilterIdLow = 0x0000;
-  canfilterconfig.FilterMaskIdHigh = CAN_FILTERMASK_M<< 5;//0x106 << 5; //0s are DC when incoming IDs are compared
-  canfilterconfig.FilterMaskIdLow = 0x0000;
-  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
-  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
-  canfilterconfig.SlaveStartFilterBank = 0;
+  CAN_FilterTypeDef mtrFilterConfig;
+  mtrFilterConfig.FilterActivation = CAN_FILTER_ENABLE;
+  mtrFilterConfig.FilterBank = 0;
+  mtrFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+  mtrFilterConfig.FilterIdHigh = CAN_FILTER_M<<5;//0x106 << 5;
+  mtrFilterConfig.FilterIdLow = 0x0000;
+  mtrFilterConfig.FilterMaskIdHigh = CAN_FILTERMASK_M<< 5;//0x106 << 5; //0s are DC when incoming IDs are compared
+  mtrFilterConfig.FilterMaskIdLow = 0x0000;
+  mtrFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
+  mtrFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
+  mtrFilterConfig.SlaveStartFilterBank = 0;
 
-  HAL_CAN_ConfigFilter(&hcan, &canfilterconfig);
+  HAL_CAN_ConfigFilter(&hcan, &mtrFilterConfig);
 
-  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
-  canfilterconfig.FilterBank = 11;
-  canfilterconfig.FilterFIFOAssignment = CAN_RX_FIFO0;
-  canfilterconfig.FilterIdHigh = CAN_FILTER_A<<5;//0x106 << 5;
-  canfilterconfig.FilterIdLow = 0x0000;
-  canfilterconfig.FilterMaskIdHigh = CAN_FILTERMASK_A<< 5;//0x106 << 5; //0s are DC when incoming IDs are compared
-  canfilterconfig.FilterMaskIdLow = 0x0000;
-  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
-  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
-  canfilterconfig.SlaveStartFilterBank = 0;
+  CAN_FilterTypeDef accFilterConfig;
+  accFilterConfig.FilterActivation = CAN_FILTER_ENABLE;
+  accFilterConfig.FilterBank = 1;
+  accFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+  accFilterConfig.FilterIdHigh = CAN_FILTER_A<<5;//0x106 << 5;
+  accFilterConfig.FilterIdLow = 0x0000;
+  accFilterConfig.FilterMaskIdHigh = CAN_FILTERMASK_A<< 5;//0x106 << 5; //0s are DC when incoming IDs are compared
+  accFilterConfig.FilterMaskIdLow = 0x0000;
+  accFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
+  accFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
+  accFilterConfig.SlaveStartFilterBank = 0;
 
-  HAL_CAN_ConfigFilter(&hcan, &canfilterconfig);
+  HAL_CAN_ConfigFilter(&hcan, &accFilterConfig);
 
   /* USER CODE END CAN_Init 2 */
 
