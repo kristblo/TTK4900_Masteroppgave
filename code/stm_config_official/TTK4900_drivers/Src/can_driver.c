@@ -215,14 +215,22 @@ void can_driver_cmd_rx3(uint32_t id, uint8_t* inData)
 {
   //Incoming IMU register data
   uint8_t cmd = (uint8_t)(id & 0x1F);
-  if(cmd == num_types)
+  if(cmd == ACC_REG_RX)
   {
+    uint8_t accId = (id >> CAN_ACC_CMD_OFFSET) & 3;
+    uint8_t regId = inData[0];
+    uint16_t regVal;
+    memcpy(&regVal, &inData[1], 2);
+
+    char* debug[64];
+    sprintf(debug, "Regval: %i\n\r", regVal);
+    uart_send_string(debug);  
 
   }
   else
   {
 #if GLOBAL_DEBUG
-    uart_send_string("RECEIVED COMMAND FOR THIS HANDLER: RXn\n\r");
+    uart_send_string("RECEIVED WRONG COMMAND FOR THIS HANDLER: RX3\n\r");
 #endif
   }    
 }
@@ -232,12 +240,28 @@ void can_driver_cmd_rx4(uint32_t id, uint8_t* inData)
   uint8_t cmd = (uint8_t)(id & 0x1F);
   if(cmd == ACC_REG_REQ)
   {
+    uint8_t accSelect = (uint8_t)(id >> CAN_ACC_CMD_OFFSET) & 1; //Relevant if more accs are ever implemented
+    uint8_t regSelect = inData[0];
+    uint16_t regVal = accl_interface_read_register(regSelect);
     
+    //TODO: imeplement logic to check if the requested register
+    //is one of the x/y/z registers, as well as embedding the
+    //correct accelerometer ID into the message
+    accSelect = 0;
+    int32_t id = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_REG_RX;
+    uint8_t outData[8];
+    outData[0] = regSelect;
+    memcpy(&outData[1], &regVal, 2);
+
+    can_interface_queue_tx(ACC_REG_RX, outData, id);
+
+
+
   }
   else
   {
 #if GLOBAL_DEBUG
-    uart_send_string("RECEIVED COMMAND FOR THIS HANDLER: RXn\n\r");
+    uart_send_string("RECEIVED WRONG COMMAND FOR THIS HANDLER: RX4\n\r");
 #endif
   }    
 }

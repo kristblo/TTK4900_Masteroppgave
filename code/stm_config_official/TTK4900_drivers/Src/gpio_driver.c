@@ -30,9 +30,11 @@ void gpio_end_switch_handler()
   //char* data = "HELLO ES";
   
   //Equivalent of "twist stp e -15000"
-  uint8_t data[8] = {0x65, 0x68, 0xC5, 0xFF, 0xFF, 0,0,0};
-  uint8_t id = 0xA5;
-  can_interface_queue_tx(MOTOR_POS_SP, data, id);
+  uint8_t accSelect = 0;
+  uint8_t data[8];
+  data[0] = 0x2A;
+  int32_t id = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_REG_REQ;
+  can_interface_queue_tx(ACC_REG_REQ, data, id);
   
 }
 

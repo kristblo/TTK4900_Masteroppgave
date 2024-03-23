@@ -137,10 +137,24 @@ void string_cmd_acc1(char (*inputTokens)[64])
 #if HW_INTERFACE == UART_INTERFACE
   uart_send_string("Got acc1 command\n\r");
 #endif  
-  // uint8_t cmd = (uint8_t)atoi(inputTokens[1]);
-  // uint8_t type = 'A';
-  // uint8_t data[8];
-  
+
+  //uint8_t cmd = (uint8_t)atoi(inputTokens[1]);
+  uint8_t cmd = (uint8_t)strtol(inputTokens[1], '\0', 16);
+
+#if ACTIVE_UNIT == TORSO
+  uint8_t accSelect = 0;
+  uint8_t data[8];
+  data[0] = cmd;
+  int32_t id = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_REG_REQ;
+  can_interface_queue_tx(ACC_REG_REQ, data, id);
+#elif ACTIVE_UNIT == SHOULDER
+  int16_t regVal = accl_interface_read_register(cmd);
+  char* debug[64];
+  sprintf(debug, "Regval: %i\n\r", regVal);
+  uart_send_string(debug);
+
+#endif
+
   // if(cmd == 1)
   // {
   //   uint8_t regAddr = (uint8_t)strtol(inputTokens[2], '\0', 16);
