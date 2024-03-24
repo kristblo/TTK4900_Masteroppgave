@@ -216,3 +216,9 @@ Changed the CAN config filter names and bank numbers to be less youtubey, includ
 Got accelerometer readings back, works when only trying to read one value. Will test a bit more.
 
 Otherwise: Got joint control back up with a primitive PI controller, can now set rads/mm setpoints. Set Ki to 0 for most joints as the friction in the system makes it a bit unstable -- either spends too long stabilizing or overshoots heavily. Got more accurate estimates for the resolution of all joints, works quite well. Still working on low speeds ofc, but the encoder counter seems to keep track without issue.
+
+##240324
+Set up a timer interrupt on approx 344Hz on TIM2. Idea: based on CAN bus rates etc, accelerometer and motor pos should not be polled more frequently than 350Hz. The interrupt sets to flags, defined in the joint controller module, declaring that enough time has passed since last poll that a new poll is probably safe. This is to avoid bus contention. This may be simpler than trying to find a heuristic for when to measure acceleration in the control loop, and will probably also be helpful for ROS integration: The software can then poll for position and speed in the control loop, with a well-defined (ish) time step.
+
+Good day for architecture! Set up a new set of CAN commands, get axis. Sends a request for rotation and acceleration data for the given axis. Acceleration works well, rotation may need some debugging for whatever reason. Proof of concept in the main loop. One IMPORTANT drawback is that the polling mechanism will always favor messages early in the queue, need to figure out some sort of priority or just think harder on whether it's really a problem. Before merge: Integrate accelerometer readings into the shoulder control loop. Then get to work on ADCs, and hopefully start work on ROS after that.
+

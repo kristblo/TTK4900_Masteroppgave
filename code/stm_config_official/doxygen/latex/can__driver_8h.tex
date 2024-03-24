@@ -5,7 +5,7 @@
 {\ttfamily \#include \char`\"{}unit\+\_\+config.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}motor\+\_\+driver.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}accelerometer\+\_\+driver.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}shoulder\+\_\+controller.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}joint\+\_\+controller.\+h\char`\"{}}\newline
 Include dependency graph for can\+\_\+driver.\+h\+:
 % FIG 0
 This graph shows which files directly or indirectly include this file\+:
@@ -25,19 +25,23 @@ struct \mbox{\hyperlink{structcan__mailbox}{can\+\_\+mailbox}}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8d}{can\+\_\+message\+\_\+types}} \{ \newline
-\mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da0c85e26e115711e72e4fa1d06d845c59}{ACC\+\_\+\+X\+\_\+\+RX}}
-, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da4f5d4cee67922e4726958b5738d39d7f}{ACC\+\_\+\+Y\+\_\+\+RX}}
-, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da304e84108400ee25508bff8d293435eb}{ACC\+\_\+\+Z\+\_\+\+RX}}
-, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8daf56c7d6db7238bf44ef0913eb1dbd4f1}{ACC\+\_\+\+REG\+\_\+\+RX}}
+enum \mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8}{can\+\_\+message\+\_\+type}} \{ \newline
+\mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a91bfe5e2728d7ec9f5905ad555c1d26c}{ACC\+\_\+\+X\+\_\+\+TX}}
+, \mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8ad309936995a48f9d39036d620f58a3cb}{ACC\+\_\+\+Y\+\_\+\+TX}}
+, \mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8ae45fa958f00e67cb7eb092719f82d943}{ACC\+\_\+\+Z\+\_\+\+TX}}
+, \mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8af56c7d6db7238bf44ef0913eb1dbd4f1}{ACC\+\_\+\+REG\+\_\+\+RX}}
 , \newline
-\mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dabd452b2633df9b3b134801ab6f542377}{ACC\+\_\+\+REG\+\_\+\+REQ}}
-, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da74071e28da5aaa12249c95c29465cb72}{MOTOR\+\_\+\+POS\+\_\+\+SP}}
-, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dafce3600594040c413c9808f7eaf13d95}{MOTOR\+\_\+\+VLT\+\_\+\+SP}}
-, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dac9160f66632b4a368c376ab07399be1b}{MOTOR\+\_\+\+POS\+\_\+\+REQ}}
+\mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8abd452b2633df9b3b134801ab6f542377}{ACC\+\_\+\+REG\+\_\+\+REQ}}
+, \mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a1ca780119da92fd78b8e56b3aa2a7c0d}{JOINT\+\_\+\+POS\+\_\+\+SP}}
+, \mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8afce3600594040c413c9808f7eaf13d95}{MOTOR\+\_\+\+VLT\+\_\+\+SP}}
+, \mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8ae98978b982ced3b16d4d83abfe04138c}{JOINT\+\_\+\+POS\+\_\+\+REQ}}
 , \newline
-\mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da0149f02b22a536d0f659ab008f8652f3}{MOTOR\+\_\+\+POS\+\_\+\+RX}}
-, \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da2e38ded379aa03be65fd88e7bdeee84f}{num\+\_\+types}}
+\mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a9bc08d0a46df0a46dbc4f6d6653b4b78}{JOINT\+\_\+\+POS\+\_\+\+TX}}
+, \mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a51bec230e83f8a29c717b46f4ad6a565}{ACC\+\_\+\+X\+\_\+\+REQ}}
+, \mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a8227249ae0bcebf314febdb453631459}{ACC\+\_\+\+Y\+\_\+\+REQ}}
+, \mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a56a646b9dcf6a5cb80fe0010fac8e79c}{ACC\+\_\+\+Z\+\_\+\+REQ}}
+, \newline
+\mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a2e38ded379aa03be65fd88e7bdeee84f}{num\+\_\+types}}
  \}
 \begin{DoxyCompactList}\small\item\em CAN message types, also dictate CAN priority. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
@@ -69,24 +73,42 @@ void \mbox{\hyperlink{can__driver_8h_a98cce463816efe33b5a4a6ce04ace7cb}{can\+\_\
 \begin{DoxyCompactList}\small\item\em Sends a CAN message, is called by can\+\_\+interface\+\_\+send\+\_\+msg. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_a6b8a9cc15b74dbe789df2644af40fbff}{can\+\_\+driver\+\_\+rx\+\_\+accelerometer\+\_\+cmd}} (uint8\+\_\+t $\ast$data)
 \begin{DoxyCompactList}\small\item\em CAN accelerometer message handler. DEPRECATED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a7c205e57aa4b0ef49098d5e2997599e6}{can\+\_\+cmd\+\_\+handle\+\_\+y\+Acc}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\item 
+void \mbox{\hyperlink{can__driver_8h_a79fbe61cdff2b116043d3bdf14305951}{can\+\_\+cmd\+\_\+handle\+\_\+reg\+Val}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em Handles an incoming accelerometer register message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_adbae63fa7e8ea8064e660e0397397bcd}{can\+\_\+cmd\+\_\+handle\+\_\+reg\+Req}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em Handles an incoming accelerometer read request. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_af3b397575323b54021a5fe185a6203fb}{can\+\_\+cmd\+\_\+handle\+\_\+motor\+Sp}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em Handles an incoming motor setpoint. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a267d122c8c9976bcfdf9ac95d6f32faa}{can\+\_\+cmd\+\_\+handle\+\_\+axis\+Req}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em Handles an incoming request for accelerometer axis data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_aa42280ff009e0e6b15950f50ea1eb2ea}{can\+\_\+cmd\+\_\+handle\+\_\+axis\+Data}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em Handles incoming accelerometer axis data. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_a1ed4cd3f7e72fbd483111f7bb2f7b767}{can\+\_\+driver\+\_\+cmd\+\_\+rx0}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
-\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+RX \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+TX \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_a99847543494d07d858bc1d390eae77c4}{can\+\_\+driver\+\_\+cmd\+\_\+rx1}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
-\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Y\+\_\+\+RX \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Y\+\_\+\+TX \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_acf19bd7182c481172c37045b6b66a6cc}{can\+\_\+driver\+\_\+cmd\+\_\+rx2}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
-\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Z\+\_\+\+RX \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Z\+\_\+\+TX \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_a85cca83e9e2b92b1dd645388a54cb324}{can\+\_\+driver\+\_\+cmd\+\_\+rx3}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
 \begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+REG\+\_\+\+RX \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_a6d6a3621f32af397fee5a3b9a9c54ccf}{can\+\_\+driver\+\_\+cmd\+\_\+rx4}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
 \begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+REG\+\_\+\+REQ \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_a60bfd6dacec0e0cbb1ce36705dcda271}{can\+\_\+driver\+\_\+cmd\+\_\+rx5}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
-\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type MOTOR\+\_\+\+POS\+\_\+\+SP \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type JOINT\+\_\+\+POS\+\_\+\+SP \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_aea4a62a0fc8bebbcf12527544ab0c693}{can\+\_\+driver\+\_\+cmd\+\_\+rx6}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
 \begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type MOTOR\+\_\+\+VLT\+\_\+\+SP \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_a0ab94d767f5ccdecb109b7d6f2168a23}{can\+\_\+driver\+\_\+cmd\+\_\+rx7}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
-\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+RX \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+TX \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_ab0960419cdb98a93a4cf28a47b744fe4}{can\+\_\+driver\+\_\+cmd\+\_\+rx8}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
-\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type MOTOR\+\_\+\+POS\+\_\+\+RX \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type JOINT\+\_\+\+POS\+\_\+\+TX \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_af9b4c3832e1d069c1e117b4591426122}{can\+\_\+driver\+\_\+cmd\+\_\+rx9}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+REQ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a1c577b4fe01262353e1a12e60c745911}{can\+\_\+driver\+\_\+cmd\+\_\+rxA}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Y\+\_\+\+REQ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can__driver_8h_a44c0cc50247d9fbc64bebfac168041a3}{can\+\_\+driver\+\_\+cmd\+\_\+rxB}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
+\begin{DoxyCompactList}\small\item\em \char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Z\+\_\+\+REQ \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
@@ -105,54 +127,66 @@ void \mbox{\hyperlink{can__driver_8h_ab0960419cdb98a93a4cf28a47b744fe4}{can\+\_\
 
 
 \doxysubsection{Enumeration Type Documentation}
-\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8d}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8d}} 
-\index{can\_driver.h@{can\_driver.h}!can\_message\_types@{can\_message\_types}}
-\index{can\_message\_types@{can\_message\_types}!can\_driver.h@{can\_driver.h}}
-\doxysubsubsection{\texorpdfstring{can\_message\_types}{can\_message\_types}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{can__driver_8h_a2f3259dd2d6375c5379457119be1db8d}{can\+\_\+message\+\_\+types}}}
+\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8}} 
+\index{can\_driver.h@{can\_driver.h}!can\_message\_type@{can\_message\_type}}
+\index{can\_message\_type@{can\_message\_type}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_message\_type}{can\_message\_type}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8}{can\+\_\+message\+\_\+type}}}
 
 
 
 CAN message types, also dictate CAN priority. 
 
 \begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_X\_RX@{ACC\_X\_RX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_X\_RX@{ACC\_X\_RX}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da0c85e26e115711e72e4fa1d06d845c59}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da0c85e26e115711e72e4fa1d06d845c59}} 
-ACC\+\_\+\+X\+\_\+\+RX&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_X\_TX@{ACC\_X\_TX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_X\_TX@{ACC\_X\_TX}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a91bfe5e2728d7ec9f5905ad555c1d26c}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a91bfe5e2728d7ec9f5905ad555c1d26c}} 
+ACC\+\_\+\+X\+\_\+\+TX&A message containting acc/rot X axis. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_Y\_RX@{ACC\_Y\_RX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_Y\_RX@{ACC\_Y\_RX}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da4f5d4cee67922e4726958b5738d39d7f}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da4f5d4cee67922e4726958b5738d39d7f}} 
-ACC\+\_\+\+Y\+\_\+\+RX&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_Y\_TX@{ACC\_Y\_TX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_Y\_TX@{ACC\_Y\_TX}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8ad309936995a48f9d39036d620f58a3cb}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8ad309936995a48f9d39036d620f58a3cb}} 
+ACC\+\_\+\+Y\+\_\+\+TX&A message containting acc/rot Y axis. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_Z\_RX@{ACC\_Z\_RX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_Z\_RX@{ACC\_Z\_RX}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da304e84108400ee25508bff8d293435eb}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da304e84108400ee25508bff8d293435eb}} 
-ACC\+\_\+\+Z\+\_\+\+RX&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_Z\_TX@{ACC\_Z\_TX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_Z\_TX@{ACC\_Z\_TX}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8ae45fa958f00e67cb7eb092719f82d943}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8ae45fa958f00e67cb7eb092719f82d943}} 
+ACC\+\_\+\+Z\+\_\+\+TX&A message containting acc/rot Z axis. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_REG\_RX@{ACC\_REG\_RX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_REG\_RX@{ACC\_REG\_RX}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8daf56c7d6db7238bf44ef0913eb1dbd4f1}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8daf56c7d6db7238bf44ef0913eb1dbd4f1}} 
-ACC\+\_\+\+REG\+\_\+\+RX&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_REG\_RX@{ACC\_REG\_RX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_REG\_RX@{ACC\_REG\_RX}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8af56c7d6db7238bf44ef0913eb1dbd4f1}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8af56c7d6db7238bf44ef0913eb1dbd4f1}} 
+ACC\+\_\+\+REG\+\_\+\+RX&A message containting an arbitrary accelerometer register value. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_REG\_REQ@{ACC\_REG\_REQ}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_REG\_REQ@{ACC\_REG\_REQ}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dabd452b2633df9b3b134801ab6f542377}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dabd452b2633df9b3b134801ab6f542377}} 
-ACC\+\_\+\+REG\+\_\+\+REQ&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_REG\_REQ@{ACC\_REG\_REQ}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_REG\_REQ@{ACC\_REG\_REQ}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8abd452b2633df9b3b134801ab6f542377}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8abd452b2633df9b3b134801ab6f542377}} 
+ACC\+\_\+\+REG\+\_\+\+REQ&A message requesting an arbitrary accelerometer register value. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_POS\_SP@{MOTOR\_POS\_SP}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!MOTOR\_POS\_SP@{MOTOR\_POS\_SP}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da74071e28da5aaa12249c95c29465cb72}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da74071e28da5aaa12249c95c29465cb72}} 
-MOTOR\+\_\+\+POS\+\_\+\+SP&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{JOINT\_POS\_SP@{JOINT\_POS\_SP}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!JOINT\_POS\_SP@{JOINT\_POS\_SP}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a1ca780119da92fd78b8e56b3aa2a7c0d}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a1ca780119da92fd78b8e56b3aa2a7c0d}} 
+JOINT\+\_\+\+POS\+\_\+\+SP&A message containing a joint position setpoint. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_VLT\_SP@{MOTOR\_VLT\_SP}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!MOTOR\_VLT\_SP@{MOTOR\_VLT\_SP}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dafce3600594040c413c9808f7eaf13d95}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dafce3600594040c413c9808f7eaf13d95}} 
-MOTOR\+\_\+\+VLT\+\_\+\+SP&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_VLT\_SP@{MOTOR\_VLT\_SP}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!MOTOR\_VLT\_SP@{MOTOR\_VLT\_SP}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8afce3600594040c413c9808f7eaf13d95}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8afce3600594040c413c9808f7eaf13d95}} 
+MOTOR\+\_\+\+VLT\+\_\+\+SP&A message containting a motor voltage percent setpoint. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_POS\_REQ@{MOTOR\_POS\_REQ}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!MOTOR\_POS\_REQ@{MOTOR\_POS\_REQ}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dac9160f66632b4a368c376ab07399be1b}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8dac9160f66632b4a368c376ab07399be1b}} 
-MOTOR\+\_\+\+POS\+\_\+\+REQ&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{JOINT\_POS\_REQ@{JOINT\_POS\_REQ}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!JOINT\_POS\_REQ@{JOINT\_POS\_REQ}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8ae98978b982ced3b16d4d83abfe04138c}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8ae98978b982ced3b16d4d83abfe04138c}} 
+JOINT\+\_\+\+POS\+\_\+\+REQ&A message requesting the position of a joint. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_POS\_RX@{MOTOR\_POS\_RX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!MOTOR\_POS\_RX@{MOTOR\_POS\_RX}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da0149f02b22a536d0f659ab008f8652f3}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da0149f02b22a536d0f659ab008f8652f3}} 
-MOTOR\+\_\+\+POS\+\_\+\+RX&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{JOINT\_POS\_TX@{JOINT\_POS\_TX}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!JOINT\_POS\_TX@{JOINT\_POS\_TX}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a9bc08d0a46df0a46dbc4f6d6653b4b78}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a9bc08d0a46df0a46dbc4f6d6653b4b78}} 
+JOINT\+\_\+\+POS\+\_\+\+TX&A message containing the position of a joint. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{num\_types@{num\_types}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!num\_types@{num\_types}}}\mbox{\Hypertarget{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da2e38ded379aa03be65fd88e7bdeee84f}\label{can__driver_8h_a2f3259dd2d6375c5379457119be1db8da2e38ded379aa03be65fd88e7bdeee84f}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_X\_REQ@{ACC\_X\_REQ}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_X\_REQ@{ACC\_X\_REQ}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a51bec230e83f8a29c717b46f4ad6a565}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a51bec230e83f8a29c717b46f4ad6a565}} 
+ACC\+\_\+\+X\+\_\+\+REQ&A message requesting acc/rot x axis. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_Y\_REQ@{ACC\_Y\_REQ}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_Y\_REQ@{ACC\_Y\_REQ}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a8227249ae0bcebf314febdb453631459}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a8227249ae0bcebf314febdb453631459}} 
+ACC\+\_\+\+Y\+\_\+\+REQ&A message requesting acc/rot y axis. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_Z\_REQ@{ACC\_Z\_REQ}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!ACC\_Z\_REQ@{ACC\_Z\_REQ}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a56a646b9dcf6a5cb80fe0010fac8e79c}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a56a646b9dcf6a5cb80fe0010fac8e79c}} 
+ACC\+\_\+\+Z\+\_\+\+REQ&A message requesting acc/rot z axis. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{num\_types@{num\_types}!can\_driver.h@{can\_driver.h}}\index{can\_driver.h@{can\_driver.h}!num\_types@{num\_types}}}\mbox{\Hypertarget{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a2e38ded379aa03be65fd88e7bdeee84f}\label{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8a2e38ded379aa03be65fd88e7bdeee84f}} 
 num\+\_\+types&\\
 \hline
 
@@ -160,6 +194,97 @@ num\+\_\+types&\\
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{can__driver_8h_aa42280ff009e0e6b15950f50ea1eb2ea}\label{can__driver_8h_aa42280ff009e0e6b15950f50ea1eb2ea}} 
+\index{can\_driver.h@{can\_driver.h}!can\_cmd\_handle\_axisData@{can\_cmd\_handle\_axisData}}
+\index{can\_cmd\_handle\_axisData@{can\_cmd\_handle\_axisData}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_cmd\_handle\_axisData()}{can\_cmd\_handle\_axisData()}}
+{\footnotesize\ttfamily void can\+\_\+cmd\+\_\+handle\+\_\+axis\+Data (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+Handles incoming accelerometer axis data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Incoming CAN ID \\
+\hline
+{\em in\+Data} & Incoming CAN data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a267d122c8c9976bcfdf9ac95d6f32faa}\label{can__driver_8h_a267d122c8c9976bcfdf9ac95d6f32faa}} 
+\index{can\_driver.h@{can\_driver.h}!can\_cmd\_handle\_axisReq@{can\_cmd\_handle\_axisReq}}
+\index{can\_cmd\_handle\_axisReq@{can\_cmd\_handle\_axisReq}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_cmd\_handle\_axisReq()}{can\_cmd\_handle\_axisReq()}}
+{\footnotesize\ttfamily void can\+\_\+cmd\+\_\+handle\+\_\+axis\+Req (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+Handles an incoming request for accelerometer axis data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Incoming CAN ID \\
+\hline
+{\em in\+Data} & Incoming CAN data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_af3b397575323b54021a5fe185a6203fb}\label{can__driver_8h_af3b397575323b54021a5fe185a6203fb}} 
+\index{can\_driver.h@{can\_driver.h}!can\_cmd\_handle\_motorSp@{can\_cmd\_handle\_motorSp}}
+\index{can\_cmd\_handle\_motorSp@{can\_cmd\_handle\_motorSp}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_cmd\_handle\_motorSp()}{can\_cmd\_handle\_motorSp()}}
+{\footnotesize\ttfamily void can\+\_\+cmd\+\_\+handle\+\_\+motor\+Sp (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+Handles an incoming motor setpoint. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Incoming CAN ID \\
+\hline
+{\em in\+Data} & Incoming CAN data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_adbae63fa7e8ea8064e660e0397397bcd}\label{can__driver_8h_adbae63fa7e8ea8064e660e0397397bcd}} 
+\index{can\_driver.h@{can\_driver.h}!can\_cmd\_handle\_regReq@{can\_cmd\_handle\_regReq}}
+\index{can\_cmd\_handle\_regReq@{can\_cmd\_handle\_regReq}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_cmd\_handle\_regReq()}{can\_cmd\_handle\_regReq()}}
+{\footnotesize\ttfamily void can\+\_\+cmd\+\_\+handle\+\_\+reg\+Req (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+Handles an incoming accelerometer read request. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Incoming CAN ID \\
+\hline
+{\em in\+Data} & Incoming CAN data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a79fbe61cdff2b116043d3bdf14305951}\label{can__driver_8h_a79fbe61cdff2b116043d3bdf14305951}} 
+\index{can\_driver.h@{can\_driver.h}!can\_cmd\_handle\_regVal@{can\_cmd\_handle\_regVal}}
+\index{can\_cmd\_handle\_regVal@{can\_cmd\_handle\_regVal}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_cmd\_handle\_regVal()}{can\_cmd\_handle\_regVal()}}
+{\footnotesize\ttfamily void can\+\_\+cmd\+\_\+handle\+\_\+reg\+Val (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+Handles an incoming accelerometer register message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Incoming CAN ID \\
+\hline
+{\em in\+Data} & Incoming CAN data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a7c205e57aa4b0ef49098d5e2997599e6}\label{can__driver_8h_a7c205e57aa4b0ef49098d5e2997599e6}} 
+\index{can\_driver.h@{can\_driver.h}!can\_cmd\_handle\_yAcc@{can\_cmd\_handle\_yAcc}}
+\index{can\_cmd\_handle\_yAcc@{can\_cmd\_handle\_yAcc}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_cmd\_handle\_yAcc()}{can\_cmd\_handle\_yAcc()}}
+{\footnotesize\ttfamily void can\+\_\+cmd\+\_\+handle\+\_\+y\+Acc (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{can__driver_8h_a1ed4cd3f7e72fbd483111f7bb2f7b767}\label{can__driver_8h_a1ed4cd3f7e72fbd483111f7bb2f7b767}} 
 \index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rx0@{can\_driver\_cmd\_rx0}}
 \index{can\_driver\_cmd\_rx0@{can\_driver\_cmd\_rx0}!can\_driver.h@{can\_driver.h}}
@@ -168,7 +293,7 @@ num\+\_\+types&\\
 
 
 
-\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+RX 
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+TX 
 
 
 \begin{DoxyParams}{Parameters}
@@ -185,7 +310,7 @@ num\+\_\+types&\\
 
 
 
-\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Y\+\_\+\+RX 
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Y\+\_\+\+TX 
 
 
 \begin{DoxyParams}{Parameters}
@@ -202,7 +327,7 @@ num\+\_\+types&\\
 
 
 
-\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Z\+\_\+\+RX 
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Z\+\_\+\+TX 
 
 
 \begin{DoxyParams}{Parameters}
@@ -253,7 +378,7 @@ num\+\_\+types&\\
 
 
 
-\char`\"{}\+Generic\char`\"{} function to handle CAN message type MOTOR\+\_\+\+POS\+\_\+\+SP 
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type JOINT\+\_\+\+POS\+\_\+\+SP 
 
 
 \begin{DoxyParams}{Parameters}
@@ -287,7 +412,7 @@ num\+\_\+types&\\
 
 
 
-\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+RX 
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+TX 
 
 
 \begin{DoxyParams}{Parameters}
@@ -304,7 +429,58 @@ num\+\_\+types&\\
 
 
 
-\char`\"{}\+Generic\char`\"{} function to handle CAN message type MOTOR\+\_\+\+POS\+\_\+\+RX 
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type JOINT\+\_\+\+POS\+\_\+\+TX 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & CAN message ID \\
+\hline
+{\em in\+Data} & CAN message data field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_af9b4c3832e1d069c1e117b4591426122}\label{can__driver_8h_af9b4c3832e1d069c1e117b4591426122}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rx9@{can\_driver\_cmd\_rx9}}
+\index{can\_driver\_cmd\_rx9@{can\_driver\_cmd\_rx9}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_cmd\_rx9()}{can\_driver\_cmd\_rx9()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+cmd\+\_\+rx9 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+X\+\_\+\+REQ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & CAN message ID \\
+\hline
+{\em in\+Data} & CAN message data field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a1c577b4fe01262353e1a12e60c745911}\label{can__driver_8h_a1c577b4fe01262353e1a12e60c745911}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rxA@{can\_driver\_cmd\_rxA}}
+\index{can\_driver\_cmd\_rxA@{can\_driver\_cmd\_rxA}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_cmd\_rxA()}{can\_driver\_cmd\_rxA()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+cmd\+\_\+rxA (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Y\+\_\+\+REQ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & CAN message ID \\
+\hline
+{\em in\+Data} & CAN message data field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{can__driver_8h_a44c0cc50247d9fbc64bebfac168041a3}\label{can__driver_8h_a44c0cc50247d9fbc64bebfac168041a3}} 
+\index{can\_driver.h@{can\_driver.h}!can\_driver\_cmd\_rxB@{can\_driver\_cmd\_rxB}}
+\index{can\_driver\_cmd\_rxB@{can\_driver\_cmd\_rxB}!can\_driver.h@{can\_driver.h}}
+\doxysubsubsection{\texorpdfstring{can\_driver\_cmd\_rxB()}{can\_driver\_cmd\_rxB()}}
+{\footnotesize\ttfamily void can\+\_\+driver\+\_\+cmd\+\_\+rxB (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t $\ast$}]{in\+Data }\end{DoxyParamCaption})}
+
+
+
+\char`\"{}\+Generic\char`\"{} function to handle CAN message type ACC\+\_\+\+Z\+\_\+\+REQ 
 
 
 \begin{DoxyParams}{Parameters}
@@ -365,7 +541,7 @@ Sends a CAN message, is called by can\+\_\+interface\+\_\+send\+\_\+msg.
 \hline
 {\em dlc} & Number of bytes to send \\
 \hline
-{\em mailbox} & Hardware(!) mailbox to queue to \\
+{\em hw\+Mailbox} & Hardware(!) mailbox to queue to \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{can__driver_8h_ac94b647e3aab5df2e4f27abc0b64c648}\label{can__driver_8h_ac94b647e3aab5df2e4f27abc0b64c648}} 

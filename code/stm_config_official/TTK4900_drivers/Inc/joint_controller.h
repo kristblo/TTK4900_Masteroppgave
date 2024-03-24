@@ -33,7 +33,7 @@ typedef struct
   /// @brief Whether the joint is in a "moving" state
   uint8_t isMoving;
 
-  /// @brief Link to the corresponding motor_control_descriptor
+  /// @brief Link to the corresponding motor_descriptor
   uint8_t motorNum;
 
   /// @brief PID controller Kp
@@ -53,18 +53,49 @@ typedef struct
 } joint_controller_descriptor;
 
 
-/// @brief Holds INCOMING accelerometer data
+/// @brief Holds INCOMING accelerometer data, NOT part of the accelerometer driver
 typedef struct
 {
+  /// @brief X axis acceleration
   int16_t xAcc;
+  
+  /// @brief X axis rotation
+  int16_t xRot;
+  
+  /// @brief Y axis acceleration
   int16_t yAcc;
+  
+  /// @brief Y axis rotation
+  int16_t yRot;
+  
+  /// @brief Z axis acceleration
   int16_t zAcc;
+  
+  /// @brief Z axis rotation
+  int16_t zRot;
+
+  /// @brief Flags new X acceleration data on arrival
   uint8_t newXAcc;
+  
+  /// @brief Flags new Y acceleration data on arrival
   uint8_t newYAcc;
+  
+  /// @brief Flags new Z acceleration data on arrival
   uint8_t newZAcc;
+
+  /// @brief Flags new X rotation data on arrival
+  uint8_t newXRot;
+  
+  /// @brief Flags new Y rotation data on arrival
+  uint8_t newYRot;
+  
+  /// @brief Flags new Z rotation data on arrival
+  uint8_t newZRot;
 } accelerometer_inData;
 
+//////////////////
 //Public functions
+//////////////////
 
 //----------------------
 //Joint control handlers
@@ -89,6 +120,8 @@ void controller_interface_update_power(uint8_t controllerSelect);
 float controller_interface_clicks_to_pos(uint8_t controllerSelect);
 void controller_interface_adjust_enc_sp(uint8_t controllerSelect);
 
+void controller_interface_request_acc_axis(uint8_t controllerSelect, uint8_t accSelect, char axis);
+
 
 //----------------------
 //Accelerometer data handlers
@@ -97,9 +130,18 @@ void controller_interface_adjust_enc_sp(uint8_t controllerSelect);
 int16_t controller_interface_acc_getX(uint8_t accSelect);
 int16_t controller_interface_acc_getY(uint8_t accSelect);
 int16_t controller_interface_acc_getZ(uint8_t accSelect);
+
 void controller_interface_acc_setX(uint8_t accSelect, int16_t accVal);
 void controller_interface_acc_setY(uint8_t accSelect, int16_t accVal);
 void controller_interface_acc_setZ(uint8_t accSelect, int16_t accVal);
+
+int16_t controller_interface_rot_getX(uint8_t accSelect);
+int16_t controller_interface_rot_getY(uint8_t accSelect);
+int16_t controller_interface_rot_getZ(uint8_t accSelect);
+
+void controller_interface_rot_setX(uint8_t accSelect, int16_t rotVal);
+void controller_interface_rot_setY(uint8_t accSelect, int16_t rotVal);
+void controller_interface_rot_setZ(uint8_t accSelect, int16_t rotVal);
 
 uint8_t controller_interface_acc_get_newX(uint8_t accSelect);
 uint8_t controller_interface_acc_get_newY(uint8_t accSelect);
@@ -113,7 +155,31 @@ void controller_interface_acc_clear_newX(uint8_t accSelect);
 void controller_interface_acc_clear_newY(uint8_t accSelect);
 void controller_interface_acc_clear_newZ(uint8_t accSelect);
 
+uint8_t controller_interface_rot_get_newX(uint8_t accSelect);
+uint8_t controller_interface_rot_get_newY(uint8_t accSelect);
+uint8_t controller_interface_rot_get_newZ(uint8_t accSelect);
+
+void controller_interface_rot_set_newX(uint8_t accSelect);
+void controller_interface_rot_set_newY(uint8_t accSelect);
+void controller_interface_rot_set_newZ(uint8_t accSelect);
+
+void controller_interface_rot_clear_newX(uint8_t accSelect);
+void controller_interface_rot_clear_newY(uint8_t accSelect);
+void controller_interface_rot_clear_newZ(uint8_t accSelect);
+
+
+
+uint8_t controller_interface_get_acc_poll();
+uint8_t controller_interface_get_mtr_poll();
+void controller_interface_set_acc_poll();
+void controller_interface_set_mtr_poll();
+void controller_interface_clear_acc_poll();
+void controller_interface_clear_mtr_poll();
+
+
+///////////////////
 //Private functions
+///////////////////
 
 //----------------------
 //Joint control handlers
@@ -138,7 +204,7 @@ void joint_controller_update_power(joint_controller_descriptor* joint);
 float joint_controller_clicks_to_pos(joint_controller_descriptor* joint);
 void joint_controller_adjust_enc_sp(joint_controller_descriptor* joint);
 
-void joint_controller_request_acceleration(joint_controller_descriptor* joint);
+void joint_controller_request_acc_axis(joint_controller_descriptor* joint, uint8_t accSelect, char axis);
 float joint_controller_acceleration_to_angle(joint_controller_descriptor* joint);
 
 
@@ -154,6 +220,14 @@ void controller_acc_setX(accelerometer_inData* accSelect, int16_t accVal);
 void controller_acc_setY(accelerometer_inData* accSelect, int16_t accVal);
 void controller_acc_setZ(accelerometer_inData* accSelect, int16_t accVal);
 
+int16_t controller_rot_getX(accelerometer_inData* accSelect);
+int16_t controller_rot_getY(accelerometer_inData* accSelect);
+int16_t controller_rot_getZ(accelerometer_inData* accSelect);
+
+void controller_rot_setX(accelerometer_inData* accSelect, int16_t rotVal);
+void controller_rot_setY(accelerometer_inData* accSelect, int16_t rotVal);
+void controller_rot_setZ(accelerometer_inData* accSelect, int16_t rotVal);
+
 uint8_t controller_acc_get_newX(accelerometer_inData* accSelect);
 uint8_t controller_acc_get_newY(accelerometer_inData* accSelect);
 uint8_t controller_acc_get_newZ(accelerometer_inData* accSelect);
@@ -165,5 +239,19 @@ void controller_acc_set_newZ(accelerometer_inData* accSelect);
 void controller_acc_clear_newX(accelerometer_inData* accSelect);
 void controller_acc_clear_newY(accelerometer_inData* accSelect);
 void controller_acc_clear_newZ(accelerometer_inData* accSelect);
+
+uint8_t controller_rot_get_newX(accelerometer_inData* accSelect);
+uint8_t controller_rot_get_newY(accelerometer_inData* accSelect);
+uint8_t controller_rot_get_newZ(accelerometer_inData* accSelect);
+
+void controller_rot_set_newX(accelerometer_inData* accSelect);
+void controller_rot_set_newY(accelerometer_inData* accSelect);
+void controller_rot_set_newZ(accelerometer_inData* accSelect);
+
+void controller_rot_clear_newX(accelerometer_inData* accSelect);
+void controller_rot_clear_newY(accelerometer_inData* accSelect);
+void controller_rot_clear_newZ(accelerometer_inData* accSelect);
+
+
 
 #endif //JOINT_CONTROLLER_H

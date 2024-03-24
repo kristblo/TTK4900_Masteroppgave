@@ -12,7 +12,7 @@ This graph shows which files directly or indirectly include this file\+:
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}}
+struct \mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}}
 \begin{DoxyCompactList}\small\item\em Contains static and state information relevant to the operation of a motor driver. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -41,33 +41,33 @@ void \mbox{\hyperlink{motor__driver_8h_aace3017869f3ffb75bd17d9f6a1a3486}{motor\
 \begin{DoxyCompactList}\small\item\em Lets the user set the motor setpoint directly. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{motor__driver_8h_a0a624e06462ac98241a76ad2059e5a9a}{motor\+\_\+interface\+\_\+delta\+\_\+setpoint}} (uint8\+\_\+t motor\+Select, int32\+\_\+t delta)
 \begin{DoxyCompactList}\small\item\em Lets the user increment or decrement the motor encoder setpoint. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{motor__driver_8h_a2bcd64e73f7bb5c36a26b424687bcd95}{motor\+\_\+driver\+\_\+init}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor)
+void \mbox{\hyperlink{motor__driver_8h_a35805d689d408caf3604419f1f70b4ec}{motor\+\_\+driver\+\_\+init}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor)
 \begin{DoxyCompactList}\small\item\em Initialise motor controller descriptor. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{motor__driver_8h_a83ed61d06d2782b75a8249f5938c66dc}{motor\+\_\+driver\+\_\+update\+\_\+power}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor)
+void \mbox{\hyperlink{motor__driver_8h_aee28e2057483cb24343da4d9aa7ef81b}{motor\+\_\+driver\+\_\+update\+\_\+power}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor)
 \begin{DoxyCompactList}\small\item\em Sets the power of the selected motor based on a controller heuristic. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{motor__driver_8h_a8cc35cc6b29cb67f7401844a95c92296}{motor\+\_\+driver\+\_\+update\+\_\+tot\+\_\+cnt}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor)
+void \mbox{\hyperlink{motor__driver_8h_a842c8fc323e3c8464ebc75455482ad82}{motor\+\_\+driver\+\_\+update\+\_\+tot\+\_\+cnt}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor)
 \begin{DoxyCompactList}\small\item\em Updates the encoder total count based on the relevant heuristic. \end{DoxyCompactList}\item 
-int32\+\_\+t \mbox{\hyperlink{motor__driver_8h_a2cc4251e23348af1f1b0f8686182727a}{motor\+\_\+driver\+\_\+get\+\_\+setpoint}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor)
+int32\+\_\+t \mbox{\hyperlink{motor__driver_8h_a4910630a992127ef692ea74d36fc6e9f}{motor\+\_\+driver\+\_\+get\+\_\+setpoint}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor)
 \begin{DoxyCompactList}\small\item\em Gets the total encoder count setpoint of the selected motor. \end{DoxyCompactList}\item 
-int32\+\_\+t \mbox{\hyperlink{motor__driver_8h_a90393e4934087e5ecb5d117e69e1632a}{motor\+\_\+driver\+\_\+get\+\_\+total\+\_\+cnt}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor)
+int32\+\_\+t \mbox{\hyperlink{motor__driver_8h_a800cc5d6e2cd72c74cf56ec67c1eacef}{motor\+\_\+driver\+\_\+get\+\_\+total\+\_\+cnt}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor)
 \begin{DoxyCompactList}\small\item\em Gets the total encoder count since init. \end{DoxyCompactList}\item 
-uint16\+\_\+t \mbox{\hyperlink{motor__driver_8h_ac331d8d3eb86f71c9c25acfdb41000fc}{motor\+\_\+driver\+\_\+get\+\_\+encoder\+\_\+cnt}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor)
+uint16\+\_\+t \mbox{\hyperlink{motor__driver_8h_a72f02b32b34e9933c22e35c93c339b4d}{motor\+\_\+driver\+\_\+get\+\_\+encoder\+\_\+cnt}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor)
 \begin{DoxyCompactList}\small\item\em Gets the current hardware encoder count. \end{DoxyCompactList}\item 
-uint8\+\_\+t \mbox{\hyperlink{motor__driver_8h_a634e5e129708311f70f61d2409010386}{motor\+\_\+driver\+\_\+get\+\_\+id}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor)
+uint8\+\_\+t \mbox{\hyperlink{motor__driver_8h_ad214b4f6ade0ffddfed00cda91975b47}{motor\+\_\+driver\+\_\+get\+\_\+id}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor)
 \item 
-int32\+\_\+t \mbox{\hyperlink{motor__driver_8h_a70d05882f94be7e7362030bc5fd7991d}{motor\+\_\+driver\+\_\+get\+\_\+resolution}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor)
+int32\+\_\+t \mbox{\hyperlink{motor__driver_8h_a6421df168ed92f8bdf9225e3e9ae6c76}{motor\+\_\+driver\+\_\+get\+\_\+resolution}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor)
 \item 
-uint8\+\_\+t \mbox{\hyperlink{motor__driver_8h_a649a8002f34da4025e264d29ae146732}{motor\+\_\+driver\+\_\+get\+\_\+moving}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor)
+uint8\+\_\+t \mbox{\hyperlink{motor__driver_8h_ac63535c0673a7b318260ff3f155459b0}{motor\+\_\+driver\+\_\+get\+\_\+moving}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor)
 \item 
-void \mbox{\hyperlink{motor__driver_8h_a9aa9510dd82d4295ce9afba8ad049749}{motor\+\_\+driver\+\_\+set\+\_\+power}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor, uint8\+\_\+t direction, double power)
+void \mbox{\hyperlink{motor__driver_8h_ad92f00ff736b5e9769c6a8140ad59b79}{motor\+\_\+driver\+\_\+set\+\_\+power}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor, uint8\+\_\+t direction, double power)
 \begin{DoxyCompactList}\small\item\em Set the power of a motor, limited by the motor\textquotesingle{}s safety cap. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{motor__driver_8h_a0869066133a22d3d7edefca8f872a0b4}{motor\+\_\+driver\+\_\+set\+\_\+setpoint}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor, int32\+\_\+t setpoint)
+void \mbox{\hyperlink{motor__driver_8h_a5c3666e96928ce9cc5f53767847ea1ca}{motor\+\_\+driver\+\_\+set\+\_\+setpoint}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor, int32\+\_\+t setpoint)
 \begin{DoxyCompactList}\small\item\em Sets the total encoder count setpoint of the selected motor. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{motor__driver_8h_ae1f1f9d963f7d000fc17e29083a26b0f}{motor\+\_\+driver\+\_\+delta\+\_\+setpoint}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor, int32\+\_\+t delta)
+void \mbox{\hyperlink{motor__driver_8h_ad263f869192a0aec42aaa49a6c3b5b27}{motor\+\_\+driver\+\_\+delta\+\_\+setpoint}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor, int32\+\_\+t delta)
 \begin{DoxyCompactList}\small\item\em Changes the encoder setpoint of the relevant motor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{motor__driver_8h_a580effc29f984c82703d14eaf78fc1d3}{motor\+\_\+driver\+\_\+set\+\_\+pwm\+\_\+dc}} (uint32\+\_\+t $\ast$timer\+Counter, double pct)
 \begin{DoxyCompactList}\small\item\em Sets the duty cycle of the selected PWM timer as a percentage of max. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{motor__driver_8h_ab55cf754b1cf9b029afdcd62e9b5c94d}{motor\+\_\+driver\+\_\+calc\+\_\+safe\+\_\+vlt}} (\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$motor)
+void \mbox{\hyperlink{motor__driver_8h_aaa08d3a688cff12746ac3a4527def7cb}{motor\+\_\+driver\+\_\+calc\+\_\+safe\+\_\+vlt}} (\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$motor)
 \begin{DoxyCompactList}\small\item\em Calculates the safe power percentage limit based on the descriptor struct. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{motor__driver_8h_a66a3e1854025653cef800263e289ea8b}{motor\+\_\+driver\+\_\+go\+\_\+forward}} (double pct, TIM\+\_\+\+Type\+Def $\ast$mtr, int8\+\_\+t polarity)
 \begin{DoxyCompactList}\small\item\em Forward is the direction of increasing encoder count. \end{DoxyCompactList}\item 
@@ -76,11 +76,11 @@ void \mbox{\hyperlink{motor__driver_8h_a657c1ba842bc4445cd460bb30034ad4e}{motor\
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{motor__driver_8h_ab55cf754b1cf9b029afdcd62e9b5c94d}\label{motor__driver_8h_ab55cf754b1cf9b029afdcd62e9b5c94d}} 
+\mbox{\Hypertarget{motor__driver_8h_aaa08d3a688cff12746ac3a4527def7cb}\label{motor__driver_8h_aaa08d3a688cff12746ac3a4527def7cb}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_calc\_safe\_vlt@{motor\_driver\_calc\_safe\_vlt}}
 \index{motor\_driver\_calc\_safe\_vlt@{motor\_driver\_calc\_safe\_vlt}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_calc\_safe\_vlt()}{motor\_driver\_calc\_safe\_vlt()}}
-{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+calc\+\_\+safe\+\_\+vlt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+calc\+\_\+safe\+\_\+vlt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
 
 
 
@@ -91,11 +91,11 @@ Calculates the safe power percentage limit based on the descriptor struct.
 {\em motor} & Pointer to the relevant motor struct, motor0 or motor1 \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{motor__driver_8h_ae1f1f9d963f7d000fc17e29083a26b0f}\label{motor__driver_8h_ae1f1f9d963f7d000fc17e29083a26b0f}} 
+\mbox{\Hypertarget{motor__driver_8h_ad263f869192a0aec42aaa49a6c3b5b27}\label{motor__driver_8h_ad263f869192a0aec42aaa49a6c3b5b27}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_delta\_setpoint@{motor\_driver\_delta\_setpoint}}
 \index{motor\_driver\_delta\_setpoint@{motor\_driver\_delta\_setpoint}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_delta\_setpoint()}{motor\_driver\_delta\_setpoint()}}
-{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+delta\+\_\+setpoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor,  }\item[{int32\+\_\+t}]{delta }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+delta\+\_\+setpoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor,  }\item[{int32\+\_\+t}]{delta }\end{DoxyParamCaption})}
 
 
 
@@ -108,11 +108,11 @@ Changes the encoder setpoint of the relevant motor.
 {\em delta} & Change to encoder count setpoint \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{motor__driver_8h_ac331d8d3eb86f71c9c25acfdb41000fc}\label{motor__driver_8h_ac331d8d3eb86f71c9c25acfdb41000fc}} 
+\mbox{\Hypertarget{motor__driver_8h_a72f02b32b34e9933c22e35c93c339b4d}\label{motor__driver_8h_a72f02b32b34e9933c22e35c93c339b4d}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_get\_encoder\_cnt@{motor\_driver\_get\_encoder\_cnt}}
 \index{motor\_driver\_get\_encoder\_cnt@{motor\_driver\_get\_encoder\_cnt}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_get\_encoder\_cnt()}{motor\_driver\_get\_encoder\_cnt()}}
-{\footnotesize\ttfamily uint16\+\_\+t motor\+\_\+driver\+\_\+get\+\_\+encoder\+\_\+cnt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily uint16\+\_\+t motor\+\_\+driver\+\_\+get\+\_\+encoder\+\_\+cnt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
 
 
 
@@ -126,11 +126,11 @@ Gets the current hardware encoder count.
 \begin{DoxyReturn}{Returns}
 TIMx-\/$>$CNT 
 \end{DoxyReturn}
-\mbox{\Hypertarget{motor__driver_8h_a634e5e129708311f70f61d2409010386}\label{motor__driver_8h_a634e5e129708311f70f61d2409010386}} 
+\mbox{\Hypertarget{motor__driver_8h_ad214b4f6ade0ffddfed00cda91975b47}\label{motor__driver_8h_ad214b4f6ade0ffddfed00cda91975b47}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_get\_id@{motor\_driver\_get\_id}}
 \index{motor\_driver\_get\_id@{motor\_driver\_get\_id}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_get\_id()}{motor\_driver\_get\_id()}}
-{\footnotesize\ttfamily uint8\+\_\+t motor\+\_\+driver\+\_\+get\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily uint8\+\_\+t motor\+\_\+driver\+\_\+get\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
 
 
 \begin{DoxyParams}{Parameters}
@@ -141,11 +141,11 @@ TIMx-\/$>$CNT
 ~\newline
  
 \end{DoxyReturn}
-\mbox{\Hypertarget{motor__driver_8h_a649a8002f34da4025e264d29ae146732}\label{motor__driver_8h_a649a8002f34da4025e264d29ae146732}} 
+\mbox{\Hypertarget{motor__driver_8h_ac63535c0673a7b318260ff3f155459b0}\label{motor__driver_8h_ac63535c0673a7b318260ff3f155459b0}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_get\_moving@{motor\_driver\_get\_moving}}
 \index{motor\_driver\_get\_moving@{motor\_driver\_get\_moving}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_get\_moving()}{motor\_driver\_get\_moving()}}
-{\footnotesize\ttfamily uint8\+\_\+t motor\+\_\+driver\+\_\+get\+\_\+moving (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily uint8\+\_\+t motor\+\_\+driver\+\_\+get\+\_\+moving (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
 
 
 \begin{DoxyParams}{Parameters}
@@ -156,11 +156,11 @@ TIMx-\/$>$CNT
 ~\newline
  
 \end{DoxyReturn}
-\mbox{\Hypertarget{motor__driver_8h_a70d05882f94be7e7362030bc5fd7991d}\label{motor__driver_8h_a70d05882f94be7e7362030bc5fd7991d}} 
+\mbox{\Hypertarget{motor__driver_8h_a6421df168ed92f8bdf9225e3e9ae6c76}\label{motor__driver_8h_a6421df168ed92f8bdf9225e3e9ae6c76}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_get\_resolution@{motor\_driver\_get\_resolution}}
 \index{motor\_driver\_get\_resolution@{motor\_driver\_get\_resolution}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_get\_resolution()}{motor\_driver\_get\_resolution()}}
-{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+driver\+\_\+get\+\_\+resolution (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+driver\+\_\+get\+\_\+resolution (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
 
 
 \begin{DoxyParams}{Parameters}
@@ -171,11 +171,11 @@ TIMx-\/$>$CNT
 ~\newline
  
 \end{DoxyReturn}
-\mbox{\Hypertarget{motor__driver_8h_a2cc4251e23348af1f1b0f8686182727a}\label{motor__driver_8h_a2cc4251e23348af1f1b0f8686182727a}} 
+\mbox{\Hypertarget{motor__driver_8h_a4910630a992127ef692ea74d36fc6e9f}\label{motor__driver_8h_a4910630a992127ef692ea74d36fc6e9f}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_get\_setpoint@{motor\_driver\_get\_setpoint}}
 \index{motor\_driver\_get\_setpoint@{motor\_driver\_get\_setpoint}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_get\_setpoint()}{motor\_driver\_get\_setpoint()}}
-{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+driver\+\_\+get\+\_\+setpoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+driver\+\_\+get\+\_\+setpoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
 
 
 
@@ -189,11 +189,11 @@ Gets the total encoder count setpoint of the selected motor.
 \begin{DoxyReturn}{Returns}
 encoder\+Total\+Setpoint 
 \end{DoxyReturn}
-\mbox{\Hypertarget{motor__driver_8h_a90393e4934087e5ecb5d117e69e1632a}\label{motor__driver_8h_a90393e4934087e5ecb5d117e69e1632a}} 
+\mbox{\Hypertarget{motor__driver_8h_a800cc5d6e2cd72c74cf56ec67c1eacef}\label{motor__driver_8h_a800cc5d6e2cd72c74cf56ec67c1eacef}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_get\_total\_cnt@{motor\_driver\_get\_total\_cnt}}
 \index{motor\_driver\_get\_total\_cnt@{motor\_driver\_get\_total\_cnt}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_get\_total\_cnt()}{motor\_driver\_get\_total\_cnt()}}
-{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+driver\+\_\+get\+\_\+total\+\_\+cnt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+driver\+\_\+get\+\_\+total\+\_\+cnt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
 
 
 
@@ -241,11 +241,11 @@ Forward is the direction of increasing encoder count.
 {\em mtr} & Pointer to timer \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{motor__driver_8h_a2bcd64e73f7bb5c36a26b424687bcd95}\label{motor__driver_8h_a2bcd64e73f7bb5c36a26b424687bcd95}} 
+\mbox{\Hypertarget{motor__driver_8h_a35805d689d408caf3604419f1f70b4ec}\label{motor__driver_8h_a35805d689d408caf3604419f1f70b4ec}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_init@{motor\_driver\_init}}
 \index{motor\_driver\_init@{motor\_driver\_init}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_init()}{motor\_driver\_init()}}
-{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
 
 
 
@@ -256,11 +256,11 @@ Initialise motor controller descriptor.
 {\em motor} & Pointer to the relevant motor struct, motor0 or motor1 \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{motor__driver_8h_a9aa9510dd82d4295ce9afba8ad049749}\label{motor__driver_8h_a9aa9510dd82d4295ce9afba8ad049749}} 
+\mbox{\Hypertarget{motor__driver_8h_ad92f00ff736b5e9769c6a8140ad59b79}\label{motor__driver_8h_ad92f00ff736b5e9769c6a8140ad59b79}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_set\_power@{motor\_driver\_set\_power}}
 \index{motor\_driver\_set\_power@{motor\_driver\_set\_power}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_set\_power()}{motor\_driver\_set\_power()}}
-{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+set\+\_\+power (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor,  }\item[{uint8\+\_\+t}]{direction,  }\item[{double}]{power }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+set\+\_\+power (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor,  }\item[{uint8\+\_\+t}]{direction,  }\item[{double}]{power }\end{DoxyParamCaption})}
 
 
 
@@ -292,11 +292,11 @@ Sets the duty cycle of the selected PWM timer as a percentage of max.
 {\em pct} & Percentage of maximum duty cycle \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{motor__driver_8h_a0869066133a22d3d7edefca8f872a0b4}\label{motor__driver_8h_a0869066133a22d3d7edefca8f872a0b4}} 
+\mbox{\Hypertarget{motor__driver_8h_a5c3666e96928ce9cc5f53767847ea1ca}\label{motor__driver_8h_a5c3666e96928ce9cc5f53767847ea1ca}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_set\_setpoint@{motor\_driver\_set\_setpoint}}
 \index{motor\_driver\_set\_setpoint@{motor\_driver\_set\_setpoint}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_set\_setpoint()}{motor\_driver\_set\_setpoint()}}
-{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+set\+\_\+setpoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor,  }\item[{int32\+\_\+t}]{setpoint }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+set\+\_\+setpoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor,  }\item[{int32\+\_\+t}]{setpoint }\end{DoxyParamCaption})}
 
 
 
@@ -309,11 +309,11 @@ Sets the total encoder count setpoint of the selected motor.
 {\em setpoint} & Total encoder count \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{motor__driver_8h_a83ed61d06d2782b75a8249f5938c66dc}\label{motor__driver_8h_a83ed61d06d2782b75a8249f5938c66dc}} 
+\mbox{\Hypertarget{motor__driver_8h_aee28e2057483cb24343da4d9aa7ef81b}\label{motor__driver_8h_aee28e2057483cb24343da4d9aa7ef81b}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_update\_power@{motor\_driver\_update\_power}}
 \index{motor\_driver\_update\_power@{motor\_driver\_update\_power}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_update\_power()}{motor\_driver\_update\_power()}}
-{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+update\+\_\+power (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+update\+\_\+power (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
 
 
 
@@ -324,11 +324,11 @@ Sets the power of the selected motor based on a controller heuristic.
 {\em motor} & Pointer to the relevant motor struct, motor0 or motor1 \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{motor__driver_8h_a8cc35cc6b29cb67f7401844a95c92296}\label{motor__driver_8h_a8cc35cc6b29cb67f7401844a95c92296}} 
+\mbox{\Hypertarget{motor__driver_8h_a842c8fc323e3c8464ebc75455482ad82}\label{motor__driver_8h_a842c8fc323e3c8464ebc75455482ad82}} 
 \index{motor\_driver.h@{motor\_driver.h}!motor\_driver\_update\_tot\_cnt@{motor\_driver\_update\_tot\_cnt}}
 \index{motor\_driver\_update\_tot\_cnt@{motor\_driver\_update\_tot\_cnt}!motor\_driver.h@{motor\_driver.h}}
 \doxysubsubsection{\texorpdfstring{motor\_driver\_update\_tot\_cnt()}{motor\_driver\_update\_tot\_cnt()}}
-{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+update\+\_\+tot\+\_\+cnt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__control__descriptor}{motor\+\_\+control\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void motor\+\_\+driver\+\_\+update\+\_\+tot\+\_\+cnt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}} $\ast$}]{motor }\end{DoxyParamCaption})}
 
 
 
@@ -511,7 +511,8 @@ Update the power setting of the selected motor based on the relevant controller 
 
 
 \begin{DoxyParams}{Parameters}
-{\em motor\+Select} & 0 or 1 for motor0 or motor1 respectively \\
+{\em motor\+Select} & 0 or 1 for motor0 or motor1 respectively ~\newline
+ \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{motor__driver_8h_a77cd679b3156c51a405370a438b49c59}\label{motor__driver_8h_a77cd679b3156c51a405370a438b49c59}} 

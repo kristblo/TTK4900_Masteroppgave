@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['zaccaddr_211',['zAccAddr',['../structaccelerometer__descriptor.html#a56e89550ad4340e2bd7e86d49840edf9',1,'accelerometer_descriptor']]],
-  ['zrotaddr_212',['zRotAddr',['../structaccelerometer__descriptor.html#a7c2e8261966ea719a480facef70c09e8',1,'accelerometer_descriptor']]]
+  ['xacc_307',['xAcc',['../structaccelerometer__inData.html#a8d10bc81a28e9374dd4895c91f8636b5',1,'accelerometer_inData']]],
+  ['xaccaddr_308',['xAccAddr',['../structaccelerometer__descriptor.html#a7f7ac56c16f37c71e1bcdf7cd370371b',1,'accelerometer_descriptor']]],
+  ['xrot_309',['xRot',['../structaccelerometer__inData.html#a3598cef9c8c7af40af5a049762f01215',1,'accelerometer_inData']]],
+  ['xrotaddr_310',['xRotAddr',['../structaccelerometer__descriptor.html#a54d223ab0f629834965bb7ecd0770f66',1,'accelerometer_descriptor']]]
 ];

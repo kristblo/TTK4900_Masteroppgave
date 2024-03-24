@@ -26,17 +26,44 @@ typedef struct
 /// @brief CAN message types, also dictate CAN priority
 typedef enum 
 {
-  ACC_X_RX,
-  ACC_Y_RX,
-  ACC_Z_RX,
+  /// @brief A message containting acc/rot X axis
+  ACC_X_TX,
+  
+  /// @brief A message containting acc/rot Y axis
+  ACC_Y_TX,
+  
+  /// @brief A message containting acc/rot Z axis
+  ACC_Z_TX,
+  
+  /// @brief A message containting an arbitrary accelerometer register value
   ACC_REG_RX,
+  
+  /// @brief A message requesting an arbitrary accelerometer register value
   ACC_REG_REQ,
-  MOTOR_POS_SP,
+
+  /// @brief A message containing a joint position setpoint
+  JOINT_POS_SP,
+  
+  /// @brief A message containting a motor voltage percent setpoint
   MOTOR_VLT_SP,
-  MOTOR_POS_REQ,
-  MOTOR_POS_RX,
+
+  /// @brief A message requesting the position of a joint
+  JOINT_POS_REQ,
+  
+  /// @brief A message containing the position of a joint
+  JOINT_POS_TX,
+
+  /// @brief A message requesting acc/rot x axis
+  ACC_X_REQ,
+
+  /// @brief A message requesting acc/rot y axis
+  ACC_Y_REQ,
+
+  /// @brief A message requesting acc/rot z axis
+  ACC_Z_REQ,
+
   num_types, //This must always be last
-} can_message_types;
+} can_message_type;
 
 
 /// @brief Queues a CAN message for transmit, for external use
@@ -132,22 +159,31 @@ void can_cmd_handle_regReq(uint32_t id, uint8_t* inData);
 void can_cmd_handle_motorSp(uint32_t id, uint8_t* inData);
 
 
+/// @brief Handles an incoming request for accelerometer axis data
+/// @param id Incoming CAN ID
+/// @param inData Incoming CAN data
+void can_cmd_handle_axisReq(uint32_t id, uint8_t* inData);
+
+/// @brief Handles incoming accelerometer axis data
+/// @param id Incoming CAN ID
+/// @param inData Incoming CAN data
+void can_cmd_handle_axisData(uint32_t id, uint8_t* inData);
 
 //The following rxn functions MUST match with the number of
-//available can_message_types, and MUST be added to the
+//available can_message_type, and MUST be added to the
 //canRxFunctions list in the .c file
 
-/// @brief "Generic" function to handle CAN message type ACC_X_RX
+/// @brief "Generic" function to handle CAN message type ACC_X_TX
 /// @param id CAN message ID
 /// @param inData CAN message data field
 void can_driver_cmd_rx0(uint32_t id, uint8_t* inData);
 
-/// @brief "Generic" function to handle CAN message type ACC_Y_RX
+/// @brief "Generic" function to handle CAN message type ACC_Y_TX
 /// @param id CAN message ID
 /// @param inData CAN message data field
 void can_driver_cmd_rx1(uint32_t id, uint8_t* inData);
 
-/// @brief "Generic" function to handle CAN message type ACC_Z_RX
+/// @brief "Generic" function to handle CAN message type ACC_Z_TX
 /// @param id CAN message ID
 /// @param inData CAN message data field
 void can_driver_cmd_rx2(uint32_t id, uint8_t* inData);
@@ -162,7 +198,7 @@ void can_driver_cmd_rx3(uint32_t id, uint8_t* inData);
 /// @param inData CAN message data field
 void can_driver_cmd_rx4(uint32_t id, uint8_t* inData);
 
-/// @brief "Generic" function to handle CAN message type MOTOR_POS_SP
+/// @brief "Generic" function to handle CAN message type JOINT_POS_SP
 /// @param id CAN message ID
 /// @param inData CAN message data field
 void can_driver_cmd_rx5(uint32_t id, uint8_t* inData);
@@ -172,16 +208,30 @@ void can_driver_cmd_rx5(uint32_t id, uint8_t* inData);
 /// @param inData CAN message data field
 void can_driver_cmd_rx6(uint32_t id, uint8_t* inData);
 
-/// @brief "Generic" function to handle CAN message type ACC_X_RX
+/// @brief "Generic" function to handle CAN message type ACC_X_TX
 /// @param id CAN message ID
 /// @param inData CAN message data field
 void can_driver_cmd_rx7(uint32_t id, uint8_t* inData);
 
-/// @brief "Generic" function to handle CAN message type MOTOR_POS_RX
+/// @brief "Generic" function to handle CAN message type JOINT_POS_TX
 /// @param id CAN message ID
 /// @param inData CAN message data field
 void can_driver_cmd_rx8(uint32_t id, uint8_t* inData);
 
+/// @brief "Generic" function to handle CAN message type ACC_X_REQ
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rx9(uint32_t id, uint8_t* inData);
+
+/// @brief "Generic" function to handle CAN message type ACC_Y_REQ
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rxA(uint32_t id, uint8_t* inData);
+
+/// @brief "Generic" function to handle CAN message type ACC_Z_REQ
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rxB(uint32_t id, uint8_t* inData);
 
 
 #endif //CAN_DRIVER_H

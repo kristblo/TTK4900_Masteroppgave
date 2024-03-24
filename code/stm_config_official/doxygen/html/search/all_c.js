@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['torso_190',['TORSO',['../unit__config_8h.html#a2b9b2c7507f05290eac2763bc18b5460',1,'unit_config.h']]]
+  ['readaddr_263',['readAddr',['../structaccelerometer__descriptor.html#a239c195c80e2666be04e4aaabcf06023',1,'accelerometer_descriptor']]],
+  ['resolution_264',['resolution',['../structmotor__descriptor.html#ad06fc0139cc26326e8ab4e5a1f15ed68',1,'motor_descriptor']]],
+  ['rotresolution_265',['rotResolution',['../structaccelerometer__descriptor.html#a5364eed6fecc2c80816f3fc95458f250',1,'accelerometer_descriptor']]]
 ];

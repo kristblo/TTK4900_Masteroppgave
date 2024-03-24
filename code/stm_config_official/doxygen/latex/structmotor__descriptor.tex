@@ -1,0 +1,205 @@
+\hypertarget{structmotor__descriptor}{}\doxysection{motor\+\_\+descriptor Struct Reference}
+\label{structmotor__descriptor}\index{motor\_descriptor@{motor\_descriptor}}
+
+
+Contains static and state information relevant to the operation of a motor driver.  
+
+
+
+
+{\ttfamily \#include $<$motor\+\_\+driver.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structmotor__descriptor_a5c057b222429db0dd1f5e0e43d005142}{motor\+Id}}
+\begin{DoxyCompactList}\small\item\em The motor\textquotesingle{}s unique ID, essential for CAN messaging. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{structmotor__descriptor_a65123b1652115d8da3b1a06db636655e}{voltage\+Limit}}
+\begin{DoxyCompactList}\small\item\em Safe voltage limit, as stated in the motor\textquotesingle{}s datasheet. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{structmotor__descriptor_a88304ff60e84a9929253e2e361ae1c94}{voltage\+Pct\+Cap}}
+\begin{DoxyCompactList}\small\item\em Safe voltage percentage cap, given by input voltage and safe limit. \end{DoxyCompactList}\item 
+int8\+\_\+t \mbox{\hyperlink{structmotor__descriptor_ac6c9f9044ceff470ade8f7da31faf869}{motor\+Polarity}}
+\begin{DoxyCompactList}\small\item\em The motor\textquotesingle{}s polarity, which pole is connected to +/-\/ on the driver. \end{DoxyCompactList}\item 
+TIM\+\_\+\+Type\+Def $\ast$ \mbox{\hyperlink{structmotor__descriptor_a08d665f05e836b412c7edf7a0ef5a0c5}{motor\+Timer}}
+\begin{DoxyCompactList}\small\item\em The MCU timer peripheral which drives the motor. \end{DoxyCompactList}\item 
+TIM\+\_\+\+Type\+Def $\ast$ \mbox{\hyperlink{structmotor__descriptor_aa6eea81cc7c2c7da6cbcb22ce3addf1c}{encoder\+Timer}}
+\begin{DoxyCompactList}\small\item\em The MCU timer peripheral which registers the motor\textquotesingle{}s encoder. \end{DoxyCompactList}\item 
+int32\+\_\+t \mbox{\hyperlink{structmotor__descriptor_ad06fc0139cc26326e8ab4e5a1f15ed68}{resolution}}
+\begin{DoxyCompactList}\small\item\em Relation between number of encoder click per mm or rad of movement. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{structmotor__descriptor_a72915ce678e349f71b7f019af8e56448}{encoder\+Init\+Count}}
+\begin{DoxyCompactList}\small\item\em Number of encoder clicks counted on startup (nominally 0) \end{DoxyCompactList}\item 
+int32\+\_\+t \mbox{\hyperlink{structmotor__descriptor_a60fd56094b7c18e51f07ce593be455d2}{encoder\+Total\+Init}}
+\begin{DoxyCompactList}\small\item\em Number of total encoder clicks counted on startup (nominally 0) \end{DoxyCompactList}\item 
+int32\+\_\+t \mbox{\hyperlink{structmotor__descriptor_aac7ceee4bf4e1f5d8f75566d0f1c4ebe}{encoder\+Total\+Setpoint}}
+\begin{DoxyCompactList}\small\item\em Setpoint for motor encoder count, relevant if circumventing joint controller. \end{DoxyCompactList}\item 
+int32\+\_\+t \mbox{\hyperlink{structmotor__descriptor_a31f9bb0883bc941645a34c0bc8efbab8}{encoder\+Total\+Count}}
+\begin{DoxyCompactList}\small\item\em Total number of encoder clicks registered since startup. \end{DoxyCompactList}\item 
+int32\+\_\+t \mbox{\hyperlink{structmotor__descriptor_ad2b2d1b86d32ac3f32f403c5f8a80da2}{encoder\+Previous\+Count}}
+\begin{DoxyCompactList}\small\item\em The previous total encoder count, used for updating total. \end{DoxyCompactList}\item 
+int32\+\_\+t \mbox{\hyperlink{structmotor__descriptor_a0424b5c69e80985b3981fe91e6ee2ed0}{most\+Recent\+Delta}}
+\begin{DoxyCompactList}\small\item\em The most recently registered increment/decrement in encoder count, essentially movement rate. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{structmotor__descriptor_a22e59d46fbea3fb22facbd31ce33d66b}{is\+Moving}}
+\begin{DoxyCompactList}\small\item\em Whether the motor is moving, assumed true if most\+Recent\+Delta$>$50. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{structmotor__descriptor_ae271b14b1e7fa47b2c9e09ebb250d756}{motor\+Name}}
+\begin{DoxyCompactList}\small\item\em Human readable name of the motor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains static and state information relevant to the operation of a motor driver. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structmotor__descriptor_a72915ce678e349f71b7f019af8e56448}\label{structmotor__descriptor_a72915ce678e349f71b7f019af8e56448}} 
+\index{motor\_descriptor@{motor\_descriptor}!encoderInitCount@{encoderInitCount}}
+\index{encoderInitCount@{encoderInitCount}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{encoderInitCount}{encoderInitCount}}
+{\footnotesize\ttfamily uint16\+\_\+t motor\+\_\+descriptor\+::encoder\+Init\+Count}
+
+
+
+Number of encoder clicks counted on startup (nominally 0) 
+
+\mbox{\Hypertarget{structmotor__descriptor_ad2b2d1b86d32ac3f32f403c5f8a80da2}\label{structmotor__descriptor_ad2b2d1b86d32ac3f32f403c5f8a80da2}} 
+\index{motor\_descriptor@{motor\_descriptor}!encoderPreviousCount@{encoderPreviousCount}}
+\index{encoderPreviousCount@{encoderPreviousCount}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{encoderPreviousCount}{encoderPreviousCount}}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+descriptor\+::encoder\+Previous\+Count}
+
+
+
+The previous total encoder count, used for updating total. 
+
+\mbox{\Hypertarget{structmotor__descriptor_aa6eea81cc7c2c7da6cbcb22ce3addf1c}\label{structmotor__descriptor_aa6eea81cc7c2c7da6cbcb22ce3addf1c}} 
+\index{motor\_descriptor@{motor\_descriptor}!encoderTimer@{encoderTimer}}
+\index{encoderTimer@{encoderTimer}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{encoderTimer}{encoderTimer}}
+{\footnotesize\ttfamily TIM\+\_\+\+Type\+Def$\ast$ motor\+\_\+descriptor\+::encoder\+Timer}
+
+
+
+The MCU timer peripheral which registers the motor\textquotesingle{}s encoder. 
+
+\mbox{\Hypertarget{structmotor__descriptor_a31f9bb0883bc941645a34c0bc8efbab8}\label{structmotor__descriptor_a31f9bb0883bc941645a34c0bc8efbab8}} 
+\index{motor\_descriptor@{motor\_descriptor}!encoderTotalCount@{encoderTotalCount}}
+\index{encoderTotalCount@{encoderTotalCount}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{encoderTotalCount}{encoderTotalCount}}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+descriptor\+::encoder\+Total\+Count}
+
+
+
+Total number of encoder clicks registered since startup. 
+
+\mbox{\Hypertarget{structmotor__descriptor_a60fd56094b7c18e51f07ce593be455d2}\label{structmotor__descriptor_a60fd56094b7c18e51f07ce593be455d2}} 
+\index{motor\_descriptor@{motor\_descriptor}!encoderTotalInit@{encoderTotalInit}}
+\index{encoderTotalInit@{encoderTotalInit}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{encoderTotalInit}{encoderTotalInit}}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+descriptor\+::encoder\+Total\+Init}
+
+
+
+Number of total encoder clicks counted on startup (nominally 0) 
+
+\mbox{\Hypertarget{structmotor__descriptor_aac7ceee4bf4e1f5d8f75566d0f1c4ebe}\label{structmotor__descriptor_aac7ceee4bf4e1f5d8f75566d0f1c4ebe}} 
+\index{motor\_descriptor@{motor\_descriptor}!encoderTotalSetpoint@{encoderTotalSetpoint}}
+\index{encoderTotalSetpoint@{encoderTotalSetpoint}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{encoderTotalSetpoint}{encoderTotalSetpoint}}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+descriptor\+::encoder\+Total\+Setpoint}
+
+
+
+Setpoint for motor encoder count, relevant if circumventing joint controller. 
+
+\mbox{\Hypertarget{structmotor__descriptor_a22e59d46fbea3fb22facbd31ce33d66b}\label{structmotor__descriptor_a22e59d46fbea3fb22facbd31ce33d66b}} 
+\index{motor\_descriptor@{motor\_descriptor}!isMoving@{isMoving}}
+\index{isMoving@{isMoving}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{isMoving}{isMoving}}
+{\footnotesize\ttfamily uint8\+\_\+t motor\+\_\+descriptor\+::is\+Moving}
+
+
+
+Whether the motor is moving, assumed true if most\+Recent\+Delta$>$50. 
+
+\mbox{\Hypertarget{structmotor__descriptor_a0424b5c69e80985b3981fe91e6ee2ed0}\label{structmotor__descriptor_a0424b5c69e80985b3981fe91e6ee2ed0}} 
+\index{motor\_descriptor@{motor\_descriptor}!mostRecentDelta@{mostRecentDelta}}
+\index{mostRecentDelta@{mostRecentDelta}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{mostRecentDelta}{mostRecentDelta}}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+descriptor\+::most\+Recent\+Delta}
+
+
+
+The most recently registered increment/decrement in encoder count, essentially movement rate. 
+
+\mbox{\Hypertarget{structmotor__descriptor_a5c057b222429db0dd1f5e0e43d005142}\label{structmotor__descriptor_a5c057b222429db0dd1f5e0e43d005142}} 
+\index{motor\_descriptor@{motor\_descriptor}!motorId@{motorId}}
+\index{motorId@{motorId}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{motorId}{motorId}}
+{\footnotesize\ttfamily uint8\+\_\+t motor\+\_\+descriptor\+::motor\+Id}
+
+
+
+The motor\textquotesingle{}s unique ID, essential for CAN messaging. 
+
+\mbox{\Hypertarget{structmotor__descriptor_ae271b14b1e7fa47b2c9e09ebb250d756}\label{structmotor__descriptor_ae271b14b1e7fa47b2c9e09ebb250d756}} 
+\index{motor\_descriptor@{motor\_descriptor}!motorName@{motorName}}
+\index{motorName@{motorName}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{motorName}{motorName}}
+{\footnotesize\ttfamily char$\ast$ motor\+\_\+descriptor\+::motor\+Name}
+
+
+
+Human readable name of the motor. 
+
+\mbox{\Hypertarget{structmotor__descriptor_ac6c9f9044ceff470ade8f7da31faf869}\label{structmotor__descriptor_ac6c9f9044ceff470ade8f7da31faf869}} 
+\index{motor\_descriptor@{motor\_descriptor}!motorPolarity@{motorPolarity}}
+\index{motorPolarity@{motorPolarity}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{motorPolarity}{motorPolarity}}
+{\footnotesize\ttfamily int8\+\_\+t motor\+\_\+descriptor\+::motor\+Polarity}
+
+
+
+The motor\textquotesingle{}s polarity, which pole is connected to +/-\/ on the driver. 
+
+\mbox{\Hypertarget{structmotor__descriptor_a08d665f05e836b412c7edf7a0ef5a0c5}\label{structmotor__descriptor_a08d665f05e836b412c7edf7a0ef5a0c5}} 
+\index{motor\_descriptor@{motor\_descriptor}!motorTimer@{motorTimer}}
+\index{motorTimer@{motorTimer}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{motorTimer}{motorTimer}}
+{\footnotesize\ttfamily TIM\+\_\+\+Type\+Def$\ast$ motor\+\_\+descriptor\+::motor\+Timer}
+
+
+
+The MCU timer peripheral which drives the motor. 
+
+\mbox{\Hypertarget{structmotor__descriptor_ad06fc0139cc26326e8ab4e5a1f15ed68}\label{structmotor__descriptor_ad06fc0139cc26326e8ab4e5a1f15ed68}} 
+\index{motor\_descriptor@{motor\_descriptor}!resolution@{resolution}}
+\index{resolution@{resolution}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{resolution}{resolution}}
+{\footnotesize\ttfamily int32\+\_\+t motor\+\_\+descriptor\+::resolution}
+
+
+
+Relation between number of encoder click per mm or rad of movement. 
+
+\mbox{\Hypertarget{structmotor__descriptor_a65123b1652115d8da3b1a06db636655e}\label{structmotor__descriptor_a65123b1652115d8da3b1a06db636655e}} 
+\index{motor\_descriptor@{motor\_descriptor}!voltageLimit@{voltageLimit}}
+\index{voltageLimit@{voltageLimit}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{voltageLimit}{voltageLimit}}
+{\footnotesize\ttfamily uint8\+\_\+t motor\+\_\+descriptor\+::voltage\+Limit}
+
+
+
+Safe voltage limit, as stated in the motor\textquotesingle{}s datasheet. 
+
+\mbox{\Hypertarget{structmotor__descriptor_a88304ff60e84a9929253e2e361ae1c94}\label{structmotor__descriptor_a88304ff60e84a9929253e2e361ae1c94}} 
+\index{motor\_descriptor@{motor\_descriptor}!voltagePctCap@{voltagePctCap}}
+\index{voltagePctCap@{voltagePctCap}!motor\_descriptor@{motor\_descriptor}}
+\doxysubsubsection{\texorpdfstring{voltagePctCap}{voltagePctCap}}
+{\footnotesize\ttfamily uint8\+\_\+t motor\+\_\+descriptor\+::voltage\+Pct\+Cap}
+
+
+
+Safe voltage percentage cap, given by input voltage and safe limit. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{motor__driver_8h}{motor\+\_\+driver.\+h}}\end{DoxyCompactItemize}

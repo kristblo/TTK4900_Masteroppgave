@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['yaccaddr_383',['yAccAddr',['../structaccelerometer__descriptor.html#a78af3389e4c620cca0587a6526f5d644',1,'accelerometer_descriptor']]],
-  ['ycaliboffset_384',['yCalibOffset',['../structaccelerometer__descriptor.html#a34e4b5c412690abbd0a5f3bf30cd02cc',1,'accelerometer_descriptor']]],
-  ['yrotaddr_385',['yRotAddr',['../structaccelerometer__descriptor.html#aed957c73c746cc97022664570d6e4222',1,'accelerometer_descriptor']]]
+  ['voltagelimit_583',['voltageLimit',['../structmotor__descriptor.html#a65123b1652115d8da3b1a06db636655e',1,'motor_descriptor']]],
+  ['voltagepctcap_584',['voltagePctCap',['../structmotor__descriptor.html#a88304ff60e84a9929253e2e361ae1c94',1,'motor_descriptor']]]
 ];

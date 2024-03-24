@@ -36,12 +36,13 @@ digraph "can_driver.h"
   Node12 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
   Node12 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
   Node1 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
-  Node14 [label="shoulder_controller.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$shoulder__controller_8h.html",tooltip=" "];
-  Node14 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
-  Node14 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="joint_controller.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$joint__controller_8h.html",tooltip=" "];
+  Node14 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
   Node14 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
   Node14 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
-  Node14 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
   Node14 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
   Node14 -> Node1 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
 }

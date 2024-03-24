@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['xaccaddr_381',['xAccAddr',['../structaccelerometer__descriptor.html#a7f7ac56c16f37c71e1bcdf7cd370371b',1,'accelerometer_descriptor']]],
-  ['xrotaddr_382',['xRotAddr',['../structaccelerometer__descriptor.html#a54d223ab0f629834965bb7ecd0770f66',1,'accelerometer_descriptor']]]
+  ['stringcmdlist_581',['stringCmdList',['../string__cmd__parser_8h.html#a3fd8229afa2ba541c48cbab423930336',1,'string_cmd_parser.h']]],
+  ['stringlength_582',['stringLength',['../structstring__cmd__processor__args.html#a74a26aa24180811951c46f6590d78cd1',1,'string_cmd_processor_args']]]
 ];

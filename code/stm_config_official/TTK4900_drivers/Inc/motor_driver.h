@@ -18,22 +18,52 @@
 /// @brief Contains static and state information relevant to the operation of a motor driver.
 typedef struct
 {
+  /// @brief The motor's unique ID, essential for CAN messaging
   uint8_t motorId;
+  
+  /// @brief Safe voltage limit, as stated in the motor's datasheet
   uint8_t voltageLimit;
+
+  /// @brief Safe voltage percentage cap, given by input voltage and safe limit
   uint8_t voltagePctCap;
+
+  /// @brief The motor's polarity, which pole is connected to +/- on the driver
   int8_t motorPolarity;
+
+  /// @brief The MCU timer peripheral which drives the motor
   TIM_TypeDef* motorTimer;
+
+  /// @brief The MCU timer peripheral which registers the motor's encoder
   TIM_TypeDef* encoderTimer;
-  int32_t resolution; //encoder clicks per rad or mm
+
+  /// @brief Relation between number of encoder click per mm or rad of movement
+  int32_t resolution;
+
+  /// @brief Number of encoder clicks counted on startup (nominally 0)
   uint16_t encoderInitCount;
+
+  /// @brief Number of total encoder clicks counted on startup (nominally 0)
   int32_t encoderTotalInit;
+
+  /// @brief Setpoint for motor encoder count, relevant if circumventing joint controller
   int32_t encoderTotalSetpoint;
+
+  /// @brief Total number of encoder clicks registered since startup
   int32_t encoderTotalCount;
+
+  /// @brief The previous total encoder count, used for updating total
   int32_t encoderPreviousCount;
+  
+  /// @brief The most recently registered increment/decrement in encoder count, essentially movement rate
+  int32_t mostRecentDelta;
+
+  /// @brief Whether the motor is moving, assumed true if mostRecentDelta>50
   uint8_t isMoving;
+
+  /// @brief Human readable name of the motor
   char* motorName; //flexible array must be at the end of a struct
   //TODO: Add regulator parameters
-} motor_control_descriptor;
+} motor_descriptor;
 
 
 
@@ -111,71 +141,71 @@ void motor_interface_delta_setpoint(uint8_t motorSelect, int32_t delta);
 
 /// @brief Initialise motor controller descriptor
 /// @param motor Pointer to the relevant motor struct, motor0 or motor1
-void motor_driver_init(motor_control_descriptor* motor);
+void motor_driver_init(motor_descriptor* motor);
 
 
 /// @brief Sets the power of the selected motor based on a controller heuristic
 /// @param motor Pointer to the relevant motor struct, motor0 or motor1
-void motor_driver_update_power(motor_control_descriptor* motor);
+void motor_driver_update_power(motor_descriptor* motor);
 
 
 /// @brief Updates the encoder total count based on the relevant heuristic
 /// @param motor Pointer to the relevant motor struct, motor0 or motor1
-void motor_driver_update_tot_cnt(motor_control_descriptor* motor);
+void motor_driver_update_tot_cnt(motor_descriptor* motor);
 
 
 /// @brief Gets the total encoder count setpoint of the selected motor
 /// @param motor Pointer to the relevant motor struct, motor0 or motor1
 /// @return encoderTotalSetpoint
-int32_t motor_driver_get_setpoint(motor_control_descriptor* motor);
+int32_t motor_driver_get_setpoint(motor_descriptor* motor);
 
 
 /// @brief Gets the total encoder count since init
 /// @param motor Pointer to the relevant motor struct, motor0 or motor1
 /// @return encoderTotalCount
-int32_t motor_driver_get_total_cnt(motor_control_descriptor* motor);
+int32_t motor_driver_get_total_cnt(motor_descriptor* motor);
 
 
 /// @brief Gets the current hardware encoder count
 /// @param motor Pointer to the relevant motor struct, motor0 or motor1
 /// @return TIMx->CNT
-uint16_t motor_driver_get_encoder_cnt(motor_control_descriptor* motor);
+uint16_t motor_driver_get_encoder_cnt(motor_descriptor* motor);
 
 
 /// @brief 
 /// @param motorSelect 
 /// @return 
-uint8_t motor_driver_get_id(motor_control_descriptor* motor);
+uint8_t motor_driver_get_id(motor_descriptor* motor);
 
 
 /// @brief 
 /// @param motor 
 /// @return 
-int32_t motor_driver_get_resolution(motor_control_descriptor* motor);
+int32_t motor_driver_get_resolution(motor_descriptor* motor);
 
 
 /// @brief 
 /// @param motor 
 /// @return 
-uint8_t motor_driver_get_moving(motor_control_descriptor* motor);
+uint8_t motor_driver_get_moving(motor_descriptor* motor);
 
 /// @brief Set the power of a motor, limited by the motor's safety cap
 /// @param motor Pointer to the relevant motor struct, motor0 or motor1
 /// @param direction 0 or 1 for forwards or backwards, respectively
 /// @param power percentage of input voltage
-void motor_driver_set_power(motor_control_descriptor* motor, uint8_t direction, double power);
+void motor_driver_set_power(motor_descriptor* motor, uint8_t direction, double power);
 
 
 /// @brief Sets the total encoder count setpoint of the selected motor
 /// @param motor Pointer to the relevant motor struct, motor0 or motor1
 /// @param setpoint Total encoder count
-void motor_driver_set_setpoint(motor_control_descriptor* motor, int32_t setpoint);
+void motor_driver_set_setpoint(motor_descriptor* motor, int32_t setpoint);
 
 
 /// @brief Changes the encoder setpoint of the relevant motor
 /// @param motor Pointer to the relevant motor struct, motor0 or motor1
 /// @param delta Change to encoder count setpoint
-void motor_driver_delta_setpoint(motor_control_descriptor* motor, int32_t delta);
+void motor_driver_delta_setpoint(motor_descriptor* motor, int32_t delta);
 
 
 /// @brief Sets the duty cycle of the selected PWM timer as a percentage of max
@@ -186,7 +216,7 @@ void motor_driver_set_pwm_dc(uint32_t* timerCounter, double pct);
 
 /// @brief Calculates the safe power percentage limit based on the descriptor struct
 /// @param motor Pointer to the relevant motor struct, motor0 or motor1
-void motor_driver_calc_safe_vlt(motor_control_descriptor* motor);
+void motor_driver_calc_safe_vlt(motor_descriptor* motor);
 
 
 /// @brief Forward is the direction of increasing encoder count

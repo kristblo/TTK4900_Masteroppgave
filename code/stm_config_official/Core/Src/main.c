@@ -115,6 +115,7 @@ int main(void)
   MX_I2C3_Init();
   MX_TIM1_Init();
   MX_USB_DEVICE_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   uart_send_string("Hello world\n\r");
   
@@ -125,6 +126,8 @@ int main(void)
 
   HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
   HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
+
+  HAL_TIM_Base_Start_IT(&htim2);
 
   HAL_CAN_Start(&hcan);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
@@ -174,6 +177,22 @@ int main(void)
     controller_interface_update_power(0);
     controller_interface_update_power(1);
 
+    if(controller_interface_get_acc_poll() == 1)
+    {
+#if ACTIVE_UNIT == TORSO
+      controller_interface_request_acc_axis(1, 0, 'y');
+      controller_interface_request_acc_axis(1, 0, 'x');
+      int16_t acc = controller_interface_acc_getY(0);
+      int16_t rot = controller_interface_rot_getX(0);
+      controller_interface_acc_clear_newY(0); //Doesn't do anything rn really, and shoudn't be cleared here anyway
+      controller_interface_rot_clear_newX(0);
+      char* debug[64];
+      sprintf(debug, "Rot: %i\n\r", rot);
+      uart_send_string(debug);
+
+#endif
+      controller_interface_clear_acc_poll();
+    }
     // int32_t error = (int32_t)(controller_interface_get_error(0)*10);
     // char* debug[64];
     // sprintf(debug, "Error: %i\n\r", error);
@@ -229,7 +248,8 @@ void SystemClock_Config(void)
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB|RCC_PERIPHCLK_UART5
                               |RCC_PERIPHCLK_I2C1|RCC_PERIPHCLK_I2C3
                               |RCC_PERIPHCLK_TIM1|RCC_PERIPHCLK_TIM15
-                              |RCC_PERIPHCLK_TIM8|RCC_PERIPHCLK_TIM34;
+                              |RCC_PERIPHCLK_TIM8|RCC_PERIPHCLK_TIM2
+                              |RCC_PERIPHCLK_TIM34;
   PeriphClkInit.Uart5ClockSelection = RCC_UART5CLKSOURCE_PCLK1;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
   PeriphClkInit.I2c3ClockSelection = RCC_I2C3CLKSOURCE_HSI;
@@ -237,6 +257,7 @@ void SystemClock_Config(void)
   PeriphClkInit.Tim1ClockSelection = RCC_TIM1CLK_HCLK;
   PeriphClkInit.Tim15ClockSelection = RCC_TIM15CLK_HCLK;
   PeriphClkInit.Tim8ClockSelection = RCC_TIM8CLK_HCLK;
+  PeriphClkInit.Tim2ClockSelection = RCC_TIM2CLK_HCLK;
   PeriphClkInit.Tim34ClockSelection = RCC_TIM34CLK_HCLK;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {

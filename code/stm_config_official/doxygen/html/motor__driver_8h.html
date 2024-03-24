@@ -88,8 +88,8 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains static and state information relevant to the operation of a motor driver.  <a href="structmotor__control__descriptor.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains static and state information relevant to the operation of a motor driver.  <a href="structmotor__descriptor.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -127,45 +127,45 @@ Functions</h2></td></tr>
 <tr class="memitem:a0a624e06462ac98241a76ad2059e5a9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a0a624e06462ac98241a76ad2059e5a9a">motor_interface_delta_setpoint</a> (uint8_t motorSelect, int32_t delta)</td></tr>
 <tr class="memdesc:a0a624e06462ac98241a76ad2059e5a9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lets the user increment or decrement the motor encoder setpoint.  <a href="motor__driver_8h.html#a0a624e06462ac98241a76ad2059e5a9a">More...</a><br /></td></tr>
 <tr class="separator:a0a624e06462ac98241a76ad2059e5a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bcd64e73f7bb5c36a26b424687bcd95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a2bcd64e73f7bb5c36a26b424687bcd95">motor_driver_init</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor)</td></tr>
-<tr class="memdesc:a2bcd64e73f7bb5c36a26b424687bcd95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise motor controller descriptor.  <a href="motor__driver_8h.html#a2bcd64e73f7bb5c36a26b424687bcd95">More...</a><br /></td></tr>
-<tr class="separator:a2bcd64e73f7bb5c36a26b424687bcd95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83ed61d06d2782b75a8249f5938c66dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a83ed61d06d2782b75a8249f5938c66dc">motor_driver_update_power</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor)</td></tr>
-<tr class="memdesc:a83ed61d06d2782b75a8249f5938c66dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the power of the selected motor based on a controller heuristic.  <a href="motor__driver_8h.html#a83ed61d06d2782b75a8249f5938c66dc">More...</a><br /></td></tr>
-<tr class="separator:a83ed61d06d2782b75a8249f5938c66dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cc35cc6b29cb67f7401844a95c92296"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a8cc35cc6b29cb67f7401844a95c92296">motor_driver_update_tot_cnt</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor)</td></tr>
-<tr class="memdesc:a8cc35cc6b29cb67f7401844a95c92296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the encoder total count based on the relevant heuristic.  <a href="motor__driver_8h.html#a8cc35cc6b29cb67f7401844a95c92296">More...</a><br /></td></tr>
-<tr class="separator:a8cc35cc6b29cb67f7401844a95c92296"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cc4251e23348af1f1b0f8686182727a"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a2cc4251e23348af1f1b0f8686182727a">motor_driver_get_setpoint</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor)</td></tr>
-<tr class="memdesc:a2cc4251e23348af1f1b0f8686182727a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the total encoder count setpoint of the selected motor.  <a href="motor__driver_8h.html#a2cc4251e23348af1f1b0f8686182727a">More...</a><br /></td></tr>
-<tr class="separator:a2cc4251e23348af1f1b0f8686182727a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90393e4934087e5ecb5d117e69e1632a"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a90393e4934087e5ecb5d117e69e1632a">motor_driver_get_total_cnt</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor)</td></tr>
-<tr class="memdesc:a90393e4934087e5ecb5d117e69e1632a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the total encoder count since init.  <a href="motor__driver_8h.html#a90393e4934087e5ecb5d117e69e1632a">More...</a><br /></td></tr>
-<tr class="separator:a90393e4934087e5ecb5d117e69e1632a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac331d8d3eb86f71c9c25acfdb41000fc"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#ac331d8d3eb86f71c9c25acfdb41000fc">motor_driver_get_encoder_cnt</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor)</td></tr>
-<tr class="memdesc:ac331d8d3eb86f71c9c25acfdb41000fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current hardware encoder count.  <a href="motor__driver_8h.html#ac331d8d3eb86f71c9c25acfdb41000fc">More...</a><br /></td></tr>
-<tr class="separator:ac331d8d3eb86f71c9c25acfdb41000fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a634e5e129708311f70f61d2409010386"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a634e5e129708311f70f61d2409010386">motor_driver_get_id</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor)</td></tr>
-<tr class="separator:a634e5e129708311f70f61d2409010386"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70d05882f94be7e7362030bc5fd7991d"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a70d05882f94be7e7362030bc5fd7991d">motor_driver_get_resolution</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor)</td></tr>
-<tr class="separator:a70d05882f94be7e7362030bc5fd7991d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a649a8002f34da4025e264d29ae146732"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a649a8002f34da4025e264d29ae146732">motor_driver_get_moving</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor)</td></tr>
-<tr class="separator:a649a8002f34da4025e264d29ae146732"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9aa9510dd82d4295ce9afba8ad049749"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a9aa9510dd82d4295ce9afba8ad049749">motor_driver_set_power</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor, uint8_t direction, double power)</td></tr>
-<tr class="memdesc:a9aa9510dd82d4295ce9afba8ad049749"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the power of a motor, limited by the motor's safety cap.  <a href="motor__driver_8h.html#a9aa9510dd82d4295ce9afba8ad049749">More...</a><br /></td></tr>
-<tr class="separator:a9aa9510dd82d4295ce9afba8ad049749"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0869066133a22d3d7edefca8f872a0b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a0869066133a22d3d7edefca8f872a0b4">motor_driver_set_setpoint</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor, int32_t setpoint)</td></tr>
-<tr class="memdesc:a0869066133a22d3d7edefca8f872a0b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the total encoder count setpoint of the selected motor.  <a href="motor__driver_8h.html#a0869066133a22d3d7edefca8f872a0b4">More...</a><br /></td></tr>
-<tr class="separator:a0869066133a22d3d7edefca8f872a0b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1f1f9d963f7d000fc17e29083a26b0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#ae1f1f9d963f7d000fc17e29083a26b0f">motor_driver_delta_setpoint</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor, int32_t delta)</td></tr>
-<tr class="memdesc:ae1f1f9d963f7d000fc17e29083a26b0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the encoder setpoint of the relevant motor.  <a href="motor__driver_8h.html#ae1f1f9d963f7d000fc17e29083a26b0f">More...</a><br /></td></tr>
-<tr class="separator:ae1f1f9d963f7d000fc17e29083a26b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35805d689d408caf3604419f1f70b4ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a35805d689d408caf3604419f1f70b4ec">motor_driver_init</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor)</td></tr>
+<tr class="memdesc:a35805d689d408caf3604419f1f70b4ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise motor controller descriptor.  <a href="motor__driver_8h.html#a35805d689d408caf3604419f1f70b4ec">More...</a><br /></td></tr>
+<tr class="separator:a35805d689d408caf3604419f1f70b4ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee28e2057483cb24343da4d9aa7ef81b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#aee28e2057483cb24343da4d9aa7ef81b">motor_driver_update_power</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor)</td></tr>
+<tr class="memdesc:aee28e2057483cb24343da4d9aa7ef81b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the power of the selected motor based on a controller heuristic.  <a href="motor__driver_8h.html#aee28e2057483cb24343da4d9aa7ef81b">More...</a><br /></td></tr>
+<tr class="separator:aee28e2057483cb24343da4d9aa7ef81b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a842c8fc323e3c8464ebc75455482ad82"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a842c8fc323e3c8464ebc75455482ad82">motor_driver_update_tot_cnt</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor)</td></tr>
+<tr class="memdesc:a842c8fc323e3c8464ebc75455482ad82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the encoder total count based on the relevant heuristic.  <a href="motor__driver_8h.html#a842c8fc323e3c8464ebc75455482ad82">More...</a><br /></td></tr>
+<tr class="separator:a842c8fc323e3c8464ebc75455482ad82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4910630a992127ef692ea74d36fc6e9f"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a4910630a992127ef692ea74d36fc6e9f">motor_driver_get_setpoint</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor)</td></tr>
+<tr class="memdesc:a4910630a992127ef692ea74d36fc6e9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the total encoder count setpoint of the selected motor.  <a href="motor__driver_8h.html#a4910630a992127ef692ea74d36fc6e9f">More...</a><br /></td></tr>
+<tr class="separator:a4910630a992127ef692ea74d36fc6e9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a800cc5d6e2cd72c74cf56ec67c1eacef"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a800cc5d6e2cd72c74cf56ec67c1eacef">motor_driver_get_total_cnt</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor)</td></tr>
+<tr class="memdesc:a800cc5d6e2cd72c74cf56ec67c1eacef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the total encoder count since init.  <a href="motor__driver_8h.html#a800cc5d6e2cd72c74cf56ec67c1eacef">More...</a><br /></td></tr>
+<tr class="separator:a800cc5d6e2cd72c74cf56ec67c1eacef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72f02b32b34e9933c22e35c93c339b4d"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a72f02b32b34e9933c22e35c93c339b4d">motor_driver_get_encoder_cnt</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor)</td></tr>
+<tr class="memdesc:a72f02b32b34e9933c22e35c93c339b4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current hardware encoder count.  <a href="motor__driver_8h.html#a72f02b32b34e9933c22e35c93c339b4d">More...</a><br /></td></tr>
+<tr class="separator:a72f02b32b34e9933c22e35c93c339b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad214b4f6ade0ffddfed00cda91975b47"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#ad214b4f6ade0ffddfed00cda91975b47">motor_driver_get_id</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor)</td></tr>
+<tr class="separator:ad214b4f6ade0ffddfed00cda91975b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6421df168ed92f8bdf9225e3e9ae6c76"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a6421df168ed92f8bdf9225e3e9ae6c76">motor_driver_get_resolution</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor)</td></tr>
+<tr class="separator:a6421df168ed92f8bdf9225e3e9ae6c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac63535c0673a7b318260ff3f155459b0"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#ac63535c0673a7b318260ff3f155459b0">motor_driver_get_moving</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor)</td></tr>
+<tr class="separator:ac63535c0673a7b318260ff3f155459b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad92f00ff736b5e9769c6a8140ad59b79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#ad92f00ff736b5e9769c6a8140ad59b79">motor_driver_set_power</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor, uint8_t direction, double power)</td></tr>
+<tr class="memdesc:ad92f00ff736b5e9769c6a8140ad59b79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the power of a motor, limited by the motor's safety cap.  <a href="motor__driver_8h.html#ad92f00ff736b5e9769c6a8140ad59b79">More...</a><br /></td></tr>
+<tr class="separator:ad92f00ff736b5e9769c6a8140ad59b79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c3666e96928ce9cc5f53767847ea1ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a5c3666e96928ce9cc5f53767847ea1ca">motor_driver_set_setpoint</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor, int32_t setpoint)</td></tr>
+<tr class="memdesc:a5c3666e96928ce9cc5f53767847ea1ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the total encoder count setpoint of the selected motor.  <a href="motor__driver_8h.html#a5c3666e96928ce9cc5f53767847ea1ca">More...</a><br /></td></tr>
+<tr class="separator:a5c3666e96928ce9cc5f53767847ea1ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad263f869192a0aec42aaa49a6c3b5b27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#ad263f869192a0aec42aaa49a6c3b5b27">motor_driver_delta_setpoint</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor, int32_t delta)</td></tr>
+<tr class="memdesc:ad263f869192a0aec42aaa49a6c3b5b27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the encoder setpoint of the relevant motor.  <a href="motor__driver_8h.html#ad263f869192a0aec42aaa49a6c3b5b27">More...</a><br /></td></tr>
+<tr class="separator:ad263f869192a0aec42aaa49a6c3b5b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a580effc29f984c82703d14eaf78fc1d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a580effc29f984c82703d14eaf78fc1d3">motor_driver_set_pwm_dc</a> (uint32_t *timerCounter, double pct)</td></tr>
 <tr class="memdesc:a580effc29f984c82703d14eaf78fc1d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the duty cycle of the selected PWM timer as a percentage of max.  <a href="motor__driver_8h.html#a580effc29f984c82703d14eaf78fc1d3">More...</a><br /></td></tr>
 <tr class="separator:a580effc29f984c82703d14eaf78fc1d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab55cf754b1cf9b029afdcd62e9b5c94d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#ab55cf754b1cf9b029afdcd62e9b5c94d">motor_driver_calc_safe_vlt</a> (<a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *motor)</td></tr>
-<tr class="memdesc:ab55cf754b1cf9b029afdcd62e9b5c94d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the safe power percentage limit based on the descriptor struct.  <a href="motor__driver_8h.html#ab55cf754b1cf9b029afdcd62e9b5c94d">More...</a><br /></td></tr>
-<tr class="separator:ab55cf754b1cf9b029afdcd62e9b5c94d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa08d3a688cff12746ac3a4527def7cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#aaa08d3a688cff12746ac3a4527def7cb">motor_driver_calc_safe_vlt</a> (<a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *motor)</td></tr>
+<tr class="memdesc:aaa08d3a688cff12746ac3a4527def7cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the safe power percentage limit based on the descriptor struct.  <a href="motor__driver_8h.html#aaa08d3a688cff12746ac3a4527def7cb">More...</a><br /></td></tr>
+<tr class="separator:aaa08d3a688cff12746ac3a4527def7cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66a3e1854025653cef800263e289ea8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motor__driver_8h.html#a66a3e1854025653cef800263e289ea8b">motor_driver_go_forward</a> (double pct, TIM_TypeDef *mtr, int8_t polarity)</td></tr>
 <tr class="memdesc:a66a3e1854025653cef800263e289ea8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward is the direction of increasing encoder count.  <a href="motor__driver_8h.html#a66a3e1854025653cef800263e289ea8b">More...</a><br /></td></tr>
 <tr class="separator:a66a3e1854025653cef800263e289ea8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,8 +174,8 @@ Functions</h2></td></tr>
 <tr class="separator:a657c1ba842bc4445cd460bb30034ad4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ab55cf754b1cf9b029afdcd62e9b5c94d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab55cf754b1cf9b029afdcd62e9b5c94d">&#9670;&nbsp;</a></span>motor_driver_calc_safe_vlt()</h2>
+<a id="aaa08d3a688cff12746ac3a4527def7cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa08d3a688cff12746ac3a4527def7cb">&#9670;&nbsp;</a></span>motor_driver_calc_safe_vlt()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,7 +183,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void motor_driver_calc_safe_vlt </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em></td><td>)</td>
           <td></td>
         </tr>
@@ -200,8 +200,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae1f1f9d963f7d000fc17e29083a26b0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1f1f9d963f7d000fc17e29083a26b0f">&#9670;&nbsp;</a></span>motor_driver_delta_setpoint()</h2>
+<a id="ad263f869192a0aec42aaa49a6c3b5b27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad263f869192a0aec42aaa49a6c3b5b27">&#9670;&nbsp;</a></span>motor_driver_delta_setpoint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,7 +209,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void motor_driver_delta_setpoint </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em>, </td>
         </tr>
         <tr>
@@ -237,8 +237,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac331d8d3eb86f71c9c25acfdb41000fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac331d8d3eb86f71c9c25acfdb41000fc">&#9670;&nbsp;</a></span>motor_driver_get_encoder_cnt()</h2>
+<a id="a72f02b32b34e9933c22e35c93c339b4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72f02b32b34e9933c22e35c93c339b4d">&#9670;&nbsp;</a></span>motor_driver_get_encoder_cnt()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,7 +246,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">uint16_t motor_driver_get_encoder_cnt </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em></td><td>)</td>
           <td></td>
         </tr>
@@ -264,8 +264,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a634e5e129708311f70f61d2409010386"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a634e5e129708311f70f61d2409010386">&#9670;&nbsp;</a></span>motor_driver_get_id()</h2>
+<a id="ad214b4f6ade0ffddfed00cda91975b47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad214b4f6ade0ffddfed00cda91975b47">&#9670;&nbsp;</a></span>motor_driver_get_id()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -273,7 +273,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">uint8_t motor_driver_get_id </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em></td><td>)</td>
           <td></td>
         </tr>
@@ -290,8 +290,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a649a8002f34da4025e264d29ae146732"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a649a8002f34da4025e264d29ae146732">&#9670;&nbsp;</a></span>motor_driver_get_moving()</h2>
+<a id="ac63535c0673a7b318260ff3f155459b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac63535c0673a7b318260ff3f155459b0">&#9670;&nbsp;</a></span>motor_driver_get_moving()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -299,7 +299,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">uint8_t motor_driver_get_moving </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em></td><td>)</td>
           <td></td>
         </tr>
@@ -316,8 +316,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a70d05882f94be7e7362030bc5fd7991d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70d05882f94be7e7362030bc5fd7991d">&#9670;&nbsp;</a></span>motor_driver_get_resolution()</h2>
+<a id="a6421df168ed92f8bdf9225e3e9ae6c76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6421df168ed92f8bdf9225e3e9ae6c76">&#9670;&nbsp;</a></span>motor_driver_get_resolution()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -325,7 +325,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int32_t motor_driver_get_resolution </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em></td><td>)</td>
           <td></td>
         </tr>
@@ -342,8 +342,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2cc4251e23348af1f1b0f8686182727a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2cc4251e23348af1f1b0f8686182727a">&#9670;&nbsp;</a></span>motor_driver_get_setpoint()</h2>
+<a id="a4910630a992127ef692ea74d36fc6e9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4910630a992127ef692ea74d36fc6e9f">&#9670;&nbsp;</a></span>motor_driver_get_setpoint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -351,7 +351,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int32_t motor_driver_get_setpoint </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em></td><td>)</td>
           <td></td>
         </tr>
@@ -369,8 +369,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a90393e4934087e5ecb5d117e69e1632a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90393e4934087e5ecb5d117e69e1632a">&#9670;&nbsp;</a></span>motor_driver_get_total_cnt()</h2>
+<a id="a800cc5d6e2cd72c74cf56ec67c1eacef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a800cc5d6e2cd72c74cf56ec67c1eacef">&#9670;&nbsp;</a></span>motor_driver_get_total_cnt()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -378,7 +378,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int32_t motor_driver_get_total_cnt </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em></td><td>)</td>
           <td></td>
         </tr>
@@ -482,8 +482,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2bcd64e73f7bb5c36a26b424687bcd95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bcd64e73f7bb5c36a26b424687bcd95">&#9670;&nbsp;</a></span>motor_driver_init()</h2>
+<a id="a35805d689d408caf3604419f1f70b4ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35805d689d408caf3604419f1f70b4ec">&#9670;&nbsp;</a></span>motor_driver_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -491,7 +491,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void motor_driver_init </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em></td><td>)</td>
           <td></td>
         </tr>
@@ -508,8 +508,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9aa9510dd82d4295ce9afba8ad049749"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9aa9510dd82d4295ce9afba8ad049749">&#9670;&nbsp;</a></span>motor_driver_set_power()</h2>
+<a id="ad92f00ff736b5e9769c6a8140ad59b79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad92f00ff736b5e9769c6a8140ad59b79">&#9670;&nbsp;</a></span>motor_driver_set_power()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -517,7 +517,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void motor_driver_set_power </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em>, </td>
         </tr>
         <tr>
@@ -589,8 +589,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0869066133a22d3d7edefca8f872a0b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0869066133a22d3d7edefca8f872a0b4">&#9670;&nbsp;</a></span>motor_driver_set_setpoint()</h2>
+<a id="a5c3666e96928ce9cc5f53767847ea1ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c3666e96928ce9cc5f53767847ea1ca">&#9670;&nbsp;</a></span>motor_driver_set_setpoint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -598,7 +598,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void motor_driver_set_setpoint </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em>, </td>
         </tr>
         <tr>
@@ -626,8 +626,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a83ed61d06d2782b75a8249f5938c66dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83ed61d06d2782b75a8249f5938c66dc">&#9670;&nbsp;</a></span>motor_driver_update_power()</h2>
+<a id="aee28e2057483cb24343da4d9aa7ef81b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee28e2057483cb24343da4d9aa7ef81b">&#9670;&nbsp;</a></span>motor_driver_update_power()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -635,7 +635,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void motor_driver_update_power </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em></td><td>)</td>
           <td></td>
         </tr>
@@ -652,8 +652,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8cc35cc6b29cb67f7401844a95c92296"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cc35cc6b29cb67f7401844a95c92296">&#9670;&nbsp;</a></span>motor_driver_update_tot_cnt()</h2>
+<a id="a842c8fc323e3c8464ebc75455482ad82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a842c8fc323e3c8464ebc75455482ad82">&#9670;&nbsp;</a></span>motor_driver_update_tot_cnt()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -661,7 +661,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void motor_driver_update_tot_cnt </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmotor__control__descriptor.html">motor_control_descriptor</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structmotor__descriptor.html">motor_descriptor</a> *&#160;</td>
           <td class="paramname"><em>motor</em></td><td>)</td>
           <td></td>
         </tr>
@@ -994,7 +994,8 @@ Functions</h2></td></tr>
 <p>Update the power setting of the selected motor based on the relevant controller (P/I/D) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">motorSelect</td><td>0 or 1 for motor0 or motor1 respectively </td></tr>
+    <tr><td class="paramname">motorSelect</td><td>0 or 1 for motor0 or motor1 respectively <br  />
+ </td></tr>
   </table>
   </dd>
 </dl>

@@ -2,7 +2,7 @@
 
 
 #if ACTIVE_UNIT == TORSO
-static motor_control_descriptor motor0 =
+static motor_descriptor motor0 =
   {
     .motorId = 0,
     .voltageLimit = 35,
@@ -19,7 +19,7 @@ static motor_control_descriptor motor0 =
     .isMoving = 0,
     .motorName = "rail"
   };
-static motor_control_descriptor motor1 =
+static motor_descriptor motor1 =
   {
     .motorId = 1,
     .voltageLimit = 50,
@@ -38,7 +38,7 @@ static motor_control_descriptor motor1 =
   };
 #endif
 #if ACTIVE_UNIT == SHOULDER
-static motor_control_descriptor motor0 =
+static motor_descriptor motor0 =
   {
     .motorId = 2,
     .voltageLimit = 20,
@@ -55,7 +55,7 @@ static motor_control_descriptor motor0 =
     .isMoving = 0,
     .motorName = "wrist"
   };
-static motor_control_descriptor motor1 =
+static motor_descriptor motor1 =
   {
     .motorId = 3,
     .voltageLimit = 20,
@@ -74,7 +74,7 @@ static motor_control_descriptor motor1 =
   };
 #endif
 #if ACTIVE_UNIT == HAND
-static motor_control_descriptor motor0 =
+static motor_descriptor motor0 =
   {
     .motorId = 4,
     .voltageLimit = 12,
@@ -91,7 +91,7 @@ static motor_control_descriptor motor0 =
     .isMoving = 0,
     .motorName = "pinch"
   };
-static motor_control_descriptor motor1 =
+static motor_descriptor motor1 =
   {
     .motorId = 5,
     .voltageLimit = 12,
@@ -282,7 +282,7 @@ uint8_t motor_interface_get_moving(uint8_t motorSelect)
 }
 
 
-void motor_driver_update_power(motor_control_descriptor* motor)
+void motor_driver_update_power(motor_descriptor* motor)
 {
   //int32_t error = motor->encoderTotalSetpoint - (int32_t)(motor->encoderTimer->CNT);
   int32_t error = motor->encoderTotalSetpoint - motor_driver_get_total_cnt(motor);
@@ -297,7 +297,7 @@ void motor_driver_update_power(motor_control_descriptor* motor)
   }
 }
 
-void motor_driver_set_power(motor_control_descriptor* motor, uint8_t direction, double power)
+void motor_driver_set_power(motor_descriptor* motor, uint8_t direction, double power)
 {
 
   double mPower = power > (double)(motor->voltagePctCap) ? (double)(motor1.voltagePctCap) : power;
@@ -321,7 +321,7 @@ void motor_driver_set_power(motor_control_descriptor* motor, uint8_t direction, 
 
 }
 
-void motor_driver_set_setpoint(motor_control_descriptor* motor, int32_t setpoint)
+void motor_driver_set_setpoint(motor_descriptor* motor, int32_t setpoint)
 {
   motor->encoderTotalSetpoint = setpoint;
 
@@ -332,44 +332,45 @@ void motor_driver_set_setpoint(motor_control_descriptor* motor, int32_t setpoint
 #endif
 }
 
-void motor_driver_delta_setpoint(motor_control_descriptor* motor, int32_t delta)
+void motor_driver_delta_setpoint(motor_descriptor* motor, int32_t delta)
 {
   motor->encoderTotalSetpoint += delta;
 }
 
-int32_t motor_driver_get_setpoint(motor_control_descriptor* motor)
+int32_t motor_driver_get_setpoint(motor_descriptor* motor)
 {
   return (motor->encoderTotalSetpoint);
 }
 
-int32_t motor_driver_get_total_cnt(motor_control_descriptor* motor)
+int32_t motor_driver_get_total_cnt(motor_descriptor* motor)
 {
   return motor->encoderTotalCount;
 }
 
-uint16_t motor_driver_get_encoder_cnt(motor_control_descriptor* motor)
+uint16_t motor_driver_get_encoder_cnt(motor_descriptor* motor)
 {
   return (motor->encoderTimer)->CNT;
 }
 
-uint8_t motor_driver_get_id(motor_control_descriptor* motor)
+uint8_t motor_driver_get_id(motor_descriptor* motor)
 {
   return motor->motorId;
 }
 
-int32_t motor_driver_get_resolution(motor_control_descriptor* motor)
+int32_t motor_driver_get_resolution(motor_descriptor* motor)
 {
   return motor->resolution;
 }
 
-uint8_t motor_driver_get_moving(motor_control_descriptor* motor)
+uint8_t motor_driver_get_moving(motor_descriptor* motor)
 {
   return motor->isMoving;
 }
 
-void motor_driver_init(motor_control_descriptor* motor)
+void motor_driver_init(motor_descriptor* motor)
 {
   (motor->encoderTimer)->CNT = motor->encoderInitCount;
+  (motor->encoderTotalInit) = motor->encoderInitCount;
   //motor_driver_calc_safe_vlt(motor);
 }
 
@@ -379,23 +380,27 @@ void motor_driver_set_pwm_dc(uint32_t* timerCounter, double pct)
   *timerCounter = timerTicks;
 }
 
-void motor_driver_update_tot_cnt(motor_control_descriptor* motor)
+void motor_driver_update_tot_cnt(motor_descriptor* motor)
 {
   //static int32_t previousCount;
   uint16_t currentEncCount = motor_driver_get_encoder_cnt(motor);
   int32_t difference = (int32_t)currentEncCount - motor->encoderPreviousCount;
+  
+  //Was counting upwards, got overflow
   if(difference < -1000)
   {
-    difference = currentEncCount;
+    difference += 65535; //Add the overflow to compensate = currentEncCount;
   }
+  //Was counting downwards, got underflow
   if(difference > 1000)
   {
-    difference = 65535-currentEncCount;
+    difference -= 65535; //Subtract the overflow to compensate -currentEncCount;
   }
   motor->encoderTotalCount += difference;
   motor->encoderPreviousCount = (int32_t)currentEncCount;
+  motor->mostRecentDelta = difference;
 
-  if(abs(difference) > 100)
+  if(abs(difference) > 50)
   {
     motor->isMoving = 1;
   }
@@ -474,7 +479,7 @@ void motor_driver_go_backward(double pct, TIM_TypeDef* mtr, int8_t polarity)
 //in the relevant struct.
 //WARNING: Voltage limit is based on the motor's datasheet,
 //DO NOT EXCEED
-void motor_driver_calc_safe_vlt(motor_control_descriptor* motor)
+void motor_driver_calc_safe_vlt(motor_descriptor* motor)
 {
   double voltageIn = (double)VOLTAGE_IN;
   double rawVoltageCap = (double)(motor->voltageLimit)/voltageIn;

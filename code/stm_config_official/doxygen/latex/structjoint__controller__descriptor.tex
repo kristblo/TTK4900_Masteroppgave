@@ -1,0 +1,157 @@
+\hypertarget{structjoint__controller__descriptor}{}\doxysection{joint\+\_\+controller\+\_\+descriptor Struct Reference}
+\label{structjoint__controller__descriptor}\index{joint\_controller\_descriptor@{joint\_controller\_descriptor}}
+
+
+Joint controller information database.  
+
+
+
+
+{\ttfamily \#include $<$joint\+\_\+controller.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structjoint__controller__descriptor_a3a3b83996015165389faac3f5226ffa0}{has\+Accelerometer}}
+\begin{DoxyCompactList}\small\item\em Whether the joint has an accelerometer for position control. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{structjoint__controller__descriptor_adcac9c7a87e3fb19e1e09a70ffee6c68}{pos\+Setpoint}}
+\begin{DoxyCompactList}\small\item\em The joint\textquotesingle{}s setpoint in radians/mm relative to its zero position. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{structjoint__controller__descriptor_a36255292049ed9d1431ce487af7b4620}{pos\+Current}}
+\begin{DoxyCompactList}\small\item\em The joint\textquotesingle{}s current position in radians/mm relative to its zero position. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{structjoint__controller__descriptor_aa27800b60dadc91f250cb872f157779b}{pos\+Error}}
+\begin{DoxyCompactList}\small\item\em The joint\textquotesingle{}s position error in radians/mm, relative to its setpoint. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{structjoint__controller__descriptor_afe3c2961fee9e0746ca7c3a232f59b6e}{is\+Moving}}
+\begin{DoxyCompactList}\small\item\em Whether the joint is in a \char`\"{}moving\char`\"{} state. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{structjoint__controller__descriptor_a47d11b2e7904bd246d39f2d11423bbcb}{motor\+Num}}
+\begin{DoxyCompactList}\small\item\em Link to the corresponding \mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}}. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{structjoint__controller__descriptor_a22fa4efd09b4e856a6243a54f3e82cf9}{Kp}}
+\begin{DoxyCompactList}\small\item\em PID controller Kp. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{structjoint__controller__descriptor_a0096f7817ef2424b3bee504b135aef6f}{Kp\+Ti}}
+\begin{DoxyCompactList}\small\item\em PID controller Kp/\+Ti. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{structjoint__controller__descriptor_ab8fdd0615b960caba171b180863b5fe1}{Kd}}
+\begin{DoxyCompactList}\small\item\em PID controller Kd. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{structjoint__controller__descriptor_add762a4ce0fe506fa12211431e967dc5}{int\+Error}}
+\begin{DoxyCompactList}\small\item\em Positional integral error. \end{DoxyCompactList}\item 
+uint8\+\_\+t $\ast$ \mbox{\hyperlink{structjoint__controller__descriptor_a2c0839185b26ba01ada6594fe3e708a3}{joint\+Name}}
+\begin{DoxyCompactList}\small\item\em The joint\textquotesingle{}s human readable name. This field must be last. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Joint controller information database. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structjoint__controller__descriptor_a3a3b83996015165389faac3f5226ffa0}\label{structjoint__controller__descriptor_a3a3b83996015165389faac3f5226ffa0}} 
+\index{joint\_controller\_descriptor@{joint\_controller\_descriptor}!hasAccelerometer@{hasAccelerometer}}
+\index{hasAccelerometer@{hasAccelerometer}!joint\_controller\_descriptor@{joint\_controller\_descriptor}}
+\doxysubsubsection{\texorpdfstring{hasAccelerometer}{hasAccelerometer}}
+{\footnotesize\ttfamily uint8\+\_\+t joint\+\_\+controller\+\_\+descriptor\+::has\+Accelerometer}
+
+
+
+Whether the joint has an accelerometer for position control. 
+
+\mbox{\Hypertarget{structjoint__controller__descriptor_add762a4ce0fe506fa12211431e967dc5}\label{structjoint__controller__descriptor_add762a4ce0fe506fa12211431e967dc5}} 
+\index{joint\_controller\_descriptor@{joint\_controller\_descriptor}!intError@{intError}}
+\index{intError@{intError}!joint\_controller\_descriptor@{joint\_controller\_descriptor}}
+\doxysubsubsection{\texorpdfstring{intError}{intError}}
+{\footnotesize\ttfamily float joint\+\_\+controller\+\_\+descriptor\+::int\+Error}
+
+
+
+Positional integral error. 
+
+\mbox{\Hypertarget{structjoint__controller__descriptor_afe3c2961fee9e0746ca7c3a232f59b6e}\label{structjoint__controller__descriptor_afe3c2961fee9e0746ca7c3a232f59b6e}} 
+\index{joint\_controller\_descriptor@{joint\_controller\_descriptor}!isMoving@{isMoving}}
+\index{isMoving@{isMoving}!joint\_controller\_descriptor@{joint\_controller\_descriptor}}
+\doxysubsubsection{\texorpdfstring{isMoving}{isMoving}}
+{\footnotesize\ttfamily uint8\+\_\+t joint\+\_\+controller\+\_\+descriptor\+::is\+Moving}
+
+
+
+Whether the joint is in a \char`\"{}moving\char`\"{} state. 
+
+\mbox{\Hypertarget{structjoint__controller__descriptor_a2c0839185b26ba01ada6594fe3e708a3}\label{structjoint__controller__descriptor_a2c0839185b26ba01ada6594fe3e708a3}} 
+\index{joint\_controller\_descriptor@{joint\_controller\_descriptor}!jointName@{jointName}}
+\index{jointName@{jointName}!joint\_controller\_descriptor@{joint\_controller\_descriptor}}
+\doxysubsubsection{\texorpdfstring{jointName}{jointName}}
+{\footnotesize\ttfamily uint8\+\_\+t$\ast$ joint\+\_\+controller\+\_\+descriptor\+::joint\+Name}
+
+
+
+The joint\textquotesingle{}s human readable name. This field must be last. 
+
+\mbox{\Hypertarget{structjoint__controller__descriptor_ab8fdd0615b960caba171b180863b5fe1}\label{structjoint__controller__descriptor_ab8fdd0615b960caba171b180863b5fe1}} 
+\index{joint\_controller\_descriptor@{joint\_controller\_descriptor}!Kd@{Kd}}
+\index{Kd@{Kd}!joint\_controller\_descriptor@{joint\_controller\_descriptor}}
+\doxysubsubsection{\texorpdfstring{Kd}{Kd}}
+{\footnotesize\ttfamily float joint\+\_\+controller\+\_\+descriptor\+::\+Kd}
+
+
+
+PID controller Kd. 
+
+\mbox{\Hypertarget{structjoint__controller__descriptor_a22fa4efd09b4e856a6243a54f3e82cf9}\label{structjoint__controller__descriptor_a22fa4efd09b4e856a6243a54f3e82cf9}} 
+\index{joint\_controller\_descriptor@{joint\_controller\_descriptor}!Kp@{Kp}}
+\index{Kp@{Kp}!joint\_controller\_descriptor@{joint\_controller\_descriptor}}
+\doxysubsubsection{\texorpdfstring{Kp}{Kp}}
+{\footnotesize\ttfamily float joint\+\_\+controller\+\_\+descriptor\+::\+Kp}
+
+
+
+PID controller Kp. 
+
+\mbox{\Hypertarget{structjoint__controller__descriptor_a0096f7817ef2424b3bee504b135aef6f}\label{structjoint__controller__descriptor_a0096f7817ef2424b3bee504b135aef6f}} 
+\index{joint\_controller\_descriptor@{joint\_controller\_descriptor}!KpTi@{KpTi}}
+\index{KpTi@{KpTi}!joint\_controller\_descriptor@{joint\_controller\_descriptor}}
+\doxysubsubsection{\texorpdfstring{KpTi}{KpTi}}
+{\footnotesize\ttfamily float joint\+\_\+controller\+\_\+descriptor\+::\+Kp\+Ti}
+
+
+
+PID controller Kp/\+Ti. 
+
+\mbox{\Hypertarget{structjoint__controller__descriptor_a47d11b2e7904bd246d39f2d11423bbcb}\label{structjoint__controller__descriptor_a47d11b2e7904bd246d39f2d11423bbcb}} 
+\index{joint\_controller\_descriptor@{joint\_controller\_descriptor}!motorNum@{motorNum}}
+\index{motorNum@{motorNum}!joint\_controller\_descriptor@{joint\_controller\_descriptor}}
+\doxysubsubsection{\texorpdfstring{motorNum}{motorNum}}
+{\footnotesize\ttfamily uint8\+\_\+t joint\+\_\+controller\+\_\+descriptor\+::motor\+Num}
+
+
+
+Link to the corresponding \mbox{\hyperlink{structmotor__descriptor}{motor\+\_\+descriptor}}. 
+
+\mbox{\Hypertarget{structjoint__controller__descriptor_a36255292049ed9d1431ce487af7b4620}\label{structjoint__controller__descriptor_a36255292049ed9d1431ce487af7b4620}} 
+\index{joint\_controller\_descriptor@{joint\_controller\_descriptor}!posCurrent@{posCurrent}}
+\index{posCurrent@{posCurrent}!joint\_controller\_descriptor@{joint\_controller\_descriptor}}
+\doxysubsubsection{\texorpdfstring{posCurrent}{posCurrent}}
+{\footnotesize\ttfamily float joint\+\_\+controller\+\_\+descriptor\+::pos\+Current}
+
+
+
+The joint\textquotesingle{}s current position in radians/mm relative to its zero position. 
+
+\mbox{\Hypertarget{structjoint__controller__descriptor_aa27800b60dadc91f250cb872f157779b}\label{structjoint__controller__descriptor_aa27800b60dadc91f250cb872f157779b}} 
+\index{joint\_controller\_descriptor@{joint\_controller\_descriptor}!posError@{posError}}
+\index{posError@{posError}!joint\_controller\_descriptor@{joint\_controller\_descriptor}}
+\doxysubsubsection{\texorpdfstring{posError}{posError}}
+{\footnotesize\ttfamily float joint\+\_\+controller\+\_\+descriptor\+::pos\+Error}
+
+
+
+The joint\textquotesingle{}s position error in radians/mm, relative to its setpoint. 
+
+\mbox{\Hypertarget{structjoint__controller__descriptor_adcac9c7a87e3fb19e1e09a70ffee6c68}\label{structjoint__controller__descriptor_adcac9c7a87e3fb19e1e09a70ffee6c68}} 
+\index{joint\_controller\_descriptor@{joint\_controller\_descriptor}!posSetpoint@{posSetpoint}}
+\index{posSetpoint@{posSetpoint}!joint\_controller\_descriptor@{joint\_controller\_descriptor}}
+\doxysubsubsection{\texorpdfstring{posSetpoint}{posSetpoint}}
+{\footnotesize\ttfamily float joint\+\_\+controller\+\_\+descriptor\+::pos\+Setpoint}
+
+
+
+The joint\textquotesingle{}s setpoint in radians/mm relative to its zero position. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{joint__controller_8h}{joint\+\_\+controller.\+h}}\end{DoxyCompactItemize}

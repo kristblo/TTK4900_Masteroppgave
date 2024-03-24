@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['poscurrent_370',['posCurrent',['../structcontroller__descriptor.html#af3493674ea01009f532b66a21fd24d57',1,'controller_descriptor']]],
-  ['poserror_371',['posError',['../structcontroller__descriptor.html#a99dc98752970ffa04686d01c098c58a2',1,'controller_descriptor']]],
-  ['possetpoint_372',['posSetpoint',['../structcontroller__descriptor.html#a9d8ee054a34b29d3b50ea424f2baaf37',1,'controller_descriptor']]]
+  ['kd_558',['Kd',['../structjoint__controller__descriptor.html#ab8fdd0615b960caba171b180863b5fe1',1,'joint_controller_descriptor']]],
+  ['kp_559',['Kp',['../structjoint__controller__descriptor.html#a22fa4efd09b4e856a6243a54f3e82cf9',1,'joint_controller_descriptor']]],
+  ['kpti_560',['KpTi',['../structjoint__controller__descriptor.html#a0096f7817ef2424b3bee504b135aef6f',1,'joint_controller_descriptor']]]
 ];

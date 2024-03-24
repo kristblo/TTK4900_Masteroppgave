@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['newmsg_369',['newMsg',['../structcan__mailbox.html#aee7b998334d7ae5f003546db8080fda9',1,'can_mailbox']]]
+  ['jointname_557',['jointName',['../structjoint__controller__descriptor.html#a2c0839185b26ba01ada6594fe3e708a3',1,'joint_controller_descriptor']]]
 ];

@@ -101,12 +101,20 @@ joint_controller_descriptor* joints[2] =
   &joint1
 };
 
+static uint8_t accelerometer_poll_safe = 0;
+static uint8_t motor_poll_safe = 0;
+
 #if ACTIVE_UNIT == TORSO
 //Torso uses one accelerometer: Shoulder control
-accelerometer_inData* accelerometers[1];
+accelerometer_inData accelerometers[1];
 #elif ACTIVE_UNIT == SHOULDER
 //Shoulder uses two accelerometers: Elbow and wrist control
 accelerometer_inData* accelerometers[2];
+#elif ACTIVE_UNIT == HAND
+//Hand uses no accelerometers, but adding this is easier than
+//selectively compiling the dependent functions
+accelerometer_inData* accelerometers[0];
+
 #endif
 
 
@@ -195,6 +203,10 @@ void controller_interface_adjust_enc_sp(uint8_t controllerSelect)
   joint_controller_adjust_enc_sp(joints[controllerSelect]);
 }
 
+void controller_interface_request_acc_axis(uint8_t controllerSelect, uint8_t accSelect, char axis)
+{
+  joint_controller_request_acc_axis(joints[controllerSelect], accSelect, axis);
+}
 
 //----------------------
 //Accelerometer data handlers
@@ -202,68 +214,161 @@ void controller_interface_adjust_enc_sp(uint8_t controllerSelect)
 
 int16_t controller_interface_acc_getX(uint8_t accSelect)
 {
-  return controller_acc_getX(accelerometers[accSelect]);
+  return controller_acc_getX(&accelerometers[accSelect]);
 }
 int16_t controller_interface_acc_getY(uint8_t accSelect)
 {
-  return controller_acc_getY(accelerometers[accSelect]);
+  return controller_acc_getY(&accelerometers[accSelect]);
 }
 int16_t controller_interface_acc_getZ(uint8_t accSelect)
 {
-  return controller_acc_getX(accelerometers[accSelect]);
+  return controller_acc_getX(&accelerometers[accSelect]);
 }
 
 
 void controller_interface_acc_setX(uint8_t accSelect, int16_t accVal)
 {
-  controller_acc_setX(accelerometers[accSelect], accVal);
+  controller_acc_setX(&accelerometers[accSelect], accVal);
 }
 void controller_interface_acc_setY(uint8_t accSelect, int16_t accVal)
 {
-  controller_acc_setY(accelerometers[accSelect], accVal);
+  controller_acc_setY(&accelerometers[accSelect], accVal);
 }
 void controller_interface_acc_setZ(uint8_t accSelect, int16_t accVal)
 {
-  controller_acc_setZ(accelerometers[accSelect], accVal);
+  controller_acc_setZ(&accelerometers[accSelect], accVal);
 }
+
+int16_t controller_interface_rot_getX(uint8_t accSelect)
+{
+  return controller_rot_getX(&accelerometers[accSelect]);
+}
+int16_t controller_interface_rot_getY(uint8_t accSelect)
+{
+  return controller_rot_getY(&accelerometers[accSelect]);
+}
+int16_t controller_interface_rot_getZ(uint8_t accSelect)
+{
+  return controller_rot_getZ(&accelerometers[accSelect]);
+}
+
+void controller_interface_rot_setX(uint8_t accSelect, int16_t rotVal)
+{
+  controller_rot_setX(&accelerometers[accSelect], rotVal);
+}
+void controller_interface_rot_setY(uint8_t accSelect, int16_t rotVal)
+{
+  controller_rot_setY(&accelerometers[accSelect], rotVal);
+}
+void controller_interface_rot_setZ(uint8_t accSelect, int16_t rotVal)
+{
+  controller_rot_setZ(&accelerometers[accSelect], rotVal);
+}
+
 
 uint8_t controller_interface_acc_get_newX(uint8_t accSelect)
 {
-  return controller_acc_get_newX(accelerometers[accSelect]);
+  return controller_acc_get_newX(&accelerometers[accSelect]);
 }
 uint8_t controller_interface_acc_get_newY(uint8_t accSelect)
 {
-  return controller_acc_get_newY(accelerometers[accSelect]);
+  return controller_acc_get_newY(&accelerometers[accSelect]);
 }
 uint8_t controller_interface_acc_get_newZ(uint8_t accSelect)
 {
-  return controller_acc_get_newZ(accelerometers[accSelect]);
+  return controller_acc_get_newZ(&accelerometers[accSelect]);
 }
 
 void controller_interface_acc_set_newX(uint8_t accSelect)
 {
-  controller_acc_set_newX(accelerometers[accSelect]);
+  controller_acc_set_newX(&accelerometers[accSelect]);
 }
 void controller_interface_acc_set_newY(uint8_t accSelect)
 {
-  controller_acc_set_newY(accelerometers[accSelect]);
+  controller_acc_set_newY(&accelerometers[accSelect]);
 }
 void controller_interface_acc_set_newZ(uint8_t accSelect)
 {
-  controller_acc_set_newZ(accelerometers[accSelect]);
+  controller_acc_set_newZ(&accelerometers[accSelect]);
 }
 
 void controller_interface_acc_clear_newX(uint8_t accSelect)
 {
-  controller_acc_clear_newX(accelerometers[accSelect]);
+  controller_acc_clear_newX(&accelerometers[accSelect]);
 }
 void controller_interface_acc_clear_newY(uint8_t accSelect)
 {
-  controller_acc_clear_newY(accelerometers[accSelect]);
+  controller_acc_clear_newY(&accelerometers[accSelect]);
 }
 void controller_interface_acc_clear_newZ(uint8_t accSelect)
 {
-  controller_acc_clear_newZ(accelerometers[accSelect]);
+  controller_acc_clear_newZ(&accelerometers[accSelect]);
+}
+
+uint8_t controller_interface_rot_get_newX(uint8_t accSelect)
+{
+  return controller_rot_get_newX(&accelerometers[accSelect]);
+}
+uint8_t controller_interface_rot_get_newY(uint8_t accSelect)
+{
+  return controller_rot_get_newY(&accelerometers[accSelect]);
+}
+uint8_t controller_interface_rot_get_newZ(uint8_t accSelect)
+{
+  return controller_rot_get_newZ(&accelerometers[accSelect]);
+}
+
+void controller_interface_rot_set_newX(uint8_t accSelect)
+{
+  controller_rot_set_newX(&accelerometers[accSelect]);
+}
+void controller_interface_rot_set_newY(uint8_t accSelect)
+{
+  controller_rot_set_newY(&accelerometers[accSelect]);
+}
+void controller_interface_rot_set_newZ(uint8_t accSelect)
+{
+  controller_rot_set_newZ(&accelerometers[accSelect]);
+}
+
+void controller_interface_rot_clear_newX(uint8_t accSelect)
+{
+  controller_rot_clear_newX(&accelerometers[accSelect]);
+}
+void controller_interface_rot_clear_newY(uint8_t accSelect)
+{
+  controller_rot_clear_newY(&accelerometers[accSelect]);
+}
+void controller_interface_rot_clear_newZ(uint8_t accSelect)
+{
+  controller_rot_clear_newZ(&accelerometers[accSelect]);
+}
+
+
+
+uint8_t controller_interface_get_acc_poll()
+{
+  return accelerometer_poll_safe;
+}
+uint8_t controller_interface_get_mtr_poll()
+{
+  return motor_poll_safe;
+}
+void controller_interface_set_acc_poll()
+{
+  accelerometer_poll_safe = 1;
+}
+void controller_interface_set_mtr_poll()
+{
+  motor_poll_safe = 1;
+}
+void controller_interface_clear_acc_poll()
+{
+  accelerometer_poll_safe = 0;
+}
+void controller_interface_clear_mtr_poll()
+{
+  motor_poll_safe = 0;
 }
 
 
@@ -375,14 +480,24 @@ float joint_controller_clicks_to_pos(joint_controller_descriptor* joint)
 
 
 
-void joint_controller_request_acceleration(joint_controller_descriptor* joint)
+void joint_controller_request_acc_axis(joint_controller_descriptor* joint, uint8_t accSelect, char axis)
 {
-  //Hard coded for shoulder Y
-  uint8_t accSelect = 0;
   uint8_t data[8];
-  data[0] = 0x2A;
-  int32_t id = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_REG_REQ;
-  can_interface_queue_tx(ACC_REG_REQ, data, id);
+  if(axis == 'x')
+  {
+    int32_t id = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_X_REQ;
+    can_interface_queue_tx(ACC_X_REQ, data, id);
+  }
+  if(axis == 'y')
+  {
+    int32_t id = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_Y_REQ;
+    can_interface_queue_tx(ACC_Y_REQ, data, id);
+  }
+  if(axis == 'z')
+  {
+    int32_t id = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_Z_REQ;
+    can_interface_queue_tx(ACC_Z_REQ, data, id);
+  }
 }
 
 
@@ -418,6 +533,33 @@ void controller_acc_setZ(accelerometer_inData* accSelect, int16_t accVal)
   accSelect->zAcc = accVal;
 }
 
+int16_t controller_rot_getX(accelerometer_inData* accSelect)
+{
+  return accSelect->xRot;
+}
+int16_t controller_rot_getY(accelerometer_inData* accSelect)
+{
+  return accSelect->yRot;
+}
+int16_t controller_rot_getZ(accelerometer_inData* accSelect)
+{
+  return accSelect->zRot;
+}
+
+void controller_rot_setX(accelerometer_inData* accSelect, int16_t rotVal)
+{
+  accSelect->xRot = rotVal;
+}
+void controller_rot_setY(accelerometer_inData* accSelect, int16_t rotVal)
+{
+  accSelect->yRot = rotVal;
+}
+void controller_rot_setZ(accelerometer_inData* accSelect, int16_t rotVal)
+{
+  accSelect->zRot = rotVal;
+}
+
+
 uint8_t controller_acc_get_newX(accelerometer_inData* accSelect)
 {
   return accSelect->newXAcc;
@@ -450,9 +592,48 @@ void controller_acc_clear_newX(accelerometer_inData* accSelect)
 }
 void controller_acc_clear_newY(accelerometer_inData* accSelect)
 {
-  accSelect->newXAcc = 0;
+  accSelect->newYAcc = 0;
 }
 void controller_acc_clear_newZ(accelerometer_inData* accSelect)
 {
-  accSelect->newXAcc = 0;
+  accSelect->newZAcc = 0;
+}
+
+uint8_t controller_rot_get_newX(accelerometer_inData* accSelect)
+{
+  return accSelect->newXRot;
+}
+uint8_t controller_rot_get_newY(accelerometer_inData* accSelect)
+{
+  return accSelect->newYRot;
+}
+uint8_t controller_rot_get_newZ(accelerometer_inData* accSelect)
+{
+  return accSelect->newZRot;
+}
+
+void controller_rot_set_newX(accelerometer_inData* accSelect)
+{
+  accSelect->newXRot = 1;
+}
+void controller_rot_set_newY(accelerometer_inData* accSelect)
+{
+  accSelect->newYRot = 1;
+}
+void controller_rot_set_newZ(accelerometer_inData* accSelect)
+{
+  accSelect->newZRot = 1;
+}
+
+void controller_rot_clear_newX(accelerometer_inData* accSelect)
+{
+  accSelect->newXRot = 0;
+}
+void controller_rot_clear_newY(accelerometer_inData* accSelect)
+{
+  accSelect->newYRot = 0;
+}
+void controller_rot_clear_newZ(accelerometer_inData* accSelect)
+{
+  accSelect->newZRot = 0;
 }

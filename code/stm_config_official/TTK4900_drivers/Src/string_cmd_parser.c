@@ -230,9 +230,9 @@ void string_cmd_category_remote_motor(uint8_t motor, char (*inputTokens)[64])
     float setpoint = (float)atof(inputTokens[3]);
     memcpy(data, &mode, 1);
     memcpy(&data[1], &setpoint, 4);
-    uint32_t id = (motor << CAN_MOTOR_CMD_OFFSET) | MOTOR_POS_SP;
+    uint32_t id = (motor << CAN_MOTOR_CMD_OFFSET) | JOINT_POS_SP;
     
-    can_interface_queue_tx(MOTOR_POS_SP, data, id);
+    can_interface_queue_tx(JOINT_POS_SP, data, id);
   }
   else
   {  
