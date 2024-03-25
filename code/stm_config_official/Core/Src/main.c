@@ -186,9 +186,9 @@ int main(void)
       int16_t rot = controller_interface_rot_getX(0);
       controller_interface_acc_clear_newY(0); //Doesn't do anything rn really, and shoudn't be cleared here anyway
       controller_interface_rot_clear_newX(0);
-      char* debug[64];
-      sprintf(debug, "Rot: %i\n\r", rot);
-      uart_send_string(debug);
+      // char* debug[64];
+      // sprintf(debug, "Rot: %i\n\r", rot);
+      // uart_send_string(debug);
 
 #endif
       controller_interface_clear_acc_poll();
