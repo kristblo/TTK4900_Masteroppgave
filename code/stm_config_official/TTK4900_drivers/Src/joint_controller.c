@@ -637,3 +637,10 @@ void controller_rot_clear_newZ(accelerometer_inData* accSelect)
 {
   accSelect->newZRot = 0;
 }
+
+
+HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
+{
+  controller_interface_set_acc_poll();
+  controller_interface_set_mtr_poll();
+}

@@ -222,3 +222,11 @@ Set up a timer interrupt on approx 344Hz on TIM2. Idea: based on CAN bus rates e
 
 Good day for architecture! Set up a new set of CAN commands, get axis. Sends a request for rotation and acceleration data for the given axis. Acceleration works well, rotation may need some debugging for whatever reason. Proof of concept in the main loop. One IMPORTANT drawback is that the polling mechanism will always favor messages early in the queue, need to figure out some sort of priority or just think harder on whether it's really a problem. Before merge: Integrate accelerometer readings into the shoulder control loop. Then get to work on ADCs, and hopefully start work on ROS after that.
 
+###250324
+Decided to skip right on to ADC driver. Needs a bit more testing, but the main ffeature of turning the relays off above a certain threshold seems to work. The trick was to configure them for continuous mode, that way they'll just keep going after start.
+
+Consider rewriting interface functions in joint control (and others?) to use the structs directly via the struct arrays instead of driver functions. Can get rid of a lot of unnecessary and confusing code that way. And maybe strip some of the joint interface functions? See how many are actually needed after accelerometer integration.
+
+Erlend brought up an interesting point re I2C: could be a polling issue. If the data is sampled just as an edge is rising/falling, the data could be trash, or work spuriously -- which is what I'm seeing. CubeMX doesn't let me change edge polling, and I think I2C has clock and data offset by 90 degrees anyway, but I should investigate the rise/fall time parameters. IMU datasheet doesn't mention it, but still worth a try.
+
+Tomorrow: Integrate accelerometer into control loop, test the ADC driver more extensively. Then remove unnecessary functions and write comments. Consider adding a string cmd to toggle relay, could be nice to be able to reset if the ADC triggers.

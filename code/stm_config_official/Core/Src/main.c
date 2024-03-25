@@ -116,6 +116,7 @@ int main(void)
   MX_TIM1_Init();
   MX_USB_DEVICE_Init();
   MX_TIM2_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
   uart_send_string("Hello world\n\r");
   
@@ -133,7 +134,7 @@ int main(void)
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO1_MSG_PENDING);
 
-  
+  HAL_ADC_Start(&hadc1);
 
 #if (HW_INTERFACE == UART_INTERFACE)  && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_hmi_init();
@@ -157,7 +158,8 @@ int main(void)
 
   uint8_t canData[8] = {0x41, 0x1, 0x2A, 0x0, 0x0, 0x0, 0, 0};
   uint8_t canrx[8];
-
+  uint32_t raw;
+  uint32_t previous = 0;
   while (1)
   {
 
@@ -179,7 +181,7 @@ int main(void)
 
     if(controller_interface_get_acc_poll() == 1)
     {
-#if ACTIVE_UNIT == TORSO
+#if ACTIVE_UNIT == 3
       controller_interface_request_acc_axis(1, 0, 'y');
       controller_interface_request_acc_axis(1, 0, 'x');
       int16_t acc = controller_interface_acc_getY(0);
@@ -193,10 +195,19 @@ int main(void)
 #endif
       controller_interface_clear_acc_poll();
     }
-    // int32_t error = (int32_t)(controller_interface_get_error(0)*10);
-    // char* debug[64];
-    // sprintf(debug, "Error: %i\n\r", error);
-    // uart_send_string(debug);
+
+    //int32_t error = (int32_t)(controller_interface_get_error(0)*10);
+
+    raw = HAL_ADC_GetValue(&hadc1);
+    if(raw > previous)
+    {
+      previous = raw;
+      char* debug[64];
+      sprintf(debug, "Adc: %u\n\r", previous);
+      uart_send_string(debug);
+
+    }
+    
 
 
     /* USER CODE END WHILE */
@@ -248,9 +259,10 @@ void SystemClock_Config(void)
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB|RCC_PERIPHCLK_UART5
                               |RCC_PERIPHCLK_I2C1|RCC_PERIPHCLK_I2C3
                               |RCC_PERIPHCLK_TIM1|RCC_PERIPHCLK_TIM15
-                              |RCC_PERIPHCLK_TIM8|RCC_PERIPHCLK_TIM2
-                              |RCC_PERIPHCLK_TIM34;
+                              |RCC_PERIPHCLK_TIM8|RCC_PERIPHCLK_ADC12
+                              |RCC_PERIPHCLK_TIM2|RCC_PERIPHCLK_TIM34;
   PeriphClkInit.Uart5ClockSelection = RCC_UART5CLKSOURCE_PCLK1;
+  PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV1;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
   PeriphClkInit.I2c3ClockSelection = RCC_I2C3CLKSOURCE_HSI;
   PeriphClkInit.USBClockSelection = RCC_USBCLKSOURCE_PLL_DIV1_5;
