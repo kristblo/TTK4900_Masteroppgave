@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['joint_5fcontroller_5fdescriptor_324',['joint_controller_descriptor',['../structjoint__controller__descriptor.html',1,'']]]
+  ['imu_5fdescriptor_331',['imu_descriptor',['../structimu__descriptor.html',1,'']]]
 ];

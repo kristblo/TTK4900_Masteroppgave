@@ -1,6 +1,11 @@
 var searchData=
 [
-  ['poscurrent_575',['posCurrent',['../structjoint__controller__descriptor.html#a36255292049ed9d1431ce487af7b4620',1,'joint_controller_descriptor::posCurrent()'],['../structcontroller__descriptor.html#af3493674ea01009f532b66a21fd24d57',1,'controller_descriptor::posCurrent()']]],
-  ['poserror_576',['posError',['../structjoint__controller__descriptor.html#aa27800b60dadc91f250cb872f157779b',1,'joint_controller_descriptor::posError()'],['../structcontroller__descriptor.html#a99dc98752970ffa04686d01c098c58a2',1,'controller_descriptor::posError()']]],
-  ['possetpoint_577',['posSetpoint',['../structjoint__controller__descriptor.html#adcac9c7a87e3fb19e1e09a70ffee6c68',1,'joint_controller_descriptor::posSetpoint()'],['../structcontroller__descriptor.html#a9d8ee054a34b29d3b50ea424f2baaf37',1,'controller_descriptor::posSetpoint()']]]
+  ['nadc_581',['Nadc',['../structcurrent__measurement__descriptor.html#a0f8640d071d2f97033ee9145f07a61e2',1,'current_measurement_descriptor']]],
+  ['newmsg_582',['newMsg',['../structcan__mailbox.html#aee7b998334d7ae5f003546db8080fda9',1,'can_mailbox']]],
+  ['newxacc_583',['newXAcc',['../structaccelerometer__inData.html#a98a1845e11ade5c0557ae2c30ad2e445',1,'accelerometer_inData']]],
+  ['newxrot_584',['newXRot',['../structaccelerometer__inData.html#a30d97139cd7edcd702a72874b591ab6a',1,'accelerometer_inData']]],
+  ['newyacc_585',['newYAcc',['../structaccelerometer__inData.html#ace8ac7b2c73e65685042bae0f0a4880f',1,'accelerometer_inData']]],
+  ['newyrot_586',['newYRot',['../structaccelerometer__inData.html#a05a5ebb6bbdbc12e27233d36e683f9d6',1,'accelerometer_inData']]],
+  ['newzacc_587',['newZAcc',['../structaccelerometer__inData.html#a6efd71ec14de07917260981fc53baa4e',1,'accelerometer_inData']]],
+  ['newzrot_588',['newZRot',['../structaccelerometer__inData.html#a01568e5c60d11ba9542082c10b42ff8e',1,'accelerometer_inData']]]
 ];

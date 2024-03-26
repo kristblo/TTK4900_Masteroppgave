@@ -8,79 +8,150 @@
 #include "stdint.h"
 #include "string.h"
 
-
+/// @brief Key information about the IMUs
 typedef struct
 {
+  /// @brief Pointer to the I2C bus peripheral
   I2C_HandleTypeDef* i2cHandle;
+  
+  /// @brief Read address of the IMU on the I2C bus
   uint16_t readAddr;
+  
+  /// @brief Write address of the IMU on the I2C bus
   uint16_t writeAddr;
+  
+  /// @brief Start address of the IMU's X axis accelerometer register 
   uint8_t xAccAddr;
+  
+  /// @brief Start address of the IMU's Y axis accelerometer register
   uint8_t yAccAddr;
+  
+  /// @brief Start address of the IMU's Z axis accelerometer register
   uint8_t zAccAddr;
+  
+  /// @brief Start address of the IMU's X axis rotation rate register
   uint8_t xRotAddr;
+  
+  /// @brief Start address of the IMU's Y axis rotation rate register
   uint8_t yRotAddr;
+  
+  /// @brief Start address of the IMU's Z axis rotation rate register
   uint8_t zRotAddr;
-  int16_t yCalibOffset;
-  uint16_t gResolution; //Min/max measurable acceleration
-  uint16_t rotResolution; //Degrees per second
-} accelerometer_descriptor;
+} imu_descriptor;
 
-//Interface read bytes
+
+//////////////////
+//Public functions
+//////////////////
+
+
+/// @brief Module external interface function to read a byte register
+/// @param regAddr Address to read
+/// @return Value of the register
 uint8_t accl_interface_read_byte(uint8_t regAddr);
 
-//Interface read register
+
+/// @brief Module external interface function to read a two-byte register
+/// @param regAddr Start address of the read
+/// @return Value of the register
 uint16_t accl_interface_read_register(uint8_t regAddr);
 
-//Interface read n bytes
-void accl_interface_read_bytes(uint8_t startAddr, uint8_t numBytes, uint8_t* rxBuffer);
 
-//Interface get acc
+/// @brief Module external interface function to read the IMU's X axis acceleration
+/// @return Raw acceleration value as determined by the IMU's configured acceleration resolution
 int16_t accl_interface_get_x_acc();
+
+
+/// @brief Module external interface function to read the IMU's Y axis acceleration
+/// @return Raw acceleration value as determined by the IMU's configured acceleration resolution
 int16_t accl_interface_get_y_acc();
+
+
+/// @brief Module external interface function to read the IMU's Z axis acceleration
+/// @return Raw acceleration value as determined by the IMU's configured acceleration resolution
 int16_t accl_interface_get_z_acc();
 
-//Interface get rot
+
+/// @brief Module external interface function to read the IMU's X axis rotation
+/// @return Raw rotation value as determined by the IMU's configured rotation resolution
 int16_t accl_interface_get_x_rot();
+
+
+/// @brief Module external interface function to read the IMU's Y axis rotation
+/// @return Raw rotation value as determined by the IMU's configured rotation resolution
 int16_t accl_interface_get_y_rot();
+
+
+/// @brief Module external interface function to read the IMU's Z axis rotation
+/// @return Raw rotation value as determined by the IMU's configured rotation resolution
 int16_t accl_interface_get_z_rot();
 
-//Interface set byte
+
+/// @brief Module external interface function to write a byte to an IMU register
+/// @param regAddr Address to write
+/// @param data Data to write
 void accl_interface_set_byte(uint8_t regAddr, uint8_t data);
 
-//Read a single byte address
-uint8_t accl_driver_read_byte(accelerometer_descriptor* accelerometer, uint8_t regAddr);
 
-//Read a 2 byte register address and concatenate results
-uint16_t accl_driver_read_register(accelerometer_descriptor* accelerometer, uint8_t regAddr);
 
-//Read n bytes
-void accl_driver_read_bytes(accelerometer_descriptor* accelerometer, uint8_t startAddr, uint8_t numBytes, uint8_t* rxBuffer);
+///////////////////
+//Private functions
+///////////////////
 
-//Write single byte address
-void accl_driver_set_byte(accelerometer_descriptor* accelerometer, uint8_t regAddr, uint8_t data);
 
-//Write a 2 byte address
-void accl_driver_set_register(accelerometer_descriptor* accelerometer);
+/// @brief Read a single byte register from the IMU
+/// @param imu Pointer to the relevant IMU struct
+/// @param regAddr Address to read
+/// @return Value of the register
+uint8_t accl_driver_read_byte(imu_descriptor* imu, uint8_t regAddr);
 
-//Write n bytes starting from address
-void acc_driver_set_bytes(accelerometer_descriptor* accelerometer);
 
-//Read X axis acceleration
-int16_t accl_driver_get_x_acc(accelerometer_descriptor* accelerometer);
+/// @brief Read a two byte register from the IMU
+/// @param imu Pointer to the relevant IMU struct
+/// @param regAddr Address to start read
+/// @return Concatenated values of the two registers (left shift + bitwOR)
+uint16_t accl_driver_read_register(imu_descriptor* imu, uint8_t regAddr);
 
-//Read Y axis acceleration
-int16_t accl_driver_get_y_acc(accelerometer_descriptor* accelerometer);
+/// @brief Write single byte register of the IMU
+/// @param imu Pointer to the relevant IMU struct
+/// @param regAddr Address to write
+/// @param data Data to write
+void accl_driver_set_byte(imu_descriptor* imu, uint8_t regAddr, uint8_t data);
 
-//Read Z axis acceleration
-int16_t accl_driver_get_z_acc(accelerometer_descriptor* accelerometer);
 
-//Read X axis angular rate
-int16_t accl_driver_get_x_rot(accelerometer_descriptor* accelerometer);
+/// @brief Read X axis acceleration register
+/// @param imu Pointer to the relevant IMU struct
+/// @return Acceleration raw value
+int16_t accl_driver_get_x_acc(imu_descriptor* imu);
 
-//Read Y axis angular rate
-int16_t accl_driver_get_y_rot(accelerometer_descriptor* accelerometer);
 
-//Read Z axis angular rate
-int16_t accl_driver_get_z_rot(accelerometer_descriptor* accelerometer);
+/// @brief Read Y axis acceleration register
+/// @param imu Pointer to the relevant IMU struct
+/// @return Acceleration raw value
+int16_t accl_driver_get_y_acc(imu_descriptor* imu);
+
+
+/// @brief Read X axis acceleration register
+/// @param imu Pointer to the relevant IMU struct
+/// @return Acceleration raw value
+int16_t accl_driver_get_z_acc(imu_descriptor* imu);
+
+
+/// @brief Read X axis rotation register
+/// @param imu Pointer to the relevant IMU struct
+/// @return Rotation raw value
+int16_t accl_driver_get_x_rot(imu_descriptor* imu);
+
+
+/// @brief Read Y axis rotation register
+/// @param imu Pointer to the relevant IMU struct
+/// @return Rotation raw value
+int16_t accl_driver_get_y_rot(imu_descriptor* imu);
+
+
+/// @brief Read Z axis rotation register
+/// @param imu Pointer to the relevant IMU struct
+/// @return Rotation raw value
+int16_t accl_driver_get_z_rot(imu_descriptor* imu);
 
 #endif //ACCELEROMETER_DRIVER_H

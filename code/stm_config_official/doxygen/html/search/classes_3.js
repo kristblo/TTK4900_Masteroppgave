@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['motor_5fdescriptor_325',['motor_descriptor',['../structmotor__descriptor.html',1,'']]]
+  ['joint_5fcontroller_5fdescriptor_332',['joint_controller_descriptor',['../structjoint__controller__descriptor.html',1,'']]]
 ];

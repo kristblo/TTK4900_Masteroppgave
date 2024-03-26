@@ -97,7 +97,7 @@ Classes</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a37e9bdda72907cdcfe81e65096ee7c57"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string__cmd__parser_8h.html#a37e9bdda72907cdcfe81e65096ee7c57">string_cmd_processor</a>(...)&#160;&#160;&#160;<a class="el" href="string__cmd__parser_8h.html#a8faebf6ecf17b5ec8b4720525bc97ada">string_cmd_processor_wrp</a>((<a class="el" href="structstring__cmd__processor__args.html">string_cmd_processor_args</a>*){__VA_ARGS__})</td></tr>
 <tr class="separator:a37e9bdda72907cdcfe81e65096ee7c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd8ceddd75c30cc4ec36492c57b0358e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string__cmd__parser_8h.html#afd8ceddd75c30cc4ec36492c57b0358e">NUM_STRING_COMMANDS</a>&#160;&#160;&#160;9</td></tr>
+<tr class="memitem:afd8ceddd75c30cc4ec36492c57b0358e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string__cmd__parser_8h.html#afd8ceddd75c30cc4ec36492c57b0358e">NUM_STRING_COMMANDS</a>&#160;&#160;&#160;0xA</td></tr>
 <tr class="separator:afd8ceddd75c30cc4ec36492c57b0358e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -134,6 +134,8 @@ Functions</h2></td></tr>
 <tr class="separator:a80b72e079d3e3d500fafc4187a596baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa685d63b80d3b0890b7e1f5d9590b7be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string__cmd__parser_8h.html#aa685d63b80d3b0890b7e1f5d9590b7be">string_cmd_acc1</a> (char(*inputTokens)[64])</td></tr>
 <tr class="separator:aa685d63b80d3b0890b7e1f5d9590b7be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2ad1ec16c003a0fdfb354faf8831af4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string__cmd__parser_8h.html#ad2ad1ec16c003a0fdfb354faf8831af4">string_cmd_rly</a> (char(*inputTokens)[64])</td></tr>
+<tr class="separator:ad2ad1ec16c003a0fdfb354faf8831af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -148,7 +150,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define NUM_STRING_COMMANDS&#160;&#160;&#160;9</td>
+          <td class="memname">#define NUM_STRING_COMMANDS&#160;&#160;&#160;0xA</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -417,6 +419,24 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ad2ad1ec16c003a0fdfb354faf8831af4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ad1ec16c003a0fdfb354faf8831af4">&#9670;&nbsp;</a></span>string_cmd_rly()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void string_cmd_rly </td>
+          <td>(</td>
+          <td class="paramtype">char(*)&#160;</td>
+          <td class="paramname"><em>inputTokens</em>[64]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a7063cab04680ab423df2ef61d072af9d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7063cab04680ab423df2ef61d072af9d">&#9670;&nbsp;</a></span>string_cmd_shoulder()</h2>
 
@@ -519,7 +539,8 @@ Variables</h2></td></tr>
 <div class="line">  {<span class="stringliteral">&quot;pinch&quot;</span>, <a class="code" href="string__cmd__parser_8h.html#a24aebd63c863804090e86159aa91e424">string_cmd_pinch</a>},</div>
 <div class="line">  {<span class="stringliteral">&quot;can&quot;</span>, <a class="code" href="string__cmd__parser_8h.html#afceac69ed494827fbd4b996c1de05f4d">string_cmd_can</a>},</div>
 <div class="line">  {<span class="stringliteral">&quot;S&quot;</span>, <a class="code" href="string__cmd__parser_8h.html#a80b72e079d3e3d500fafc4187a596baa">string_cmd_stop</a>},</div>
-<div class="line">  {<span class="stringliteral">&quot;acc1&quot;</span>, <a class="code" href="string__cmd__parser_8h.html#aa685d63b80d3b0890b7e1f5d9590b7be">string_cmd_acc1</a>}</div>
+<div class="line">  {<span class="stringliteral">&quot;acc1&quot;</span>, <a class="code" href="string__cmd__parser_8h.html#aa685d63b80d3b0890b7e1f5d9590b7be">string_cmd_acc1</a>},</div>
+<div class="line">  {<span class="stringliteral">&quot;relay&quot;</span>, <a class="code" href="string__cmd__parser_8h.html#ad2ad1ec16c003a0fdfb354faf8831af4">string_cmd_rly</a>}</div>
 <div class="line">  }</div>
 <div class="ttc" id="astring__cmd__parser_8h_html_a00fefed69d5e05cd8540e21892a901cd"><div class="ttname"><a href="string__cmd__parser_8h.html#a00fefed69d5e05cd8540e21892a901cd">string_cmd_elbow</a></div><div class="ttdeci">void string_cmd_elbow(char(*inputTokens)[64])</div></div>
 <div class="ttc" id="astring__cmd__parser_8h_html_a0b544565597d46fc427b1b88b352af87"><div class="ttname"><a href="string__cmd__parser_8h.html#a0b544565597d46fc427b1b88b352af87">string_cmd_twist</a></div><div class="ttdeci">void string_cmd_twist(char(*inputTokens)[64])</div></div>
@@ -529,6 +550,7 @@ Variables</h2></td></tr>
 <div class="ttc" id="astring__cmd__parser_8h_html_a7063cab04680ab423df2ef61d072af9d"><div class="ttname"><a href="string__cmd__parser_8h.html#a7063cab04680ab423df2ef61d072af9d">string_cmd_shoulder</a></div><div class="ttdeci">void string_cmd_shoulder(char(*inputTokens)[64])</div></div>
 <div class="ttc" id="astring__cmd__parser_8h_html_a80b72e079d3e3d500fafc4187a596baa"><div class="ttname"><a href="string__cmd__parser_8h.html#a80b72e079d3e3d500fafc4187a596baa">string_cmd_stop</a></div><div class="ttdeci">void string_cmd_stop(char(*inputTokens)[64])</div></div>
 <div class="ttc" id="astring__cmd__parser_8h_html_aa685d63b80d3b0890b7e1f5d9590b7be"><div class="ttname"><a href="string__cmd__parser_8h.html#aa685d63b80d3b0890b7e1f5d9590b7be">string_cmd_acc1</a></div><div class="ttdeci">void string_cmd_acc1(char(*inputTokens)[64])</div></div>
+<div class="ttc" id="astring__cmd__parser_8h_html_ad2ad1ec16c003a0fdfb354faf8831af4"><div class="ttname"><a href="string__cmd__parser_8h.html#ad2ad1ec16c003a0fdfb354faf8831af4">string_cmd_rly</a></div><div class="ttdeci">void string_cmd_rly(char(*inputTokens)[64])</div></div>
 <div class="ttc" id="astring__cmd__parser_8h_html_afceac69ed494827fbd4b996c1de05f4d"><div class="ttname"><a href="string__cmd__parser_8h.html#afceac69ed494827fbd4b996c1de05f4d">string_cmd_can</a></div><div class="ttdeci">void string_cmd_can(char(*inputTokens)[64])</div></div>
 </div><!-- fragment -->
 </div>

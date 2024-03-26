@@ -1,6 +1,27 @@
 #ifndef JOINT_CONTROLLER_H
 #define JOINT_CONTROLLER_H
 
+/**
+  ******************************************************************************
+  * @file    joint_controller.h
+  * @brief   This file contains all the function prototypes and struct
+  *           definitions for the joint_controller.c file
+  *        
+  ******************************************************************************
+  * @attention
+  *
+  * Joint controller for the TTK4900 Master project of Kristian Blom, spring
+  * semester of 2024. The controller makes use of the motor driver
+  * to implement PID positional control of the two joints for which
+  * the relevant MCU is responsible. The accelerometer struct holds data
+  * from the joint's accelerometer, where applicable, and is always received
+  * via the CAN bus. This makes accelerometer data inherent to joint control,
+  * not the accelerometer driver itself.
+  *
+  ******************************************************************************
+  */
+
+
 //External library includes
 #include "stdint.h"
 #include "math.h"
@@ -100,26 +121,83 @@ typedef struct
 //----------------------
 //Joint control handlers
 //----------------------
+
+/// @brief Public function to get the current positional setpoint of a joint
+/// @param controllerSelect One of two joints available to the MCU
+/// @return Joint positional setpoints in radians relative to its zero position
 float controller_interface_get_setpoint(uint8_t controllerSelect);
+
+
+/// @brief Public function to get the current positional setpoint of a joint
+/// @param controllerSelect One of two joints available to the MCU
+/// @param setPoint Joint positional setpoint in rads relative to its zero position
 void controller_interface_set_setpoint(uint8_t controllerSelect, float setPoint);
 
+
+/// @brief Public function to set the positional setpoint of a joint
+/// @param controllerSelect One of two joints available to the MCU
+/// @return Joint position in radians relative to its zero position
 float controller_interface_get_position(uint8_t controllerSelect);
+
+
+/// @brief Public function to get the current position of a joint
+/// @param controllerSelect One of two joints available to the MCU
+/// @param position Joint position in rads relative to its zero position
 void controller_interface_set_position(uint8_t controllerSelect, float position);
 
+
+/// @brief Public function to get the current positional error of a joint
+/// @param controllerSelect One of two joints available to the MCU
+/// @return Joint positional error in rads relative to its setpoint
 float controller_interface_get_error(uint8_t controllerSelect);
+
+
+/// @brief Public function to trigger a calculation of the joint's positional error
+/// @param controllerSelect One of two joints available to the MCU
 void controller_interface_update_error(uint8_t controllerSelect);
+
+
+/// @brief Public function to set the positional error of a joint
+/// @param controllerSelect One of two joints available to the MCU
+/// @param error Joint positional error in rads
 void controller_interface_set_error(uint8_t controllerSelect, float error);
 
+
+/// @brief Public function to get the moving state value of the joint
+/// @param controllerSelect One of two joints available to the MCU
+/// @return isMoving flag
 uint8_t controller_interface_get_moving(uint8_t controllerSelect);
+
+
+/// @brief Public function to set the moving state flag of the joint
+/// @param controllerSelect One of two joints available to the MCU
 void controller_interface_set_moving(uint8_t controllerSelect);
+
+
+/// @brief Public function to clear the moving state flag of the joint
+/// @param controllerSelect One of two joints available to the MCU
 void controller_interface_clear_moving(uint8_t controllerSelect);
 
+
+/// @brief Public function to set the power of the joint
+/// @param controllerSelect One of two joints available to the MCU
+/// @param power Percentage of maximum power
 void controller_interface_set_power(uint8_t controllerSelect, float power);
+
+
+/// @brief Public function to trigger an update of the joint's power by PID
+/// @param controllerSelect One of two joints available to the MCU
 void controller_interface_update_power(uint8_t controllerSelect);
 
+/// @brief Public function to convert the joint's associated encoder count to joint position
+/// @param controllerSelect One of two joints available to the MCU
+/// @return Joint position in rads
 float controller_interface_clicks_to_pos(uint8_t controllerSelect);
-void controller_interface_adjust_enc_sp(uint8_t controllerSelect);
 
+/// @brief Public function to request an update from the joint's accelerometer via CAN bus; acc and rot
+/// @param controllerSelect One of two joints available to the MCU
+/// @param accSelect (One of) the joint's accelerometer(s)
+/// @param axis The axis for which information is requested
 void controller_interface_request_acc_axis(uint8_t controllerSelect, uint8_t accSelect, char axis);
 
 
@@ -127,12 +205,38 @@ void controller_interface_request_acc_axis(uint8_t controllerSelect, uint8_t acc
 //Accelerometer data handlers
 //----------------------
 
+/// @brief Public function to get the accelerometer X axis acceleration
+/// @param accSelect The relevant accelerometer
+/// @return X axis acceleration raw value
 int16_t controller_interface_acc_getX(uint8_t accSelect);
+
+
+/// @brief Public function to get the accelerometer Y axis acceleration
+/// @param accSelect The relevant accelerometer
+/// @return Y axis acceleration raw value
 int16_t controller_interface_acc_getY(uint8_t accSelect);
+
+
+/// @brief Public function to get the accelerometer Z axis acceleration
+/// @param accSelect The relevant accelerometer
+/// @return Z axis acceleration raw value
 int16_t controller_interface_acc_getZ(uint8_t accSelect);
 
+
+/// @brief Public function to set the accelerometer X axis acceleration
+/// @param accSelect The relevant accelerometer
+/// @param accVal X axis acceleration raw value
 void controller_interface_acc_setX(uint8_t accSelect, int16_t accVal);
+
+/// @brief Public function to set the accelerometer Y axis acceleration
+/// @param accSelect The relevant accelerometer
+/// @param accVal Y axis acceleration raw value
 void controller_interface_acc_setY(uint8_t accSelect, int16_t accVal);
+
+
+/// @brief Public function to set the accelerometer Z axis acceleration
+/// @param accSelect The relevant accelerometer
+/// @param accVal Z axis acceleration raw value
 void controller_interface_acc_setZ(uint8_t accSelect, int16_t accVal);
 
 int16_t controller_interface_rot_getX(uint8_t accSelect);

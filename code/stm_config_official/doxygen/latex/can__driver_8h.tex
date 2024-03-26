@@ -48,7 +48,7 @@ enum \mbox{\hyperlink{can__driver_8h_a54f5aea26986c68416e85e4c2f1151b8}{can\+\_\
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{can__driver_8h_ac94b647e3aab5df2e4f27abc0b64c648}{can\+\_\+interface\+\_\+queue\+\_\+tx}} (uint8\+\_\+t mailbox, uint8\+\_\+t $\ast$out\+Data, uint32\+\_\+t id)
-\begin{DoxyCompactList}\small\item\em Queues a CAN message for transmit, for external use. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Module external function for queueing a CAN message for transmit. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_a4becd73c8a8e895c54495a029b7ca729}{can\+\_\+rx\+\_\+executive}} ()
 \begin{DoxyCompactList}\small\item\em Looks for new incoming CAN messages and handles them. MAIN LOOP ONLY. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_ad9b9d2c463b2afda53181c5c26c6a9df}{can\+\_\+tx\+\_\+executive}} ()
@@ -71,8 +71,6 @@ void \mbox{\hyperlink{can__driver_8h_a70388e5ce428cab82181bda2c1a58e7b}{can\+\_\
 \begin{DoxyCompactList}\small\item\em Queues a can message for transmit, driver internal. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_a98cce463816efe33b5a4a6ce04ace7cb}{can\+\_\+driver\+\_\+send\+\_\+msg}} (uint8\+\_\+t $\ast$data, uint32\+\_\+t std\+Id, int dlc, uint8\+\_\+t hw\+Mailbox)
 \begin{DoxyCompactList}\small\item\em Sends a CAN message, is called by can\+\_\+interface\+\_\+send\+\_\+msg. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{can__driver_8h_a6b8a9cc15b74dbe789df2644af40fbff}{can\+\_\+driver\+\_\+rx\+\_\+accelerometer\+\_\+cmd}} (uint8\+\_\+t $\ast$data)
-\begin{DoxyCompactList}\small\item\em CAN accelerometer message handler. DEPRECATED. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{can__driver_8h_a7c205e57aa4b0ef49098d5e2997599e6}{can\+\_\+cmd\+\_\+handle\+\_\+y\+Acc}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
 \item 
 void \mbox{\hyperlink{can__driver_8h_a79fbe61cdff2b116043d3bdf14305951}{can\+\_\+cmd\+\_\+handle\+\_\+reg\+Val}} (uint32\+\_\+t id, uint8\+\_\+t $\ast$in\+Data)
@@ -508,21 +506,6 @@ Queues a can message for transmit, driver internal.
 {\em id} & CAN transmit ID \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{can__driver_8h_a6b8a9cc15b74dbe789df2644af40fbff}\label{can__driver_8h_a6b8a9cc15b74dbe789df2644af40fbff}} 
-\index{can\_driver.h@{can\_driver.h}!can\_driver\_rx\_accelerometer\_cmd@{can\_driver\_rx\_accelerometer\_cmd}}
-\index{can\_driver\_rx\_accelerometer\_cmd@{can\_driver\_rx\_accelerometer\_cmd}!can\_driver.h@{can\_driver.h}}
-\doxysubsubsection{\texorpdfstring{can\_driver\_rx\_accelerometer\_cmd()}{can\_driver\_rx\_accelerometer\_cmd()}}
-{\footnotesize\ttfamily void can\+\_\+driver\+\_\+rx\+\_\+accelerometer\+\_\+cmd (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{data }\end{DoxyParamCaption})}
-
-
-
-CAN accelerometer message handler. DEPRECATED. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em data} & CAN message data \\
-\hline
-\end{DoxyParams}
 \mbox{\Hypertarget{can__driver_8h_a98cce463816efe33b5a4a6ce04ace7cb}\label{can__driver_8h_a98cce463816efe33b5a4a6ce04ace7cb}} 
 \index{can\_driver.h@{can\_driver.h}!can\_driver\_send\_msg@{can\_driver\_send\_msg}}
 \index{can\_driver\_send\_msg@{can\_driver\_send\_msg}!can\_driver.h@{can\_driver.h}}
@@ -552,7 +535,7 @@ Sends a CAN message, is called by can\+\_\+interface\+\_\+send\+\_\+msg.
 
 
 
-Queues a CAN message for transmit, for external use. 
+Module external function for queueing a CAN message for transmit. 
 
 
 \begin{DoxyParams}{Parameters}

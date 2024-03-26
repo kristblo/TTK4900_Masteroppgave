@@ -1,5 +1,23 @@
 #ifndef CAN_DRIVER_H
 #define CAN_DRIVER_H
+/**
+  ******************************************************************************
+  * @file    can_driver.h
+  * @brief   This file contains all the function prototypes and struct
+  *           definitions for the can_driver.c file
+  *        
+  ******************************************************************************
+  * @attention
+  *
+  * CAN driver for the TTK4900 Master project of Kristian Blom, spring
+  * semester of 2024. The driver specifies CAN message types relevant to
+  * the project, as well as relevant functions for the handling of transmission
+  * and reception of messages.
+  *
+  ******************************************************************************
+  */
+
+
 //External library includes
 #include "stdint.h"
 //CubeMX generated includes
@@ -23,7 +41,7 @@ typedef struct
   uint8_t data[8];
 } can_mailbox;
 
-/// @brief CAN message types, also dictate CAN priority
+/// @brief CAN message types
 typedef enum 
 {
   /// @brief A message containting acc/rot X axis
@@ -62,15 +80,28 @@ typedef enum
   /// @brief A message requesting acc/rot z axis
   ACC_Z_REQ,
 
-  num_types, //This must always be last
+  /// @brief Dummy type for counting the number of message types, must always be last
+  num_types,
 } can_message_type;
 
 
-/// @brief Queues a CAN message for transmit, for external use
+
+//////////////////
+//Public functions
+//////////////////
+
+
+/// @brief Module external function for queueing a CAN message for transmit
 /// @param mailbox Mailbox number, must correspond to the correct message type
 /// @param outData Data to send
 /// @param id CAN transmit ID
 void can_interface_queue_tx(uint8_t mailbox, uint8_t* outData, uint32_t id);
+
+
+
+///////////////////
+//Private functions
+///////////////////
 
 
 /// @brief Looks for new incoming CAN messages and handles them. MAIN LOOP ONLY
@@ -135,9 +166,9 @@ void can_driver_queue_tx(can_mailbox* mailbox, uint8_t* outData, uint32_t id);
 void can_driver_send_msg(uint8_t* data, uint32_t stdId, int dlc, uint8_t hwMailbox);
 
 
-/// @brief CAN accelerometer message handler. DEPRECATED
-/// @param data CAN message data
-void can_driver_rx_accelerometer_cmd(uint8_t* data);
+
+//The following functions handle reception of certain CAN message types,
+//and are wrapped by the cmd_rxn functions
 
 void can_cmd_handle_yAcc(uint32_t id, uint8_t* inData);
 
@@ -169,9 +200,12 @@ void can_cmd_handle_axisReq(uint32_t id, uint8_t* inData);
 /// @param inData Incoming CAN data
 void can_cmd_handle_axisData(uint32_t id, uint8_t* inData);
 
-//The following rxn functions MUST match with the number of
+
+
+
+//The following cmd_rxn functions MUST match with the number of
 //available can_message_type, and MUST be added to the
-//canRxFunctions list in the .c file
+//canRxFunctions list in the can_driver.c file
 
 /// @brief "Generic" function to handle CAN message type ACC_X_TX
 /// @param id CAN message ID

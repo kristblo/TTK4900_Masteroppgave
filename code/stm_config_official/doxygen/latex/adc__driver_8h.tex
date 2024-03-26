@@ -1,2 +1,124 @@
 \hypertarget{adc__driver_8h}{}\doxysection{adc\+\_\+driver.\+h File Reference}
 \label{adc__driver_8h}\index{adc\_driver.h@{adc\_driver.h}}
+
+
+This file contains all the function prototypes and struct definitions for the adc\+\_\+driver.\+c file.  
+
+
+{\ttfamily \#include \char`\"{}stdint.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}adc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}unit\+\_\+config.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}uart\+\_\+driver.\+h\char`\"{}}\newline
+Include dependency graph for adc\+\_\+driver.\+h\+:
+% FIG 0
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcurrent__measurement__descriptor}{current\+\_\+measurement\+\_\+descriptor}}
+\begin{DoxyCompactList}\small\item\em Database with key information for the motor current sensing ADCs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{adc__driver_8h_a27fe8b4725494a1aaf58e57504fc5d19}{adc\+\_\+interface\+\_\+get\+\_\+current}} (uint8\+\_\+t sensor\+Select)
+\begin{DoxyCompactList}\small\item\em Module external interface function to read the most recently calculated current. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{adc__driver_8h_a9b29a5552e0ff777072333cb70535daa}{adc\+\_\+interface\+\_\+update\+\_\+current}} (uint8\+\_\+t sensor\+Select)
+\begin{DoxyCompactList}\small\item\em Module external interface function to trigger a current calculation. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{adc__driver_8h_a824d0723b41fc11e577910e5ec3a5512}{adc\+\_\+driver\+\_\+calculate\+\_\+current}} (\mbox{\hyperlink{structcurrent__measurement__descriptor}{current\+\_\+measurement\+\_\+descriptor}} $\ast$sensor)
+\begin{DoxyCompactList}\small\item\em Calculates current in Ampere based on an ADC raw value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{adc__driver_8h_af843f15c2b978a54169e643dd055937c}{adc\+\_\+driver\+\_\+update\+\_\+reading}} (\mbox{\hyperlink{structcurrent__measurement__descriptor}{current\+\_\+measurement\+\_\+descriptor}} $\ast$sensor)
+\begin{DoxyCompactList}\small\item\em Trigger a reading of the relevant ADC, insert into sensor struct. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{adc__driver_8h_abe9d83afdb69e8ff7ff47a6cb5bb2c63}{adc\+\_\+driver\+\_\+update\+\_\+measurement}} (\mbox{\hyperlink{structcurrent__measurement__descriptor}{current\+\_\+measurement\+\_\+descriptor}} $\ast$sensor)
+\begin{DoxyCompactList}\small\item\em Calculate lastest current measurement, insert into struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains all the function prototypes and struct definitions for the adc\+\_\+driver.\+c file. 
+
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+ADC driver for the TTK4900 Master project of Kristian Blom, spring semester of 2024. This driver is tailored for use with the current sense pin of the DRV8251A motor driver 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{adc__driver_8h_a824d0723b41fc11e577910e5ec3a5512}\label{adc__driver_8h_a824d0723b41fc11e577910e5ec3a5512}} 
+\index{adc\_driver.h@{adc\_driver.h}!adc\_driver\_calculate\_current@{adc\_driver\_calculate\_current}}
+\index{adc\_driver\_calculate\_current@{adc\_driver\_calculate\_current}!adc\_driver.h@{adc\_driver.h}}
+\doxysubsubsection{\texorpdfstring{adc\_driver\_calculate\_current()}{adc\_driver\_calculate\_current()}}
+{\footnotesize\ttfamily double adc\+\_\+driver\+\_\+calculate\+\_\+current (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcurrent__measurement__descriptor}{current\+\_\+measurement\+\_\+descriptor}} $\ast$}]{sensor }\end{DoxyParamCaption})}
+
+
+
+Calculates current in Ampere based on an ADC raw value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor} & Pointer to the relevant sensor struct \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Ampere 
+\end{DoxyReturn}
+\mbox{\Hypertarget{adc__driver_8h_abe9d83afdb69e8ff7ff47a6cb5bb2c63}\label{adc__driver_8h_abe9d83afdb69e8ff7ff47a6cb5bb2c63}} 
+\index{adc\_driver.h@{adc\_driver.h}!adc\_driver\_update\_measurement@{adc\_driver\_update\_measurement}}
+\index{adc\_driver\_update\_measurement@{adc\_driver\_update\_measurement}!adc\_driver.h@{adc\_driver.h}}
+\doxysubsubsection{\texorpdfstring{adc\_driver\_update\_measurement()}{adc\_driver\_update\_measurement()}}
+{\footnotesize\ttfamily void adc\+\_\+driver\+\_\+update\+\_\+measurement (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcurrent__measurement__descriptor}{current\+\_\+measurement\+\_\+descriptor}} $\ast$}]{sensor }\end{DoxyParamCaption})}
+
+
+
+Calculate lastest current measurement, insert into struct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor} & Pointer to the relevant sensor struct \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{adc__driver_8h_af843f15c2b978a54169e643dd055937c}\label{adc__driver_8h_af843f15c2b978a54169e643dd055937c}} 
+\index{adc\_driver.h@{adc\_driver.h}!adc\_driver\_update\_reading@{adc\_driver\_update\_reading}}
+\index{adc\_driver\_update\_reading@{adc\_driver\_update\_reading}!adc\_driver.h@{adc\_driver.h}}
+\doxysubsubsection{\texorpdfstring{adc\_driver\_update\_reading()}{adc\_driver\_update\_reading()}}
+{\footnotesize\ttfamily void adc\+\_\+driver\+\_\+update\+\_\+reading (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcurrent__measurement__descriptor}{current\+\_\+measurement\+\_\+descriptor}} $\ast$}]{sensor }\end{DoxyParamCaption})}
+
+
+
+Trigger a reading of the relevant ADC, insert into sensor struct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor} & Pointer to the relevant sensor struct \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{adc__driver_8h_a27fe8b4725494a1aaf58e57504fc5d19}\label{adc__driver_8h_a27fe8b4725494a1aaf58e57504fc5d19}} 
+\index{adc\_driver.h@{adc\_driver.h}!adc\_interface\_get\_current@{adc\_interface\_get\_current}}
+\index{adc\_interface\_get\_current@{adc\_interface\_get\_current}!adc\_driver.h@{adc\_driver.h}}
+\doxysubsubsection{\texorpdfstring{adc\_interface\_get\_current()}{adc\_interface\_get\_current()}}
+{\footnotesize\ttfamily double adc\+\_\+interface\+\_\+get\+\_\+current (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{sensor\+Select }\end{DoxyParamCaption})}
+
+
+
+Module external interface function to read the most recently calculated current. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor\+Select} & Select from one of two motor current sensor ADCs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Latest calculated current measurement 
+\end{DoxyReturn}
+\mbox{\Hypertarget{adc__driver_8h_a9b29a5552e0ff777072333cb70535daa}\label{adc__driver_8h_a9b29a5552e0ff777072333cb70535daa}} 
+\index{adc\_driver.h@{adc\_driver.h}!adc\_interface\_update\_current@{adc\_interface\_update\_current}}
+\index{adc\_interface\_update\_current@{adc\_interface\_update\_current}!adc\_driver.h@{adc\_driver.h}}
+\doxysubsubsection{\texorpdfstring{adc\_interface\_update\_current()}{adc\_interface\_update\_current()}}
+{\footnotesize\ttfamily void adc\+\_\+interface\+\_\+update\+\_\+current (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{sensor\+Select }\end{DoxyParamCaption})}
+
+
+
+Module external interface function to trigger a current calculation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor\+Select} & Select from of two motor current sensor ADCs \\
+\hline
+\end{DoxyParams}

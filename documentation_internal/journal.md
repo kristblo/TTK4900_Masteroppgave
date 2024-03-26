@@ -234,3 +234,5 @@ Tomorrow: Integrate accelerometer into control loop, test the ADC driver more ex
 
 ###260324
 ADC integration complete, can now reliably store and read amps as a float. The shoulder motor seems to cut out at too high power settings, i.e. if the setpoint is too far away from current position. Need to figure that out, and should get to work on implementing a PID with proper timesteps over easter. Then ROS:)) Shoulder accelerometer feedback is implemented as part of joint update power. Hard coded for shoulder atm, but should be safe for other motors. Problem: The accelerometer reads 0 as soon as it passes 90 degrees, at least in the negative direction. This should be adjusted for somehow, e.g. by discarding/compensating for readings with a very high delta like in the motor driver.
+
+Not finished with documentation, the joint controller is a brute. Made file headers with more extensive descriptions, looks neat in Doxygen.

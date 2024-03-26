@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['cmdfuncpointer_541',['cmdFuncPointer',['../structstring__cmd__pair.html#a1ce4f7943c28ae663d091fefaa51b3dc',1,'string_cmd_pair']]],
-  ['cmdstring_542',['cmdString',['../structstring__cmd__pair.html#a1d3aa5445c0d4c0180b32e3c81255778',1,'string_cmd_pair']]]
+  ['adc_550',['adc',['../structcurrent__measurement__descriptor.html#a1a1e9408484277aaa03d8d889705cea3',1,'current_measurement_descriptor']]],
+  ['aipropi_551',['Aipropi',['../structcurrent__measurement__descriptor.html#a002aa46f0e9a6c0a1059658153aa6481',1,'current_measurement_descriptor']]]
 ];

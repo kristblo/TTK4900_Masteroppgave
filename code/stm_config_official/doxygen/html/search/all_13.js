@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['yacc_311',['yAcc',['../structaccelerometer__inData.html#a58f85b1ca4fc91fb8e3a98bf3419b4ef',1,'accelerometer_inData']]],
-  ['yaccaddr_312',['yAccAddr',['../structaccelerometer__descriptor.html#a78af3389e4c620cca0587a6526f5d644',1,'accelerometer_descriptor']]],
-  ['ycaliboffset_313',['yCalibOffset',['../structaccelerometer__descriptor.html#a34e4b5c412690abbd0a5f3bf30cd02cc',1,'accelerometer_descriptor']]],
-  ['yrot_314',['yRot',['../structaccelerometer__inData.html#ae47fa7410590137ec64f45553cbc4e59',1,'accelerometer_inData']]],
-  ['yrotaddr_315',['yRotAddr',['../structaccelerometer__descriptor.html#aed957c73c746cc97022664570d6e4222',1,'accelerometer_descriptor']]]
+  ['xacc_315',['xAcc',['../structaccelerometer__inData.html#a8d10bc81a28e9374dd4895c91f8636b5',1,'accelerometer_inData']]],
+  ['xaccaddr_316',['xAccAddr',['../structimu__descriptor.html#a13e1c93f2d8df92001cf7ab99869db86',1,'imu_descriptor']]],
+  ['xrot_317',['xRot',['../structaccelerometer__inData.html#a3598cef9c8c7af40af5a049762f01215',1,'accelerometer_inData']]],
+  ['xrotaddr_318',['xRotAddr',['../structimu__descriptor.html#ac57649c28b3b23586d110a78887066e6',1,'imu_descriptor']]]
 ];

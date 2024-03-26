@@ -128,7 +128,7 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac94b647e3aab5df2e4f27abc0b64c648"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can__driver_8h.html#ac94b647e3aab5df2e4f27abc0b64c648">can_interface_queue_tx</a> (uint8_t mailbox, uint8_t *outData, uint32_t id)</td></tr>
-<tr class="memdesc:ac94b647e3aab5df2e4f27abc0b64c648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues a CAN message for transmit, for external use.  <a href="can__driver_8h.html#ac94b647e3aab5df2e4f27abc0b64c648">More...</a><br /></td></tr>
+<tr class="memdesc:ac94b647e3aab5df2e4f27abc0b64c648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Module external function for queueing a CAN message for transmit.  <a href="can__driver_8h.html#ac94b647e3aab5df2e4f27abc0b64c648">More...</a><br /></td></tr>
 <tr class="separator:ac94b647e3aab5df2e4f27abc0b64c648"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4becd73c8a8e895c54495a029b7ca729"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can__driver_8h.html#a4becd73c8a8e895c54495a029b7ca729">can_rx_executive</a> ()</td></tr>
 <tr class="memdesc:a4becd73c8a8e895c54495a029b7ca729"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks for new incoming CAN messages and handles them. MAIN LOOP ONLY.  <a href="can__driver_8h.html#a4becd73c8a8e895c54495a029b7ca729">More...</a><br /></td></tr>
@@ -163,9 +163,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a98cce463816efe33b5a4a6ce04ace7cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can__driver_8h.html#a98cce463816efe33b5a4a6ce04ace7cb">can_driver_send_msg</a> (uint8_t *data, uint32_t stdId, int dlc, uint8_t hwMailbox)</td></tr>
 <tr class="memdesc:a98cce463816efe33b5a4a6ce04ace7cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a CAN message, is called by can_interface_send_msg.  <a href="can__driver_8h.html#a98cce463816efe33b5a4a6ce04ace7cb">More...</a><br /></td></tr>
 <tr class="separator:a98cce463816efe33b5a4a6ce04ace7cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b8a9cc15b74dbe789df2644af40fbff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can__driver_8h.html#a6b8a9cc15b74dbe789df2644af40fbff">can_driver_rx_accelerometer_cmd</a> (uint8_t *data)</td></tr>
-<tr class="memdesc:a6b8a9cc15b74dbe789df2644af40fbff"><td class="mdescLeft">&#160;</td><td class="mdescRight">CAN accelerometer message handler. DEPRECATED.  <a href="can__driver_8h.html#a6b8a9cc15b74dbe789df2644af40fbff">More...</a><br /></td></tr>
-<tr class="separator:a6b8a9cc15b74dbe789df2644af40fbff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c205e57aa4b0ef49098d5e2997599e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can__driver_8h.html#a7c205e57aa4b0ef49098d5e2997599e6">can_cmd_handle_yAcc</a> (uint32_t id, uint8_t *inData)</td></tr>
 <tr class="separator:a7c205e57aa4b0ef49098d5e2997599e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79fbe61cdff2b116043d3bdf14305951"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can__driver_8h.html#a79fbe61cdff2b116043d3bdf14305951">can_cmd_handle_regVal</a> (uint32_t id, uint8_t *inData)</td></tr>
@@ -995,32 +992,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a6b8a9cc15b74dbe789df2644af40fbff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b8a9cc15b74dbe789df2644af40fbff">&#9670;&nbsp;</a></span>can_driver_rx_accelerometer_cmd()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void can_driver_rx_accelerometer_cmd </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>CAN accelerometer message handler. DEPRECATED. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>CAN message data </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a98cce463816efe33b5a4a6ce04ace7cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a98cce463816efe33b5a4a6ce04ace7cb">&#9670;&nbsp;</a></span>can_driver_send_msg()</h2>
 
@@ -1104,7 +1075,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Queues a CAN message for transmit, for external use. </p>
+<p>Module external function for queueing a CAN message for transmit. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mailbox</td><td>Mailbox number, must correspond to the correct message type </td></tr>

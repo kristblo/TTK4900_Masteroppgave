@@ -22,7 +22,7 @@ struct \mbox{\hyperlink{structstring__cmd__pair}{string\+\_\+cmd\+\_\+pair}}
 \item 
 \#define \mbox{\hyperlink{string__cmd__parser_8h_a37e9bdda72907cdcfe81e65096ee7c57}{string\+\_\+cmd\+\_\+processor}}(...)~\mbox{\hyperlink{string__cmd__parser_8h_a8faebf6ecf17b5ec8b4720525bc97ada}{string\+\_\+cmd\+\_\+processor\+\_\+wrp}}((\mbox{\hyperlink{structstring__cmd__processor__args}{string\+\_\+cmd\+\_\+processor\+\_\+args}}$\ast$)\{\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+\})
 \item 
-\#define \mbox{\hyperlink{string__cmd__parser_8h_afd8ceddd75c30cc4ec36492c57b0358e}{NUM\+\_\+\+STRING\+\_\+\+COMMANDS}}~9
+\#define \mbox{\hyperlink{string__cmd__parser_8h_afd8ceddd75c30cc4ec36492c57b0358e}{NUM\+\_\+\+STRING\+\_\+\+COMMANDS}}~0xA
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -58,6 +58,8 @@ void \mbox{\hyperlink{string__cmd__parser_8h_afceac69ed494827fbd4b996c1de05f4d}{
 void \mbox{\hyperlink{string__cmd__parser_8h_a80b72e079d3e3d500fafc4187a596baa}{string\+\_\+cmd\+\_\+stop}} (char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
 \item 
 void \mbox{\hyperlink{string__cmd__parser_8h_aa685d63b80d3b0890b7e1f5d9590b7be}{string\+\_\+cmd\+\_\+acc1}} (char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
+\item 
+void \mbox{\hyperlink{string__cmd__parser_8h_ad2ad1ec16c003a0fdfb354faf8831af4}{string\+\_\+cmd\+\_\+rly}} (char($\ast$input\+Tokens)\mbox{[}64\mbox{]})
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -71,7 +73,7 @@ static \mbox{\hyperlink{structstring__cmd__pair}{string\+\_\+cmd\+\_\+pair}} \mb
 \index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!NUM\_STRING\_COMMANDS@{NUM\_STRING\_COMMANDS}}
 \index{NUM\_STRING\_COMMANDS@{NUM\_STRING\_COMMANDS}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
 \doxysubsubsection{\texorpdfstring{NUM\_STRING\_COMMANDS}{NUM\_STRING\_COMMANDS}}
-{\footnotesize\ttfamily \#define NUM\+\_\+\+STRING\+\_\+\+COMMANDS~9}
+{\footnotesize\ttfamily \#define NUM\+\_\+\+STRING\+\_\+\+COMMANDS~0xA}
 
 \mbox{\Hypertarget{string__cmd__parser_8h_a37e9bdda72907cdcfe81e65096ee7c57}\label{string__cmd__parser_8h_a37e9bdda72907cdcfe81e65096ee7c57}} 
 \index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_processor@{string\_cmd\_processor}}
@@ -154,6 +156,12 @@ static \mbox{\hyperlink{structstring__cmd__pair}{string\+\_\+cmd\+\_\+pair}} \mb
 \doxysubsubsection{\texorpdfstring{string\_cmd\_rail()}{string\_cmd\_rail()}}
 {\footnotesize\ttfamily void string\+\_\+cmd\+\_\+rail (\begin{DoxyParamCaption}\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{string__cmd__parser_8h_ad2ad1ec16c003a0fdfb354faf8831af4}\label{string__cmd__parser_8h_ad2ad1ec16c003a0fdfb354faf8831af4}} 
+\index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_rly@{string\_cmd\_rly}}
+\index{string\_cmd\_rly@{string\_cmd\_rly}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
+\doxysubsubsection{\texorpdfstring{string\_cmd\_rly()}{string\_cmd\_rly()}}
+{\footnotesize\ttfamily void string\+\_\+cmd\+\_\+rly (\begin{DoxyParamCaption}\item[{char($\ast$)}]{input\+Tokens\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{string__cmd__parser_8h_a7063cab04680ab423df2ef61d072af9d}\label{string__cmd__parser_8h_a7063cab04680ab423df2ef61d072af9d}} 
 \index{string\_cmd\_parser.h@{string\_cmd\_parser.h}!string\_cmd\_shoulder@{string\_cmd\_shoulder}}
 \index{string\_cmd\_shoulder@{string\_cmd\_shoulder}!string\_cmd\_parser.h@{string\_cmd\_parser.h}}
@@ -199,7 +207,8 @@ static \mbox{\hyperlink{structstring__cmd__pair}{string\+\_\+cmd\+\_\+pair}} \mb
 \DoxyCodeLine{  \{\textcolor{stringliteral}{"{}pinch"{}}, \mbox{\hyperlink{string__cmd__parser_8h_a24aebd63c863804090e86159aa91e424}{string\_cmd\_pinch}}\},}
 \DoxyCodeLine{  \{\textcolor{stringliteral}{"{}can"{}}, \mbox{\hyperlink{string__cmd__parser_8h_afceac69ed494827fbd4b996c1de05f4d}{string\_cmd\_can}}\},}
 \DoxyCodeLine{  \{\textcolor{stringliteral}{"{}S"{}}, \mbox{\hyperlink{string__cmd__parser_8h_a80b72e079d3e3d500fafc4187a596baa}{string\_cmd\_stop}}\},}
-\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}acc1"{}}, \mbox{\hyperlink{string__cmd__parser_8h_aa685d63b80d3b0890b7e1f5d9590b7be}{string\_cmd\_acc1}}\}}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}acc1"{}}, \mbox{\hyperlink{string__cmd__parser_8h_aa685d63b80d3b0890b7e1f5d9590b7be}{string\_cmd\_acc1}}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}relay"{}}, \mbox{\hyperlink{string__cmd__parser_8h_ad2ad1ec16c003a0fdfb354faf8831af4}{string\_cmd\_rly}}\}}
 \DoxyCodeLine{  \}}
 
 \end{DoxyCode}

@@ -38,9 +38,16 @@ void adc_interface_update_current(uint8_t sensorSelect)
   adc_driver_update_measurement(sensors[sensorSelect]);
 }
 
-double adc_driver_calculate_current(current_measurement_descriptor* sensor, uint32_t rawVal)
+
+void adc_driver_update_measurement(current_measurement_descriptor* sensor)
 {
-  double current = ((double)rawVal)*(sensor->conversionConst);
+  sensor->lastMeasurement = adc_driver_calculate_current(sensor);
+}
+
+
+double adc_driver_calculate_current(current_measurement_descriptor* sensor)
+{
+  double current = ((double)(sensor->lastReading))*(sensor->conversionConst);
 
   return current;
 
@@ -51,10 +58,6 @@ void adc_driver_update_reading(current_measurement_descriptor* sensor)
   sensor->lastReading = HAL_ADC_GetValue(sensor->adc);
 }
 
-void adc_driver_update_measurement(current_measurement_descriptor* sensor)
-{
-  sensor->lastMeasurement = adc_driver_calculate_current(sensor, sensor->lastReading);
-}
 
 /// @brief Turns off the motor relay on overcurrent
 /// @param hadc Any ADC

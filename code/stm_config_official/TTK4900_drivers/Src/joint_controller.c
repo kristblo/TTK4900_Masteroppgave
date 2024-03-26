@@ -197,12 +197,6 @@ float controller_interface_clicks_to_pos(uint8_t controllerSelect)
   return joint_controller_clicks_to_pos(joints[controllerSelect]);
 }
 
-
-void controller_interface_adjust_enc_sp(uint8_t controllerSelect)
-{
-  joint_controller_adjust_enc_sp(joints[controllerSelect]);
-}
-
 void controller_interface_request_acc_axis(uint8_t controllerSelect, uint8_t accSelect, char axis)
 {
   joint_controller_request_acc_axis(joints[controllerSelect], accSelect, axis);
@@ -479,7 +473,7 @@ void joint_controller_update_power(joint_controller_descriptor* joint)
 
   joint->intError += ((joint->KpTi)*error); //Bit afraid of overflow, therefore using KpTi here
 
-  
+
 
   float power = (joint->Kp)*error + (joint->intError);
   if(power < 0)

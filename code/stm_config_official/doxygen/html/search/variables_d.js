@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['voltagelimit_583',['voltageLimit',['../structmotor__descriptor.html#a65123b1652115d8da3b1a06db636655e',1,'motor_descriptor']]],
-  ['voltagepctcap_584',['voltagePctCap',['../structmotor__descriptor.html#a88304ff60e84a9929253e2e361ae1c94',1,'motor_descriptor']]]
+  ['stringcmdlist_595',['stringCmdList',['../string__cmd__parser_8h.html#a3fd8229afa2ba541c48cbab423930336',1,'string_cmd_parser.h']]],
+  ['stringlength_596',['stringLength',['../structstring__cmd__processor__args.html#a74a26aa24180811951c46f6590d78cd1',1,'string_cmd_processor_args']]]
 ];
