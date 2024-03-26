@@ -34,7 +34,7 @@ void string_cmd_category_accelerometer();
 void string_cmd_category_encoder();
 
 //List of valid commands to process
-#define NUM_STRING_COMMANDS 9
+#define NUM_STRING_COMMANDS 0xA
 void string_cmd_rail(char (*inputTokens)[64]);
 void string_cmd_shoulder(char (*inputTokens)[64]);
 void string_cmd_elbow(char (*inputTokens)[64]);
@@ -44,6 +44,7 @@ void string_cmd_pinch(char (*inputTokens)[64]);
 void string_cmd_can(char (*inputTokens)[64]);
 void string_cmd_stop(char (*inputTokens)[64]);
 void string_cmd_acc1(char (*inputTokens)[64]);
+void string_cmd_rly(char (*inputTokens)[64]);
 typedef struct 
 {
   char* cmdString;
@@ -61,7 +62,8 @@ static string_cmd_pair stringCmdList[NUM_STRING_COMMANDS] =
   {"pinch", string_cmd_pinch},
   {"can", string_cmd_can},
   {"S", string_cmd_stop},
-  {"acc1", string_cmd_acc1}
+  {"acc1", string_cmd_acc1},
+  {"relay", string_cmd_rly}
   };
 
 #endif //STRING_CMD_PARSER_H

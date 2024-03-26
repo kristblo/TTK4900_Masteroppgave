@@ -37,14 +37,14 @@ typedef struct
   uint32_t lastReading;
 
   /// @brief Latest calculated current 
-  float lastMeasurement;
+  double lastMeasurement;
 } current_measurement_descriptor;
 
-float adc_interface_get_current(uint8_t sensorSelect);
+double adc_interface_get_current(uint8_t sensorSelect);
 void adc_interface_update_current(uint8_t sensorSelect);
 
 
-float adc_driver_calculate_current(current_measurement_descriptor* sensor, uint32_t rawVal);
+double adc_driver_calculate_current(current_measurement_descriptor* sensor, uint32_t rawVal);
 void adc_driver_update_reading(current_measurement_descriptor* sensor);
 void adc_driver_update_measurement(current_measurement_descriptor* sensor);
 #endif //ADC_DRIVER_H

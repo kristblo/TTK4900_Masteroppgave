@@ -167,6 +167,18 @@ void string_cmd_stop(char (*inputTokens)[64])
 #endif
 }
 
+void string_cmd_rly(char (*inputTokens)[64])
+{
+#if HW_INTERFACE == UART_INTERFACE
+  uart_send_string("Got relay command\n\r");
+
+  uint8_t relay = (uint8_t)atoi(inputTokens[1]);
+  HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, relay);
+#endif  
+}
+
+
+
 void string_cmd_category_local_motor(uint8_t motor, char (*inputTokens)[64])
 {
   

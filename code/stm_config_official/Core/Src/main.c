@@ -38,6 +38,7 @@
 #include "motor_driver.h"
 #include "string_cmd_parser.h"
 #include "shoulder_controller.h"
+#include "adc_driver.h"
 
 #if ACTIVE_UNIT == SHOULDER
 #include "accelerometer_driver.h"
@@ -158,8 +159,8 @@ int main(void)
 
   uint8_t canData[8] = {0x41, 0x1, 0x2A, 0x0, 0x0, 0x0, 0, 0};
   uint8_t canrx[8];
-  uint32_t raw;
-  uint32_t previous = 0;
+  double current;
+  double previous = 0;
   while (1)
   {
 
@@ -181,15 +182,15 @@ int main(void)
 
     if(controller_interface_get_acc_poll() == 1)
     {
-#if ACTIVE_UNIT == 3
+#if ACTIVE_UNIT == TORSO
       controller_interface_request_acc_axis(1, 0, 'y');
-      controller_interface_request_acc_axis(1, 0, 'x');
+      //controller_interface_request_acc_axis(1, 0, 'x');
       int16_t acc = controller_interface_acc_getY(0);
-      int16_t rot = controller_interface_rot_getX(0);
-      controller_interface_acc_clear_newY(0); //Doesn't do anything rn really, and shoudn't be cleared here anyway
-      controller_interface_rot_clear_newX(0);
+      //int16_t rot = controller_interface_rot_getX(0);
+      //controller_interface_acc_clear_newY(0); //Doesn't do anything rn really, and shoudn't be cleared here anyway
+      //controller_interface_rot_clear_newX(0);
       // char* debug[64];
-      // sprintf(debug, "Rot: %i\n\r", rot);
+      // sprintf(debug, "Acc: %i\n\r", acc);
       // uart_send_string(debug);
 
 #endif
@@ -198,12 +199,14 @@ int main(void)
 
     //int32_t error = (int32_t)(controller_interface_get_error(0)*10);
 
-    raw = HAL_ADC_GetValue(&hadc1);
-    if(raw > previous)
+    adc_interface_update_current(1);
+    current = adc_interface_get_current(1);
+
+    if(current > previous)
     {
-      previous = raw;
+      previous = current;
       char* debug[64];
-      sprintf(debug, "Adc: %u\n\r", previous);
+      sprintf(debug, "Adc: %i\n\r", (int32_t)(current*100));
       uart_send_string(debug);
 
     }

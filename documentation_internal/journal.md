@@ -230,3 +230,7 @@ Consider rewriting interface functions in joint control (and others?) to use the
 Erlend brought up an interesting point re I2C: could be a polling issue. If the data is sampled just as an edge is rising/falling, the data could be trash, or work spuriously -- which is what I'm seeing. CubeMX doesn't let me change edge polling, and I think I2C has clock and data offset by 90 degrees anyway, but I should investigate the rise/fall time parameters. IMU datasheet doesn't mention it, but still worth a try.
 
 Tomorrow: Integrate accelerometer into control loop, test the ADC driver more extensively. Then remove unnecessary functions and write comments. Consider adding a string cmd to toggle relay, could be nice to be able to reset if the ADC triggers.
+
+
+###260324
+ADC integration complete, can now reliably store and read amps as a float. The shoulder motor seems to cut out at too high power settings, i.e. if the setpoint is too far away from current position. Need to figure that out, and should get to work on implementing a PID with proper timesteps over easter. Then ROS:)) Shoulder accelerometer feedback is implemented as part of joint update power. Hard coded for shoulder atm, but should be safe for other motors. Problem: The accelerometer reads 0 as soon as it passes 90 degrees, at least in the negative direction. This should be adjusted for somehow, e.g. by discarding/compensating for readings with a very high delta like in the motor driver.

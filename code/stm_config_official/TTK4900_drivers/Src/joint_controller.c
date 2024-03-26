@@ -24,8 +24,8 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .Kp = 20,
-  .KpTi = 0, //0.001,
+  .Kp = 30,
+  .KpTi = 0.050,
   .Kd = 0,
   .intError = 0,  
   .jointName = "shoulder"
@@ -410,7 +410,29 @@ void joint_controller_update_error(joint_controller_descriptor* joint)
   float setpoint = joint_controller_get_setpoint(joint);
   int32_t totalClicks = motor_interface_get_total_count(joint->motorNum);
   int32_t resolution = motor_interface_get_resolution(joint->motorNum);
-  float error = setpoint - ((float)totalClicks/(float)resolution);
+  
+  float error;
+  if(joint->hasAccelerometer) //TODO: should check if data is stale; incorporate newX/Y/X flag
+  {
+    //Only works for shoulder joint obvs
+    int16_t rawAcc = controller_acc_getY(&accelerometers[0]);
+    float middle = ((float)(rawAcc-2300)/16384); //Acc descriptor should have these values
+    float radians = asinf(middle);    
+
+    //error = setpoint - ((float)totalClicks/(float)resolution)
+    error = setpoint - (-1*radians); //Shoulder acc has "wrong" polarity
+
+    // int32_t output = (int32_t)(error*100);
+    // char* debug[64];
+    // sprintf(debug, "rawacc: %i\n\r", output);
+    // uart_send_string(debug);
+
+  }
+  else
+  {
+    error = setpoint - ((float)totalClicks/(float)resolution);
+  }
+  
   joint_controller_set_error(joint, error);
 
 }
@@ -457,6 +479,8 @@ void joint_controller_update_power(joint_controller_descriptor* joint)
 
   joint->intError += ((joint->KpTi)*error); //Bit afraid of overflow, therefore using KpTi here
 
+  
+
   float power = (joint->Kp)*error + (joint->intError);
   if(power < 0)
   {
@@ -475,8 +499,6 @@ float joint_controller_clicks_to_pos(joint_controller_descriptor* joint)
   int32_t errorAsClicks = (int32_t)((joint->posError)*(float)resolution);
   return errorAsClicks;
 }
-
-
 
 
 

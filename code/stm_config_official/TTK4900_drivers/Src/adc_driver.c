@@ -6,7 +6,7 @@ static current_measurement_descriptor motor_ipropi0 =
   .Ripropi = 510,
   .Aipropi = 1575,
   .Nadc = 4096,
-  .adc = ADC2,
+  .adc = &hadc2,
   .conversionConst = 0.001003005
 };
 
@@ -16,7 +16,7 @@ static current_measurement_descriptor motor_ipropi1 =
   .Ripropi = 510,
   .Aipropi = 1575,
   .Nadc = 4096,
-  .adc = ADC1,
+  .adc = &hadc1,
   .conversionConst = 0.001003005
 };
 
@@ -27,7 +27,7 @@ current_measurement_descriptor* sensors[2] =
 };
 
 
-float adc_interface_get_current(uint8_t sensorSelect)
+double adc_interface_get_current(uint8_t sensorSelect)
 {
   return (sensors[sensorSelect])->lastMeasurement;
 }
@@ -38,9 +38,9 @@ void adc_interface_update_current(uint8_t sensorSelect)
   adc_driver_update_measurement(sensors[sensorSelect]);
 }
 
-float adc_driver_calculate_current(current_measurement_descriptor* sensor, uint32_t rawVal)
+double adc_driver_calculate_current(current_measurement_descriptor* sensor, uint32_t rawVal)
 {
-  float current = (float)rawVal/(sensor->conversionConst);
+  double current = ((double)rawVal)*(sensor->conversionConst);
 
   return current;
 
