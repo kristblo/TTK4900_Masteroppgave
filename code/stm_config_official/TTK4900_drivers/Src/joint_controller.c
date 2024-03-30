@@ -101,7 +101,10 @@ joint_controller_descriptor* joints[2] =
   &joint1
 };
 
+/// @brief Ensures polling of accelerometers is kept below a safe maximum frequency
 static uint8_t accelerometer_poll_safe = 0;
+
+/// @brief Ensures polling of motors is kept below a safe maximum frequency
 static uint8_t motor_poll_safe = 0;
 
 #if ACTIVE_UNIT == TORSO
@@ -517,7 +520,11 @@ void joint_controller_request_acc_axis(joint_controller_descriptor* joint, uint8
 }
 
 
-float joint_controller_acceleration_to_angle(joint_controller_descriptor* joint);
+float joint_controller_acceleration_to_angle(joint_controller_descriptor* joint)
+{
+  //TODO: Implement. Currently handled by update_error. Should account for
+  //individual offsets in each accelerometer.
+}
 
 
 //----------------------

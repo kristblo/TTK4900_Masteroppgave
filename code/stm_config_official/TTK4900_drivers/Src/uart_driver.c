@@ -1,5 +1,5 @@
 #include "uart_driver.h"
-#include "string_cmd_parser.h"
+//#include "string_cmd_parser.h"
 
 void uart_send_string(char* str)
 {

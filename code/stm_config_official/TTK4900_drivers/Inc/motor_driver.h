@@ -1,6 +1,34 @@
 #ifndef MOTOR_DRIVER_H
 #define MOTOR_DRIVER_H
 
+
+/**
+  ******************************************************************************
+  * @file    motor_driver.h
+  * @brief   This file contains all the function prototypes and struct
+  *           definitions for the motor_driver.c file
+  *        
+  ******************************************************************************
+  * @attention
+  *
+  * Motor driver for the TTK4900 Master project of Kristian Blom, spring
+  * semester of 2024. The driver makes use of the STM32's timer peripheral to 
+  * generate PWM signals driving the DRV8251A H-bridge motor drivers. The motor
+  * descriptor structs hold information relevant to the control of each motor,
+  * most importantly the safe voltage limit for each motor embedded in the 
+  * robotic arm. Additionally, "trip" information such as the total number
+  * of encoder counts registered since startup, critical to the state estimation
+  * of the arm.
+  * 
+  * As all STM32s are responsible for the driving of two motors each,
+  * the .c file defines two instances of the descriptor struct, motor0 and 
+  * motor1.
+  *
+  ******************************************************************************
+  */
+
+
+
 //External library includes
 #include "stdint.h"
 #include "math.h"
@@ -65,9 +93,9 @@ typedef struct
   //TODO: Add regulator parameters
 } motor_descriptor;
 
-
-
-//-----Interface functions (public)-----
+//////////////////
+//Public functions
+//////////////////
 
 /// @brief Initialize the controller interface
 /// @param motorSelect 0 or 1 for motor0 or motor1 respectively
@@ -101,18 +129,22 @@ int32_t motor_interface_get_total_count(uint8_t motorSelect);
 /// @return TIMx->CNT
 uint16_t motor_interface_get_encoder_count(uint8_t motorSelect);
 
-/// @brief 
-/// @param motorSelect 
-/// @return 
+
+/// @brief Returns the numerical ID of the motor
+/// @param motorSelect 0 or 1 for motor0 or motor1 respectively
+/// @return motorID
 uint8_t motor_interface_get_id(uint8_t motorSelect);
 
 
-/// @brief 
-/// @param motorSelect 
-/// @return 
+/// @brief Returns the resolution of the motor in encoder clicks per rad or mm
+/// @param motorSelect 0 or 1 for motor0 or motor1 respectively
+/// @return resolution
 int32_t motor_interface_get_resolution(uint8_t motorSelect);
 
 
+/// @brief Returns the isMoving flag
+/// @param motorSelect 0 or 1 for motor0 or motor1 respectively
+/// @return isMoving
 uint8_t motor_interface_get_moving(uint8_t motorSelect);
 
 
@@ -136,7 +168,9 @@ void motor_interface_delta_setpoint(uint8_t motorSelect, int32_t delta);
 
 
 
-//-----Driver functions (private)-----
+///////////////////
+//Private functions
+///////////////////
 
 
 /// @brief Initialise motor controller descriptor

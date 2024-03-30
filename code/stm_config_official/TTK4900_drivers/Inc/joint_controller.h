@@ -17,6 +17,10 @@
   * from the joint's accelerometer, where applicable, and is always received
   * via the CAN bus. This makes accelerometer data inherent to joint control,
   * not the accelerometer driver itself.
+  * 
+  * Private functions are not descibed individually, but correspond to their
+  * public counterparts. They take a joint controller descriptor struct as 
+  * argument, and are called by the public functions.
   *
   ******************************************************************************
   */
@@ -206,84 +210,207 @@ void controller_interface_request_acc_axis(uint8_t controllerSelect, uint8_t acc
 //----------------------
 
 /// @brief Public function to get the accelerometer X axis acceleration
-/// @param accSelect The relevant accelerometer
+/// @param accSelect The relevant accelerometer inData struct
 /// @return X axis acceleration raw value
 int16_t controller_interface_acc_getX(uint8_t accSelect);
 
 
 /// @brief Public function to get the accelerometer Y axis acceleration
-/// @param accSelect The relevant accelerometer
+/// @param accSelect The relevant accelerometer inData struct
 /// @return Y axis acceleration raw value
 int16_t controller_interface_acc_getY(uint8_t accSelect);
 
 
 /// @brief Public function to get the accelerometer Z axis acceleration
-/// @param accSelect The relevant accelerometer
+/// @param accSelect The relevant accelerometer inData struct
 /// @return Z axis acceleration raw value
 int16_t controller_interface_acc_getZ(uint8_t accSelect);
 
 
 /// @brief Public function to set the accelerometer X axis acceleration
-/// @param accSelect The relevant accelerometer
+/// @param accSelect The relevant accelerometer inData struct
 /// @param accVal X axis acceleration raw value
 void controller_interface_acc_setX(uint8_t accSelect, int16_t accVal);
 
 /// @brief Public function to set the accelerometer Y axis acceleration
-/// @param accSelect The relevant accelerometer
+/// @param accSelect The relevant accelerometer inData struct
 /// @param accVal Y axis acceleration raw value
 void controller_interface_acc_setY(uint8_t accSelect, int16_t accVal);
 
 
 /// @brief Public function to set the accelerometer Z axis acceleration
-/// @param accSelect The relevant accelerometer
+/// @param accSelect The relevant accelerometer inData struct
 /// @param accVal Z axis acceleration raw value
 void controller_interface_acc_setZ(uint8_t accSelect, int16_t accVal);
 
+
+/// @brief Public function to get the accelerometer X axis rotation rate
+/// @param accSelect The relevant accelerometer inData struct
+/// @return X axis rotation rate raw value
 int16_t controller_interface_rot_getX(uint8_t accSelect);
+
+
+/// @brief Public function to get the accelerometer Y axis rotation rate
+/// @param accSelect The relevant accelerometer inData struct
+/// @return Y axis rotation rate raw value
 int16_t controller_interface_rot_getY(uint8_t accSelect);
+
+
+/// @brief Public function to get the accelerometer Z axis rotation rate
+/// @param accSelect The relevant accelerometer inData struct
+/// @return Z axis rotation rate raw value
 int16_t controller_interface_rot_getZ(uint8_t accSelect);
 
+
+/// @brief Public function to set the accelerometer X axis rotation rate
+/// @param accSelect The relevant accelerometer inData struct
+/// @param rotVal X axis rotation rate raw value
 void controller_interface_rot_setX(uint8_t accSelect, int16_t rotVal);
+
+
+/// @brief Public function to set the accelerometer Y axis rotation rate
+/// @param accSelect The relevant accelerometer inData struct
+/// @param rotVal Y axis rotation rate raw value
 void controller_interface_rot_setY(uint8_t accSelect, int16_t rotVal);
+
+
+/// @brief Public function to set the accelerometer Z axis rotation rate
+/// @param accSelect The relevant accelerometer inData struct
+/// @param rotVal Z axis rotation rate raw value
 void controller_interface_rot_setZ(uint8_t accSelect, int16_t rotVal);
 
+
+/// @brief Public function to get the new X acceleration data flag
+/// @param accSelect The relevant accelerometer inData struct
+/// @return X axis acceleration new data flag
 uint8_t controller_interface_acc_get_newX(uint8_t accSelect);
+
+
+/// @brief Public function to get the new Y acceleration data flag
+/// @param accSelect The relevant accelerometer inData struct
+/// @return Y axis acceleration new data flag
 uint8_t controller_interface_acc_get_newY(uint8_t accSelect);
+
+
+/// @brief Public function to get the new Z acceleration data flag
+/// @param accSelect The relevant accelerometer inData struct
+/// @return Z axis acceleration new data flag
 uint8_t controller_interface_acc_get_newZ(uint8_t accSelect);
 
+
+/// @brief Public function to set the new X acceleration data flag
+/// @param accSelect The relevant accelerometer inData struct
 void controller_interface_acc_set_newX(uint8_t accSelect);
+
+
+/// @brief Public function to set the new Y acceleration data flag
+/// @param accSelect The relevant accelerometer inData struct
 void controller_interface_acc_set_newY(uint8_t accSelect);
+
+
+/// @brief Public function to set the new Z acceleration data flag
+/// @param accSelect The relevant accelerometer inData struct
 void controller_interface_acc_set_newZ(uint8_t accSelect);
 
+
+/// @brief Public function to clear the new X acceleration data flag
+/// @param accSelect The relevant accelerometer inData struct
 void controller_interface_acc_clear_newX(uint8_t accSelect);
+
+
+/// @brief Public function to clear the new Y acceleration data flag
+/// @param accSelect The relevant accelerometer inData struct
 void controller_interface_acc_clear_newY(uint8_t accSelect);
+
+
+/// @brief Public function to clear the new Z acceleration data flag
+/// @param accSelect The relevant accelerometer inData struct
 void controller_interface_acc_clear_newZ(uint8_t accSelect);
 
+
+/// @brief Public function to get the new X rotation data flag
+/// @param accSelect The relevant accelerometer inData struct
+/// @return Z axis rotation new data flag
 uint8_t controller_interface_rot_get_newX(uint8_t accSelect);
+
+
+/// @brief Public function to get the new Y rotation data flag
+/// @param accSelect The relevant accelerometer inData struct
+/// @return Y axis rotation new data flag
 uint8_t controller_interface_rot_get_newY(uint8_t accSelect);
+
+
+/// @brief Public function to get the new Z rotation data flag
+/// @param accSelect The relevant accelerometer inData struct
+/// @return Z axis rotation new data flag
 uint8_t controller_interface_rot_get_newZ(uint8_t accSelect);
 
+
+/// @brief Public function to set the new X rotation data flag
+/// @param accSelect The relevant accelerometer inData struct
 void controller_interface_rot_set_newX(uint8_t accSelect);
+
+
+/// @brief Public function to set the new Y rotation data flag
+/// @param accSelect The relevant accelerometer inData struct
 void controller_interface_rot_set_newY(uint8_t accSelect);
+
+
+/// @brief Public function to set the new Z rotation data flag
+/// @param accSelect The relevant accelerometer inData struct
 void controller_interface_rot_set_newZ(uint8_t accSelect);
 
+
+/// @brief Public function to clear the new X rotation data flag
+/// @param accSelect The relevant accelerometer inData struct
 void controller_interface_rot_clear_newX(uint8_t accSelect);
+
+
+/// @brief Public function to clear the new Y rotation data flag
+/// @param accSelect The relevant accelerometer inData struct
 void controller_interface_rot_clear_newY(uint8_t accSelect);
+
+
+/// @brief Public function to clear the new Z rotation data flag
+/// @param accSelect The relevant accelerometer inData struct
 void controller_interface_rot_clear_newZ(uint8_t accSelect);
 
 
-
+/// @brief Public function to poll the timer driven accelerometer poll flag
+/// @return Status of the accelerometer poll flag
 uint8_t controller_interface_get_acc_poll();
+
+
+/// @brief Public function to read the timer driven motor poll flag
+/// @return Status of the accelerometer poll flag
 uint8_t controller_interface_get_mtr_poll();
+
+
+/// @brief Puclic function to set the accelerometer poll flag
 void controller_interface_set_acc_poll();
+
+
+/// @brief Puclic function to set the motor poll flag
 void controller_interface_set_mtr_poll();
+
+/// @brief Public function to clear the accelerometer poll flag
 void controller_interface_clear_acc_poll();
+
+/// @brief Public function to clear the motor poll flag
 void controller_interface_clear_mtr_poll();
 
 
 ///////////////////
 //Private functions
 ///////////////////
+
+/**
+ * Private functions are not described individually, but serve the same purpose as their
+ * public counterparts. The joint controller descriptors are static structs defined
+ * in the .c file and correspond to the unique joints of the robotic arm.
+ */
+
+
 
 //----------------------
 //Joint control handlers

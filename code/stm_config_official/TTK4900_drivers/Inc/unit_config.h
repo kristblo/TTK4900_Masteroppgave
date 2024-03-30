@@ -1,6 +1,33 @@
 #ifndef UNIT_CONFIG_H
 #define UNIT_CONFIG_H
 
+/**
+  ******************************************************************************
+  * @file    unit_config.h
+  * @brief   This file contains global information relevant to building the 
+  *           project for a specific STM32 in the robotic arm.
+  *        
+  ******************************************************************************
+  * @attention
+  *
+  * STM32 project configuration for the TTK4900 Master project of Kristian Blom, 
+  * spring semester of 2024. This file specifies information unique to each
+  * STM32, i.e. the torso, shoulder and hand unit, respectively, as well as 
+  * some convenience definitions common to all three.
+  * 
+  * The most important parameter is ACTIVE_UNIT, as this flag specifies
+  * which modules will be compiled, CAN message ID filters, and safe power
+  * levels for each motor. CAUTION: Flashing an STM32 unit with the wrong
+  * ACTIVE_UNIT flag may cause harm to the motors, as an inappropriate
+  * safe power level may be calculated for that motor.
+  * 
+  *
+  ******************************************************************************
+  */
+
+
+
+
 //Global defines
 #define MTR1 TIM15
 #define MTR2 TIM1

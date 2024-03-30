@@ -33,11 +33,16 @@
 #define CAN_MOTOR_CMD_OFFSET 5
 #define CAN_ACC_CMD_OFFSET 8
 
-
+/// @brief A virtual CAN mailbox for outgoing and incoming messages
 typedef struct
 {
+  /// @brief Flag signifying that the mailbox contains an unhandled message
   uint8_t newMsg;
+  
+  /// @brief CAN message ID, 11 bits (standard ID)
   uint32_t msgId;
+  
+  /// @brief CAN message data
   uint8_t data[8];
 } can_mailbox;
 

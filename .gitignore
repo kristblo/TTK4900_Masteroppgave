@@ -33,3 +33,5 @@ fp-info-cache
 
 #OS files
 *.swp
+
+doxygen/

@@ -236,3 +236,13 @@ Tomorrow: Integrate accelerometer into control loop, test the ADC driver more ex
 ADC integration complete, can now reliably store and read amps as a float. The shoulder motor seems to cut out at too high power settings, i.e. if the setpoint is too far away from current position. Need to figure that out, and should get to work on implementing a PID with proper timesteps over easter. Then ROS:)) Shoulder accelerometer feedback is implemented as part of joint update power. Hard coded for shoulder atm, but should be safe for other motors. Problem: The accelerometer reads 0 as soon as it passes 90 degrees, at least in the negative direction. This should be adjusted for somehow, e.g. by discarding/compensating for readings with a very high delta like in the motor driver.
 
 Not finished with documentation, the joint controller is a brute. Made file headers with more extensive descriptions, looks neat in Doxygen.
+
+###300324
+Didn't bother commenting all the private functions of the joint controller. For PID control: simply set a timer interrupt for 10kHz and update control on a flag. Use error and previous error to do the D term. Tuning is pointless until the proper power supply is available. I term: avoid windup by zeroeing the term when error crosses 0, e.g. by XOR'ing error with previous error on poll.
+
+Commenting is pretty much complete, shipping to Jo Arve for review.
+
+Tomorrow:
+1. Refactor motor driver to use a list of descriptors instead of the if 0/1 checks. Additionally, change the motor encoder define statements to 0 and 1 instead of 1 and 2.
+2. Implement PID and very quickly test tuning.
+3. Make a homing/startup/calibration algorithm. This will also introduce a global state variable, might justify another controller layer.
