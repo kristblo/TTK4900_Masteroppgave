@@ -246,3 +246,6 @@ Tomorrow:
 1. Refactor motor driver to use a list of descriptors instead of the if 0/1 checks. Additionally, change the motor encoder define statements to 0 and 1 instead of 1 and 2.
 2. Implement PID and very quickly test tuning.
 3. Make a homing/startup/calibration algorithm. This will also introduce a global state variable, might justify another controller layer.
+
+###310324
+From yesterday: motor and encoder defines are based on hw silk designations, changed motor driver struct names to motor 1 and 2. Put them in a list, so correct indeces are still 0 and 1, respectively. This is still a bit unintuitive, and should probably be commented on.

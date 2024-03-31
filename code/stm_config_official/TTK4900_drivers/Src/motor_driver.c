@@ -2,227 +2,183 @@
 
 
 #if ACTIVE_UNIT == TORSO
-static motor_descriptor motor0 =
-  {
-    .motorId = 0,
-    .voltageLimit = 35,
-    .voltagePctCap = 70,
-    .motorPolarity = -1,
-    .motorTimer = TIM15,
-    .encoderTimer = TIM3,
-    .resolution = 99,
-    .encoderInitCount = 0,
-    .encoderTotalInit = 0,
-    .encoderTotalSetpoint = 0,
-    .encoderTotalCount = 0,
-    .encoderPreviousCount = 0,
-    .isMoving = 0,
-    .motorName = "rail"
-  };
 static motor_descriptor motor1 =
   {
-    .motorId = 1,
-    .voltageLimit = 50,
-    .voltagePctCap = 50,
-    .motorPolarity = -1,
-    .motorTimer = TIM1,
-    .encoderTimer = TIM8,
-    .resolution = 19022,
-    .encoderInitCount = 0,
-    .encoderTotalInit = 0,
-    .encoderTotalSetpoint = 0,
-    .encoderTotalCount = 0,
-    .encoderPreviousCount = 0,
-    .isMoving = 0,
-    .motorName = "shoulder"
-  };
+  .motorId = 0,
+  .voltageLimit = 35,
+  .voltagePctCap = 70,
+  .motorPolarity = -1,
+  .motorTimer = TIM15,
+  .encoderTimer = TIM3,
+  .resolution = 99,
+  .encoderInitCount = 0,
+  .encoderTotalInit = 0,
+  .encoderTotalSetpoint = 0,
+  .encoderTotalCount = 0,
+  .encoderPreviousCount = 0,
+  .isMoving = 0,
+  .motorName = "rail"
+};
+static motor_descriptor motor2 =
+{
+  .motorId = 1,
+  .voltageLimit = 50,
+  .voltagePctCap = 50,
+  .motorPolarity = -1,
+  .motorTimer = TIM1,
+  .encoderTimer = TIM8,
+  .resolution = 19022,
+  .encoderInitCount = 0,
+  .encoderTotalInit = 0,
+  .encoderTotalSetpoint = 0,
+  .encoderTotalCount = 0,
+  .encoderPreviousCount = 0,
+  .isMoving = 0,
+  .motorName = "shoulder"
+};
 #endif
 #if ACTIVE_UNIT == SHOULDER
-static motor_descriptor motor0 =
-  {
-    .motorId = 2,
-    .voltageLimit = 20,
-    .voltagePctCap = 20,
-    .motorPolarity = 1,
-    .motorTimer = TIM15,
-    .encoderTimer = TIM3,
-    .resolution = 17700,
-    .encoderInitCount = 0,
-    .encoderTotalInit = 0,
-    .encoderTotalSetpoint = 0,
-    .encoderTotalCount = 0,
-    .encoderPreviousCount = 0,
-    .isMoving = 0,
-    .motorName = "wrist"
-  };
 static motor_descriptor motor1 =
-  {
-    .motorId = 3,
-    .voltageLimit = 20,
-    .voltagePctCap = 20,
-    .motorPolarity = 1,
-    .motorTimer = TIM1,
-    .encoderTimer = TIM8,
-    .resolution = 36097,
-    .encoderInitCount = 0,
-    .encoderTotalInit = 0,
-    .encoderTotalSetpoint = 0,
-    .encoderTotalCount = 0,
-    .encoderPreviousCount = 0,
-    .isMoving = 0,
-    .motorName = "elbow"
-  };
+{
+  .motorId = 2,
+  .voltageLimit = 20,
+  .voltagePctCap = 20,
+  .motorPolarity = 1,
+  .motorTimer = TIM15,
+  .encoderTimer = TIM3,
+  .resolution = 17700,
+  .encoderInitCount = 0,
+  .encoderTotalInit = 0,
+  .encoderTotalSetpoint = 0,
+  .encoderTotalCount = 0,
+  .encoderPreviousCount = 0,
+  .isMoving = 0,
+  .motorName = "wrist"
+};
+static motor_descriptor motor2 =
+{
+  .motorId = 3,
+  .voltageLimit = 20,
+  .voltagePctCap = 20,
+  .motorPolarity = 1,
+  .motorTimer = TIM1,
+  .encoderTimer = TIM8,
+  .resolution = 36097,
+  .encoderInitCount = 0,
+  .encoderTotalInit = 0,
+  .encoderTotalSetpoint = 0,
+  .encoderTotalCount = 0,
+  .encoderPreviousCount = 0,
+  .isMoving = 0,
+  .motorName = "elbow"
+};
 #endif
 #if ACTIVE_UNIT == HAND
-static motor_descriptor motor0 =
-  {
-    .motorId = 4,
-    .voltageLimit = 12,
-    .voltagePctCap = 20,
-    .motorPolarity = 1,
-    .motorTimer = TIM15,
-    .encoderTimer = TIM3,
-    .resolution = 460,
-    .encoderInitCount = 0,
-    .encoderTotalInit = 0,
-    .encoderTotalSetpoint = 0,
-    .encoderTotalCount = 0,
-    .encoderPreviousCount = 0,
-    .isMoving = 0,
-    .motorName = "pinch"
-  };
 static motor_descriptor motor1 =
-  {
-    .motorId = 5,
-    .voltageLimit = 12,
-    .voltagePctCap = 20,
-    .motorPolarity = -1,
-    .motorTimer = TIM1,
-    .encoderTimer = TIM8,
-    .resolution = 8881,
-    .encoderInitCount = 0,
-    .encoderTotalInit = 0,
-    .encoderTotalSetpoint = 0,
-    .encoderTotalCount = 0,
-    .encoderPreviousCount = 0,
-    .isMoving = 0,
-    .motorName = "twist"
-  };
+{
+  .motorId = 4,
+  .voltageLimit = 12,
+  .voltagePctCap = 20,
+  .motorPolarity = 1,
+  .motorTimer = TIM15,
+  .encoderTimer = TIM3,
+  .resolution = 460,
+  .encoderInitCount = 0,
+  .encoderTotalInit = 0,
+  .encoderTotalSetpoint = 0,
+  .encoderTotalCount = 0,
+  .encoderPreviousCount = 0,
+  .isMoving = 0,
+  .motorName = "pinch"
+};
+static motor_descriptor motor2 =
+{
+  .motorId = 5,
+  .voltageLimit = 12,
+  .voltagePctCap = 20,
+  .motorPolarity = -1,
+  .motorTimer = TIM1,
+  .encoderTimer = TIM8,
+  .resolution = 8881,
+  .encoderInitCount = 0,
+  .encoderTotalInit = 0,
+  .encoderTotalSetpoint = 0,
+  .encoderTotalCount = 0,
+  .encoderPreviousCount = 0,
+  .isMoving = 0,
+  .motorName = "twist"
+};
 #endif
+
+motor_descriptor* motors[2] = 
+{
+  &motor1,
+  &motor2
+};
 
 void motor_interface_controller_init(uint8_t motorSelect)
 {
-  if(motorSelect == 0)
-  {
-    motor_driver_init(&motor0);
-  }
-  else if(motorSelect == 1)
-  {
-    motor_driver_init(&motor1);
-  }
+  // if(motorSelect == 0)
+  // {
+  //   motor_driver_init(&motor1);
+  // }
+  // else if(motorSelect == 1)
+  // {
+  //   motor_driver_init(&motor2);
+  // }
+
+  motor_driver_init(motors[motorSelect]);
 }
 
 void motor_interface_update_power(uint8_t motorSelect)
 {
-  if(motorSelect == 0)
-  {
-    motor_driver_update_power(&motor0);
-  }
-  else if(motorSelect == 1)
-  {
-    motor_driver_update_power(&motor1);
-  }
+  // if(motorSelect == 0)
+  // {
+  //   motor_driver_update_power(&motor1);
+  // }
+  // else if(motorSelect == 1)
+  // {
+  //   motor_driver_update_power(&motor2);
+  // }
+
+  motor_driver_update_power(motors[motorSelect]);
 }
 void motor_interface_set_power(uint8_t motorSelect, uint8_t direction, double power)
 {
-  if(motorSelect == 0)
-  {
-    motor_driver_set_power(&motor0, direction, power);
-  }
-  else if(motorSelect == 1)
-  {
-    motor_driver_set_power(&motor1, direction, power);
-  }
+  // if(motorSelect == 0)
+  // {
+  //   motor_driver_set_power(&motor1, direction, power);
+  // }
+  // else if(motorSelect == 1)
+  // {
+  //   motor_driver_set_power(&motor2, direction, power);
+  // }
+
+  motor_driver_set_power(motors[motorSelect], direction, power);
 }
 int32_t motor_interface_get_setpoint(uint8_t motorSelect)
 {
-  if(motorSelect == 0)
-  {
-    return (motor_driver_get_setpoint(&motor0));
-  }
-  else if(motorSelect == 1)
-  {
-    return (motor_driver_get_setpoint(&motor1));
-  }
+  // if(motorSelect == 0)
+  // {
+  //   return (motor_driver_get_setpoint(&motor1));
+  // }
+  // else if(motorSelect == 1)
+  // {
+  //   return (motor_driver_get_setpoint(&motor2));
+  // }
+
+  return (motor_driver_get_setpoint(motors[motorSelect]));
 }
 
 void motor_interface_set_setpoint(uint8_t motorSelect, int32_t setpoint)
 {
-  if(motorSelect == 0)
-  {
-    motor_driver_set_setpoint(&motor0, setpoint);
-  }
-  else if(motorSelect == 1)
-  {
-    motor_driver_set_setpoint(&motor1, setpoint);
-
-#if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG    
-    char* debug[64];
-    sprintf(debug, "Setpoint interface: %i\n\r", setpoint);
-    uart_send_string(debug);
-#endif    
-
-  }
-}
-
-int32_t motor_interface_get_total_count(uint8_t motorSelect)
-{
-  if(motorSelect == 0)
-  {
-    return motor_driver_get_total_cnt(&motor0);
-  }
-  else if(motorSelect == 1)
-  {
-    return motor_driver_get_total_cnt(&motor1);
-
-// #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG    
-//     char* debug[64];
-//     sprintf(debug, "Tot cnt interface: %i\n\r", setpoint);
-//     uart_send_string(debug);
-// #endif    
-
-  }
-}
-
-void motor_interface_update_tot_cnt(uint8_t motorSelect)
-{
-  if(motorSelect == 0)
-  {
-    motor_driver_update_tot_cnt(&motor0);
-  }
-  else if(motorSelect == 1)
-  {
-    motor_driver_update_tot_cnt(&motor1);
-
-// #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG    
-//     char* debug[64];
-//     sprintf(debug, "Tot cnt interface: %i\n\r", setpoint);
-//     uart_send_string(debug);
-// #endif    
-
-  }  
-}
-
-
-uint16_t motor_interface_get_encoder_count(uint8_t motorSelect)
-{
-  if(motorSelect == 0)
-  {
-    return motor_driver_get_encoder_cnt(&motor0);
-  }
-  else if(motorSelect == 1)
-  {
-    return motor_driver_get_encoder_cnt(&motor1);
+//   if(motorSelect == 0)
+//   {
+//     motor_driver_set_setpoint(&motor1, setpoint);
+//   }
+//   else if(motorSelect == 1)
+//   {
+//     motor_driver_set_setpoint(&motor2, setpoint);
 
 // #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG    
 //     char* debug[64];
@@ -230,55 +186,130 @@ uint16_t motor_interface_get_encoder_count(uint8_t motorSelect)
 //     uart_send_string(debug);
 // #endif    
 
+//   }
+
+  motor_driver_set_setpoint(motors[motorSelect], setpoint);
+}
+
+int32_t motor_interface_get_total_count(uint8_t motorSelect)
+{
+  if(motorSelect == 0)
+  {
+    return motor_driver_get_total_cnt(&motor1);
   }
+  else if(motorSelect == 1)
+  {
+    return motor_driver_get_total_cnt(&motor2);
+
+// #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG    
+//     char* debug[64];
+//     sprintf(debug, "Tot cnt interface: %i\n\r", setpoint);
+//     uart_send_string(debug);
+// #endif    
+
+  }
+
+  return motor_driver_get_total_cnt(motors[motorSelect]);
+}
+
+void motor_interface_update_tot_cnt(uint8_t motorSelect)
+{
+//   if(motorSelect == 0)
+//   {
+//     motor_driver_update_tot_cnt(&motor1);
+//   }
+//   else if(motorSelect == 1)
+//   {
+//     motor_driver_update_tot_cnt(&motor2);
+
+// // #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG    
+// //     char* debug[64];
+// //     sprintf(debug, "Tot cnt interface: %i\n\r", setpoint);
+// //     uart_send_string(debug);
+// // #endif    
+
+//   }  
+
+  motor_driver_update_tot_cnt(motors[motorSelect]);
+}
+
+
+uint16_t motor_interface_get_encoder_count(uint8_t motorSelect)
+{
+//   if(motorSelect == 0)
+//   {
+//     return motor_driver_get_encoder_cnt(&motor1);
+//   }
+//   else if(motorSelect == 1)
+//   {
+//     return motor_driver_get_encoder_cnt(&motor2);
+
+// // #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG    
+// //     char* debug[64];
+// //     sprintf(debug, "Setpoint interface: %i\n\r", setpoint);
+// //     uart_send_string(debug);
+// // #endif    
+
+//   }
+
+  return motor_driver_get_encoder_cnt(motors[motorSelect]);
 }
 
 uint8_t motor_interface_get_id(uint8_t motorSelect)
 {
-  if(motorSelect == 0)
-  {
-    return motor_driver_get_id(&motor0);
-  }
-  else if(motorSelect == 1)
-  {
-    return motor_driver_get_id(&motor1);
-  }
+  // if(motorSelect == 0)
+  // {
+  //   return motor_driver_get_id(&motor1);
+  // }
+  // else if(motorSelect == 1)
+  // {
+  //   return motor_driver_get_id(&motor2);
+  // }
+
+
+  return motor_driver_get_id(motors[motorSelect]);
 }
 
 int32_t motor_interface_get_resolution(uint8_t motorSelect)
 {
-  if(motorSelect == 0)
-  {
-    return motor_driver_get_resolution(&motor0);
-  }
-  else if(motorSelect == 1)
-  {
-    return motor_driver_get_resolution(&motor1);
-  }
+  // if(motorSelect == 0)
+  // {
+  //   return motor_driver_get_resolution(&motor1);
+  // }
+  // else if(motorSelect == 1)
+  // {
+  //   return motor_driver_get_resolution(&motor2);
+  // }
+
+  return motor_driver_get_resolution(motors[motorSelect]);
 }
 
 void motor_interface_delta_setpoint(uint8_t motorSelect, int32_t delta)
 {
-  if(motorSelect == 0)
-  {
-    motor_driver_delta_setpoint(&motor0, delta);
-  }
-  else if(motorSelect == 1)
-  {
-    motor_driver_delta_setpoint(&motor1, delta);
-  }  
+  // if(motorSelect == 0)
+  // {
+  //   motor_driver_delta_setpoint(&motor1, delta);
+  // }
+  // else if(motorSelect == 1)
+  // {
+  //   motor_driver_delta_setpoint(&motor2, delta);
+  // }  
+
+  motor_driver_delta_setpoint(motors[motorSelect], delta);
 }
 
 uint8_t motor_interface_get_moving(uint8_t motorSelect)
 {
-  if(motorSelect == 0)
-  {
-    return motor_driver_get_moving(&motor0);
-  }
-  else if(motorSelect == 1)
-  {
-    return motor_driver_get_moving(&motor1);
-  }
+  // if(motorSelect == 0)
+  // {
+  //   return motor_driver_get_moving(&motor1);
+  // }
+  // else if(motorSelect == 1)
+  // {
+  //   return motor_driver_get_moving(&motor2);
+  // }
+
+  return motor_driver_get_moving(motors[motorSelect]);
 }
 
 
@@ -300,7 +331,7 @@ void motor_driver_update_power(motor_descriptor* motor)
 void motor_driver_set_power(motor_descriptor* motor, uint8_t direction, double power)
 {
 
-  double mPower = power > (double)(motor->voltagePctCap) ? (double)(motor1.voltagePctCap) : power;
+  double mPower = power > (double)(motor->voltagePctCap) ? (double)(motor2.voltagePctCap) : power;
   if(direction)
   {
     motor_driver_go_forward(mPower, motor->motorTimer, motor->motorPolarity);
