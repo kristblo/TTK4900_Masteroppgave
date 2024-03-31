@@ -59,6 +59,7 @@ void ADC1_2_IRQHandler(void);
 void USB_LP_CAN_RX0_IRQHandler(void);
 void EXTI9_5_IRQHandler(void);
 void TIM2_IRQHandler(void);
+void TIM4_IRQHandler(void);
 void EXTI15_10_IRQHandler(void);
 void UART5_IRQHandler(void);
 void USB_LP_IRQHandler(void);

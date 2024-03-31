@@ -43,7 +43,7 @@
 #define TORSO 0
 #define SHOULDER 1
 #define HAND 2
-#define ACTIVE_UNIT TORSO //Change before flashing another unit
+#define ACTIVE_UNIT HAND //Change before flashing another unit
 
 //Choose between UART and USB for communication
 #define UART_INTERFACE 0

@@ -54,6 +54,9 @@ typedef struct
 
   /// @brief The joint's position error in radians/mm, relative to its setpoint
   float posError;
+
+  /// @brief The joint's positional error in the previous timestep
+  float prevError;
   
   /// @brief Whether the joint is in a "moving" state
   uint8_t isMoving;
@@ -376,6 +379,10 @@ void controller_interface_rot_clear_newY(uint8_t accSelect);
 void controller_interface_rot_clear_newZ(uint8_t accSelect);
 
 
+//---------------------
+//Polling flag handlers
+//---------------------
+
 /// @brief Public function to poll the timer driven accelerometer poll flag
 /// @return Status of the accelerometer poll flag
 uint8_t controller_interface_get_acc_poll();
@@ -398,6 +405,13 @@ void controller_interface_clear_acc_poll();
 
 /// @brief Public function to clear the motor poll flag
 void controller_interface_clear_mtr_poll();
+
+uint8_t controller_interface_get_upd_ctrl();
+
+void controller_interface_set_upd_ctrl();
+
+void controller_interface_clear_upd_ctrl();
+
 
 
 ///////////////////

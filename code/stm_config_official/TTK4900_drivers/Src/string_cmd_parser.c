@@ -215,11 +215,16 @@ void string_cmd_category_local_motor(uint8_t motor, char (*inputTokens)[64])
       // sprintf(debug, "Setpoint rb: %i\n\r", sp);
       // uart_send_string(debug);
     }
+    else
+    {
+      uart_send_string("ERROR no valid setpoint mode: e, r\n\r");
+    }
   }
   else
   {  
 #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG
     uart_send_string("ERROR no valid direction\n\r");
+    uart_send_string("Motor cmd format: <motor> <cmd> <args>\n\r");
 #endif    
   }
 }

@@ -9,9 +9,9 @@ static joint_controller_descriptor joint0 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 0,
-  .Kp = 0.7,
-  .KpTi = 0,//0.0001,
-  .Kd = 0,
+  .Kp = 1,
+  .KpTi = 0.0025,//0.0001,
+  .Kd = 0.25,
   .intError = 0,
   .jointName = "rail"
 };
@@ -24,9 +24,9 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .Kp = 30,
-  .KpTi = 0.050,
-  .Kd = 0,
+  .Kp = 40,
+  .KpTi = 0.1,// 0.20,
+  .Kd = 10,
   .intError = 0,  
   .jointName = "shoulder"
 };
@@ -40,9 +40,9 @@ static joint_controller_descriptor joint0 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 0,
-  .Kp = 70,
-  .KpTi = 0, //0.0001,
-  .Kd = 0,
+  .Kp = 100,
+  .KpTi = 0.4, //0.0001,
+  .Kd = 20,
   .intError = 0,
   .jointName = "wrist"
 };
@@ -55,9 +55,9 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .Kp = 40,
-  .KpTi = 0,// 0.0003,
-  .Kd = 0,
+  .Kp = 60,
+  .KpTi = 0.15,// 0.0003,
+  .Kd = 12,
   .intError = 0,  
   .jointName = "elbow"
 };
@@ -87,9 +87,9 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .Kp = 20,
-  .KpTi = 0,//0.0003,
-  .Kd = 0,
+  .Kp = 40,
+  .KpTi = 0.5,//0.0003,
+  .Kd = 7,
   .intError = 0,  
   .jointName = "twist"
 };
@@ -106,6 +106,9 @@ static uint8_t accelerometer_poll_safe = 0;
 
 /// @brief Ensures polling of motors is kept below a safe maximum frequency
 static uint8_t motor_poll_safe = 0;
+
+/// @brief Ensures a predictable rate of PID updates
+static uint8_t update_controller = 0;
 
 #if ACTIVE_UNIT == TORSO
 //Torso uses one accelerometer: Shoulder control
@@ -368,6 +371,19 @@ void controller_interface_clear_mtr_poll()
   motor_poll_safe = 0;
 }
 
+uint8_t controller_interface_get_upd_ctrl()
+{
+  return update_controller;
+}
+void controller_interface_set_upd_ctrl()
+{
+  update_controller = 1;
+}
+void controller_interface_clear_upd_ctrl()
+{
+  update_controller = 0;
+}
+
 
 //Private functions
 
@@ -436,6 +452,7 @@ void joint_controller_update_error(joint_controller_descriptor* joint)
 
 void joint_controller_set_error(joint_controller_descriptor* joint, float error)
 {
+  joint->prevError = joint->posError;
   joint->posError = error;
 }
 
@@ -472,13 +489,23 @@ void joint_controller_set_power(joint_controller_descriptor* joint, float power)
 
 void joint_controller_update_power(joint_controller_descriptor* joint)
 {
-  float error = joint_controller_get_error(joint);
+  float error = joint->posError;   //joint_controller_get_error(joint);
+  float prevError = joint->prevError;
+  float dedt = prevError - error;
 
-  joint->intError += ((joint->KpTi)*error); //Bit afraid of overflow, therefore using KpTi here
 
+  if(fabs(dedt) < 0.00001745) //10 deg/sec, 0.17mm/sec
+  {
+    joint->intError += ((joint->KpTi)*error); //Bit afraid of overflow, therefore using KpTi here
+  }
+  else
+  {
+    joint->intError = 0;
+  }
+  
+  
+  float power = (joint->Kp)*error + (joint->intError) + ((joint->Kd)*dedt);
 
-
-  float power = (joint->Kp)*error + (joint->intError);
   if(power < 0)
   {
     motor_interface_set_power(joint->motorNum, 0, fabs(power));
@@ -664,6 +691,17 @@ void controller_rot_clear_newZ(accelerometer_inData* accSelect)
 
 HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 {
-  controller_interface_set_acc_poll();
-  controller_interface_set_mtr_poll();
+  if(htim == &htim2)
+  {
+    controller_interface_set_acc_poll();
+    controller_interface_set_mtr_poll();
+  }
+  else if (htim == &htim4)
+  {
+    //PID update
+    controller_interface_set_upd_ctrl();
+  }
+  
+
+
 }

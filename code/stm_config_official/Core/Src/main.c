@@ -118,6 +118,7 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_TIM2_Init();
   MX_ADC1_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   uart_send_string("Hello world\n\r");
   
@@ -130,6 +131,7 @@ int main(void)
   HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
 
   HAL_TIM_Base_Start_IT(&htim2);
+  HAL_TIM_Base_Start_IT(&htim4);
 
   HAL_CAN_Start(&hcan);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
@@ -174,11 +176,16 @@ int main(void)
     motor_interface_update_tot_cnt(0);    
     motor_interface_update_tot_cnt(1);
 
-    controller_interface_update_error(0);
-    controller_interface_update_error(1);
-    
-    controller_interface_update_power(0);
-    controller_interface_update_power(1);
+    if(controller_interface_get_upd_ctrl() == 1)
+    {
+      controller_interface_update_error(0);
+      controller_interface_update_error(1);
+      
+      controller_interface_update_power(0);
+      controller_interface_update_power(1);
+
+      controller_interface_clear_upd_ctrl();
+    }
 
     if(controller_interface_get_acc_poll() == 1)
     {
