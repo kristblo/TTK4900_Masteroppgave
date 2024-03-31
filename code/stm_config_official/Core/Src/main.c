@@ -176,15 +176,23 @@ int main(void)
     motor_interface_update_tot_cnt(0);    
     motor_interface_update_tot_cnt(1);
 
-    if(controller_interface_get_upd_ctrl() == 1)
-    {
-      controller_interface_update_error(0);
-      controller_interface_update_error(1);
+    
+    
+    // if(controller_interface_get_upd_ctrl() == 1)
+    // {
+    //   controller_interface_update_error(0);
+    //   controller_interface_update_error(1);
       
-      controller_interface_update_power(0);
-      controller_interface_update_power(1);
+    //   controller_interface_update_power(0);
+    //   controller_interface_update_power(1);
 
-      controller_interface_clear_upd_ctrl();
+    //   controller_interface_clear_upd_ctrl();
+    // }
+
+    if(state_interface_get_global_state() == 2)
+    {
+      state_calibrate_rail();
+      state_interface_set_global_state(1);
     }
 
     if(controller_interface_get_acc_poll() == 1)

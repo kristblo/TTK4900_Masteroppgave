@@ -251,3 +251,7 @@ Tomorrow:
 From yesterday: motor and encoder defines are based on hw silk designations, changed motor driver struct names to motor 1 and 2. Put them in a list, so correct indeces are still 0 and 1, respectively. This is still a bit unintuitive, and should probably be commented on.
 
 PID implemented and tested for all joints. For I windup: only activate the I term when de/dt is less than 0.000017, corresponding to 10deg/sec or 0.17mm/sec. Strategy for tuning, which will probably still be relevant for the final voltage supply: Kp a bit higher than for the pure P controller. Kd 1/4 of Kp, and Ki 1/400 of Kp as initial values.
+
+Rail homing OK, but needs 4V of force to even trigger the switch. Set up a state machine framework with error, idle, calibration and operating as global states, and one calibration state for each joint. Idea is to work through all individually, then stitch together in a sequence.
+
+Briefly tried to set rise time and fall time for I2C to safe values for 400kHz and 100kHz (1000, 200 ns resp.) and tested on the hand onboard IMU on I2C3, but no luck.

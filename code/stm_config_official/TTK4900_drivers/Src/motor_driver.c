@@ -191,6 +191,11 @@ void motor_interface_set_setpoint(uint8_t motorSelect, int32_t setpoint)
   motor_driver_set_setpoint(motors[motorSelect], setpoint);
 }
 
+void motor_interface_set_total_count(uint8_t motorSelect, int32_t count)
+{
+  motor_driver_set_total_count(motors[motorSelect], count);
+}
+
 int32_t motor_interface_get_total_count(uint8_t motorSelect)
 {
   if(motorSelect == 0)
@@ -409,6 +414,11 @@ void motor_driver_set_pwm_dc(uint32_t* timerCounter, double pct)
 {
   int timerTicks = (pct / 100) * PWM_CTR_PRD;
   *timerCounter = timerTicks;
+}
+
+void motor_driver_set_total_count(motor_descriptor* motor, int32_t count)
+{
+  motor->encoderTotalCount = count;
 }
 
 void motor_driver_update_tot_cnt(motor_descriptor* motor)

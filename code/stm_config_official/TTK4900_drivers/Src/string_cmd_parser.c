@@ -64,6 +64,8 @@ void string_cmd_shoulder(char (*inputTokens)[64])
 
 #if ACTIVE_UNIT == TORSO
   string_cmd_category_local_motor(1, inputTokens);
+#else
+  string_cmd_category_remote_motor(1, inputTokens);
 #endif
 
 }
@@ -147,7 +149,14 @@ void string_cmd_acc1(char (*inputTokens)[64])
   data[0] = cmd;
   int32_t id = (accSelect << CAN_ACC_CMD_OFFSET) | ACC_REG_REQ;
   can_interface_queue_tx(ACC_REG_REQ, data, id);
+
 #elif ACTIVE_UNIT == SHOULDER
+  int16_t regVal = accl_interface_read_register(cmd);
+  char* debug[64];
+  sprintf(debug, "Regval: %i\n\r", regVal);
+  uart_send_string(debug);
+
+#elif ACTIVE_UNIT == HAND
   int16_t regVal = accl_interface_read_register(cmd);
   char* debug[64];
   sprintf(debug, "Regval: %i\n\r", regVal);
@@ -177,6 +186,14 @@ void string_cmd_rly(char (*inputTokens)[64])
 #endif  
 }
 
+
+void string_cmd_home(char (*inputTokens)[64])
+{
+#if HW_INTERFACE == UART_INTERFACE
+  uart_send_string("Starting calibration\n\r");
+#endif
+  state_interface_set_global_state(2);
+}
 
 
 void string_cmd_category_local_motor(uint8_t motor, char (*inputTokens)[64])

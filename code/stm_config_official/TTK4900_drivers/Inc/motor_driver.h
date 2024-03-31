@@ -161,6 +161,12 @@ void motor_interface_set_power(uint8_t motorSelect, uint8_t direction, double po
 void motor_interface_set_setpoint(uint8_t motorSelect, int32_t setpoint);
 
 
+/// @brief Lets the user override the registered totalCount
+/// @param motorSelect 0 or 1 for motor1 or motor2 respectively
+/// @param count int32_t
+void motor_interface_set_total_count(uint8_t motorSelect, int32_t count);
+
+
 /// @brief Lets the user increment or decrement the motor encoder setpoint
 /// @param motorSelect 0 or 1 for motor1 or motor2 respectively
 /// @param delta int32_t, number of encoder clicks by which the setpoint is changed
@@ -234,6 +240,12 @@ void motor_driver_set_power(motor_descriptor* motor, uint8_t direction, double p
 /// @param motor Pointer to the relevant motor struct, motor1 or motor2
 /// @param setpoint Total encoder count
 void motor_driver_set_setpoint(motor_descriptor* motor, int32_t setpoint);
+
+
+/// @brief Sets the total encoder count of the selected motor
+/// @param motor Pointer to the relevant motor struct, motor1 or motor2
+/// @param count Count to set
+void motor_driver_set_total_count(motor_descriptor* motor, int32_t count);
 
 
 /// @brief Changes the encoder setpoint of the relevant motor

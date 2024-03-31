@@ -24,6 +24,7 @@
 #include "gpio.h"
 #include "can_driver.h"
 #include "joint_controller.h"
+#include "state_machine.h"
 
 //TTK4900 library includes
 #include "unit_config.h"

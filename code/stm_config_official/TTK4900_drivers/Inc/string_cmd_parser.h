@@ -41,6 +41,7 @@
 #include "motor_driver.h"
 #include "can_driver.h"
 #include "joint_controller.h"
+#include "state_machine.h"
 
 //------FILE BEGIN------
 
@@ -87,7 +88,7 @@ void string_cmd_category_adc();
 void string_cmd_category_accelerometer();
 
 //Number of valid commands to process
-#define NUM_STRING_COMMANDS 0xA
+#define NUM_STRING_COMMANDS 0xB
 
 /// @brief Called when "rail" token is registered; concerns the rail linear joint
 /// @param inputTokens Arguments to parse
@@ -137,6 +138,13 @@ void string_cmd_acc1(char (*inputTokens)[64]);
 void string_cmd_rly(char (*inputTokens)[64]);
 
 
+/// @brief Called when "home" token is registered; starts the home zero calibration
+/// @param inputTokens Arguments to parse
+void string_cmd_home(char (*inputTokens)[64]);
+
+
+
+
 /// @brief Pairs a command string token with a function pointer
 typedef struct 
 {
@@ -160,7 +168,8 @@ static string_cmd_pair stringCmdList[NUM_STRING_COMMANDS] =
   {"can", string_cmd_can},
   {"S", string_cmd_stop},
   {"acc1", string_cmd_acc1},
-  {"relay", string_cmd_rly}
+  {"relay", string_cmd_rly},
+  {"home", string_cmd_home}
   };
 
 #endif //STRING_CMD_PARSER_H
