@@ -24,7 +24,7 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .Kp = 40,
+  .Kp = 50,
   .KpTi = 0.1,// 0.20,
   .Kd = 10,
   .intError = 0,  
@@ -425,7 +425,7 @@ void joint_controller_update_error(joint_controller_descriptor* joint)
   int32_t resolution = motor_interface_get_resolution(joint->motorNum);
   
   float error;
-  if(joint->hasAccelerometer) //TODO: should check if data is stale; incorporate newX/Y/X flag
+  if(joint->hasAccelerometer && (controller_acc_get_newY(&accelerometers[0]) == 1)) //TODO: should check if data is stale; incorporate newX/Y/X flag
   {
     //Only works for shoulder joint obvs
     int16_t rawAcc = controller_acc_getY(&accelerometers[0]);
@@ -439,6 +439,8 @@ void joint_controller_update_error(joint_controller_descriptor* joint)
     // char* debug[64];
     // sprintf(debug, "rawacc: %i\n\r", output);
     // uart_send_string(debug);
+
+    controller_acc_clear_newY(&accelerometers[0]);
 
   }
   else

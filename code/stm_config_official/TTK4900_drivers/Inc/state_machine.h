@@ -67,6 +67,10 @@ void state_interface_set_es_flag();
 uint8_t state_interface_get_es_flag();
 void state_interface_clear_es_flag();
 
+void state_interface_set_tw_flag();
+uint8_t state_interface_get_tw_flag();
+void state_interface_clear_tw_flag();
+
 
 
 ///////////////////

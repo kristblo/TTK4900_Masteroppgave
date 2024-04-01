@@ -23,7 +23,7 @@ static motor_descriptor motor2 =
 {
   .motorId = 1,
   .voltageLimit = 50,
-  .voltagePctCap = 50,
+  .voltagePctCap = 70,
   .motorPolarity = -1,
   .motorTimer = TIM1,
   .encoderTimer = TIM8,
@@ -116,70 +116,26 @@ motor_descriptor* motors[2] =
   &motor2
 };
 
-void motor_interface_controller_init(uint8_t motorSelect)
+void motor_interface_zero(uint8_t motorSelect)
 {
-  // if(motorSelect == 0)
-  // {
-  //   motor_driver_init(&motor1);
-  // }
-  // else if(motorSelect == 1)
-  // {
-  //   motor_driver_init(&motor2);
-  // }
-
-  motor_driver_init(motors[motorSelect]);
+  motor_driver_zero(motors[motorSelect]);
 }
 
 void motor_interface_update_power(uint8_t motorSelect)
 {
-  // if(motorSelect == 0)
-  // {
-  //   motor_driver_update_power(&motor1);
-  // }
-  // else if(motorSelect == 1)
-  // {
-  //   motor_driver_update_power(&motor2);
-  // }
-
   motor_driver_update_power(motors[motorSelect]);
 }
 void motor_interface_set_power(uint8_t motorSelect, uint8_t direction, double power)
 {
-  // if(motorSelect == 0)
-  // {
-  //   motor_driver_set_power(&motor1, direction, power);
-  // }
-  // else if(motorSelect == 1)
-  // {
-  //   motor_driver_set_power(&motor2, direction, power);
-  // }
-
   motor_driver_set_power(motors[motorSelect], direction, power);
 }
 int32_t motor_interface_get_setpoint(uint8_t motorSelect)
 {
-  // if(motorSelect == 0)
-  // {
-  //   return (motor_driver_get_setpoint(&motor1));
-  // }
-  // else if(motorSelect == 1)
-  // {
-  //   return (motor_driver_get_setpoint(&motor2));
-  // }
-
   return (motor_driver_get_setpoint(motors[motorSelect]));
 }
 
 void motor_interface_set_setpoint(uint8_t motorSelect, int32_t setpoint)
 {
-//   if(motorSelect == 0)
-//   {
-//     motor_driver_set_setpoint(&motor1, setpoint);
-//   }
-//   else if(motorSelect == 1)
-//   {
-//     motor_driver_set_setpoint(&motor2, setpoint);
-
 // #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG    
 //     char* debug[64];
 //     sprintf(debug, "Setpoint interface: %i\n\r", setpoint);
@@ -219,102 +175,38 @@ int32_t motor_interface_get_total_count(uint8_t motorSelect)
 
 void motor_interface_update_tot_cnt(uint8_t motorSelect)
 {
-//   if(motorSelect == 0)
-//   {
-//     motor_driver_update_tot_cnt(&motor1);
-//   }
-//   else if(motorSelect == 1)
-//   {
-//     motor_driver_update_tot_cnt(&motor2);
-
-// // #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG    
-// //     char* debug[64];
-// //     sprintf(debug, "Tot cnt interface: %i\n\r", setpoint);
-// //     uart_send_string(debug);
-// // #endif    
-
-//   }  
-
   motor_driver_update_tot_cnt(motors[motorSelect]);
 }
 
 
 uint16_t motor_interface_get_encoder_count(uint8_t motorSelect)
 {
-//   if(motorSelect == 0)
-//   {
-//     return motor_driver_get_encoder_cnt(&motor1);
-//   }
-//   else if(motorSelect == 1)
-//   {
-//     return motor_driver_get_encoder_cnt(&motor2);
-
-// // #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG    
-// //     char* debug[64];
-// //     sprintf(debug, "Setpoint interface: %i\n\r", setpoint);
-// //     uart_send_string(debug);
-// // #endif    
-
-//   }
-
   return motor_driver_get_encoder_cnt(motors[motorSelect]);
 }
 
 uint8_t motor_interface_get_id(uint8_t motorSelect)
 {
-  // if(motorSelect == 0)
-  // {
-  //   return motor_driver_get_id(&motor1);
-  // }
-  // else if(motorSelect == 1)
-  // {
-  //   return motor_driver_get_id(&motor2);
-  // }
-
-
   return motor_driver_get_id(motors[motorSelect]);
 }
 
 int32_t motor_interface_get_resolution(uint8_t motorSelect)
 {
-  // if(motorSelect == 0)
-  // {
-  //   return motor_driver_get_resolution(&motor1);
-  // }
-  // else if(motorSelect == 1)
-  // {
-  //   return motor_driver_get_resolution(&motor2);
-  // }
-
   return motor_driver_get_resolution(motors[motorSelect]);
 }
 
 void motor_interface_delta_setpoint(uint8_t motorSelect, int32_t delta)
 {
-  // if(motorSelect == 0)
-  // {
-  //   motor_driver_delta_setpoint(&motor1, delta);
-  // }
-  // else if(motorSelect == 1)
-  // {
-  //   motor_driver_delta_setpoint(&motor2, delta);
-  // }  
-
   motor_driver_delta_setpoint(motors[motorSelect], delta);
 }
 
 uint8_t motor_interface_get_moving(uint8_t motorSelect)
 {
-  // if(motorSelect == 0)
-  // {
-  //   return motor_driver_get_moving(&motor1);
-  // }
-  // else if(motorSelect == 1)
-  // {
-  //   return motor_driver_get_moving(&motor2);
-  // }
-
   return motor_driver_get_moving(motors[motorSelect]);
+}
+
+int32_t  motor_interface_get_delta(uint8_t motorSelect)
+{
+  return motor_driver_get_delta(motors[motorSelect]);
 }
 
 
@@ -403,10 +295,17 @@ uint8_t motor_driver_get_moving(motor_descriptor* motor)
   return motor->isMoving;
 }
 
-void motor_driver_init(motor_descriptor* motor)
+
+int32_t motor_driver_get_delta(motor_descriptor* motor)
+{
+  return motor->mostRecentDelta;
+}
+
+void motor_driver_zero(motor_descriptor* motor)
 {
   (motor->encoderTimer)->CNT = motor->encoderInitCount;
   (motor->encoderTotalInit) = motor->encoderInitCount;
+  //motor->encoderTotalCount = 0;
   //motor_driver_calc_safe_vlt(motor);
 }
 
@@ -430,12 +329,12 @@ void motor_driver_update_tot_cnt(motor_descriptor* motor)
   //Was counting upwards, got overflow
   if(difference < -1000)
   {
-    difference += 65535; //Add the overflow to compensate = currentEncCount;
+    difference += 65535; //Add the overflow to compensate 
   }
   //Was counting downwards, got underflow
   if(difference > 1000)
   {
-    difference -= 65535; //Subtract the overflow to compensate -currentEncCount;
+    difference -= 65535; //Subtract the overflow to compensate
   }
   motor->encoderTotalCount += difference;
   motor->encoderPreviousCount = (int32_t)currentEncCount;

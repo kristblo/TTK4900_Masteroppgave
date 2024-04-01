@@ -150,8 +150,8 @@ int main(void)
   HAL_Delay(2000);
   HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 1);
 
-  //motor_interface_controller_init(1);
-  //motor_interface_controller_init(0);
+  //motor_interface_zero(1);
+  //motor_interface_zero(0);
   //controller_interface_request_position();
 
 #if ACTIVE_UNIT == SHOULDER
@@ -191,7 +191,12 @@ int main(void)
 
     if(state_interface_get_global_state() == 2)
     {
-      state_calibrate_rail();
+      //state_calibrate_rail();
+      //state_calibrate_twist();
+      //state_calibrate_pinch();
+
+      //state_calibrate_wrist();
+      state_calibrate_elbow();
       state_interface_set_global_state(1);
     }
 

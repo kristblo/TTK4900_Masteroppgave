@@ -97,9 +97,9 @@ typedef struct
 //Public functions
 //////////////////
 
-/// @brief Initialize the controller interface
+/// @brief Set to zero the motor encoder counters
 /// @param motorSelect 0 or 1 for motor1 or motor2 respectively
-void motor_interface_controller_init(uint8_t motorSelect);
+void motor_interface_zero(uint8_t motorSelect);
 
 
 /// @brief Update the power setting of the selected motor based on the relevant controller (P/I/D) 
@@ -142,6 +142,11 @@ uint8_t motor_interface_get_id(uint8_t motorSelect);
 int32_t motor_interface_get_resolution(uint8_t motorSelect);
 
 
+/// @brief Returns the most recently registered change in encoder increment
+/// @param motorSelect 0 or 1 for motor1 or motor2 respectively
+/// @return mostRecentDelta
+int32_t motor_interface_get_delta(uint8_t motorSelect);
+
 /// @brief Returns the isMoving flag
 /// @param motorSelect 0 or 1 for motor1 or motor2 respectively
 /// @return isMoving
@@ -179,9 +184,9 @@ void motor_interface_delta_setpoint(uint8_t motorSelect, int32_t delta);
 ///////////////////
 
 
-/// @brief Initialise motor controller descriptor
+/// @brief Zero counters
 /// @param motor Pointer to the relevant motor struct, motor1 or motor2
-void motor_driver_init(motor_descriptor* motor);
+void motor_driver_zero(motor_descriptor* motor);
 
 
 /// @brief Sets the power of the selected motor based on a controller heuristic
@@ -228,6 +233,12 @@ int32_t motor_driver_get_resolution(motor_descriptor* motor);
 /// @param motor 
 /// @return 
 uint8_t motor_driver_get_moving(motor_descriptor* motor);
+
+
+/// @brief 
+/// @param motor 
+/// @return 
+int32_t motor_driver_get_delta(motor_descriptor* motor);
 
 /// @brief Set the power of a motor, limited by the motor's safety cap
 /// @param motor Pointer to the relevant motor struct, motor1 or motor2

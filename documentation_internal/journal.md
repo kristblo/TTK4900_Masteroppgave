@@ -254,4 +254,18 @@ PID implemented and tested for all joints. For I windup: only activate the I ter
 
 Rail homing OK, but needs 4V of force to even trigger the switch. Set up a state machine framework with error, idle, calibration and operating as global states, and one calibration state for each joint. Idea is to work through all individually, then stitch together in a sequence.
 
-Briefly tried to set rise time and fall time for I2C to safe values for 400kHz and 100kHz (1000, 200 ns resp.) and tested on the hand onboard IMU on I2C3, but no luck.
+Briefly tried to set rise time and fall time for I2C to safe values for 400kHz and 100kHz (200, 1000 ns resp.) and tested on the hand onboard IMU on I2C3, but no luck.
+
+###010424
+Found a workable calibration scheme: Move until delta is 0, then move back a specified number of clicks, then stop and zero. It's becoming increasingly unintuitive that the joint position isn't actually used for anything.
+
+Tried to use the scheme on elbow, effectively requiring power for both elbow and shoulder. There just isn't enought juice in the Mascot box for that, so will need to get the bigger power supply frist. If the box fries everything, at least I can start writing. Scratch that, the problem was that the torso mcu doesn't get updates from the shoulder mcu while its joints are calibrating. Solution: check for stale accelerometer data, and use the encoder.
+
+While the method does seem to work, setting the total count to 0 only works from the set total count function. The zero function (formerly init) seems to set a random value. Calibration for all joints except shoulder tested.
+
+Strategy for calibration procedure:
+Make a new CAN filter with the upper bit active for global messages.
+1. Torso starts by calibrating rail, setting global state to calib rail and emitting the appropriate CAN message.
+2. Torso stablises shoulder in the vertical position, sets global state to twist clib when done.
+3. Hand responds to global state by doing twist then pinch calib (setting states as it goes). Passes the buck to shoulder by setting global state wrist calib.
+4. Shoulder requests 90 degrees on twist to ensure safe position (could also be set by hand immediately after calib), does twist and elbow.
