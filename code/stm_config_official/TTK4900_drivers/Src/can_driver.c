@@ -22,6 +22,7 @@ void (*canRxFunctions[NUM_CAN_TYPES])() =
   can_driver_cmd_rx9,
   can_driver_cmd_rxA,
   can_driver_cmd_rxB,
+  can_driver_cmd_rxC,
 };
 
 static can_mailbox rxMailboxes[NUM_CAN_TYPES]; 
@@ -30,6 +31,12 @@ static can_mailbox txMailboxes[NUM_CAN_TYPES];
 void can_interface_queue_tx(uint8_t mailbox, uint8_t* outData, uint32_t id)
 {
   can_driver_queue_tx(&txMailboxes[mailbox], outData, id);
+}
+
+
+void can_interface_send_msg(uint8_t* data, uint32_t id, int dlc, uint8_t hwMailbox)
+{
+  can_driver_send_msg(data, id, dlc, hwMailbox);
 }
 
 void can_rx_executive()
@@ -321,6 +328,18 @@ void can_cmd_handle_axisData(uint32_t id, uint8_t* inData)
 
 }
 
+
+void can_cmd_handle_inState(uint32_t id, uint8_t* inData)
+{
+  uint8_t globalState = inData[0];
+  uint8_t calibrationState = inData[1];
+  state_interface_set_global_state(globalState);
+  state_interface_set_calibration_state(calibrationState);
+}
+
+
+
+
 void can_driver_cmd_rxTEMPLATE(uint32_t id, uint8_t* inData)
 {
   //Template for rx handlers
@@ -522,21 +541,39 @@ void can_driver_cmd_rxA(uint32_t id, uint8_t* inData)
 #endif
   }    
 }
+
 void can_driver_cmd_rxB(uint32_t id, uint8_t* inData)
 {
   //Incoming request for accelerometer Z axis data
   uint8_t cmd = (uint8_t)(id & 0x1F);
   if(cmd == ACC_Z_REQ)
   {
-    void can_cmd_handle_axisReq(uint32_t id, uint8_t* inData);
+    can_cmd_handle_axisReq(id, inData);
   }
   else
   {
 #if GLOBAL_DEBUG
-    uart_send_string("RECEIVED COMMAND FOR THIS HANDLER: RXB\n\r");
+    uart_send_string("RECEIVED WRONG COMMAND FOR THIS HANDLER: RXB\n\r");
 #endif
   }    
 }
+
+void can_driver_cmd_rxC(uint32_t id, uint8_t* inData)
+{
+  //Incoming order to set the global state
+  uint8_t cmd = (uint8_t)(id & 0x1F);
+  if(cmd == GBL_ST_SET)
+  {
+    can_cmd_handle_inState(id, inData);
+  }
+  else
+  {
+#if GLOBAL_DEBUG
+    uart_send_string("RECEIVED WRONG COMMAND FOR THIS HANDLER: RXC\n\r");
+#endif
+  }  
+}
+
 
 
 void can_driver_queue_tx(can_mailbox* mailbox, uint8_t* outData, uint32_t id)

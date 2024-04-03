@@ -192,7 +192,8 @@ void string_cmd_home(char (*inputTokens)[64])
 #if HW_INTERFACE == UART_INTERFACE
   uart_send_string("Starting calibration\n\r");
 #endif
-  state_interface_set_global_state(2);
+  state_interface_set_global_state(GS_CALIBRATING);
+  state_interface_set_calibration_state(CS_RAIL);
 }
 
 

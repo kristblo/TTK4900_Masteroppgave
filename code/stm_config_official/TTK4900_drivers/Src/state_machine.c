@@ -1,7 +1,7 @@
 #include "state_machine.h"
 
 
-static global_state globalState = idle;
+static global_state globalState = GS_IDLE;
 static calibration_state calibrationState = num_cStates;
 
 static uint8_t end_switch_flag = 0;
@@ -42,11 +42,64 @@ uint8_t state_interface_get_global_state()
 
 void state_interface_set_global_state(uint8_t inState)
 {
+  //Set locally
   globalState = (global_state)inState;
+  
+  //Transmit on CAN
+  // uint32_t outId = (1 << CAN_GBL_CMD_OFFSET) | GBL_ST_SET;
+  // uint8_t outData[8];
+  // memcpy(&outData, &inState, 1);
+  // can_interface_send_msg(outData, outId, 8, 0);
 }
+
+void state_interface_broadcast_global_state()
+{
+  uint8_t state = (uint8_t)globalState;
+  uint32_t outId = (1 << CAN_GBL_CMD_OFFSET) | GBL_ST_SET;
+  uint8_t outData[8];
+  memcpy(&outData, &state, 1);
+  can_interface_send_msg(outData, outId, 8, 0);  
+
+}
+
+uint8_t state_interface_get_calibration_state()
+{
+  return (uint8_t)calibrationState;
+}
+
+void state_interface_set_calibration_state(uint8_t inState)
+{
+  //Set locally
+  calibrationState = (calibration_state)inState;
+
+  //Transmit on CAN
+  // uint32_t outId = (1 << CAN_GBL_CMD_OFFSET) | GBL_ST_SET;
+  // uint8_t outData[8];
+  // uint8_t outGlobal = (uint8_t)GS_CALIBRATING;
+  // memcpy(&outData[0], &outGlobal, 1);
+  // memcpy(&outData[1], &inState, 1);
+  // can_interface_send_msg(outData, outId, 8, 0);
+}
+
+void state_interface_broadcast_calibration_state()
+{
+  uint8_t cState = (uint8_t)calibrationState;
+  uint32_t outId = (1 << CAN_GBL_CMD_OFFSET) | GBL_ST_SET;
+  uint8_t outData[8];
+  uint8_t gState = (uint8_t)GS_CALIBRATING;
+  memcpy(&outData[0], &gState, 1);
+  memcpy(&outData[1], &cState, 1);
+  can_interface_send_msg(outData, outId, 8, 0);  
+
+}
+
+
 
 void state_calibrate_rail()
 {
+  // motor_interface_zero(0);
+  // motor_interface_set_total_count(0, 0);
+
   controller_interface_set_power(0, 25);
   while(state_interface_get_es_flag() == 0)
   {
@@ -55,9 +108,19 @@ void state_calibrate_rail()
   controller_interface_set_power(0, 0);
   controller_interface_set_position(0, 0);
   motor_interface_zero(0);
+  motor_interface_set_total_count(0, 0);
+
+  //Move the rail safely away from the switch
+  controller_interface_set_power(0, -10);
+  HAL_Delay(1000);
+  motor_interface_update_tot_cnt(0);
+
   end_switch_flag = 0;
 }
-void state_calibrate_shoulder();
+void state_calibrate_shoulder()
+{
+
+}
 
 
 void state_calibrate_elbow()
@@ -79,10 +142,13 @@ void state_calibrate_elbow()
     HAL_Delay(5);//MCU is just too fast
     motor_interface_update_tot_cnt(1);
 
-    char* debug[64];
-    int32_t delta = motor_interface_get_delta(1);
-    sprintf(debug, "delta: %i\n\r", delta);
-    uart_send_string(debug);    
+    //Elbow calibration also affects  wrist pos
+    motor_interface_update_tot_cnt(0);
+
+    // char* debug[64];
+    // int32_t delta = motor_interface_get_delta(1);
+    // sprintf(debug, "delta: %i\n\r", delta);
+    // uart_send_string(debug);    
   }
   //motor_interface_zero(1);
   motor_interface_set_total_count(1, 0);
@@ -99,7 +165,8 @@ void state_calibrate_elbow()
     motor_interface_update_tot_cnt(1);
   }
   controller_interface_set_power(1, 0);
-  motor_interface_zero(1);
+  //motor_interface_zero(1);
+  motor_interface_set_total_count(1, 0);
   controller_interface_set_position(1, 0);
 
 }
@@ -149,6 +216,9 @@ void state_calibrate_twist()
   twist_switch_flag = 0;
   
   motor_interface_zero(1);
+  motor_interface_set_total_count(1, 0);
+  motor_interface_update_tot_cnt(1);
+  
   controller_interface_set_power(1, -10);
 
   //-10900 encoder counts corresponds to the angular placement
@@ -161,8 +231,8 @@ void state_calibrate_twist()
     motor_interface_update_tot_cnt(1);
   }
   controller_interface_set_power(1, 0);
-  motor_interface_zero(1);
-  controller_interface_set_position(1, 0);
+  motor_interface_set_total_count(1, 0);
+  controller_interface_set_setpoint(1, 1.5708);
 }
 
 void state_calibrate_pinch()
@@ -172,6 +242,8 @@ void state_calibrate_pinch()
   HAL_Delay(200);
   motor_interface_update_tot_cnt(0);
 
+  // motor_interface_set_total_count(0,0);
+  // motor_interface_zero(0);
   
   //At -2V, the encoder gets about
   //-5 clicks per ms. The pinch motor moves until
@@ -182,8 +254,7 @@ void state_calibrate_pinch()
     motor_interface_update_tot_cnt(0);
   }
   controller_interface_set_power(0, 0);
-  motor_interface_zero(0);
-  controller_interface_set_position(0, 0);
+  motor_interface_set_total_count(0, 0);
 
 }
 

@@ -28,10 +28,12 @@
 #include "motor_driver.h"
 #include "accelerometer_driver.h"
 #include "joint_controller.h"
+#include "state_machine.h"
 
 //------FILE BEGIN------
 #define CAN_MOTOR_CMD_OFFSET 5
 #define CAN_ACC_CMD_OFFSET 8
+#define CAN_GBL_CMD_OFFSET 10
 
 /// @brief A virtual CAN mailbox for outgoing and incoming messages
 typedef struct
@@ -85,6 +87,9 @@ typedef enum
   /// @brief A message requesting acc/rot z axis
   ACC_Z_REQ,
 
+  /// @brief Message contains a global state to set
+  GBL_ST_SET,
+
   /// @brief Dummy type for counting the number of message types, must always be last
   num_types,
 } can_message_type;
@@ -102,6 +107,13 @@ typedef enum
 /// @param id CAN transmit ID
 void can_interface_queue_tx(uint8_t mailbox, uint8_t* outData, uint32_t id);
 
+
+/// @brief Public function to send CAN message immediately
+/// @param data Data to send, max 8 byte
+/// @param id CAN message ID
+/// @param dlc CAN message data length
+/// @param hwMailbox Hardware transmit mailbox to send from
+void can_interface_send_msg(uint8_t* data, uint32_t id, int dlc, uint8_t hwMailbox);
 
 
 ///////////////////
@@ -163,7 +175,7 @@ uint32_t can_mailbox_get_id(can_mailbox* mailbox);
 /// @param id CAN transmit ID
 void can_driver_queue_tx(can_mailbox* mailbox, uint8_t* outData, uint32_t id);
 
-/// @brief Sends a CAN message, is called by can_interface_send_msg
+/// @brief Sends a CAN message
 /// @param data Data to send, max 8 bytes
 /// @param stdId Message ID required for rx handling
 /// @param dlc Number of bytes to send
@@ -206,6 +218,10 @@ void can_cmd_handle_axisReq(uint32_t id, uint8_t* inData);
 void can_cmd_handle_axisData(uint32_t id, uint8_t* inData);
 
 
+/// @brief Handles incoming state information
+/// @param id Incoming CAN ID
+/// @param inData Incoming CAN data
+void can_cmd_handle_inState(uint32_t id, uint8_t* inData);
 
 
 //The following cmd_rxn functions MUST match with the number of
@@ -271,6 +287,11 @@ void can_driver_cmd_rxA(uint32_t id, uint8_t* inData);
 /// @param id CAN message ID
 /// @param inData CAN message data field
 void can_driver_cmd_rxB(uint32_t id, uint8_t* inData);
+
+/// @brief "Generic" function to handle CAN message type GBL_ST_SET
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rxC(uint32_t id, uint8_t* inData);
 
 
 #endif //CAN_DRIVER_H

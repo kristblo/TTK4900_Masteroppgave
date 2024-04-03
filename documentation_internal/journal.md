@@ -268,4 +268,11 @@ Make a new CAN filter with the upper bit active for global messages.
 1. Torso starts by calibrating rail, setting global state to calib rail and emitting the appropriate CAN message.
 2. Torso stablises shoulder in the vertical position, sets global state to twist clib when done.
 3. Hand responds to global state by doing twist then pinch calib (setting states as it goes). Passes the buck to shoulder by setting global state wrist calib.
-4. Shoulder requests 90 degrees on twist to ensure safe position (could also be set by hand immediately after calib), does twist and elbow.
+4. Shoulder requests 90 degrees on twist to ensure safe position (could also be set by hand immediately after calib), does wrist and elbow.
+
+###030424
+Something fundamentally wrong with how I manipulate endoder values. Zeroeing does not work as expected, but does something. Twist calib works if zero and set total is called at the beginning, but only set total at the end, and only if the joint has not moved away from its init position. I am updating the encodercount while in idle state, but that should have been zeroed by the zero function.
+
+Calibration works. Rail calibration is not very robust, tends to go into a state of unsuccessfully sending CAN messages. Suspect the needle gets stuck, continuously triggering the interrupt and disturbing CAN trx. Safe-ish solution: place the rail almost at the end, just a few mm before the switch is triggered. Wrist also weakly coupled with the elbow, and for unknown reasons does not correct on its own. But it works! Should grease everything, then cover up. Possibly adjust rail to ramp up and down.
+
+Set the power limit on shoulder and rail to 50 from 70, made it more stable. Really about time I integrated the real power supply.

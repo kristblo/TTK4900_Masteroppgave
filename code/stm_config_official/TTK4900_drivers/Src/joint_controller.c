@@ -87,8 +87,8 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .Kp = 40,
-  .KpTi = 0.5,//0.0003,
+  .Kp = 45,
+  .KpTi = 0.8,//0.0003,
   .Kd = 7,
   .intError = 0,  
   .jointName = "twist"
@@ -447,6 +447,11 @@ void joint_controller_update_error(joint_controller_descriptor* joint)
   {
     error = setpoint - ((float)totalClicks/(float)resolution);
   }
+
+  // int32_t output = (int32_t)(error*100);
+  // char* debug[64];
+  // sprintf(debug, "sp: %i\n\r", totalClicks);
+  // uart_send_string(debug);  
   
   joint_controller_set_error(joint, error);
 

@@ -173,33 +173,110 @@ int main(void)
     can_rx_executive();
     can_tx_executive();
 
-    motor_interface_update_tot_cnt(0);    
+    motor_interface_update_tot_cnt(0);
     motor_interface_update_tot_cnt(1);
 
-    
-    
-    // if(controller_interface_get_upd_ctrl() == 1)
-    // {
-    //   controller_interface_update_error(0);
-    //   controller_interface_update_error(1);
-      
-    //   controller_interface_update_power(0);
-    //   controller_interface_update_power(1);
-
-    //   controller_interface_clear_upd_ctrl();
-    // }
-
-    if(state_interface_get_global_state() == 2)
+    //if(0)
+    if(state_interface_get_global_state() == GS_CALIBRATING)
     {
-      //state_calibrate_rail();
-      //state_calibrate_twist();
-      //state_calibrate_pinch();
+#if ACTIVE_UNIT == TORSO
+      if(state_interface_get_calibration_state() == CS_RAIL)
+      {
+        state_calibrate_rail();
+        state_interface_set_calibration_state(CS_SHOULDER);
+        state_interface_broadcast_calibration_state();
+      }
+      else if(state_interface_get_calibration_state() == CS_SHOULDER)
+      {
+        //state_calibrate_shoulder();
+        if(controller_interface_get_upd_ctrl() == 1)
+        {
+          controller_interface_update_error(1);
+          controller_interface_update_power(1);
+          // char* debug[64];
+          // int32_t sp = (int32_t)(controller_interface_get_error(1)*100);
+          // sprintf(debug, "delta ex: %i\n\r", sp);
+          // uart_send_string(debug);  
+          controller_interface_clear_upd_ctrl();
+        }
+        
+        if(controller_interface_get_error(1) < 0.05)
+        {
+          //motor_interface_zero(1);
+          motor_interface_set_total_count(1, 0);
+          state_interface_set_calibration_state(CS_TWIST);
+          state_interface_broadcast_calibration_state();
+        }
+      }
+#elif ACTIVE_UNIT == SHOULDER
+      if(state_interface_get_calibration_state() == CS_WRIST)
+      {
+        HAL_Delay(1000); //Wait for the twist to stabilise
+        state_calibrate_wrist();
+        state_interface_set_calibration_state(CS_ELBOW);
+        state_interface_broadcast_calibration_state();        
+      }
+      else if(state_interface_get_calibration_state() == CS_ELBOW)
+      {
+        state_calibrate_elbow();
+        state_interface_set_calibration_state(CS_ERROR);
+        state_interface_set_global_state(GS_OPERATING);        
+      }
+#elif ACTIVE_UNIT == HAND
+      if(state_interface_get_calibration_state() == CS_TWIST)
+      {
+        state_calibrate_twist();
+        state_interface_set_calibration_state(CS_PINCH);
+        state_interface_broadcast_calibration_state();
+      }
+      else if(state_interface_get_calibration_state() == CS_PINCH)
+      {
+        state_calibrate_pinch();
+        state_interface_set_calibration_state(CS_WRIST);
+        state_interface_broadcast_calibration_state();
 
-      //state_calibrate_wrist();
-      state_calibrate_elbow();
-      state_interface_set_global_state(1);
+      }    
+#endif
+      else
+      {
+        //If not calibrating own joints, maintain positions
+        if(controller_interface_get_upd_ctrl() == 1)
+        {
+          controller_interface_update_error(0);
+          controller_interface_update_error(1);
+          
+          controller_interface_update_power(0);
+          controller_interface_update_power(1);
+
+          // char* debug[64];
+          // int32_t sp = (int32_t)(controller_interface_get_error(1)*100);
+          // sprintf(debug, "delta ex: %i\n\r", sp);
+          // uart_send_string(debug);  
+
+          controller_interface_clear_upd_ctrl();
+        }
+      }
     }
+    else if(state_interface_get_global_state() == GS_OPERATING)
+    {
+        if(controller_interface_get_upd_ctrl() == 1)
+        {
+          controller_interface_update_error(0);
+          controller_interface_update_error(1);
+          
+          controller_interface_update_power(0);
+          controller_interface_update_power(1);
 
+          // char* debug[64];
+          // int32_t sp = (int32_t)(controller_interface_get_error(1)*100);
+          // sprintf(debug, "delta ex: %i\n\r", sp);
+          // uart_send_string(debug);  
+
+          controller_interface_clear_upd_ctrl();
+        }
+    }
+    
+    
     if(controller_interface_get_acc_poll() == 1)
     {
 #if ACTIVE_UNIT == TORSO

@@ -43,7 +43,7 @@
 #define TORSO 0
 #define SHOULDER 1
 #define HAND 2
-#define ACTIVE_UNIT SHOULDER //Change before flashing another unit
+#define ACTIVE_UNIT TORSO //Change before flashing another unit
 
 //Choose between UART and USB for communication
 #define UART_INTERFACE 0
@@ -60,7 +60,9 @@
   #define CAN_FILTERMASK_M 0x300 //Motor message filtermask
   #define CAN_FILTER_A 0x000 //Accelerometer message filter
   #define CAN_FILTERMASK_A 0x0E0 //Accelerometer message filtermask
-  #define MTR_POL -1 //Motor polarity, i.e. whether "forward" increases or decreases encoder count
+  #define CAN_FILTER_G 0x400 //Global/state message filter
+  #define CAN_FILTERMASK_G 0x7E0 //Global/state message filtermask
+  //#define MTR_POL -1 //Motor polarity, i.e. whether "forward" increases or decreases encoder count
   #define UART_INPUT 1 //Include UART input parsing in build
 
 
@@ -69,7 +71,9 @@
   #define CAN_FILTERMASK_M 0x3C0 //Motor message filtermask
   #define CAN_FILTER_A 0x000 //Accelerometer message filter
   #define CAN_FILTERMASK_A 0x2E0 //Accelerometer message filtermask
-  #define MTR_POL 1 //Motor polarity, i.e. whether "forward" increases or decreases encoder count
+  #define CAN_FILTER_G 0x400 //Global/state message filter
+  #define CAN_FILTERMASK_G 0x7E0 //Global/state message filtermask  
+  //#define MTR_POL 1 //Motor polarity, i.e. whether "forward" increases or decreases encoder count
   #define UART_INPUT 1 //Include UART input parsing in build
 
 
@@ -79,7 +83,9 @@
   #define CAN_FILTERMASK_M 0x3C0 //Motor message filtermask
   #define CAN_FILTER_A 0x200 //Accelerometer message filter
   #define CAN_FILTERMASK_A 0x2E0 //Accelerometer message filtermask
-  #define MTR_POL -1 //Motor polarity, i.e. whether "forward" increases or decreases encoder count
+  #define CAN_FILTER_G 0x400 //Global/state message filter
+  #define CAN_FILTERMASK_G 0x7E0 //Global/state message filtermask  
+  //#define MTR_POL -1 //Motor polarity, i.e. whether "forward" increases or decreases encoder count
   #define UART_INPUT 1 //Include UART input parsing in build
 #else
   #error NO VALID CONTROL UNIT SELECTED

@@ -33,26 +33,28 @@
 #include "unit_config.h"
 #include "uart_driver.h"
 #include "joint_controller.h"
+#include "can_driver.h"
 
 
 //-----Structures-----
 typedef enum
 {
-  error,
-  idle,
-  calibrating,
-  operating,
+  GS_ERROR,
+  GS_IDLE,
+  GS_CALIBRATING,
+  GS_OPERATING,
   num_gStates,
 } global_state;
 
 typedef enum
 {
-  rail,
-  shoulder,
-  elbow,
-  wrist,
-  twist,
-  pinch,
+  CS_ERROR,
+  CS_RAIL,
+  CS_SHOULDER,
+  CS_ELBOW,
+  CS_WRIST,
+  CS_TWIST,
+  CS_PINCH,
   num_cStates
 } calibration_state;
 
@@ -62,6 +64,12 @@ typedef enum
 //////////////////
 uint8_t state_interface_get_global_state();
 void state_interface_set_global_state(uint8_t inState);
+void state_interface_broadcast_global_state();
+
+uint8_t state_interface_get_calibration_state();
+void state_interface_set_calibration_state(uint8_t inState);
+void state_interface_broadcast_calibration_state();
+
 
 void state_interface_set_es_flag();
 uint8_t state_interface_get_es_flag();

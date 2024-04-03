@@ -59,9 +59,9 @@ void MX_CAN_Init(void)
   mtrFilterConfig.FilterActivation = CAN_FILTER_ENABLE;
   mtrFilterConfig.FilterBank = 0;
   mtrFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
-  mtrFilterConfig.FilterIdHigh = CAN_FILTER_M<<5;//0x106 << 5;
+  mtrFilterConfig.FilterIdHigh = CAN_FILTER_M << 5;
   mtrFilterConfig.FilterIdLow = 0x0000;
-  mtrFilterConfig.FilterMaskIdHigh = CAN_FILTERMASK_M<< 5;//0x106 << 5; //0s are DC when incoming IDs are compared
+  mtrFilterConfig.FilterMaskIdHigh = CAN_FILTERMASK_M << 5;//0s are DC when incoming IDs are compared
   mtrFilterConfig.FilterMaskIdLow = 0x0000;
   mtrFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
   mtrFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
@@ -73,15 +73,29 @@ void MX_CAN_Init(void)
   accFilterConfig.FilterActivation = CAN_FILTER_ENABLE;
   accFilterConfig.FilterBank = 1;
   accFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
-  accFilterConfig.FilterIdHigh = CAN_FILTER_A<<5;//0x106 << 5;
+  accFilterConfig.FilterIdHigh = CAN_FILTER_A << 5;
   accFilterConfig.FilterIdLow = 0x0000;
-  accFilterConfig.FilterMaskIdHigh = CAN_FILTERMASK_A<< 5;//0x106 << 5; //0s are DC when incoming IDs are compared
+  accFilterConfig.FilterMaskIdHigh = CAN_FILTERMASK_A << 5;//0s are DC when incoming IDs are compared
   accFilterConfig.FilterMaskIdLow = 0x0000;
   accFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
   accFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
   accFilterConfig.SlaveStartFilterBank = 0;
 
   HAL_CAN_ConfigFilter(&hcan, &accFilterConfig);
+
+  CAN_FilterTypeDef gblFilterConfig;
+  gblFilterConfig.FilterActivation = CAN_FILTER_ENABLE;
+  gblFilterConfig.FilterBank = 2;
+  gblFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+  gblFilterConfig.FilterIdHigh = CAN_FILTER_G << 5;
+  gblFilterConfig.FilterIdLow = 0x0000;
+  gblFilterConfig.FilterMaskIdHigh = CAN_FILTERMASK_G << 5;
+  gblFilterConfig.FilterMaskIdLow = 0x0000;
+  gblFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
+  gblFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
+  gblFilterConfig.SlaveStartFilterBank = 0;
+
+  HAL_CAN_ConfigFilter(&hcan, &gblFilterConfig);
 
   /* USER CODE END CAN_Init 2 */
 

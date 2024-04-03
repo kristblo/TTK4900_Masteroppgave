@@ -6,7 +6,7 @@ static motor_descriptor motor1 =
   {
   .motorId = 0,
   .voltageLimit = 35,
-  .voltagePctCap = 70,
+  .voltagePctCap = 50,
   .motorPolarity = -1,
   .motorTimer = TIM15,
   .encoderTimer = TIM3,
@@ -23,7 +23,7 @@ static motor_descriptor motor2 =
 {
   .motorId = 1,
   .voltageLimit = 50,
-  .voltagePctCap = 70,
+  .voltagePctCap = 50,
   .motorPolarity = -1,
   .motorTimer = TIM1,
   .encoderTimer = TIM8,
@@ -303,9 +303,9 @@ int32_t motor_driver_get_delta(motor_descriptor* motor)
 
 void motor_driver_zero(motor_descriptor* motor)
 {
-  (motor->encoderTimer)->CNT = motor->encoderInitCount;
+  motor->encoderTimer->CNT = motor->encoderInitCount;
   (motor->encoderTotalInit) = motor->encoderInitCount;
-  //motor->encoderTotalCount = 0;
+  //(motor->encoderTotalCount) = (int32_t)0;
   //motor_driver_calc_safe_vlt(motor);
 }
 
