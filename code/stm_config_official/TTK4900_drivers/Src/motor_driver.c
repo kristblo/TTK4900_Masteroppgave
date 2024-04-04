@@ -5,8 +5,8 @@
 static motor_descriptor motor1 =
   {
   .motorId = 0,
-  .voltageLimit = 35,
-  .voltagePctCap = 50,
+  .voltageLimit = 30,
+  .voltagePctCap = 71,
   .motorPolarity = -1,
   .motorTimer = TIM15,
   .encoderTimer = TIM3,
@@ -22,8 +22,8 @@ static motor_descriptor motor1 =
 static motor_descriptor motor2 =
 {
   .motorId = 1,
-  .voltageLimit = 50,
-  .voltagePctCap = 50,
+  .voltageLimit = 30,
+  .voltagePctCap = 71,
   .motorPolarity = -1,
   .motorTimer = TIM1,
   .encoderTimer = TIM8,
@@ -41,8 +41,8 @@ static motor_descriptor motor2 =
 static motor_descriptor motor1 =
 {
   .motorId = 2,
-  .voltageLimit = 20,
-  .voltagePctCap = 20,
+  .voltageLimit = 30,
+  .voltagePctCap = 71,
   .motorPolarity = 1,
   .motorTimer = TIM15,
   .encoderTimer = TIM3,
@@ -58,8 +58,8 @@ static motor_descriptor motor1 =
 static motor_descriptor motor2 =
 {
   .motorId = 3,
-  .voltageLimit = 20,
-  .voltagePctCap = 20,
+  .voltageLimit = 24,
+  .voltagePctCap = 57,
   .motorPolarity = 1,
   .motorTimer = TIM1,
   .encoderTimer = TIM8,
@@ -78,7 +78,7 @@ static motor_descriptor motor1 =
 {
   .motorId = 4,
   .voltageLimit = 12,
-  .voltagePctCap = 20,
+  .voltagePctCap = 28,
   .motorPolarity = 1,
   .motorTimer = TIM15,
   .encoderTimer = TIM3,
@@ -95,7 +95,7 @@ static motor_descriptor motor2 =
 {
   .motorId = 5,
   .voltageLimit = 12,
-  .voltagePctCap = 20,
+  .voltagePctCap = 28,
   .motorPolarity = -1,
   .motorTimer = TIM1,
   .encoderTimer = TIM8,

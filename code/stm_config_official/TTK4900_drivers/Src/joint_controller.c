@@ -7,11 +7,14 @@ static joint_controller_descriptor joint0 =
   .posSetpoint = 0,
   .posCurrent = 0,
   .posError = 0,
+  .prevError = 0,
+  .prevPower = 0,
   .isMoving = 0,
   .motorNum = 0,
-  .Kp = 1,
-  .KpTi = 0.0025,//0.0001,
-  .Kd = 0.25,
+  .maxMovementRate = 110,
+  .Kp = 0.25, //1
+  .KpTi = 0.0001,//0.0025,//0.0001,
+  .Kd = 0.1,//0.08, //0.25
   .intError = 0,
   .jointName = "rail"
 };
@@ -24,7 +27,8 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .Kp = 50,
+  .maxMovementRate = 0.1745,
+  .Kp = 30, //50
   .KpTi = 0.1,// 0.20,
   .Kd = 10,
   .intError = 0,  
@@ -40,7 +44,8 @@ static joint_controller_descriptor joint0 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 0,
-  .Kp = 100,
+  .maxMovementRate = 0.1745,
+  .Kp = 40,
   .KpTi = 0.4, //0.0001,
   .Kd = 20,
   .intError = 0,
@@ -55,7 +60,8 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .Kp = 60,
+  .maxMovementRate = 0.1745,
+  .Kp = 40,
   .KpTi = 0.15,// 0.0003,
   .Kd = 12,
   .intError = 0,  
@@ -87,7 +93,7 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .Kp = 45,
+  .Kp = 30,
   .KpTi = 0.8,//0.0003,
   .Kd = 7,
   .intError = 0,  
@@ -146,6 +152,10 @@ float controller_interface_get_position(uint8_t controllerSelect)
   return joint_controller_get_position(joints[controllerSelect]);
 }
 
+void controller_interface_update_position(uint8_t controllerSelect)
+{
+  joint_controller_update_position(joints[controllerSelect]);
+}
 
 void controller_interface_set_position(uint8_t controllerSelect, float position)
 
@@ -407,9 +417,35 @@ float joint_controller_get_position(joint_controller_descriptor* joint)
   return (joint->posCurrent);
 }
 
+void joint_controller_update_position(joint_controller_descriptor* joint)
+{
+  int32_t totalClicks = motor_interface_get_total_count(joint->motorNum);
+  int32_t resolution = motor_interface_get_resolution(joint->motorNum);
+
+  float position;
+  if(joint->hasAccelerometer && (controller_acc_get_newY(&accelerometers[0]) == 1))
+  {
+    //Only works for shoulder joint obvs
+    int16_t rawAcc = controller_acc_getY(&accelerometers[0]);
+    float middle = ((float)(rawAcc-2300)/16384); //Acc descriptor should have these values
+    float radians = asinf(middle);
+
+    position = (-1*radians);
+
+    controller_acc_clear_newY(&accelerometers[0]);
+
+  }
+  else
+  {
+    position = (float)totalClicks/(float)resolution;
+  }
+
+  joint_controller_set_position(joint, position);
+}
 
 void joint_controller_set_position(joint_controller_descriptor* joint, float position)
 {
+  joint->prevPos = joint->posCurrent;
   joint->posCurrent = position;
 }
 
@@ -421,32 +457,32 @@ float joint_controller_get_error(joint_controller_descriptor* joint)
 void joint_controller_update_error(joint_controller_descriptor* joint)
 {
   float setpoint = joint_controller_get_setpoint(joint);
-  int32_t totalClicks = motor_interface_get_total_count(joint->motorNum);
-  int32_t resolution = motor_interface_get_resolution(joint->motorNum);
+  // int32_t totalClicks = motor_interface_get_total_count(joint->motorNum);
+  // int32_t resolution = motor_interface_get_resolution(joint->motorNum);
   
-  float error;
-  if(joint->hasAccelerometer && (controller_acc_get_newY(&accelerometers[0]) == 1)) //TODO: should check if data is stale; incorporate newX/Y/X flag
-  {
-    //Only works for shoulder joint obvs
-    int16_t rawAcc = controller_acc_getY(&accelerometers[0]);
-    float middle = ((float)(rawAcc-2300)/16384); //Acc descriptor should have these values
-    float radians = asinf(middle);    
+  float error = setpoint - joint_controller_get_position(joint);
+  // if(joint->hasAccelerometer && (controller_acc_get_newY(&accelerometers[0]) == 1)) //TODO: should check if data is stale; incorporate newX/Y/X flag
+  // {
+  //   //Only works for shoulder joint obvs
+  //   int16_t rawAcc = controller_acc_getY(&accelerometers[0]);
+  //   float middle = ((float)(rawAcc-2300)/16384); //Acc descriptor should have these values
+  //   float radians = asinf(middle);    
 
-    //error = setpoint - ((float)totalClicks/(float)resolution)
-    error = setpoint - (-1*radians); //Shoulder acc has "wrong" polarity
+  //   //error = setpoint - ((float)totalClicks/(float)resolution)
+  //   error = setpoint - (-1*radians); //Shoulder acc has "wrong" polarity
 
-    // int32_t output = (int32_t)(error*100);
-    // char* debug[64];
-    // sprintf(debug, "rawacc: %i\n\r", output);
-    // uart_send_string(debug);
+  //   // int32_t output = (int32_t)(error*100);
+  //   // char* debug[64];
+  //   // sprintf(debug, "rawacc: %i\n\r", output);
+  //   // uart_send_string(debug);
 
-    controller_acc_clear_newY(&accelerometers[0]);
+  //   controller_acc_clear_newY(&accelerometers[0]);
 
-  }
-  else
-  {
-    error = setpoint - ((float)totalClicks/(float)resolution);
-  }
+  // }
+  // else
+  // {
+  //   error = setpoint - ((float)totalClicks/(float)resolution);
+  // }
 
   // int32_t output = (int32_t)(error*100);
   // char* debug[64];
@@ -498,10 +534,10 @@ void joint_controller_update_power(joint_controller_descriptor* joint)
 {
   float error = joint->posError;   //joint_controller_get_error(joint);
   float prevError = joint->prevError;
-  float dedt = prevError - error;
+  float dedt = error - prevError; //rad or mm at 10kHz
 
 
-  if(fabs(dedt) < 0.00001745) //10 deg/sec, 0.17mm/sec
+  if(fabs(dedt) < (joint->maxMovementRate)/10000)
   {
     joint->intError += ((joint->KpTi)*error); //Bit afraid of overflow, therefore using KpTi here
   }
@@ -510,9 +546,17 @@ void joint_controller_update_power(joint_controller_descriptor* joint)
     joint->intError = 0;
   }
   
+  float power = (joint->Kp)*error + (joint->intError) - ((joint->Kd)*dedt);
   
-  float power = (joint->Kp)*error + (joint->intError) + ((joint->Kd)*dedt);
-
+  joint->prevPower = power;
+  
+  // if(joint->jointName == "rail")
+  // {
+  //   char* debug[64];
+  //   sprintf(debug, "dedt: %i\n\r", (int32_t)(dedt*10000));
+  //   uart_send_string(debug);
+  // }
+  
   if(power < 0)
   {
     motor_interface_set_power(joint->motorNum, 0, fabs(power));

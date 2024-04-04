@@ -52,17 +52,29 @@ typedef struct
   /// @brief The joint's current position in radians/mm relative to its zero position
   float posCurrent;
 
+  /// @brief The joint's position in the previous timestep
+  float prevPos;
+  
   /// @brief The joint's position error in radians/mm, relative to its setpoint
   float posError;
 
   /// @brief The joint's positional error in the previous timestep
   float prevError;
+
+  /// @brief Current power setting of the joint
+  float power;
+  
+  /// @brief The joint's power setting in the previous timestep
+  float prevPower;
   
   /// @brief Whether the joint is in a "moving" state
   uint8_t isMoving;
 
   /// @brief Link to the corresponding motor_descriptor
   uint8_t motorNum;
+
+  /// @brief Maximum movement rate, rad/sec or mm/sec
+  float maxMovementRate;
 
   /// @brief PID controller Kp
   float Kp;
@@ -145,6 +157,9 @@ void controller_interface_set_setpoint(uint8_t controllerSelect, float setPoint)
 /// @param controllerSelect One of two joints available to the MCU
 /// @return Joint position in radians relative to its zero position
 float controller_interface_get_position(uint8_t controllerSelect);
+
+
+void controller_interface_update_position(uint8_t controllerSelect);
 
 
 /// @brief Public function to get the current position of a joint
@@ -433,6 +448,7 @@ float joint_controller_get_setpoint(joint_controller_descriptor* joint);
 void joint_controller_set_setpoint(joint_controller_descriptor* joint, float setpoint);
 
 float joint_controller_get_position(joint_controller_descriptor* joint);
+void joint_controller_update_position(joint_controller_descriptor* joint);
 void joint_controller_set_position(joint_controller_descriptor* joint, float position);
 
 float joint_controller_get_error(joint_controller_descriptor* joint);

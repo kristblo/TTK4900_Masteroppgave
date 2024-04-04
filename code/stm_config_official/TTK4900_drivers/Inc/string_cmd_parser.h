@@ -88,7 +88,7 @@ void string_cmd_category_adc();
 void string_cmd_category_accelerometer();
 
 //Number of valid commands to process
-#define NUM_STRING_COMMANDS 0xB
+#define NUM_STRING_COMMANDS 0xC
 
 /// @brief Called when "rail" token is registered; concerns the rail linear joint
 /// @param inputTokens Arguments to parse
@@ -143,6 +143,11 @@ void string_cmd_rly(char (*inputTokens)[64]);
 void string_cmd_home(char (*inputTokens)[64]);
 
 
+/// @brief Called when "state" token is registered; lets the user set a global state
+/// @param inputTokens 
+void string_cmd_state(char (*inputTokens)[64]);
+
+
 
 
 /// @brief Pairs a command string token with a function pointer
@@ -166,10 +171,11 @@ static string_cmd_pair stringCmdList[NUM_STRING_COMMANDS] =
   {"twist", string_cmd_twist},
   {"pinch", string_cmd_pinch},
   {"can", string_cmd_can},
-  {"S", string_cmd_stop},
+  {"s", string_cmd_stop},
   {"acc1", string_cmd_acc1},
   {"relay", string_cmd_rly},
-  {"home", string_cmd_home}
+  {"home", string_cmd_home},
+  {"state", string_cmd_state},
   };
 
 #endif //STRING_CMD_PARSER_H

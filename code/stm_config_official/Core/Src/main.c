@@ -37,7 +37,6 @@
 #include "uart_driver.h"
 #include "motor_driver.h"
 #include "string_cmd_parser.h"
-#include "shoulder_controller.h"
 #include "adc_driver.h"
 
 #if ACTIVE_UNIT == SHOULDER
@@ -168,15 +167,24 @@ int main(void)
 
 
 #if ACTIVE_UNIT == TORSO
-    HAL_Delay(20);
+    //HAL_Delay(20);
 #endif    
     can_rx_executive();
     can_tx_executive();
 
     motor_interface_update_tot_cnt(0);
     motor_interface_update_tot_cnt(1);
+    // controller_interface_update_position(0);
+    // controller_interface_update_error(0);
+    // char* debug[64];
+    // int32_t sp = (int32_t)(controller_interface_get_error(0));
+    // sprintf(debug, "pos: %i\n\r", sp);
+    // uart_send_string(debug);
 
-    //if(0)
+    if(state_interface_get_global_state() == GS_IDLE)
+    {
+      //Do nothing
+    }
     if(state_interface_get_global_state() == GS_CALIBRATING)
     {
 #if ACTIVE_UNIT == TORSO
@@ -191,6 +199,8 @@ int main(void)
         //state_calibrate_shoulder();
         if(controller_interface_get_upd_ctrl() == 1)
         {
+          controller_interface_update_position(1);
+
           controller_interface_update_error(1);
           controller_interface_update_power(1);
           // char* debug[64];
@@ -242,6 +252,10 @@ int main(void)
         //If not calibrating own joints, maintain positions
         if(controller_interface_get_upd_ctrl() == 1)
         {
+          controller_interface_update_position(0);
+          controller_interface_update_position(1);
+
+          
           controller_interface_update_error(0);
           controller_interface_update_error(1);
           
@@ -260,7 +274,11 @@ int main(void)
     else if(state_interface_get_global_state() == GS_OPERATING)
     {
         if(controller_interface_get_upd_ctrl() == 1)
-        {
+        {          
+          controller_interface_update_position(0);
+          controller_interface_update_position(1);
+
+          
           controller_interface_update_error(0);
           controller_interface_update_error(1);
           
@@ -303,7 +321,7 @@ int main(void)
     {
       previous = current;
       char* debug[64];
-      sprintf(debug, "Adc: %i\n\r", (int32_t)(current*100));
+      sprintf(debug, "Adc: %i\n\r", (int32_t)(current*1000));
       uart_send_string(debug);
 
     }

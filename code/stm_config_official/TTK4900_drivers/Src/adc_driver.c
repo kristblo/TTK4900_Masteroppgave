@@ -7,7 +7,7 @@ static current_measurement_descriptor motor_ipropi0 =
   .Aipropi = 1575,
   .Nadc = 4096,
   .adc = &hadc2,
-  .conversionConst = 0.001003005
+  .conversionConst = 0.0001003005
 };
 
 static current_measurement_descriptor motor_ipropi1 =
@@ -17,7 +17,7 @@ static current_measurement_descriptor motor_ipropi1 =
   .Aipropi = 1575,
   .Nadc = 4096,
   .adc = &hadc1,
-  .conversionConst = 0.001003005
+  .conversionConst = 0.0001003005
 };
 
 current_measurement_descriptor* sensors[2] =

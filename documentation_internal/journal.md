@@ -276,3 +276,21 @@ Something fundamentally wrong with how I manipulate endoder values. Zeroeing doe
 Calibration works. Rail calibration is not very robust, tends to go into a state of unsuccessfully sending CAN messages. Suspect the needle gets stuck, continuously triggering the interrupt and disturbing CAN trx. Safe-ish solution: place the rail almost at the end, just a few mm before the switch is triggered. Wrist also weakly coupled with the elbow, and for unknown reasons does not correct on its own. But it works! Should grease everything, then cover up. Possibly adjust rail to ramp up and down.
 
 Set the power limit on shoulder and rail to 50 from 70, made it more stable. Really about time I integrated the real power supply.
+
+###040424
+Soldered the connector, seems to work. Deciding safe motor voltages: I have datasheets for all sizes of Pittman motors. Assuming "V1" is the voltage rating of the motor and trusting my work from the specialisation project:
+
+Rail: 40mmx55mm 30.3V => Ipk=4.9A; KT=0.0472Nm/A
+Shoulder: 54mmx113mm 30.V => Ipk=18A; KT=0.0972Nm/A
+Elbow: 40mmx61mm 24V => Ipk=8.2A; KT=0.0365Nm/A
+Wrist: 30mmx62mm 30V => Ipk=4.5A; KT=0.0272Nm/A
+Twist/pinch (Escap): 23LT2R 12V => Imc=0.92A; KT=0.0124Nm/A
+
+The 42V supply is not a viable option. For one, I broke the connector, and in any case it turns out even 30V is effectively too much. I got to use Finn's PeakTech 1535 laboratory switching mode power supply, which maxes out at 32V/20A. The regulators get very hot, so turned it down to 25 and re-tuned PID from there. Not fun, and got some strange instabilities because of it. The robot tried to beat itself to death several times.
+
+1. The torso was effectively working at 50Hz because of my delay in main, probable cause for instability. It must have been just under a threshold previously, and at 30V it just crapped out.
+2. Experimented with control schema. Rate limited PID, where udot is incorporated, could potentially work, but would need safeties to ensure that power could switch sign without penalty. Briefly considered changing to a pure velocity controller, but I don't know how I'd make it stop at the right position. And the current setup is not made for rate control, anyway.
+3. Incorporated update_position into the loop. Error is now calculated from that, and previous position is also stored in case someone wants to use that later.Really need to make a "control loop" function/state, looks messy atm.
+4. Need feedback on whether to focus on ROS or low level. If low level: incorporate torque calculations into ADC driver. Also divided the conversion constant by 10, ADC readouts look much more believable!
+
+5. Need to prepare for integration with ROS. Go through every print statement and check that they are HMI only!

@@ -169,8 +169,9 @@ void string_cmd_acc1(char (*inputTokens)[64])
 void string_cmd_stop(char (*inputTokens)[64])
 {
   //TODO: STOP non-local motors
-  motor_interface_set_power(0, 1, 0);
-  motor_interface_set_power(1, 1, 0);
+  HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 0);
+  state_interface_set_global_state(GS_IDLE);
+  state_interface_broadcast_global_state();
 #if HW_INTERFACE == UART_INTERFACE
   uart_send_string("Got STOP command\n\r");
 #endif
@@ -194,6 +195,35 @@ void string_cmd_home(char (*inputTokens)[64])
 #endif
   state_interface_set_global_state(GS_CALIBRATING);
   state_interface_set_calibration_state(CS_RAIL);
+}
+
+
+void string_cmd_state(char (*inputTokens)[64])
+{
+  if((int)strcmp(inputTokens[1], "operate") == 0)
+  {
+#if HW_INTERFACE == UART_INTERFACE
+    uart_send_string("Global state: operating\n\r");
+#endif
+    state_interface_set_global_state(GS_OPERATING);
+    state_interface_broadcast_global_state();
+  }
+  if((int)strcmp(inputTokens[1], "calibrate") == 0)
+  {
+#if HW_INTERFACE == UART_INTERFACE
+    uart_send_string("Global state: calibrating\n\r");
+#endif
+    state_interface_set_global_state(GS_CALIBRATING);
+    state_interface_set_calibration_state(CS_RAIL);
+  }
+  if((int)strcmp(inputTokens[1], "idle") == 0)
+  {
+#if HW_INTERFACE == UART_INTERFACE
+    uart_send_string("Global state: idle\n\r");
+#endif
+    state_interface_set_global_state(GS_IDLE);
+    state_interface_broadcast_global_state();
+  }
 }
 
 
