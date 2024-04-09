@@ -11,6 +11,7 @@ static motor_descriptor motor1 =
   .motorTimer = TIM15,
   .encoderTimer = TIM3,
   .resolution = 99,
+  .torqueConst = 0.0472,
   .encoderInitCount = 0,
   .encoderTotalInit = 0,
   .encoderTotalSetpoint = 0,
@@ -28,6 +29,7 @@ static motor_descriptor motor2 =
   .motorTimer = TIM1,
   .encoderTimer = TIM8,
   .resolution = 19022,
+  .torqueConst = 0.0972,  
   .encoderInitCount = 0,
   .encoderTotalInit = 0,
   .encoderTotalSetpoint = 0,
@@ -47,6 +49,7 @@ static motor_descriptor motor1 =
   .motorTimer = TIM15,
   .encoderTimer = TIM3,
   .resolution = 17700,
+  .torqueConst = 0.0272,  
   .encoderInitCount = 0,
   .encoderTotalInit = 0,
   .encoderTotalSetpoint = 0,
@@ -64,6 +67,7 @@ static motor_descriptor motor2 =
   .motorTimer = TIM1,
   .encoderTimer = TIM8,
   .resolution = 36097,
+  .torqueConst = 0.0365,  
   .encoderInitCount = 0,
   .encoderTotalInit = 0,
   .encoderTotalSetpoint = 0,
@@ -83,6 +87,7 @@ static motor_descriptor motor1 =
   .motorTimer = TIM15,
   .encoderTimer = TIM3,
   .resolution = 460,
+  .torqueConst = 0.0124,  
   .encoderInitCount = 0,
   .encoderTotalInit = 0,
   .encoderTotalSetpoint = 0,
@@ -100,6 +105,7 @@ static motor_descriptor motor2 =
   .motorTimer = TIM1,
   .encoderTimer = TIM8,
   .resolution = 8881,
+  .torqueConst = 0.0124,  
   .encoderInitCount = 0,
   .encoderTotalInit = 0,
   .encoderTotalSetpoint = 0,
@@ -136,14 +142,11 @@ int32_t motor_interface_get_setpoint(uint8_t motorSelect)
 
 void motor_interface_set_setpoint(uint8_t motorSelect, int32_t setpoint)
 {
-// #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG    
-//     char* debug[64];
-//     sprintf(debug, "Setpoint interface: %i\n\r", setpoint);
-//     uart_send_string(debug);
-// #endif    
-
-//   }
-
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
+    char* debug[64];
+    sprintf(debug, "Setpoint interface: %i\n\r", setpoint);
+    uart_send_string(debug);
+#endif
   motor_driver_set_setpoint(motors[motorSelect], setpoint);
 }
 
@@ -161,13 +164,6 @@ int32_t motor_interface_get_total_count(uint8_t motorSelect)
   else if(motorSelect == 1)
   {
     return motor_driver_get_total_cnt(&motor2);
-
-// #if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG    
-//     char* debug[64];
-//     sprintf(debug, "Tot cnt interface: %i\n\r", setpoint);
-//     uart_send_string(debug);
-// #endif    
-
   }
 
   return motor_driver_get_total_cnt(motors[motorSelect]);
@@ -209,6 +205,10 @@ int32_t  motor_interface_get_delta(uint8_t motorSelect)
   return motor_driver_get_delta(motors[motorSelect]);
 }
 
+float motor_interface_calculate_torque(uint8_t motorSelect)
+{
+  return motor_driver_calculate_torqe(motors[motorSelect], motorSelect);
+}
 
 void motor_driver_update_power(motor_descriptor* motor)
 {
@@ -253,7 +253,7 @@ void motor_driver_set_setpoint(motor_descriptor* motor, int32_t setpoint)
 {
   motor->encoderTotalSetpoint = setpoint;
 
-#if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   char* debug[64];
   sprintf(debug, "Setpoint driver: %i\n\r", motor->encoderTotalSetpoint);
   uart_send_string(debug);
@@ -351,11 +351,17 @@ void motor_driver_update_tot_cnt(motor_descriptor* motor)
 
 }
 
+
+float motor_driver_calculate_torqe(motor_descriptor* motor, uint8_t adcSelect)
+{
+  float torque = (motor->torqueConst)*(adc_interface_get_current(adcSelect));
+
+  return torque;
+}
+
+
 void motor_driver_go_forward(double pct, TIM_TypeDef* mtr, int8_t polarity)
 {
-  // char* debugbuf[200];
-  // sprintf(debugbuf, "double: %i\n\r", (int)polarity);
-  // uart_send_string(debugbuf);
   if(polarity == 1)
   {
     if(mtr == MTR1)

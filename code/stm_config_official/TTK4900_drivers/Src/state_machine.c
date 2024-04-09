@@ -114,11 +114,31 @@ void state_calibrate_rail()
   controller_interface_set_power(0, -10);
   HAL_Delay(1000);
   motor_interface_update_tot_cnt(0);
-
+  controller_interface_update_position(0);
+  float pos = controller_interface_get_position(0);
+  controller_interface_set_setpoint(0, pos);
   end_switch_flag = 0;
 }
 void state_calibrate_shoulder()
 {
+  if((controller_interface_get_upd_ctrl() == 1))
+  {
+    //controller_interface_update_position(1);
+
+    if(controller_interface_acc_get_newY(0) == 1)
+    {
+      int16_t rawAcc = controller_interface_acc_getY(0);
+      float middle = ((float)(rawAcc-2300)/16384); //Acc descriptor should have these values
+      float radians = asinf(middle);
+
+      float position = radians;
+      controller_interface_set_position(1, position);
+      controller_interface_acc_clear_newY(0);
+      controller_interface_update_error(1);
+      controller_interface_update_power(1);
+    }
+    controller_interface_clear_upd_ctrl();
+  }
 
 }
 
@@ -131,12 +151,6 @@ void state_calibrate_elbow()
   HAL_Delay(20);
   motor_interface_update_tot_cnt(1);
 
-  // char* debug[64];
-  // int32_t delta = motor_interface_get_delta(1);
-  // sprintf(debug, "delta ex: %i\n\r", delta);
-  // uart_send_string(debug);    
-
-
   while(motor_interface_get_delta(1) < 0)
   {
     HAL_Delay(5);//MCU is just too fast
@@ -144,11 +158,6 @@ void state_calibrate_elbow()
 
     //Elbow calibration also affects  wrist pos
     motor_interface_update_tot_cnt(0);
-
-    // char* debug[64];
-    // int32_t delta = motor_interface_get_delta(1);
-    // sprintf(debug, "delta: %i\n\r", delta);
-    // uart_send_string(debug);    
   }
   //motor_interface_zero(1);
   motor_interface_set_total_count(1, 0);

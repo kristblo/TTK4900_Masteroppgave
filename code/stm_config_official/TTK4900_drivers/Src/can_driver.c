@@ -47,15 +47,6 @@ void can_rx_executive()
     {      
       uint8_t data[8];
       can_mailbox_get_data(&rxMailboxes[i], data);
-      
-      // char* debug[64];
-      // for(int i = 0; i < 8; i++)
-      // {
-      //   sprintf(debug, "rx exec data %i: %X\n\r",i, data[i]);
-      //   uart_send_string(debug);
-      // }
-
-
 
       uint16_t id = can_mailbox_get_id(&rxMailboxes[i]);
       canRxFunctions[i](id, data);
@@ -130,34 +121,16 @@ void can_driver_send_msg(uint8_t* data,
   txHeader.StdId = stdId;
   txHeader.TransmitGlobalTime = DISABLE;
 
-  //TXID DEBUG
-  // char* debug[64];
-  // sprintf(debug, "tx ID: %X\n\r", stdId);
-  // uart_send_string(debug);
-  // for(int i = 0; i < 8; i++)
-  // {
-  //   sprintf(debug, "tx send data %i: %X\n\r",i, data[i]);
-  //   uart_send_string(debug);
-  // }
-
   if(HAL_CAN_AddTxMessage(&hcan, &txHeader, data, &txMailbox[hwMailbox]) != HAL_OK)
   {
+
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
     uart_send_string("CAN TX not successful\n\r");
     char* debug[64];
     sprintf(debug, "ID: %X\n\r", stdId);
     uart_send_string(debug);
+#endif    
   }
-
-#if GLOBAL_DEBUG
-  // char* debugbuffer[128];
-  // sprintf(debugbuffer, "DLC: %u\n\r TXData: %s\n\r",txHeader.DLC, data);
-  // for(int i = 0; i < txHeader.DLC; i++)
-  // {
-  //   sprintf(debugbuffer, "TXdata %i: %X\n\r", i, data[i]);
-  //   uart_send_string(debugbuffer);
-  // }
-
-#endif
 }
 
 void can_cmd_handle_yAcc(uint32_t id, uint8_t* inData)
@@ -172,9 +145,11 @@ void can_cmd_handle_regVal(uint32_t id, uint8_t* inData)
   uint16_t regVal;
   memcpy(&regVal, &inData[1], 2);
 
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   char* debug[64];
   sprintf(debug, "Regval: %i\n\r", regVal);
-  uart_send_string(debug);  
+  uart_send_string(debug);
+#endif  
 }
 
 
@@ -298,12 +273,6 @@ void can_cmd_handle_axisData(uint32_t id, uint8_t* inData)
     int16_t rotation;
     memcpy(&acceleration, inData, 2);
     memcpy(&rotation, inData[2], 2);
-
-
-    // char* debug[64];
-    // sprintf(debug, "handler acc: %i\n\r", acceleration);
-    // uart_send_string(debug);
-
 
     controller_interface_acc_setY(accSelect, acceleration);
     controller_interface_rot_setY(accSelect, rotation);
@@ -442,13 +411,6 @@ void can_driver_cmd_rx5(uint32_t id, uint8_t* inData)
   //Arg 1 is clicks vs rads
   uint8_t cmd = (uint8_t)(id & 0x1F);
 
-  // char* debug[64];
-  // for(int i = 0; i < 8; i++)
-  // {
-  //   sprintf(debug, "rx handler data %i: %X\n\r",i, inData[i]);
-  //   uart_send_string(debug);
-  // }
-
   if(cmd == JOINT_POS_SP)
   {
     can_cmd_handle_motorSp(id, inData);
@@ -481,11 +443,31 @@ void can_driver_cmd_rx6(uint32_t id, uint8_t* inData)
 void can_driver_cmd_rx7(uint32_t id, uint8_t* inData)
 {
   //Incoming motor position request
-  //Arg 1 is clicks vs rads
+  //Arg 0 is clicks vs rads
+  //TODO: Move to dedicated handler functions
   uint8_t cmd = (uint8_t)(id & 0x1F);
   if(cmd == JOINT_POS_REQ)
   {
+    uint8_t motorNum = (uint8_t)(id >> CAN_MOTOR_CMD_OFFSET) & 3;
+    uint8_t motorSelect = (uint8_t)(id >> CAN_MOTOR_CMD_OFFSET) & 1;
+        
+    uint8_t outData[8];
+    memcpy(&outData[0], &inData[0], 1);
 
+    uint8_t outId = (motorNum << CAN_MOTOR_CMD_OFFSET) | JOINT_POS_TX;
+    
+    if(inData[0] == 'e')
+    {
+      int32_t clicks = motor_interface_get_total_count(motorSelect);
+      memcpy(&outData[1], &clicks, 4);
+    }
+    if(inData[0] == 'r')
+    {
+      float rads = controller_interface_get_position(motorSelect);
+      memcpy(&outData[1], &rads, 4);
+    }
+
+    can_interface_queue_tx(JOINT_POS_TX, outData, outId);
   }
   else
   {
@@ -498,11 +480,12 @@ void can_driver_cmd_rx7(uint32_t id, uint8_t* inData)
 void can_driver_cmd_rx8(uint32_t id, uint8_t* inData)
 {
   //Incoming motor position data
-  //Arg 1 is clicks vs rads
+  //Arg 0 is clicks vs rads
   uint8_t cmd = (uint8_t)(id & 0x1F);
   if(cmd == JOINT_POS_TX)
   {
-
+    //This may be wrong
+    uart_send_string(inData);
   }
   else
   {
@@ -594,21 +577,13 @@ void can_rxfifo0_IRQHandler()
 
   HAL_StatusTypeDef retVal;
   retVal = HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, &rxHeader, rxData);
-
-  //RX DEBUG
-  // char* debug[64];
-  // sprintf(debug, "rx ID: %X\n\r", rxHeader.StdId);
-  // uart_send_string(debug);
-  // for(int i = 0; i < 8; i++)
-  // {
-  //   sprintf(debug, "Rx data %i: %X\n\r",i, rxData[i]);
-  //   uart_send_string(debug);
-  // }
-
-
+  
   if(retVal != HAL_OK)
   {
+
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
     uart_send_string("HAL_CAN_GetRxMessage ERROR");
+#endif    
   }
   else
   {

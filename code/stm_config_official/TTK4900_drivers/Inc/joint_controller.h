@@ -141,6 +141,9 @@ typedef struct
 //Joint control handlers
 //----------------------
 
+/// @brief Main function to run the controller on both joints
+void controller_interface_update_controller();
+
 /// @brief Public function to get the current positional setpoint of a joint
 /// @param controllerSelect One of two joints available to the MCU
 /// @return Joint positional setpoints in radians relative to its zero position
@@ -159,6 +162,8 @@ void controller_interface_set_setpoint(uint8_t controllerSelect, float setPoint)
 float controller_interface_get_position(uint8_t controllerSelect);
 
 
+/// @brief Public function to trigger an update of the joint's position
+/// @param controllerSelect One of two joints available to the MCU
 void controller_interface_update_position(uint8_t controllerSelect);
 
 

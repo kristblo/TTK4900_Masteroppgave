@@ -39,6 +39,7 @@
 //TTK4900 library includes
 #include "unit_config.h"
 #include "uart_driver.h"
+#include "adc_driver.h"
 
 //-----Structures-----
 
@@ -66,6 +67,9 @@ typedef struct
 
   /// @brief Relation between number of encoder click per mm or rad of movement
   int32_t resolution;
+
+  /// @brief Motor's torque constant in Nm/A, from datasheet
+  float torqueConst;
 
   /// @brief Number of encoder clicks counted on startup (nominally 0)
   uint16_t encoderInitCount;
@@ -178,6 +182,10 @@ void motor_interface_set_total_count(uint8_t motorSelect, int32_t count);
 void motor_interface_delta_setpoint(uint8_t motorSelect, int32_t delta);
 
 
+/// @brief Uses the motor's adc and torque constant
+/// @param motorSelect 0 or 1 for motor1 or motor2 respectively
+/// @return float, Nm torque
+float motor_interface_calculate_torque(uint8_t motorSelect);
 
 ///////////////////
 //Private functions
@@ -275,6 +283,11 @@ void motor_driver_set_pwm_dc(uint32_t* timerCounter, double pct);
 /// @param motor Pointer to the relevant motor struct, motor1 or motor2
 void motor_driver_calc_safe_vlt(motor_descriptor* motor);
 
+
+/// @brief Calculates torque from adc current and KT
+/// @param motor Pointer to the relevant motor struct, motor1 or motor2
+/// @return Nm torque
+float motor_driver_calculate_torqe(motor_descriptor* motor, uint8_t adcSelect);
 
 /// @brief Forward is the direction of increasing encoder count
 /// @param pct Percentage of input voltage

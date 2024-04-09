@@ -36,8 +36,12 @@
 #include "gpio_driver.h"
 #include "uart_driver.h"
 #include "motor_driver.h"
-#include "string_cmd_parser.h"
 #include "adc_driver.h"
+#include "state_machine.h"
+
+#if (HW_INTERFACE == UART_INTERFACE) && (SW_INTERFACE == CMD_MODE_TERMINAL)
+#include "string_cmd_parser.h"
+#endif
 
 #if ACTIVE_UNIT == SHOULDER
 #include "accelerometer_driver.h"
@@ -106,18 +110,18 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_ADC2_Init();
+  MX_ADC1_Init();
   MX_CAN_Init();
-  MX_TIM3_Init();
-  MX_TIM8_Init();
-  MX_TIM15_Init();
   MX_I2C1_Init();
-  MX_UART5_Init();
   MX_I2C3_Init();
   MX_TIM1_Init();
-  MX_USB_DEVICE_Init();
   MX_TIM2_Init();
-  MX_ADC1_Init();
+  MX_TIM3_Init();
   MX_TIM4_Init();
+  MX_TIM8_Init();
+  MX_TIM15_Init();
+  MX_UART5_Init();
+  MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
   uart_send_string("Hello world\n\r");
   
@@ -134,9 +138,9 @@ int main(void)
 
   HAL_CAN_Start(&hcan);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
-  HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO1_MSG_PENDING);
 
   HAL_ADC_Start(&hadc1);
+  HAL_ADC_Start(&hadc2);
 
 #if (HW_INTERFACE == UART_INTERFACE)  && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_hmi_init();
@@ -149,19 +153,11 @@ int main(void)
   HAL_Delay(2000);
   HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 1);
 
-  //motor_interface_zero(1);
-  //motor_interface_zero(0);
-  //controller_interface_request_position();
-
 #if ACTIVE_UNIT == SHOULDER
   accl_interface_set_byte(0x10, 0b01110000); //Init acc 2g
   accl_interface_set_byte(0x11, 0b01110000); //Init rotation 250dps
 #endif
 
-  uint8_t canData[8] = {0x41, 0x1, 0x2A, 0x0, 0x0, 0x0, 0, 0};
-  uint8_t canrx[8];
-  double current;
-  double previous = 0;
   while (1)
   {
 
@@ -174,12 +170,6 @@ int main(void)
 
     motor_interface_update_tot_cnt(0);
     motor_interface_update_tot_cnt(1);
-    // controller_interface_update_position(0);
-    // controller_interface_update_error(0);
-    // char* debug[64];
-    // int32_t sp = (int32_t)(controller_interface_get_error(0));
-    // sprintf(debug, "pos: %i\n\r", sp);
-    // uart_send_string(debug);
 
     if(state_interface_get_global_state() == GS_IDLE)
     {
@@ -196,21 +186,9 @@ int main(void)
       }
       else if(state_interface_get_calibration_state() == CS_SHOULDER)
       {
-        //state_calibrate_shoulder();
-        if(controller_interface_get_upd_ctrl() == 1)
-        {
-          controller_interface_update_position(1);
-
-          controller_interface_update_error(1);
-          controller_interface_update_power(1);
-          // char* debug[64];
-          // int32_t sp = (int32_t)(controller_interface_get_error(1)*100);
-          // sprintf(debug, "delta ex: %i\n\r", sp);
-          // uart_send_string(debug);  
-          controller_interface_clear_upd_ctrl();
-        }
+        state_calibrate_shoulder();
         
-        if(controller_interface_get_error(1) < 0.05)
+        if(fabs(controller_interface_get_error(1)) < 0.04)
         {
           //motor_interface_zero(1);
           motor_interface_set_total_count(1, 0);
@@ -250,84 +228,24 @@ int main(void)
       else
       {
         //If not calibrating own joints, maintain positions
-        if(controller_interface_get_upd_ctrl() == 1)
-        {
-          controller_interface_update_position(0);
-          controller_interface_update_position(1);
-
-          
-          controller_interface_update_error(0);
-          controller_interface_update_error(1);
-          
-          controller_interface_update_power(0);
-          controller_interface_update_power(1);
-
-          // char* debug[64];
-          // int32_t sp = (int32_t)(controller_interface_get_error(1)*100);
-          // sprintf(debug, "delta ex: %i\n\r", sp);
-          // uart_send_string(debug);  
-
-          controller_interface_clear_upd_ctrl();
-        }
+        controller_interface_update_controller();
       }
     }
     else if(state_interface_get_global_state() == GS_OPERATING)
     {
-        if(controller_interface_get_upd_ctrl() == 1)
-        {          
-          controller_interface_update_position(0);
-          controller_interface_update_position(1);
-
-          
-          controller_interface_update_error(0);
-          controller_interface_update_error(1);
-          
-          controller_interface_update_power(0);
-          controller_interface_update_power(1);
-
-          // char* debug[64];
-          // int32_t sp = (int32_t)(controller_interface_get_error(1)*100);
-          // sprintf(debug, "delta ex: %i\n\r", sp);
-          // uart_send_string(debug);  
-
-          controller_interface_clear_upd_ctrl();
-        }
+      controller_interface_update_controller();
     }
     
     
+#if ACTIVE_UNIT == TORSO
     if(controller_interface_get_acc_poll() == 1)
     {
-#if ACTIVE_UNIT == TORSO
       controller_interface_request_acc_axis(1, 0, 'y');
-      //controller_interface_request_acc_axis(1, 0, 'x');
-      int16_t acc = controller_interface_acc_getY(0);
-      //int16_t rot = controller_interface_rot_getX(0);
-      //controller_interface_acc_clear_newY(0); //Doesn't do anything rn really, and shoudn't be cleared here anyway
-      //controller_interface_rot_clear_newX(0);
-      // char* debug[64];
-      // sprintf(debug, "Acc: %i\n\r", acc);
-      // uart_send_string(debug);
-
-#endif
       controller_interface_clear_acc_poll();
     }
-
-    //int32_t error = (int32_t)(controller_interface_get_error(0)*10);
-
+#endif
     adc_interface_update_current(1);
-    current = adc_interface_get_current(1);
-
-    if(current > previous)
-    {
-      previous = current;
-      char* debug[64];
-      sprintf(debug, "Adc: %i\n\r", (int32_t)(current*1000));
-      uart_send_string(debug);
-
-    }
     
-
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

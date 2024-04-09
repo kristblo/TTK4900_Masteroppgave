@@ -45,7 +45,7 @@ void string_cmd_processor_wrp(string_cmd_processor_args* input)
 
 void string_cmd_rail(char (*inputTokens)[64])
 {
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_send_string("Got rail command\n\r");
 #endif
 
@@ -58,7 +58,7 @@ void string_cmd_rail(char (*inputTokens)[64])
 
 void string_cmd_shoulder(char (*inputTokens)[64])
 {
-#if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_send_string("Got shoulder command\n\r");
 #endif
 
@@ -72,7 +72,7 @@ void string_cmd_shoulder(char (*inputTokens)[64])
 
 void string_cmd_elbow(char (*inputTokens)[64])
 {
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_send_string("Got elbow command\n\r");
 #endif
 
@@ -87,7 +87,7 @@ void string_cmd_elbow(char (*inputTokens)[64])
 
 void string_cmd_wrist(char (*inputTokens)[64])
 {
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_send_string("Got wrist command\n\r");
 #endif
 
@@ -101,7 +101,7 @@ void string_cmd_wrist(char (*inputTokens)[64])
 
 void string_cmd_twist(char (*inputTokens)[64])
 {
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_send_string("Got twist command\n\r");
 #endif
 
@@ -115,7 +115,7 @@ void string_cmd_twist(char (*inputTokens)[64])
 
 void string_cmd_pinch(char (*inputTokens)[64])
 {
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_send_string("Got pinch command\n\r");
 #endif
 
@@ -129,14 +129,14 @@ void string_cmd_pinch(char (*inputTokens)[64])
 
 void string_cmd_can(char (*inputTokens)[64])
 {
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_send_string("Got can command\n\r");
 #endif
 }
 
 void string_cmd_acc1(char (*inputTokens)[64])
 {
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_send_string("Got acc1 command\n\r");
 #endif  
 
@@ -172,14 +172,14 @@ void string_cmd_stop(char (*inputTokens)[64])
   HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 0);
   state_interface_set_global_state(GS_IDLE);
   state_interface_broadcast_global_state();
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_send_string("Got STOP command\n\r");
 #endif
 }
 
 void string_cmd_rly(char (*inputTokens)[64])
 {
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_send_string("Got relay command\n\r");
 
   uint8_t relay = (uint8_t)atoi(inputTokens[1]);
@@ -190,7 +190,7 @@ void string_cmd_rly(char (*inputTokens)[64])
 
 void string_cmd_home(char (*inputTokens)[64])
 {
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_send_string("Starting calibration\n\r");
 #endif
   state_interface_set_global_state(GS_CALIBRATING);
@@ -202,7 +202,7 @@ void string_cmd_state(char (*inputTokens)[64])
 {
   if((int)strcmp(inputTokens[1], "operate") == 0)
   {
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
     uart_send_string("Global state: operating\n\r");
 #endif
     state_interface_set_global_state(GS_OPERATING);
@@ -210,7 +210,7 @@ void string_cmd_state(char (*inputTokens)[64])
   }
   if((int)strcmp(inputTokens[1], "calibrate") == 0)
   {
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
     uart_send_string("Global state: calibrating\n\r");
 #endif
     state_interface_set_global_state(GS_CALIBRATING);
@@ -218,7 +218,7 @@ void string_cmd_state(char (*inputTokens)[64])
   }
   if((int)strcmp(inputTokens[1], "idle") == 0)
   {
-#if HW_INTERFACE == UART_INTERFACE
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
     uart_send_string("Global state: idle\n\r");
 #endif
     state_interface_set_global_state(GS_IDLE);
@@ -254,23 +254,19 @@ void string_cmd_category_local_motor(uint8_t motor, char (*inputTokens)[64])
     }
     else if(mode == 'r')
     {
-      //TODO: implement radians
       float setpoint = (float)atof(inputTokens[3]);
       controller_interface_set_setpoint(motor, setpoint);
-
-      // int32_t sp = (int32_t)(controller_interface_get_setpoint(motor)*10);
-      // char* debug[64];
-      // sprintf(debug, "Setpoint rb: %i\n\r", sp);
-      // uart_send_string(debug);
     }
     else
     {
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)      
       uart_send_string("ERROR no valid setpoint mode: e, r\n\r");
+#endif      
     }
   }
   else
   {  
-#if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
     uart_send_string("ERROR no valid direction\n\r");
     uart_send_string("Motor cmd format: <motor> <cmd> <args>\n\r");
 #endif    
@@ -301,7 +297,7 @@ void string_cmd_category_remote_motor(uint8_t motor, char (*inputTokens)[64])
   }
   else
   {  
-#if HW_INTERFACE == UART_INTERFACE && GLOBAL_DEBUG
+#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
     uart_send_string("ERROR no valid direction\n\r");
 #endif    
   }

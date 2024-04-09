@@ -27,9 +27,9 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .maxMovementRate = 0.1745,
+  .maxMovementRate = 1.745,
   .Kp = 30, //50
-  .KpTi = 0.1,// 0.20,
+  .KpTi = 0.2,// 0.20,
   .Kd = 10,
   .intError = 0,  
   .jointName = "shoulder"
@@ -135,6 +135,24 @@ accelerometer_inData* accelerometers[0];
 //----------------------
 //Joint control handlers
 //----------------------
+void controller_interface_update_controller()
+{
+  if(controller_interface_get_upd_ctrl() == 1)
+  {
+    controller_interface_update_position(0);
+    controller_interface_update_position(1);
+
+    
+    controller_interface_update_error(0);
+    controller_interface_update_error(1);
+    
+    controller_interface_update_power(0);
+    controller_interface_update_power(1);
+
+    controller_interface_clear_upd_ctrl();
+  }
+}
+
 float controller_interface_get_setpoint(uint8_t controllerSelect)
 {
   return joint_controller_get_setpoint(joints[controllerSelect]);
@@ -432,6 +450,8 @@ void joint_controller_update_position(joint_controller_descriptor* joint)
 
     position = (-1*radians);
 
+    //motor_interface_set_total_count(joint->motorNum, (int32_t)(resolution*position));
+
     controller_acc_clear_newY(&accelerometers[0]);
 
   }
@@ -457,37 +477,7 @@ float joint_controller_get_error(joint_controller_descriptor* joint)
 void joint_controller_update_error(joint_controller_descriptor* joint)
 {
   float setpoint = joint_controller_get_setpoint(joint);
-  // int32_t totalClicks = motor_interface_get_total_count(joint->motorNum);
-  // int32_t resolution = motor_interface_get_resolution(joint->motorNum);
-  
   float error = setpoint - joint_controller_get_position(joint);
-  // if(joint->hasAccelerometer && (controller_acc_get_newY(&accelerometers[0]) == 1)) //TODO: should check if data is stale; incorporate newX/Y/X flag
-  // {
-  //   //Only works for shoulder joint obvs
-  //   int16_t rawAcc = controller_acc_getY(&accelerometers[0]);
-  //   float middle = ((float)(rawAcc-2300)/16384); //Acc descriptor should have these values
-  //   float radians = asinf(middle);    
-
-  //   //error = setpoint - ((float)totalClicks/(float)resolution)
-  //   error = setpoint - (-1*radians); //Shoulder acc has "wrong" polarity
-
-  //   // int32_t output = (int32_t)(error*100);
-  //   // char* debug[64];
-  //   // sprintf(debug, "rawacc: %i\n\r", output);
-  //   // uart_send_string(debug);
-
-  //   controller_acc_clear_newY(&accelerometers[0]);
-
-  // }
-  // else
-  // {
-  //   error = setpoint - ((float)totalClicks/(float)resolution);
-  // }
-
-  // int32_t output = (int32_t)(error*100);
-  // char* debug[64];
-  // sprintf(debug, "sp: %i\n\r", totalClicks);
-  // uart_send_string(debug);  
   
   joint_controller_set_error(joint, error);
 
@@ -536,10 +526,9 @@ void joint_controller_update_power(joint_controller_descriptor* joint)
   float prevError = joint->prevError;
   float dedt = error - prevError; //rad or mm at 10kHz
 
-
   if(fabs(dedt) < (joint->maxMovementRate)/10000)
   {
-    joint->intError += ((joint->KpTi)*error); //Bit afraid of overflow, therefore using KpTi here
+    joint->intError += ((joint->KpTi)*error); //Bit afraid of overflow, therefore using KpTi here    
   }
   else
   {
@@ -549,13 +538,6 @@ void joint_controller_update_power(joint_controller_descriptor* joint)
   float power = (joint->Kp)*error + (joint->intError) - ((joint->Kd)*dedt);
   
   joint->prevPower = power;
-  
-  // if(joint->jointName == "rail")
-  // {
-  //   char* debug[64];
-  //   sprintf(debug, "dedt: %i\n\r", (int32_t)(dedt*10000));
-  //   uart_send_string(debug);
-  // }
   
   if(power < 0)
   {
