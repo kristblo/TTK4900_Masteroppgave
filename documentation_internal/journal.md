@@ -294,3 +294,21 @@ The 42V supply is not a viable option. For one, I broke the connector, and in an
 4. Need feedback on whether to focus on ROS or low level. If low level: incorporate torque calculations into ADC driver. Also divided the conversion constant by 10, ADC readouts look much more believable!
 
 5. Need to prepare for integration with ROS. Go through every print statement and check that they are HMI only!
+
+###050424
+Implemented two CAN messages: JOINT_POS_REQ and JOINT_POS_TX as motor type messages. Syntax: data[0]=e/r, data[1..4]=clicks/rads. Motor number is masked out of ID in REQ and inserted back into TX. Torso should then be able to see all messages, but shoulder and hand only those relevant to their motors.
+
+Removed a lot of dead code, but should still maybe remove functions that simply aren't in use. Tried compiling without string_cmd_parser, which didn't crash. Implies that uart messages are appropriately encapsulated in if-preprocs. Discovered that the accelerometer position must override the encoder position, because the encoder updates run so much faster than accelerometer updates.
+
+I may just have fried the whole CAN circuit. In a completely unpredictable manner, the hand vbus caught while calibrating and were pulled out, and I'm not sure that power was decoupled in time before +25V hit CANL. Update: not fried
+
+Need to disregard encoder data during calibration of shoulder joint. Tried overwriting encoder count in update_pos with accelerometer position and resolution, bu this introduces vibrations, likely due to interference between update_encoder_count in main and inaccuracy in the resolution estimation.
+
+###090424
+Wrote shoulder calibration procedure as effectively identical to update pos w/o the acc/enc check. It works, but is unstable if the elbow joint is extended at an acute angle. During operations, shoulder struggles with accuracy at high angles. Hypothesis: Too low voltage to effectively actuate the shoulder, and/or integral effect not strong enough. This is another reason for a velocity controller being preferable to a positional controller: the vc could have increased torque until the appropriate velocity was reached. Recommend keeping shoulder within +-1.2rad.
+
+Also seeing that the calibration is not always successful, and that running it twice in a row does not necessarily work. This is probably due to the state machine having been tacked on top of an already complex system.
+
+Stress test: Shoulder +-1.2rad when elbow at -1.5rad works well, maintaining good accuracy. Shoulder between 1.2rad and -0.5rad when elbow at 0 works well, but more noise audible around 1rad compared to elbow -1.5rad. Moving elbow from -1.5rad to 0 while shoulder at 1.2 rad makes shoulder droop temporarily. Hypothesis: low voltage makes the shoulder struggle to keep up during increased torque, and/or integral action too low.
+
+For the thesis: Tune PID at voltage levels 20, 25, 30V using ZN, make qualitative assessment.
