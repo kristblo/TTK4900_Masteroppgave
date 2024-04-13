@@ -123,6 +123,7 @@ int main(void)
   MX_UART5_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
+  
   uart_send_string("Hello world\n\r");
   
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);//MTR2
@@ -144,6 +145,10 @@ int main(void)
 
 #if (HW_INTERFACE == UART_INTERFACE)  && (SW_INTERFACE == CMD_MODE_TERMINAL)
   uart_hmi_init();
+#elif (HW_INTERFACE == UART_INTERFACE) && (SW_INTERFACE == CMD_MODE_ROS)
+  uart_ros_init();
+  // state_interface_set_global_state(GS_OPERATING);
+  // state_interface_broadcast_global_state();
 #endif
 
   /* USER CODE END 2 */

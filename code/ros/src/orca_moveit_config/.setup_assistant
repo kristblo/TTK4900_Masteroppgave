@@ -1,0 +1,23 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: ""
+    relative_path: /home/ov_robotarm/TTK4900_Masteroppgave/code/ros/src/urdf/orca_description.urdf
+  srdf:
+    relative_path: config/ttk4900_orca.srdf
+  package_settings:
+    author_name: kristblo
+    author_email: kristblo@stud.ntnu.no
+    generated_timestamp: 1712917233
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position

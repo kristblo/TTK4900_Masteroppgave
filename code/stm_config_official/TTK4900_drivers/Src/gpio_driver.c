@@ -10,14 +10,14 @@ HAL_GPIO_EXTI_Callback(uint16_t GPIO_pin)
   if(GPIO_pin == END_SW_Pin)
   {
     gpio_end_switch_handler();
-#if GLOBAL_DEBUG
+#if (HW_INTERFACE == UART_INTERFACE)  && (SW_INTERFACE == CMD_MODE_TERMINAL)
     uart_send_string("End switch triggered\n\r");
 #endif
   }
   if(GPIO_pin == OPT_SW1_Pin)
   {
     gpio_twist_switch_handler();
-#if GLOBAL_DEBUG
+#if (HW_INTERFACE == UART_INTERFACE)  && (SW_INTERFACE == CMD_MODE_TERMINAL)
     uart_send_string("Twist switch triggered\n\r");
 #endif
 

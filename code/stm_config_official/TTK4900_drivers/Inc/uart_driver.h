@@ -32,6 +32,8 @@
 //TTK4900 library includes
 #include "unit_config.h"
 #include "string_cmd_parser.h"
+#include "joint_controller.h"
+#include "state_machine.h"
 
 //------FILE BEGIN
 
@@ -45,11 +47,13 @@ void uart_send_string(char* str);
 /// @param buffer String buffer holding the currently relevant strings
 /// @param bufferLength Length of buffer
 /// @param bufferPos Keyboard cursor position in buffer
-void uart_parse_input(char* input, 
+void uart_parse_hmi_input(char* input, 
                       uint8_t* buffer, 
                       uint8_t bufferLength, 
                       uint8_t* bufferPos);
 
+
+void uart_parse_ros_input(char* input);
 
 /// @brief Handles incoming UART data when the peripheral is used as HMI
 void uart_hmi_rx_handler();

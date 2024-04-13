@@ -312,3 +312,36 @@ Also seeing that the calibration is not always successful, and that running it t
 Stress test: Shoulder +-1.2rad when elbow at -1.5rad works well, maintaining good accuracy. Shoulder between 1.2rad and -0.5rad when elbow at 0 works well, but more noise audible around 1rad compared to elbow -1.5rad. Moving elbow from -1.5rad to 0 while shoulder at 1.2 rad makes shoulder droop temporarily. Hypothesis: low voltage makes the shoulder struggle to keep up during increased torque, and/or integral action too low.
 
 For the thesis: Tune PID at voltage levels 20, 25, 30V using ZN, make qualitative assessment.
+
+Downloaded ROS2 Humble Hawksbill, started following various tutorials. Got a bit ahead of myself, but rviz seems promising. Need to follow the tutorials to get a grip on TF, launcher scripts etc in the intermediate section after completing the beginner stuff.
+
+###100424
+Followed some of the intermediate lessons, but I think rviz and TF is a bit too heavy and can be automated by moveit. Moveit uses rviz, but has functionality to let me do motion planning etc.
+
+###110424
+Wrote URDF of the Orca, visualising using moveit and moveit setup assistant.
+Problem:
+1. 'Capabilities' error: launches.py line 203 changed with fix from [StackExchange](https://robotics.stackexchange.com/questions/110134/trouble-launching-moveit2-configurations)
+
+2. 'Type double not string' error on rviz launch: [Locale problem](https://github.com/ros-planning/moveit2/issues/1049) , fix problem by starting command with LC_NUMERIC=en_US.UTF-8
+
+3. Added acceleration and velocity limits for all joints, necessary for planning, in joint_limits.yaml, then rebuilt the project. Path planning works.
+
+Phind suggests I use rviz/moveit to set up publishing of planned trajectories onto a topic, which a listening Serial node can then translate and send to UART. Need to find out if this is real-time or a "set" of commands.
+
+
+###120424
+Something broke towards the end yesterday after I started the tutorial for C++/MoveIt. One thing that almost certainly was wrong was that I installed the moveit package globally under Humble, as well as in the already existing build from source. Moveit complained about a double definition somewhere, anyway. Cleaned the slate and installed Iron instead. Building MoveIt on top of that resulted in fewer errors.
+
+Created a package under code/ros called orca_moveit_config using setup assistant. Only changes made after setup was adding acceleration limits as floats (not ints!) to joint_limits.yaml. That means:
+1. MoveIt is built from source under home/ws_moveit.
+
+2. My orca package is built under ttk.../ros.
+
+3. Useage requires sourcing ROS (automatically from bash), moveit (manually from ws_moveit) and orca_moveit (manually from ttk).
+
+4. Launching the sim still requires LC_NUMERIC even though that was configured as part of the ROS install.
+
+###130424
+Everything exept reliable parsing of the input strings works. It seems completely random whether or not string comparison of the header makes it through.
+Possible solutions: Everything happens in an interrupt handler, which is preempted by one of my many other timing interrupts etc. Will need to make a flag system or something. Alternatively, sophons are real. Frustrating as fuck.

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ttk4900_orca">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+
+    <!-- Import ttk4900_orca urdf file -->
+    <xacro:include filename="/home/ov_robotarm/TTK4900_Masteroppgave/code/ros/src/urdf/orca_description.urdf" />
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="ttk4900_orca.ros2_control.xacro" />
+
+
+    <xacro:ttk4900_orca_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+
+</robot>
