@@ -32,6 +32,7 @@
 //TTK4900 library includes
 #include "unit_config.h"
 #include "string_cmd_parser.h"
+#include "ros_uart_parser.h"
 #include "joint_controller.h"
 #include "state_machine.h"
 

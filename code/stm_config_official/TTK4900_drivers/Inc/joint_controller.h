@@ -150,7 +150,7 @@ void controller_interface_update_controller();
 float controller_interface_get_setpoint(uint8_t controllerSelect);
 
 
-/// @brief Public function to get the current positional setpoint of a joint
+/// @brief Public function to set the positional setpoint of a joint
 /// @param controllerSelect One of two joints available to the MCU
 /// @param setPoint Joint positional setpoint in rads relative to its zero position
 void controller_interface_set_setpoint(uint8_t controllerSelect, float setPoint);

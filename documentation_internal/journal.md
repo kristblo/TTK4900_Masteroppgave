@@ -345,3 +345,11 @@ Created a package under code/ros called orca_moveit_config using setup assistant
 ###130424
 Everything exept reliable parsing of the input strings works. It seems completely random whether or not string comparison of the header makes it through.
 Possible solutions: Everything happens in an interrupt handler, which is preempted by one of my many other timing interrupts etc. Will need to make a flag system or something. Alternatively, sophons are real. Frustrating as fuck.
+
+Started writing a dedicated ROS message decoder, similar structure to CAN with flags etc. Problem: Only one joint pos setpoint mailbox, need to ensure that no positions are lost. Rewrite the CAN module to accommodate, or separate (FIFO) queueing structure in the ROS module?
+
+Rewrite CAN module. Nbd. Added one message structure for dual positions, idea was to use that in conjunction with a queue system in the ROS module. However, KISS: add another message type s.t. one for shoulder and one for hand. Use filtering to ensure only one gets through at the relevant unit. queue_tx overwrites data in every instance, so setpoints will be lost if not transmitted. May result in more staccato movements, but that's OK.
+
+Detailing the need for more messages: Joint setpoint only holds one position, and must be transmitted before the next setpoint is queued lest it be lost. ROS module receives (and sets) all setpoints at once -> would only send the last (i.e. wrist) for each ROS message received. Need to deal with that somehow. CAN messages can only be sent at 344Hz, so sending 4 positions consecutively at 100Hz is not possible (effectively 400Hz). If packing both setpoints in one msg, get 200Hz effectively, i.e. 2 msgs at 100Hz, which should be fine.
+
+Rail and shoulder work smoothly with ROS integration! Tested with elbow only using the already existing joint setpoint message, works okay too but saw signs of bus contention: somewhat irregular shoulder movements (bad acc readings) and elbow was a bit jittery (slow/staccato movement). Granted, went straight to Operating state because I got tired of waiting for calibration.

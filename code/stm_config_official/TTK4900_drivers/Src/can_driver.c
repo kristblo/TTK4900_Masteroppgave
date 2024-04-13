@@ -23,6 +23,7 @@ void (*canRxFunctions[NUM_CAN_TYPES])() =
   can_driver_cmd_rxA,
   can_driver_cmd_rxB,
   can_driver_cmd_rxC,
+  can_driver_cmd_rxD,
 };
 
 static can_mailbox rxMailboxes[NUM_CAN_TYPES]; 
@@ -124,7 +125,7 @@ void can_driver_send_msg(uint8_t* data,
   if(HAL_CAN_AddTxMessage(&hcan, &txHeader, data, &txMailbox[hwMailbox]) != HAL_OK)
   {
 
-#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
+#if GLOBAL_DEBUG //&& (SW_INTERFACE == CMD_MODE_TERMINAL)
     uart_send_string("CAN TX not successful\n\r");
     char* debug[64];
     sprintf(debug, "ID: %X\n\r", stdId);
@@ -309,7 +310,17 @@ void can_cmd_handle_inState(uint32_t id, uint8_t* inData)
   state_interface_set_calibration_state(calibrationState);
 }
 
+void can_cmd_handle_dualJointSp(uint32_t id, uint8_t* inData)
+{
+  float setpoint_joint0;
+  float setpoint_joint1;
 
+  memcpy(&setpoint_joint0, &inData[0], 4);
+  memcpy(&setpoint_joint1, &inData[4], 4);
+
+  controller_interface_set_setpoint(0, setpoint_joint0);
+  controller_interface_set_setpoint(1, setpoint_joint1);
+}
 
 
 void can_driver_cmd_rxTEMPLATE(uint32_t id, uint8_t* inData)
@@ -560,6 +571,21 @@ void can_driver_cmd_rxC(uint32_t id, uint8_t* inData)
   }  
 }
 
+void can_driver_cmd_rxD(uint32_t id, uint8_t* inData)
+{
+  //Template for rx handlers
+  uint8_t cmd = (uint8_t)(id & 0x1F);
+  if(cmd == JOINT_POS_DUAL_SP)
+  {
+    can_cmd_handle_dualJointSp(id, inData);
+  }
+  else
+  {
+#if GLOBAL_DEBUG
+    uart_send_string("RECEIVED WRONG COMMAND FOR THIS HANDLER: RXD\n\r");
+#endif
+  }  
+}
 
 
 void can_driver_queue_tx(can_mailbox* mailbox, uint8_t* outData, uint32_t id)

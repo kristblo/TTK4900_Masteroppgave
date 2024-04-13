@@ -53,7 +53,7 @@
 //Choose between terminal text commands and ROS
 #define CMD_MODE_TERMINAL 0
 #define CMD_MODE_ROS 1
-#define SW_INTERFACE CMD_MODE_TERMINAL
+#define SW_INTERFACE CMD_MODE_ROS
 
 #if ACTIVE_UNIT == TORSO
   #define CAN_FILTER_M 0x000 //Motor message filter

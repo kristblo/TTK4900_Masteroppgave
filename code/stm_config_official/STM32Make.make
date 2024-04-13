@@ -79,6 +79,7 @@ TTK4900_drivers/Src/can_driver.c \
 TTK4900_drivers/Src/gpio_driver.c \
 TTK4900_drivers/Src/joint_controller.c \
 TTK4900_drivers/Src/motor_driver.c \
+TTK4900_drivers/Src/ros_uart_parser.c \
 TTK4900_drivers/Src/state_machine.c \
 TTK4900_drivers/Src/string_cmd_parser.c \
 TTK4900_drivers/Src/uart_driver.c \

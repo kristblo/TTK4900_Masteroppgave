@@ -121,7 +121,8 @@ volatile uint8_t uartRosRxBuffer[32];
 void uart_ros_rx_handler()
 {
   HAL_UART_Receive_IT(&huart5, uartRosRxBuffer, 32);
-  uart_parse_ros_input(uartRosRxBuffer);
+  ros_interface_set_rxBuffer(&uartRosRxBuffer);
+  ros_interface_set_newMsgFlag();
 
 }
 void uart_ros_init()

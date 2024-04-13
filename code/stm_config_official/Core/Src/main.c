@@ -38,6 +38,7 @@
 #include "motor_driver.h"
 #include "adc_driver.h"
 #include "state_machine.h"
+#include "ros_uart_parser.h"
 
 #if (HW_INTERFACE == UART_INTERFACE) && (SW_INTERFACE == CMD_MODE_TERMINAL)
 #include "string_cmd_parser.h"
@@ -123,8 +124,9 @@ int main(void)
   MX_UART5_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
-  
-  uart_send_string("Hello world\n\r");
+#if (HW_INTERFACE == UART_INTERFACE)  && (SW_INTERFACE == CMD_MODE_TERMINAL)  
+  uart_send_string("Peripheral init complete\n\r");
+#endif
   
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);//MTR2
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);//MTR2
@@ -167,9 +169,14 @@ int main(void)
   {
 
 
-#if ACTIVE_UNIT == TORSO
-    //HAL_Delay(20);
+#if (ACTIVE_UNIT == TORSO) && (SW_INTERFACE == CMD_MODE_ROS)
+    if(ros_interface_get_newMsgFlag() == 1)
+    {
+      ros_interface_parse_input();
+      ros_interface_clear_newMsgFlag();
+    }
 #endif    
+    
     can_rx_executive();
     can_tx_executive();
 

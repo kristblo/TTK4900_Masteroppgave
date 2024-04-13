@@ -90,6 +90,9 @@ typedef enum
   /// @brief Message contains a global state to set
   GBL_ST_SET,
 
+  /// @brief Message contains setpoints for both motors
+  JOINT_POS_DUAL_SP,
+
   /// @brief Dummy type for counting the number of message types, must always be last
   num_types,
 } can_message_type;
@@ -224,6 +227,12 @@ void can_cmd_handle_axisData(uint32_t id, uint8_t* inData);
 void can_cmd_handle_inState(uint32_t id, uint8_t* inData);
 
 
+/// @brief Handles incoming setpoints for both joints
+/// @param id Incoming CAN ID
+/// @param inData Incoming CAN data
+void can_cmd_handle_dualJointSp(uint32_t id, uint8_t* inData);
+
+
 //The following cmd_rxn functions MUST match with the number of
 //available can_message_type, and MUST be added to the
 //canRxFunctions list in the can_driver.c file
@@ -292,6 +301,12 @@ void can_driver_cmd_rxB(uint32_t id, uint8_t* inData);
 /// @param id CAN message ID
 /// @param inData CAN message data field
 void can_driver_cmd_rxC(uint32_t id, uint8_t* inData);
+
+/// @brief "Generic" function to handle CAN message type JOINT_POS_DUAL_SP
+/// @param id CAN message ID
+/// @param inData CAN message data field
+void can_driver_cmd_rxD(uint32_t id, uint8_t* inData);
+
 
 
 #endif //CAN_DRIVER_H
