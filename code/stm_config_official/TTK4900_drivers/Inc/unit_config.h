@@ -43,7 +43,7 @@
 #define TORSO 0
 #define SHOULDER 1
 #define HAND 2
-#define ACTIVE_UNIT TORSO //Change before flashing another unit
+#define ACTIVE_UNIT HAND //Change before flashing another unit
 
 //Choose between UART and USB for communication
 #define UART_INTERFACE 0
@@ -53,7 +53,7 @@
 //Choose between terminal text commands and ROS
 #define CMD_MODE_TERMINAL 0
 #define CMD_MODE_ROS 1
-#define SW_INTERFACE CMD_MODE_ROS
+#define SW_INTERFACE CMD_MODE_TERMINAL
 
 #if ACTIVE_UNIT == TORSO
   #define CAN_FILTER_M 0x000 //Motor message filter

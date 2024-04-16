@@ -353,3 +353,6 @@ Rewrite CAN module. Nbd. Added one message structure for dual positions, idea wa
 Detailing the need for more messages: Joint setpoint only holds one position, and must be transmitted before the next setpoint is queued lest it be lost. ROS module receives (and sets) all setpoints at once -> would only send the last (i.e. wrist) for each ROS message received. Need to deal with that somehow. CAN messages can only be sent at 344Hz, so sending 4 positions consecutively at 100Hz is not possible (effectively 400Hz). If packing both setpoints in one msg, get 200Hz effectively, i.e. 2 msgs at 100Hz, which should be fine.
 
 Rail and shoulder work smoothly with ROS integration! Tested with elbow only using the already existing joint setpoint message, works okay too but saw signs of bus contention: somewhat irregular shoulder movements (bad acc readings) and elbow was a bit jittery (slow/staccato movement). Granted, went straight to Operating state because I got tired of waiting for calibration.
+
+###160424
+All joints except pinch controllable from rviz. Run setup assistant again and reconfigure as there is something preventing the pincher from moving in rviz as it is. Set rail in its own planning group, noticed that the planner sometimes includes rail unnecessarily. Also increase maximum velocities and acceleration on everything except rail 2x, twist 5x.

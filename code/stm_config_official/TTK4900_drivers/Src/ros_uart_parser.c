@@ -54,11 +54,12 @@ void ros_interface_parse_input()
 
   if((int)strcmp(header, "num") == 0)
   {
-    float pos_rail    ;// = &uartRosRxBuffer[HEADEROFFSET + 0];
+    float pos_rail    ;// = &uartRosRxBuffer[HEADEROFFSET + 0]; //TODO: find out why this don't work
     float pos_shoulder;// = &uartRosRxBuffer[HEADEROFFSET + 4];
     float pos_elbow   ;// = &uartRosRxBuffer[HEADEROFFSET + 8];
-    float* pos_wrist   ;// = &uartRosRxBuffer[HEADEROFFSET + 12];
-    float* pos_twist   ;// = &uartRosRxBuffer[HEADEROFFSET + 16];
+    float pos_wrist   ;// = &uartRosRxBuffer[HEADEROFFSET + 12];
+    float pos_twist   ;// = &uartRosRxBuffer[HEADEROFFSET + 16];
+    float pos_pinch = 0;
 
     memcpy(&pos_rail, &uartRosRxBuffer[HEADEROFFSET], 4);
     controller_interface_set_setpoint(0, (pos_rail)*1000);
@@ -67,22 +68,37 @@ void ros_interface_parse_input()
     controller_interface_set_setpoint(1, pos_shoulder);
 
     memcpy(&pos_elbow, &uartRosRxBuffer[HEADEROFFSET + 8], 4);
+    memcpy(&pos_wrist, &uartRosRxBuffer[HEADEROFFSET + 12], 4);
+    memcpy(&pos_twist, &uartRosRxBuffer[HEADEROFFSET + 16 ], 4);
     
-    uint8_t data[8];
-    uint8_t mode = 'r';
-    uint32_t id = (3 << CAN_MOTOR_CMD_OFFSET) | JOINT_POS_SP;
-    memcpy(data, &mode, 1);
-    memcpy(&data[1], &pos_elbow, 4);
-    can_interface_queue_tx(JOINT_POS_SP, data, id);
+    // uint8_t data[8];
+    // uint8_t mode = 'r';
+    // uint32_t id = (3 << CAN_MOTOR_CMD_OFFSET) | JOINT_POS_SP;
+    // memcpy(data, &mode, 1);
+    // memcpy(&data[1], &pos_elbow, 4);
+    // can_interface_queue_tx(JOINT_POS_SP, data, id);
+
+    uint8_t shoulderData[8];
+    memcpy(&shoulderData[0], &pos_wrist, 4);
+    memcpy(&shoulderData[4], &pos_elbow, 4);
+    uint32_t id = (2 << CAN_MOTOR_CMD_OFFSET) | WRIST_ELBOW_SP;
+    can_interface_queue_tx(WRIST_ELBOW_SP, shoulderData, id);
+
+    uint8_t handData[8];
+    memcpy(&handData[0], &pos_pinch, 4);
+    memcpy(&handData[4], &pos_twist, 4);
+    id = (4 << CAN_MOTOR_CMD_OFFSET) | PINCH_TWIST_SP;
+    can_interface_queue_tx(PINCH_TWIST_SP, handData, id);
+
 
   }
   else if((int)strcmp(header, "hom") == 0)
   {
     uart_send_string("home\n\r");
-    // state_interface_set_global_state(GS_CALIBRATING);
-    // state_interface_set_calibration_state(CS_RAIL);
-    state_interface_set_global_state(GS_OPERATING);
-    state_interface_broadcast_global_state();
+    state_interface_set_global_state(GS_CALIBRATING);
+    state_interface_set_calibration_state(CS_RAIL);
+    // state_interface_set_global_state(GS_OPERATING);
+    // state_interface_broadcast_global_state();
 
   }
 }

@@ -6,7 +6,7 @@
 
 
 const can_message_type numCanTypes = num_types;
-#define NUM_CAN_TYPES num_types //Compiler gets sad if numCanTypes is used directly
+#define NUM_CAN_TYPES num_types //Compiler gets angry if numCanTypes is used directly
 
 void (*canRxFunctions[NUM_CAN_TYPES])() =
 {
@@ -24,6 +24,7 @@ void (*canRxFunctions[NUM_CAN_TYPES])() =
   can_driver_cmd_rxB,
   can_driver_cmd_rxC,
   can_driver_cmd_rxD,
+  can_driver_cmd_rxE,
 };
 
 static can_mailbox rxMailboxes[NUM_CAN_TYPES]; 
@@ -323,6 +324,32 @@ void can_cmd_handle_dualJointSp(uint32_t id, uint8_t* inData)
 }
 
 
+void can_cmd_handle_wristElbowSp(uint32_t id, uint8_t* inData)
+{
+  float setpoint_wrist;
+  float setpoint_elbow;
+
+  memcpy(&setpoint_wrist, &inData[0], 4);
+  memcpy(&setpoint_elbow, &inData[4], 4);
+
+  controller_interface_set_setpoint(0, setpoint_wrist);
+  controller_interface_set_setpoint(1, setpoint_elbow);
+
+}
+
+void can_cmd_handle_pinchTwistSp(uint32_t id, uint8_t* inData)
+{
+  float setpoint_pinch;
+  float setpoint_twist;
+
+  memcpy(&setpoint_pinch, &inData[0], 4);
+  memcpy(&setpoint_twist, &inData[4], 4);
+
+  controller_interface_set_setpoint(0, setpoint_pinch);
+  controller_interface_set_setpoint(1, setpoint_twist);
+
+}
+
 void can_driver_cmd_rxTEMPLATE(uint32_t id, uint8_t* inData)
 {
   //Template for rx handlers
@@ -573,16 +600,33 @@ void can_driver_cmd_rxC(uint32_t id, uint8_t* inData)
 
 void can_driver_cmd_rxD(uint32_t id, uint8_t* inData)
 {
-  //Template for rx handlers
+  //Incoming setpoints for elbow and wrist joints
   uint8_t cmd = (uint8_t)(id & 0x1F);
-  if(cmd == JOINT_POS_DUAL_SP)
+  if(cmd == WRIST_ELBOW_SP)
   {
-    can_cmd_handle_dualJointSp(id, inData);
+    can_cmd_handle_wristElbowSp(id, inData);
   }
   else
   {
 #if GLOBAL_DEBUG
     uart_send_string("RECEIVED WRONG COMMAND FOR THIS HANDLER: RXD\n\r");
+#endif
+  }  
+}
+
+
+void can_driver_cmd_rxE(uint32_t id, uint8_t* inData)
+{
+  //Incoming setpoints for twist and pinch joints
+  uint8_t cmd = (uint8_t)(id & 0x1F);
+  if(cmd == PINCH_TWIST_SP)
+  {
+    can_cmd_handle_pinchTwistSp(id, inData);
+  }
+  else
+  {
+#if GLOBAL_DEBUG
+    uart_send_string("RECEIVED WRONG COMMAND FOR THIS HANDLER: RXE\n\r");
 #endif
   }  
 }
