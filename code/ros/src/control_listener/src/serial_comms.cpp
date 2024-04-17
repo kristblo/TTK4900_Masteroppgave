@@ -28,12 +28,35 @@ class SerialCommunicator : public rclcpp::Node
     RCLCPP_INFO(this->get_logger(), "Serial init returned: '%i'", this->init_serial());
   }
 
+  void read_serial()
+  {
+    std::string inputString = "";
+    char inputBuffer[1];
+    
+    while(1)
+    {
+      int num_bytes = read(this->serial_port, &inputBuffer, 1);
+      if(num_bytes > 0)
+      {
+        if(inputBuffer[0] != '\r')
+        {
+          inputString.append(inputBuffer);
+        }
+        else
+        {
+          RCLCPP_INFO(this->get_logger(), "Serial input: %s", inputString.c_str());
+          inputString = "";
+        }
+      }
+    }
+  }
+
   private:
 
 
   void topic_callback(const orca_ctrl_msgs::msg::Ctrl &msg) //const
   {
-    //RCLCPP_INFO(this->get_logger(), "Got message: '%s'", msg.msgtype.c_str());
+    RCLCPP_INFO(this->get_logger(), "Got message: '%s'", msg.msgtype.c_str());
     this->lastMessage = msg;
     this->construct_msg();
 
@@ -78,9 +101,9 @@ class SerialCommunicator : public rclcpp::Node
       return 1;
     }
 
-    char msg[32] = { 'h', 'o', 'm', 'e', '\r', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    write(this->serial_port, msg, sizeof(msg));
-    tcflush(this->serial_port, TCIFLUSH);
+    // char msg[32] = { 'h', 'o', 'm', 'e', '\r', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    // write(this->serial_port, msg, sizeof(msg));
+    // tcflush(this->serial_port, TCIFLUSH);
 
     return 0;
   }
@@ -101,11 +124,33 @@ class SerialCommunicator : public rclcpp::Node
 
       float test;
       memcpy(&test, &serialized[headerOffset], 4);
-      RCLCPP_INFO(this->get_logger(), "Got message: '%fl'", test);
+      // RCLCPP_INFO(this->get_logger(), "Got message: '%fl'", test);
       // RCLCPP_INFO(this->get_logger(), "Header: '%s'", header);
 
       write(this->serial_port, serialized, 32);
       tcflush(this->serial_port, TCIFLUSH);
+    }
+    else if(this->lastMessage.msgtype == "str")
+    {
+      char serialized[32];
+      int headerOffset = 3;
+      int strcmdSize = lastMessage.strcmd.size();
+      std::string cmdAsString = lastMessage.strcmd;
+      if(strcmdSize <= (32-headerOffset))
+      {
+        char header[headerOffset] = {'s', 't', 'r'};
+        memcpy(&serialized[0], header, headerOffset);
+        //memcpy(&serialized[3], &(cmdAsString.c_str()), strcmdSize);
+        strncpy(&serialized[headerOffset], cmdAsString.c_str(), sizeof(serialized)-headerOffset);
+        write(this->serial_port, serialized, 32);
+        tcflush(this->serial_port, TCIFLUSH);
+        RCLCPP_INFO(this->get_logger(), "Writing string: '%s' of size %li", serialized, sizeof(serialized));
+      }
+      else
+      {
+        RCLCPP_ERROR(this->get_logger(), "Message string too long: %i bytes (32 max)", strcmdSize);
+      }
+
     }
 
   }
@@ -113,11 +158,6 @@ class SerialCommunicator : public rclcpp::Node
   void float_to_bytes(char* target, float* input)
   {
     memcpy(target, input, 4);
-  }
-
-  void send_serial()
-  {
-
   }
 
   int serial_port;
@@ -189,9 +229,9 @@ int main(int argc, char* argv[])
   // close(serial_port);
 
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<SerialCommunicator>());
+  auto node = std::make_shared<SerialCommunicator>();
+  rclcpp::spin(node);
   rclcpp::shutdown();
 
   return 0;
-
 }

@@ -27,6 +27,13 @@ orca_arm_controller:
     state_interfaces:
       - position
     allow_nonzero_velocity_at_trajectory_end: true
+
 orca_hand_controller:
   ros__parameters:
-    joint: joint_twist_gripper0
+    joints: 
+      - joint_twist_gripper0
+      - joint_twist_gripper1
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position      

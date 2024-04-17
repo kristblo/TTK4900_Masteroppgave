@@ -39,10 +39,7 @@
 #include "adc_driver.h"
 #include "state_machine.h"
 #include "ros_uart_parser.h"
-
-#if (HW_INTERFACE == UART_INTERFACE) && (SW_INTERFACE == CMD_MODE_TERMINAL)
 #include "string_cmd_parser.h"
-#endif
 
 #if ACTIVE_UNIT == SHOULDER
 #include "accelerometer_driver.h"

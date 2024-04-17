@@ -20,10 +20,14 @@ ament_target_dependencies(control_listener rclcpp control_msgs orca_ctrl_msgs)
 add_executable(serial_comms src/serial_comms.cpp)
 ament_target_dependencies(serial_comms rclcpp orca_ctrl_msgs)
 
+add_executable(hmi src/hmi.cpp)
+ament_target_dependencies(hmi rclcpp orca_ctrl_msgs)
+
 
 install(TARGETS
   control_listener
   serial_comms
+  hmi
   DESTINATION lib/${PROJECT_NAME})
 
 

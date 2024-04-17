@@ -32,6 +32,7 @@
 #include "joint_controller.h"
 #include "state_machine.h"
 #include "can_driver.h"
+#include "string_cmd_parser.h"
 
 
 void ros_interface_set_rxBuffer(uint8_t* input);
@@ -48,11 +49,7 @@ void ros_interface_clear_newMsgFlag();
 
 void ros_interface_parse_input();
 
-void ros_interface_queue_setpoints();
-
-void ros_interface_dequeue_setpoints();
-
-void ros_interface_send_setpoints();
+void ros_interface_set_pinchPos(float pos);
 
 
 #endif //ROS_UART_PARSER_H

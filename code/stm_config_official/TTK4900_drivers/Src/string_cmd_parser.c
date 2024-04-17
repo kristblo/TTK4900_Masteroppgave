@@ -121,6 +121,16 @@ void string_cmd_pinch(char (*inputTokens)[64])
 
 #if ACTIVE_UNIT == HAND
   string_cmd_category_local_motor(0, inputTokens);
+
+#elif (ACTIVE_UNIT == TORSO) && (SW_INTERFACE == CMD_MODE_ROS)
+  float pos_pinch = (float)atof(inputTokens[1]);
+  
+  char* debug[64];
+  sprintf(debug, "Setting setting pinchpos: %i\n\r", (int)(pos_pinch));
+  uart_send_string(debug);
+
+  ros_interface_set_pinchPos(pos_pinch);
+
 #else
   string_cmd_category_remote_motor(4, inputTokens);
 #endif

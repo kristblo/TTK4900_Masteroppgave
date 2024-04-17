@@ -356,3 +356,23 @@ Rail and shoulder work smoothly with ROS integration! Tested with elbow only usi
 
 ###160424
 All joints except pinch controllable from rviz. Run setup assistant again and reconfigure as there is something preventing the pincher from moving in rviz as it is. Set rail in its own planning group, noticed that the planner sometimes includes rail unnecessarily. Also increase maximum velocities and acceleration on everything except rail 2x, twist 5x.
+----
+Setup assistant couldn't find the urdf, and nobody else on the internet seems to get that particular error. Will need to find a workaround.
+Options:
+1. Set up ROS nodes to cooperate to send pinch data from terminal.
+2. Modify string parsing to accommodate.
+Went for 2., and set up a new function ros_interface_set_pinchPos accessed by string parser to set a static float in the ros module. Unfortunately, the compiler doesn't seem to recognize that one function. Could just need a reboot, could be because string parser and ros module are including one another. Cursed either way, should probably try 1. instead.
+
+Set up another ros node Hmi to act as a substitute. Primarily to input the pinch command, but realised the STM ros module could just include the string parser to get full access to the string commands. Works, but currently does not solve the pincher problem. The issue is that I've set up the CAN cmds to update pincher implicitly, always setting it to 0. The manually typed pinch setpoint is overwritten every time the control_listener sends a set of setpoints.
+
+###170424
+The error went away after rebooting, now have full control. Observed that the shoulder does not always zero at vertical, unsure if that is due to poor PID tuning or inconsistent calibration.
+
+Want to implement telemetry as a ROS node, as well as tuning PID parameters remotely.
+
+Tried incorporating serial read as part of the serial_comms node using an infinite loop similar to the hmi node, but either that or the spin function will block the other. Will let that rest, and just keep using putty for reception for now.
+Should probably still implement torque/current as telemetry!
+
+Got a video and some screengrabs of Moveit, and hung a 500g weight on the gripper. The need for stronger PID tuning, probably even at a higher voltage, is clear: the arm struggles to find its setpoint, especially with higher weights. Really should try to up the voltage to 30V. Also attached some of the covers, which seems to have increased friction along with the application of sewing machine lube.
+
+Tomorrow: PID tuning at various voltages, as well as performance evaluation. Should be way safer now that it follows positional setpoints with low deltas. Focus: increase I term. Also read the paper on tuning. Implement sending of telemetry such that current can be read from all joints. Will look good as a graph!

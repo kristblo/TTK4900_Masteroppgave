@@ -42,6 +42,7 @@
 #include "can_driver.h"
 #include "joint_controller.h"
 #include "state_machine.h"
+#include "ros_uart_parser.h"
 
 //------FILE BEGIN------
 

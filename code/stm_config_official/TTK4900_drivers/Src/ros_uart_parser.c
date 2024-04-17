@@ -2,6 +2,7 @@
 
 static uint8_t uartRosRxBuffer[32];
 static uint8_t newRosMsgFlag = 0;
+float pos_pinch = 0; //TODO: Fix MoveIt so that it can send pinch references!
 
 void ros_interface_set_rxBuffer(uint8_t* inData)
 {
@@ -37,19 +38,10 @@ void ros_interface_parse_input()
 {
   
   char* debug[64];
-  
-  //Breaks the strcmp if not present...
-  // for(int i = 0; i < 32; i++)
-  // {
-  //   sprintf(debug, "buffer %i: %X\n\r", i, uartRosRxBuffer[i]);
-  //   uart_send_string(debug);
-  // }
 
   const int HEADEROFFSET = 3;
   char* header[HEADEROFFSET+1];//strcmp requires string+eof
   memcpy(header, uartRosRxBuffer, 3);
-
-  //uart_send_string(header);
   
 
   if((int)strcmp(header, "num") == 0)
@@ -59,10 +51,9 @@ void ros_interface_parse_input()
     float pos_elbow   ;// = &uartRosRxBuffer[HEADEROFFSET + 8];
     float pos_wrist   ;// = &uartRosRxBuffer[HEADEROFFSET + 12];
     float pos_twist   ;// = &uartRosRxBuffer[HEADEROFFSET + 16];
-    float pos_pinch = 0;
 
     memcpy(&pos_rail, &uartRosRxBuffer[HEADEROFFSET], 4);
-    controller_interface_set_setpoint(0, (pos_rail)*1000);
+    controller_interface_set_setpoint(0, (pos_rail)*1000); //ROS outputs mm
 
     memcpy(&pos_shoulder, &uartRosRxBuffer[HEADEROFFSET + 4], 4);
     controller_interface_set_setpoint(1, pos_shoulder);
@@ -71,13 +62,6 @@ void ros_interface_parse_input()
     memcpy(&pos_wrist, &uartRosRxBuffer[HEADEROFFSET + 12], 4);
     memcpy(&pos_twist, &uartRosRxBuffer[HEADEROFFSET + 16 ], 4);
     
-    // uint8_t data[8];
-    // uint8_t mode = 'r';
-    // uint32_t id = (3 << CAN_MOTOR_CMD_OFFSET) | JOINT_POS_SP;
-    // memcpy(data, &mode, 1);
-    // memcpy(&data[1], &pos_elbow, 4);
-    // can_interface_queue_tx(JOINT_POS_SP, data, id);
-
     uint8_t shoulderData[8];
     memcpy(&shoulderData[0], &pos_wrist, 4);
     memcpy(&shoulderData[4], &pos_elbow, 4);
@@ -87,22 +71,37 @@ void ros_interface_parse_input()
     uint8_t handData[8];
     memcpy(&handData[0], &pos_pinch, 4);
     memcpy(&handData[4], &pos_twist, 4);
+
+    // char* debug[64];
+    // sprintf(debug, "Reading pinchpos: %i\n\r", (int)(pos_pinch));
+    // uart_send_string(debug);
+
     id = (4 << CAN_MOTOR_CMD_OFFSET) | PINCH_TWIST_SP;
     can_interface_queue_tx(PINCH_TWIST_SP, handData, id);
 
-
   }
-  else if((int)strcmp(header, "hom") == 0)
+  else if((int)strcmp(header, "str") == 0)
   {
-    uart_send_string("home\n\r");
-    state_interface_set_global_state(GS_CALIBRATING);
-    state_interface_set_calibration_state(CS_RAIL);
+    uart_send_string("entered str\n\r");
+    // state_interface_set_global_state(GS_CALIBRATING);
+    // state_interface_set_calibration_state(CS_RAIL);
     // state_interface_set_global_state(GS_OPERATING);
     // state_interface_broadcast_global_state();
-
+    char* headerLessMsg[64]; //must be 64 byte
+    memcpy(headerLessMsg, &uartRosRxBuffer[3], 29);
+    uart_send_string(headerLessMsg);
+    string_cmd_processor(headerLessMsg);
   }
 }
 
+void ros_interface_set_pinchPos(float pos)
+{
+  char* debug[64];
+  sprintf(debug, "Actually setting pinchpos: %i\n\r", (int)(pos));
+  uart_send_string(debug);
+
+  pos_pinch = pos;
+}
 
 void ros_interface_queue_setpoints();
 

@@ -147,7 +147,7 @@ void can_cmd_handle_regVal(uint32_t id, uint8_t* inData)
   uint16_t regVal;
   memcpy(&regVal, &inData[1], 2);
 
-#if GLOBAL_DEBUG && (SW_INTERFACE == CMD_MODE_TERMINAL)
+#if GLOBAL_DEBUG && (HW_INTERFACE == UART_INTERFACE)
   char* debug[64];
   sprintf(debug, "Regval: %i\n\r", regVal);
   uart_send_string(debug);

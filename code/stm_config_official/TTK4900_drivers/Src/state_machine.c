@@ -222,7 +222,7 @@ void state_calibrate_twist()
   {
 
   }
-  twist_switch_flag = 0;
+  state_interface_clear_tw_flag();
   
   motor_interface_zero(1);
   motor_interface_set_total_count(1, 0);

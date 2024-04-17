@@ -21,6 +21,8 @@ moveit_simple_controller_manager:
     default: true
   orca_hand_controller:
     type: GripperCommand
+    action_ns: gripper_cmd
+    default: true    
     joints:
       - joint_twist_gripper0
       - joint_twist_gripper1

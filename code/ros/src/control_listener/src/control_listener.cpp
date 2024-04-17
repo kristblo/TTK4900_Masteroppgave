@@ -16,8 +16,7 @@ class CtrlListener : public rclcpp::Node
   CtrlListener() : Node("control_listener")
   {
     subscription_ = this->create_subscription<control_msgs::msg::JointTrajectoryControllerState>(
-      "orca_arm_controller/controller_state", 10, std::bind(&CtrlListener::topic_callback, this, _1)
-    );
+      "orca_arm_controller/controller_state", 10, std::bind(&CtrlListener::topic_callback, this, _1));
     publisher_ = this->create_publisher<orca_ctrl_msgs::msg::Ctrl>("orca_ctrl", 10);
     timer_ = this->create_wall_timer(10ms, std::bind(&CtrlListener::timer_callback, this));    
 

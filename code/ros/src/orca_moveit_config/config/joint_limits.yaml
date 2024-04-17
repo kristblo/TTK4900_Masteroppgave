@@ -15,19 +15,19 @@ joint_limits:
     max_acceleration: 2.0
   joint_hand_twist:
     has_velocity_limits: true
-    max_velocity: 0.10000000000000001
+    max_velocity: 3.00000000000000000
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 10.0
   joint_lower_arm_hand:
     has_velocity_limits: true
-    max_velocity: 0.17000000000000001
+    max_velocity: 0.4000000000000001
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 4.0
   joint_torso_upper_arm:
     has_velocity_limits: true
-    max_velocity: 0.17000000000000001
+    max_velocity: 0.4000000000000001
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 4.0
   joint_twist_gripper0:
     has_velocity_limits: true
     max_velocity: 0.01
@@ -40,6 +40,6 @@ joint_limits:
     max_acceleration: 2.0
   joint_upper_lower_arm:
     has_velocity_limits: true
-    max_velocity: 0.17000000000000001
+    max_velocity: 0.4000000000000001
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 4.0
