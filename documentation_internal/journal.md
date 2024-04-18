@@ -376,3 +376,7 @@ Should probably still implement torque/current as telemetry!
 Got a video and some screengrabs of Moveit, and hung a 500g weight on the gripper. The need for stronger PID tuning, probably even at a higher voltage, is clear: the arm struggles to find its setpoint, especially with higher weights. Really should try to up the voltage to 30V. Also attached some of the covers, which seems to have increased friction along with the application of sewing machine lube.
 
 Tomorrow: PID tuning at various voltages, as well as performance evaluation. Should be way safer now that it follows positional setpoints with low deltas. Focus: increase I term. Also read the paper on tuning. Implement sending of telemetry such that current can be read from all joints. Will look good as a graph!
+
+
+###180424
+Skimmed the Skogestad paper on "The setpoint overshot method". Might try it, but it depends on the process overshooting its setpoint using a P controller. With the friction damping in this system, I don't think that's going to work.
