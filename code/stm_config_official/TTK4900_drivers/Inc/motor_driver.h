@@ -94,7 +94,6 @@ typedef struct
 
   /// @brief Human readable name of the motor
   char* motorName; //flexible array must be at the end of a struct
-  //TODO: Add regulator parameters
 } motor_descriptor;
 
 //////////////////

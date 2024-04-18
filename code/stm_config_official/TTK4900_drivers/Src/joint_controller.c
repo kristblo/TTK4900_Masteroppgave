@@ -12,8 +12,8 @@ static joint_controller_descriptor joint0 =
   .isMoving = 0,
   .motorNum = 0,
   .maxMovementRate = 110,
-  .Kp = 0.25, //1
-  .KpTi = 0.0001,//0.0025,//0.0001,
+  .Kp = 0.5, //1
+  .KpTi = 0.0002,//0.0025,//0.0001,
   .Kd = 0.1,//0.08, //0.25
   .intError = 0,
   .jointName = "rail"
@@ -28,8 +28,8 @@ static joint_controller_descriptor joint1 =
   .isMoving = 0,
   .motorNum = 1,
   .maxMovementRate = 1.745,
-  .Kp = 30, //50
-  .KpTi = 0.2,// 0.20,
+  .Kp = 60, //50
+  .KpTi = 0.02,// 0.20,
   .Kd = 10,
   .intError = 0,  
   .jointName = "shoulder"
@@ -45,8 +45,8 @@ static joint_controller_descriptor joint0 =
   .isMoving = 0,
   .motorNum = 0,
   .maxMovementRate = 0.1745,
-  .Kp = 40,
-  .KpTi = 0.4, //0.0001,
+  .Kp = 50,
+  .KpTi = 0.03, //0.0001,
   .Kd = 20,
   .intError = 0,
   .jointName = "wrist"
@@ -61,8 +61,8 @@ static joint_controller_descriptor joint1 =
   .isMoving = 0,
   .motorNum = 1,
   .maxMovementRate = 0.1745,
-  .Kp = 40,
-  .KpTi = 0.15,// 0.0003,
+  .Kp = 50,
+  .KpTi = 0.01,// 0.0003,
   .Kd = 12,
   .intError = 0,  
   .jointName = "elbow"
@@ -79,7 +79,7 @@ static joint_controller_descriptor joint0 =
   .isMoving = 0,
   .motorNum = 0,
   .Kp = 20,
-  .KpTi = 0,//0.0001,
+  .KpTi = 0.01,//0.0001,
   .Kd = 0,
   .intError = 0,  
   .jointName = "pinch"
@@ -93,8 +93,8 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .Kp = 30,
-  .KpTi = 0.8,//0.0003,
+  .Kp = 40,
+  .KpTi = 0.01,//0.0003,
   .Kd = 7,
   .intError = 0,  
   .jointName = "twist"
@@ -526,14 +526,16 @@ void joint_controller_update_power(joint_controller_descriptor* joint)
   float prevError = joint->prevError;
   float dedt = error - prevError; //rad or mm at 10kHz
 
-  if(fabs(dedt) < (joint->maxMovementRate)/10000)
-  {
-    joint->intError += ((joint->KpTi)*error); //Bit afraid of overflow, therefore using KpTi here    
-  }
-  else
-  {
-    joint->intError = 0;
-  }
+
+  joint->intError += ((joint->KpTi)*error); 
+  // if(fabs(dedt) < (joint->maxMovementRate)/10000)
+  // {
+  //   joint->intError += ((joint->KpTi)*error); //Bit afraid of overflow, therefore using KpTi here    
+  // }
+  // else
+  // {
+  //   joint->intError = 0;
+  // }
   
   float power = (joint->Kp)*error + (joint->intError) - ((joint->Kd)*dedt);
   

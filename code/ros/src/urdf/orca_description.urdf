@@ -110,7 +110,7 @@
     <parent link="torso_link1"/>
     <child link="link_upper_arm"/>
     <axis xyz="-1 0.0 0.0"/>
-    <limit lower="-1.3" upper="1.3" effort="100" velocity="0.17"/>
+    <limit lower="-1.2" upper="1.2" effort="100" velocity="0.17"/>
   </joint>
 
   <link name="link_lower_arm">

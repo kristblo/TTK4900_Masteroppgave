@@ -380,3 +380,63 @@ Tomorrow: PID tuning at various voltages, as well as performance evaluation. Sho
 
 ###180424
 Skimmed the Skogestad paper on "The setpoint overshot method". Might try it, but it depends on the process overshooting its setpoint using a P controller. With the friction damping in this system, I don't think that's going to work.
+
+Turned the voltage up to 30V with no other changes after homing. Noted a slight increase in ability to follow MoveIt references. In particular, elbow and wrist angles.
+
+Testing tuning at 30V by disabling ROS and testing small deltas in positional setpoint in Putty.
+
+SHOULDER/RAIL:
+Changed volagepctcap from 70 to 100. No appreciable change in behavior: rail overshoots even at 10mm delta. 
+Disabling maxmovementrate:
+
+Shoulder oscillates for appr 25 seconds before settling after receiving delta of 0.3, 17 seconds at 0.1, and 7 seconds at 0.01. Note: incidentally lost CAN trx after the first try of 0.3, settled much faster then.
+
+KpTi to 0.02 from 0.2: 15 seconds at 0.3, 10 seconds at 0.1, 2 seconds at 0.01.
+
+Note: Aborting 30V, CAN bus keeps crapping out. Back to 25V
+
+Kp to 40 from 30, 12 seconds at 0.3. Kp to 50, 10 seconds at 0.3. Kp to 60, 8 seconds at 0.3, 5s at 0.1, 1s at 0.01 no overshoot.
+
+Note: went to state idle, shoulder started turning indiscriminately, moderately slow.
+
+Rail oscillates, settles after 17s at delta of 300, 30s at 100, never really settles at 10. KpTi to 0.0002 from 0.0001: never settles at 10. Kp to 0.5 from 0.25: Overshoots once before settling at 10. The rail joint is characterised by highstatic friction, so almost any integral action will result in overshoot as the term winds up before the bogey moves at all -- then jerks. Doubling the Kp might have been risky, but should be fine for small deltas. Will find out when coupling rviz back on later.
+
+
+ELBOW/WRIST:
+Wrist is unstable after removing maxmovementrate check. Using the observation that KpTi for shoulder was approx 1/3000 of Kp, reducing wrist KpTi to 0.01 from 0.4: 7s at 0.3 due to slight overshoot. Increasing Kp to 50 from 40 due to high friction: Slight overshoot.
+
+Increasing voltagepctcap to 100 and 95 from 70 and 57 for wrist and elbow, respectively: Wrist unchanged.
+Increasing Kd to 25 from 20 in an attempt at lessening overshoot: No appreciable change in behavior.
+Increasing KpTi to 0.02 from 0.01: 3s at 0.3, 1s at 0.1, 5s at 0.01.
+Note: resists well to interference by me, although takes some time to kick in.
+Increasing KpTi to 0.04 to improve resistance: 5s at 0.3, 3s at 0.1 (with some tail), no movement at 0.01. Resistance not notably improved, decreasing KpTi to 0.03.
+
+Elbow oscillates w/o maxmovementrate. Zero is vertical.
+Changing Kp 50 from 40, KpTi 0.01 from 0.15: 6s at 0.3, 3s at 0.1, no movement at 0.01. 
+Kp to 60: 6s at 0.3, 5s at 0.1, no movement at 0.01.
+Kp to 50, Kd to 20 from 12: 7s at 0.3.
+Kd to 0: No change in behaviour, back to 12. Assuming this will be needed when gravity/load becomes a factor.
+
+
+TWIST/PINCH:
+Setting voltagepctap to 48 from 28 for twist and pinch.
+Twist unstable, reducing KpTi to 0.01 from 0.8: 4s at 1.57, 1s at 0.1.
+Main issue from previous RViz experiments was that twist would struggle to find its position, and maintain it under load. Increasing Kp to 40 from 30: 3s at 1.57, and noting that it resists sooner when I press at the end of the pincher.
+
+Pinch: Don't know if integral action should be added. On the one hand, it should squeeze hard to lift whatever it is pinching, and adding I term will essentially ensure it is always at maximum when squeezing. On the other, it might take long to unwind when letting go.
+Increasing KpTi to 0.01 from 0: Does squeeze, no apparent problem letting go.
+
+
+All joints, with RViz: Finds positions more precisely than before, but overshoot some before finding the position. Problem: Tried moving rail while shoulder was at maximum, resulted in the arm slamming down. Hypothesis: accelerometer briefly crossed 90 deg, which is known to cause trouble. Path: reading is effectively lower than 90 deg, controller thinks it needs to increase paadrag to rectify, makes the problem worse. Solution: get an accelerometer which can read both y and z axes, do math on both axes to find actual angle
+
+
+All joints, with RViz: Finds positions more precisely than before, but overshoot some before finding the position. Problem: Tried moving rail while shoulder was at maximum, resulted in the arm slamming down. Hypothesis: accelerometer briefly crossed 90 deg, which is known to cause trouble. Path: reading is effectively lower than 90 deg, controller thinks it needs to increase paadrag to rectify, makes the problem worse. Solution: get an accelerometer which can read both y and z axes, do math on both axes to find actual angle. This is FURTHER WORK for thesis. For now: restrict shoulder angle to 1.2, consider decreasing integral action. Elbow may also benefit from less integral action, as this joint also oscillates a bit. Alternatively, use both accelerometer and encoder data, which would require some serious improvements to movement handling. This is FURTHER WORK for thesis. For now: restrict shoulder angle to 1.2, consider decreasing integral action. Elbow may also benefit from less integral action, as this joint also oscillates a bit.
+
+See images testpos_start and testpos_stop from rviz, compare with photos. Notably, the elbow is missing a few degrees. I suspect there is some degree of coupling between the shoulder and elbow, or more likely elbow and wrist, which becomes apparent at sharp angles. As the end position was found correctly, this somehow does not affect the encoder count (as opposed to the pinch/twist coupling)
+
+Tried attaching the cover for the shoulder hardpoint. Discovered that the placement of the elbow encoder puts the wire in the way of the cover. Ditto motor wires. Not sure why, could be that the entire PCB was supposed to be 1 mm less wide on either side.
+
+
+Attached a 750g bottle of water to the gripper. It lifts it approx 25cm with no issue, and carries it along the length of the rail. Twist counteracts swinging motion from the bottle as the rail starts moving. The arm finds its position cleanly and not much slower than with no load. Was able to put the bottle down once, gently. The second time the arm suddenly curled up as the bottle hit the table. Hypothesis: the sudden change in load scared it. Strange, as the controller running at 10kHz should be able to counteract this imo. 
+
+Was not able to replicate the problem from before, but found a new one: CAN messages drop out from either moveit, control_listener or serial_comms intermittently. As the delta setpoint moves even while the messages are dropped, this causes a jolt in motion when the messages come back and the setpoint has suddenly moved far. Not sure what to do about it, but it may explain the previous crash.

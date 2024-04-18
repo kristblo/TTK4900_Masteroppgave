@@ -93,9 +93,3 @@ void ros_interface_set_pinchPos(float pos)
 {
   pos_pinch = pos;
 }
-
-void ros_interface_queue_setpoints();
-
-void ros_interface_dequeue_setpoints();
-
-void ros_interface_send_setpoints();
