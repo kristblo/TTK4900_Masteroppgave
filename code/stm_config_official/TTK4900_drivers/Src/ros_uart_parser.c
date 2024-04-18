@@ -82,11 +82,6 @@ void ros_interface_parse_input()
   }
   else if((int)strcmp(header, "str") == 0)
   {
-    uart_send_string("entered str\n\r");
-    // state_interface_set_global_state(GS_CALIBRATING);
-    // state_interface_set_calibration_state(CS_RAIL);
-    // state_interface_set_global_state(GS_OPERATING);
-    // state_interface_broadcast_global_state();
     char* headerLessMsg[64]; //must be 64 byte
     memcpy(headerLessMsg, &uartRosRxBuffer[3], 29);
     uart_send_string(headerLessMsg);
@@ -96,10 +91,6 @@ void ros_interface_parse_input()
 
 void ros_interface_set_pinchPos(float pos)
 {
-  char* debug[64];
-  sprintf(debug, "Actually setting pinchpos: %i\n\r", (int)(pos));
-  uart_send_string(debug);
-
   pos_pinch = pos;
 }
 
