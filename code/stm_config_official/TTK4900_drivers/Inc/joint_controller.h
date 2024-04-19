@@ -73,8 +73,8 @@ typedef struct
   /// @brief Link to the corresponding motor_descriptor
   uint8_t motorNum;
 
-  /// @brief Maximum movement rate, rad/sec or mm/sec
-  float maxMovementRate;
+  /// @brief Whether or not the joint should use sigmoid integral gain
+  uint8_t sigmoidIntGain;
 
   /// @brief PID controller Kp
   float Kp;

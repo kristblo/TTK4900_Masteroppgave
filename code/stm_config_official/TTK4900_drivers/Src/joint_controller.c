@@ -11,7 +11,7 @@ static joint_controller_descriptor joint0 =
   .prevPower = 0,
   .isMoving = 0,
   .motorNum = 0,
-  .maxMovementRate = 110,
+  .sigmoidIntGain = 0,
   .Kp = 0.5, //1
   .KpTi = 0.0002,//0.0025,//0.0001,
   .Kd = 0.1,//0.08, //0.25
@@ -27,7 +27,7 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .maxMovementRate = 1.745,
+  .sigmoidIntGain = 1,
   .Kp = 60, //50
   .KpTi = 0.02,// 0.20,
   .Kd = 10,
@@ -44,9 +44,9 @@ static joint_controller_descriptor joint0 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 0,
-  .maxMovementRate = 0.1745,
+  .sigmoidIntGain = 1,
   .Kp = 50,
-  .KpTi = 0.03, //0.0001,
+  .KpTi = 0.07, //0.0001,
   .Kd = 20,
   .intError = 0,
   .jointName = "wrist"
@@ -60,10 +60,10 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
-  .maxMovementRate = 0.1745,
+  .sigmoidIntGain = 1,
   .Kp = 50,
-  .KpTi = 0.01,// 0.0003,
-  .Kd = 12,
+  .KpTi = 0.005,// 0.0003,
+  .Kd = 30,
   .intError = 0,  
   .jointName = "elbow"
 };
@@ -78,6 +78,7 @@ static joint_controller_descriptor joint0 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 0,
+  .sigmoidIntGain = 0,
   .Kp = 20,
   .KpTi = 0.01,//0.0001,
   .Kd = 0,
@@ -93,6 +94,7 @@ static joint_controller_descriptor joint1 =
   .posError = 0,
   .isMoving = 0,
   .motorNum = 1,
+  .sigmoidIntGain = 1,
   .Kp = 40,
   .KpTi = 0.01,//0.0003,
   .Kd = 7,
@@ -524,18 +526,24 @@ void joint_controller_update_power(joint_controller_descriptor* joint)
 {
   float error = joint->posError;   //joint_controller_get_error(joint);
   float prevError = joint->prevError;
-  float dedt = error - prevError; //rad or mm at 10kHz
-
-
-  joint->intError += ((joint->KpTi)*error); 
-  // if(fabs(dedt) < (joint->maxMovementRate)/10000)
-  // {
-  //   joint->intError += ((joint->KpTi)*error); //Bit afraid of overflow, therefore using KpTi here    
-  // }
-  // else
-  // {
-  //   joint->intError = 0;
-  // }
+  float dedt = error - prevError; //rad or mm at 10kHz  
+  
+  
+  if(joint->sigmoidIntGain == 1)
+  {
+    //Sigmoid function ensures integral gain is smoothly applied
+    //as joint reaches setpoint.
+    //Has to be double as e^75 > float_max
+    double exponent = exp(20*fabs(error) - 5);
+    double kptiGain = 1 - (exponent/(1+exponent));
+    float adjustedKpti = (joint->KpTi)*(float)kptiGain;
+  
+    joint->intError += (adjustedKpti*(joint->KpTi)*error);
+  }
+  else
+  {
+    joint->intError += ((joint->KpTi)*error);
+  }
   
   float power = (joint->Kp)*error + (joint->intError) - ((joint->Kd)*dedt);
   

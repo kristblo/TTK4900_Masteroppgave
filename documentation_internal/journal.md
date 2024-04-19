@@ -440,3 +440,27 @@ Tried attaching the cover for the shoulder hardpoint. Discovered that the placem
 Attached a 750g bottle of water to the gripper. It lifts it approx 25cm with no issue, and carries it along the length of the rail. Twist counteracts swinging motion from the bottle as the rail starts moving. The arm finds its position cleanly and not much slower than with no load. Was able to put the bottle down once, gently. The second time the arm suddenly curled up as the bottle hit the table. Hypothesis: the sudden change in load scared it. Strange, as the controller running at 10kHz should be able to counteract this imo. 
 
 Was not able to replicate the problem from before, but found a new one: CAN messages drop out from either moveit, control_listener or serial_comms intermittently. As the delta setpoint moves even while the messages are dropped, this causes a jolt in motion when the messages come back and the setpoint has suddenly moved far. Not sure what to do about it, but it may explain the previous crash.
+
+###180424
+Changing elbow KpTi to 0.005 from 0.01, Kd to 30 from 12.
+The underlying issue is still windup. In an attempt at mitigating this, I'll implement a sigmoid function for KpTi:
+
+g(x) = 1 - \frac{e^(75x-5)}{1 + e^(75x-5)},
+
+which is 0.99 at 0 and 0.08 at 0.1 => The KpTi gain goes from 0 to 1 as the error becomes lower than 0.1 rads/mm. I suspect this might not be sharp enough, but I don't actually know how the error develops. If the error is never larger than 0.1 anyway, this is moot. It worked quite well, no visible overshoot in elbow.
+
+Increasing wrist KpTi to 0.05 from 0.03. Finds calibration significantly better. IMPORTANT: Somehow, the wrist joint now stops at about -5 degrees, or 50 degrees "further" into the calibration movement than before. Wrist calibration has been increased accordingly, but this is seriously strange.
+
+Flashing sigmoid remaining joints. Should see a less accurate, but more decisive rail joint as an error of 0.1mm is basically meaningless.
+
+Turned the function off for wrist. Shoulder and elbow do become more stable, but at the loss of accuracy. Likely the integral error never kicks in.
+Reducing width argument to 40 from 75. The gain is then 0.02 at 0.2rad/11deg, and 0.55 at 0.1rad/6deg. No discernible change in behavior.
+
+Reducing argument to 30, gain 0.16 at 0.2, 0.8 at 0.1. This seems to be a marginal improvement, and gives me something to write about. Should consider trying to get joint data out via the joint request message. Could for instance write positional data from one joint at a time to two different files, then concat in excel.
+
+The 750g bottle test failed pretty hard, elbow and wrist were clearly drooping. Set the argument to 20, which gives 0.05 at 0.4, 0.73 at 0.2 and 0.95 at 0.1. This majorly improved performance, almost no droop in elbow. Turning it on again for wrist, and increasing KpTi to 0.07 from 0.05. Performance seems to improve for wrist.
+
+The bottle test is OK. Lift it up, carry it across the desk, put it down. Then I poke the hand to ground myself, and the arm instantly curls up: elbow and shoulder go to maximum extension. I saw this yesterday too, so I don't think it's related to the sigmoid. Maybe check the function's output for ![-1,1]? The CAN bus has been reliable since I turned the voltage down, so shouldn't be that. In any case, at least for the shoulder joint, LOS with the accelerometer shouldn't be lethal. Wish I had telemetry!
+
+Tomorrow: Make a gripper.
+Next week: Comment ROS code, do a cleanup s.t. there are no (or very few) problems with the code during build. Then start writing the thesis. Consider implementing telemetry for data capture if it seems like a good idea by the end of the week.

@@ -205,7 +205,8 @@ void state_calibrate_wrist()
   motor_interface_update_tot_cnt(0);
   
   //Stops at 45 deg -> horizontal at +135deg -> ~42kClicks
-  while(motor_interface_get_total_count(0) > -42300)
+  //Stops at -5 deg -> horizontal at +185deg -> ~57kClicks
+  while(motor_interface_get_total_count(0) > -55600)
   {
     motor_interface_update_tot_cnt(0);
   }
