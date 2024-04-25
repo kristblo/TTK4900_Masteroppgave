@@ -62,6 +62,7 @@ void TIM2_IRQHandler(void);
 void TIM4_IRQHandler(void);
 void EXTI15_10_IRQHandler(void);
 void UART5_IRQHandler(void);
+void TIM7_IRQHandler(void);
 void USB_LP_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 

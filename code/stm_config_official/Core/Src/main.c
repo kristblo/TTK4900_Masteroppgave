@@ -108,18 +108,19 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_ADC2_Init();
-  MX_ADC1_Init();
   MX_CAN_Init();
-  MX_I2C1_Init();
-  MX_I2C3_Init();
-  MX_TIM1_Init();
-  MX_TIM2_Init();
   MX_TIM3_Init();
-  MX_TIM4_Init();
   MX_TIM8_Init();
   MX_TIM15_Init();
+  MX_I2C1_Init();
   MX_UART5_Init();
+  MX_I2C3_Init();
+  MX_TIM1_Init();
   MX_USB_DEVICE_Init();
+  MX_TIM2_Init();
+  MX_ADC1_Init();
+  MX_TIM4_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 #if (HW_INTERFACE == UART_INTERFACE)  && (SW_INTERFACE == CMD_MODE_TERMINAL)  
   uart_send_string("Peripheral init complete\n\r");
@@ -135,6 +136,7 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_TIM_Base_Start_IT(&htim4);
+  HAL_TIM_Base_Start_IT(&htim7);//Telemetry timer
 
   HAL_CAN_Start(&hcan);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
@@ -200,6 +202,10 @@ int main(void)
         if(fabs(controller_interface_get_error(1)) < 0.04)
         {
           //motor_interface_zero(1);
+          char debug[64];
+          sprintf(debug, "\nerror: %i\n\r", (int32_t)(controller_interface_get_error(1)*1000));
+          uart_send_string(debug);          
+
           motor_interface_set_total_count(1, 0);
           state_interface_set_calibration_state(CS_TWIST);
           state_interface_broadcast_calibration_state();
@@ -217,7 +223,8 @@ int main(void)
       {
         state_calibrate_elbow();
         state_interface_set_calibration_state(CS_ERROR);
-        state_interface_set_global_state(GS_OPERATING);        
+        state_interface_set_global_state(GS_OPERATING);
+        state_interface_broadcast_global_state();
       }
 #elif ACTIVE_UNIT == HAND
       if(state_interface_get_calibration_state() == CS_TWIST)
@@ -252,7 +259,25 @@ int main(void)
       controller_interface_request_acc_axis(1, 0, 'y');
       controller_interface_clear_acc_poll();
     }
+
+    if((controller_interface_get_upd_telemetry() == 1))
+    {
+      float shoulderPos = controller_interface_get_position(1);
+      float shoulderSp = controller_interface_get_setpoint(1);
+      float shoulderCurrent = adc_interface_get_current(1);
+
+      int32_t posAsInt = (int32_t)(shoulderPos*1000);
+      int32_t spAsInt = (int32_t)(shoulderSp*1000);
+      int32_t currentAsInt = (int32_t)(shoulderCurrent*1000);
+
+      char* telemetry[128];
+      sprintf(telemetry, "%i;%i;%i\r", posAsInt, spAsInt, currentAsInt);
+      uart_send_string(telemetry);      
+      controller_interface_clear_upd_telemetry();
+    }
 #endif
+    
+    adc_interface_update_current(0);
     adc_interface_update_current(1);
     
     /* USER CODE END WHILE */

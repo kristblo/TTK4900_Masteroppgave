@@ -131,11 +131,24 @@ void state_calibrate_shoulder()
       float middle = ((float)(rawAcc-2300)/16384); //Acc descriptor should have these values
       float radians = asinf(middle);
 
+      char debug[64];
+      sprintf(debug, "\nrads: %i\n\r", (int32_t)(radians*1000));
+      uart_send_string(debug);    
+      
+
+
       float position = radians;
       controller_interface_set_position(1, position);
       controller_interface_acc_clear_newY(0);
       controller_interface_update_error(1);
       controller_interface_update_power(1);
+    }
+    else if(controller_interface_get_error(1) == 0)
+    {
+      //error will never be exactly 0 after a true init
+      //=> set the error to 10 rads to avoid triggering the
+      //twist calib before the shoulder has updated even once
+      controller_interface_set_error(1, 10);
     }
     controller_interface_clear_upd_ctrl();
   }

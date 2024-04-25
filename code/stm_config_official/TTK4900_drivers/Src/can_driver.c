@@ -127,10 +127,10 @@ void can_driver_send_msg(uint8_t* data,
   {
 
 #if GLOBAL_DEBUG //&& (SW_INTERFACE == CMD_MODE_TERMINAL)
-    uart_send_string("CAN TX not successful\n\r");
-    char* debug[64];
-    sprintf(debug, "ID: %X\n\r", stdId);
-    uart_send_string(debug);
+    // uart_send_string("CAN TX not successful\n\r");
+    // char* debug[64];
+    // sprintf(debug, "ID: %X\n\r", stdId);
+    // uart_send_string(debug);
 #endif    
   }
 }

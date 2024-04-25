@@ -28,8 +28,8 @@ static joint_controller_descriptor joint1 =
   .isMoving = 0,
   .motorNum = 1,
   .sigmoidIntGain = 1,
-  .Kp = 60, //50
-  .KpTi = 0.02,// 0.20,
+  .Kp = 60,
+  .KpTi = 0.02,
   .Kd = 10,
   .intError = 0,  
   .jointName = "shoulder"
@@ -117,6 +117,9 @@ static uint8_t motor_poll_safe = 0;
 
 /// @brief Ensures a predictable rate of PID updates
 static uint8_t update_controller = 0;
+
+
+static uint8_t update_telemetry = 0;
 
 #if ACTIVE_UNIT == TORSO
 //Torso uses one accelerometer: Shoulder control
@@ -414,6 +417,22 @@ void controller_interface_clear_upd_ctrl()
   update_controller = 0;
 }
 
+uint8_t controller_interface_get_upd_telemetry()
+{
+  return update_telemetry;
+}
+
+void controller_interface_set_upd_telemetry()
+{
+  update_telemetry = 1;
+}
+
+void controller_interface_clear_upd_telemetry()
+{
+  update_telemetry = 0;
+}
+
+
 
 //Private functions
 
@@ -529,6 +548,7 @@ void joint_controller_update_power(joint_controller_descriptor* joint)
   float dedt = error - prevError; //rad or mm at 10kHz  
   
   
+  float intErrorSummand = 0;
   if(joint->sigmoidIntGain == 1)
   {
     //Sigmoid function ensures integral gain is smoothly applied
@@ -538,11 +558,18 @@ void joint_controller_update_power(joint_controller_descriptor* joint)
     double kptiGain = 1 - (exponent/(1+exponent));
     float adjustedKpti = (joint->KpTi)*(float)kptiGain;
   
-    joint->intError += (adjustedKpti*(joint->KpTi)*error);
+    intErrorSummand = (adjustedKpti*(joint->KpTi)*error);
   }
   else
   {
-    joint->intError += ((joint->KpTi)*error);
+    intErrorSummand = ((joint->KpTi)*error);
+  }
+
+  //Prevents sticky joints by keeping the integrator
+  //term from exceeding 100
+  if(fabs(joint->intError) <= 100)
+  {
+    joint->intError += intErrorSummand;
   }
   
   float power = (joint->Kp)*error + (joint->intError) - ((joint->Kd)*dedt);
@@ -731,20 +758,23 @@ void controller_rot_clear_newZ(accelerometer_inData* accSelect)
   accSelect->newZRot = 0;
 }
 
-
 HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 {
   if(htim == &htim2)
   {
     controller_interface_set_acc_poll();
     controller_interface_set_mtr_poll();
+
   }
   else if (htim == &htim4)
   {
     //PID update
     controller_interface_set_upd_ctrl();
   }
-  
-
+  else if(htim == &htim7)
+  {
+    //Telemetry update
+    controller_interface_set_upd_telemetry();
+  }
 
 }

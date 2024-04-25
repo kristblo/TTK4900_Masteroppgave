@@ -464,3 +464,15 @@ The bottle test is OK. Lift it up, carry it across the desk, put it down. Then I
 
 Tomorrow: Make a gripper.
 Next week: Comment ROS code, do a cleanup s.t. there are no (or very few) problems with the code during build. Then start writing the thesis. Consider implementing telemetry for data capture if it seems like a good idea by the end of the week.
+
+###250424
+Spent the last few days ill with something.
+Discovered that the shoulder never broadcast global state operating after elbow calib, so both hand and torso were in their calibration states. This is another proof that the state machine is whack.
+
+The shoulder joint keeps acting up. I suspect it's much because the acc input isn't filtered, which could explain why it has such a poor perturbation step response (aka spazzes out as soon as something touches it or leaves the gripper). The calibration also doesn't work, measured correct offset at the start of calibration before suddenly very low offset. These are probably related.
+
+Hypothesis: the accelerometer measures a jolt when the shoulder either starts moving on its own or is perturbed by the gripper dropping whatever it's holding. For the calibration phase, this means it exits prematurely as the measured error suddenly becomes low. For when the gripper drops something or I knock on it, the same happens and the error momentarily increases. This makes the controller freak out.
+
+It doesn't really make sense. Direction of forces means the acc should measure increased acceleration (equating to greater error) when the arm starts moving. Additionally, large changes in error is unproblematic when coming from MoveIt, as I discovered when I accidentally left it in a crouched position right after calibrating the physical arm.
+
+Also added a timer interrupt on timer7 for telemetry, 50Hz. Currently sends shoulder pos, sp and current. Got fairly good data for grabbing and dropping bottle, and susequent spazzing.

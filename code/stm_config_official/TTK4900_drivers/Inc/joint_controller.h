@@ -156,7 +156,7 @@ float controller_interface_get_setpoint(uint8_t controllerSelect);
 void controller_interface_set_setpoint(uint8_t controllerSelect, float setPoint);
 
 
-/// @brief Public function to set the positional setpoint of a joint
+/// @brief Public function to get the position of a joint
 /// @param controllerSelect One of two joints available to the MCU
 /// @return Joint position in radians relative to its zero position
 float controller_interface_get_position(uint8_t controllerSelect);
@@ -432,7 +432,11 @@ void controller_interface_set_upd_ctrl();
 
 void controller_interface_clear_upd_ctrl();
 
+uint8_t controller_interface_get_upd_telemetry();
 
+void controller_interface_set_upd_telemetry();
+
+void controller_interface_clear_upd_telemetry();
 
 ///////////////////
 //Private functions
