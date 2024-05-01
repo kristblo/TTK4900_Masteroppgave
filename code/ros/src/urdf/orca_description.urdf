@@ -110,7 +110,7 @@
     <parent link="torso_link1"/>
     <child link="link_upper_arm"/>
     <axis xyz="-1 0.0 0.0"/>
-    <limit lower="-1.2" upper="1.2" effort="100" velocity="0.17"/>
+    <limit lower="-1.5" upper="1.5" effort="100" velocity="0.17"/>
   </joint>
 
   <link name="link_lower_arm">
@@ -199,7 +199,8 @@
     <parent link="link_hand"/>
     <child link="link_twist"/>
     <axis xyz="0.0 0.0 1"/>
-    <limit lower="0.0" upper="0.0" effort="100" velocity="3"/>
+    <!-- <limit lower="0.0" upper="0.0" effort="100" velocity="3"/> -->
+    <limit effort="100" velocity="3"/>
   </joint>
 
   <link name="link_gripper0">

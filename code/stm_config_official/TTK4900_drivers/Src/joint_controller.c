@@ -21,7 +21,7 @@ static joint_controller_descriptor joint0 =
 
 static joint_controller_descriptor joint1 =
 {
-  .hasAccelerometer = 1,
+  .hasAccelerometer = 0,
   .posSetpoint = 0,
   .posCurrent = 0,
   .posError = 0,

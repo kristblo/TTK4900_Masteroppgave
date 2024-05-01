@@ -476,3 +476,5 @@ Hypothesis: the accelerometer measures a jolt when the shoulder either starts mo
 It doesn't really make sense. Direction of forces means the acc should measure increased acceleration (equating to greater error) when the arm starts moving. Additionally, large changes in error is unproblematic when coming from MoveIt, as I discovered when I accidentally left it in a crouched position right after calibrating the physical arm.
 
 Also added a timer interrupt on timer7 for telemetry, 50Hz. Currently sends shoulder pos, sp and current. Got fairly good data for grabbing and dropping bottle, and susequent spazzing.
+
+Set hasAccelerometer to 0 for shoulder. The arm is now quite stable, strengthening the hypothesis.
