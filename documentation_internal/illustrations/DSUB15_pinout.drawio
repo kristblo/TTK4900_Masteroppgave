@@ -1,0 +1,16 @@
+<mxfile host="app.diagrams.net" modified="2024-05-01T12:47:53.442Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0" etag="73UTtcBbigH-30oiNVFJ" version="21.8.2" type="device">
+  <diagram name="Page-1" id="aq0edeIlUvzuhtCa9EH8">
+    <mxGraphModel dx="819" dy="538" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="200" pageHeight="100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="la69FcFKAkC0hCphl8bd-1" value="+&amp;nbsp;&amp;nbsp; + &amp;nbsp; + &amp;nbsp; G &amp;nbsp; G &amp;nbsp; P &amp;nbsp; M&lt;br&gt;&lt;br&gt;G&amp;nbsp;&amp;nbsp; G &amp;nbsp; G &amp;nbsp; T &amp;nbsp; R &amp;nbsp; V &amp;nbsp; G&amp;nbsp;&amp;nbsp; -" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="40" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="la69FcFKAkC0hCphl8bd-2" value="Rail DSUB15 connector pinout" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="10" width="180" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
