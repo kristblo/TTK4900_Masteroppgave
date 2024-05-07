@@ -2202,9 +2202,6 @@
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "#PWR027") (unit 1)
         )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
-          (reference "#PWR07") (unit 1)
-        )
       )
     )
   )
@@ -2290,9 +2287,6 @@
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "#PWR033") (unit 1)
         )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
-          (reference "#PWR07") (unit 1)
-        )
       )
     )
   )
@@ -2343,9 +2337,6 @@
       (project "hand"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "#PWR032") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
-          (reference "#PWR07") (unit 1)
         )
       )
     )
@@ -2474,9 +2465,6 @@
       (project "hand"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "#PWR023") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
-          (reference "#PWR07") (unit 1)
         )
       )
     )
@@ -2865,9 +2853,6 @@
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "#PWR07") (unit 1)
         )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
-          (reference "#PWR07") (unit 1)
-        )
       )
     )
   )
@@ -2943,9 +2928,6 @@
       (project "hand"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "#PWR031") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
-          (reference "#PWR07") (unit 1)
         )
       )
     )
@@ -3247,9 +3229,6 @@
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "#PWR024") (unit 1)
         )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
-          (reference "#PWR07") (unit 1)
-        )
       )
     )
   )
@@ -3325,9 +3304,6 @@
       (project "hand"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "#PWR012") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
-          (reference "#PWR07") (unit 1)
         )
       )
     )
@@ -3410,9 +3386,6 @@
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "#PWR08") (unit 1)
         )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
-          (reference "#PWR07") (unit 1)
-        )
       )
     )
   )
@@ -3437,9 +3410,6 @@
       (project "hand"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "#PWR028") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
-          (reference "#PWR07") (unit 1)
         )
       )
     )
@@ -3644,9 +3614,6 @@
       (project "hand"
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "#PWR029") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
-          (reference "#PWR07") (unit 1)
         )
       )
     )

@@ -507,9 +507,6 @@
     (pin "2" (uuid f0c2eaf9-5ed8-4330-aac9-512d06057576))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "XTAL1") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/89b05129-cbc1-4cdc-a38b-34c728d41d99"
           (reference "XTAL1") (unit 1)
         )
@@ -551,7 +548,7 @@
   (symbol (lib_id "Device:C") (at 97.79 41.91 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 8f392fed-1fd1-4f65-8272-5b2678fc58b9)
-    (property "Reference" "C2" (at 96.52 39.37 90)
+    (property "Reference" "C19" (at 96.52 39.37 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "100nF" (at 99.06 38.1 90)
@@ -567,9 +564,6 @@
     (pin "2" (uuid 479e4c48-4026-49e7-a637-9099328cd966))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C2") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/89b05129-cbc1-4cdc-a38b-34c728d41d99"
           (reference "C19") (unit 1)
         )
@@ -601,9 +595,6 @@
     (pin "2" (uuid 9296147f-9192-4d4b-8614-c5531c50df76))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C12") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/89b05129-cbc1-4cdc-a38b-34c728d41d99"
           (reference "C12") (unit 1)
         )
@@ -635,9 +626,6 @@
     (pin "2" (uuid 2f5e7193-78f1-43ed-b3cc-7ec53a19746a))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C11") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/89b05129-cbc1-4cdc-a38b-34c728d41d99"
           (reference "C11") (unit 1)
         )
@@ -653,7 +641,7 @@
   (symbol (lib_id "Device:R") (at 102.87 60.96 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid e1619954-bde9-4720-b192-490d32f51577)
-    (property "Reference" "R4" (at 104.14 55.88 0)
+    (property "Reference" "R3" (at 104.14 55.88 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "340Ohm" (at 101.6 50.8 0)
@@ -669,9 +657,6 @@
     (pin "2" (uuid 1dd835b6-82b6-4c3c-b155-4e40fa845fb4))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R4") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/89b05129-cbc1-4cdc-a38b-34c728d41d99"
           (reference "R3") (unit 1)
         )
@@ -703,9 +688,6 @@
     (pin "2" (uuid 5af07444-f98d-4da0-a401-1e8d9aab0e88))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R1") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/89b05129-cbc1-4cdc-a38b-34c728d41d99"
           (reference "R1") (unit 1)
         )
@@ -721,7 +703,7 @@
   (symbol (lib_id "Jumper:Jumper_2_Open") (at 100.33 83.82 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ff4fb64a-8f74-45c0-95b2-db7bab591594)
-    (property "Reference" "BOOT0" (at 100.33 77.47 0)
+    (property "Reference" "BOOT1" (at 100.33 77.47 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "BOOTMODE" (at 100.33 80.01 0)
@@ -737,9 +719,6 @@
     (pin "2" (uuid 9d4beac8-2001-49c5-a475-fe9a114b3483))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "BOOT0") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/89b05129-cbc1-4cdc-a38b-34c728d41d99"
           (reference "BOOT1") (unit 1)
         )

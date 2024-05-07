@@ -2379,11 +2379,6 @@
           (reference "#PWR05") (unit 1)
         )
       )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR03") (unit 1)
-        )
-      )
     )
   )
 
@@ -2483,11 +2478,6 @@
           (reference "#PWR016") (unit 1)
         )
       )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR044") (unit 1)
-        )
-      )
     )
   )
 
@@ -2529,11 +2519,6 @@
     (instances
       (project "torso"
         (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592"
-          (reference "MAIN1") (unit 1)
-        )
-      )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
           (reference "MAIN1") (unit 1)
         )
       )
@@ -2702,11 +2687,6 @@
       (project "torso"
         (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592"
           (reference "#PWR012") (unit 1)
-        )
-      )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR074") (unit 1)
         )
       )
     )
@@ -3298,11 +3278,6 @@
           (reference "#PWR013") (unit 1)
         )
       )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR075") (unit 1)
-        )
-      )
     )
   )
 
@@ -3385,11 +3360,6 @@
       (project "torso"
         (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592"
           (reference "#PWR06") (unit 1)
-        )
-      )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR072") (unit 1)
         )
       )
     )
@@ -3693,11 +3663,6 @@
           (reference "#PWR017") (unit 1)
         )
       )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR044") (unit 1)
-        )
-      )
     )
   )
 
@@ -3956,11 +3921,6 @@
           (reference "#PWR07") (unit 1)
         )
       )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR071") (unit 1)
-        )
-      )
     )
   )
 
@@ -4021,11 +3981,6 @@
           (reference "#PWR015") (unit 1)
         )
       )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR053") (unit 1)
-        )
-      )
     )
   )
 
@@ -4084,11 +4039,6 @@
       (project "torso"
         (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592"
           (reference "#PWR018") (unit 1)
-        )
-      )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR072") (unit 1)
         )
       )
     )
@@ -4152,11 +4102,6 @@
           (reference "#PWR08") (unit 1)
         )
       )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR073") (unit 1)
-        )
-      )
     )
   )
 
@@ -4180,11 +4125,6 @@
       (project "torso"
         (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592"
           (reference "#PWR011") (unit 1)
-        )
-      )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR01") (unit 1)
         )
       )
     )
@@ -4460,11 +4400,6 @@
           (reference "#PWR014") (unit 1)
         )
       )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR070") (unit 1)
-        )
-      )
     )
   )
 
@@ -4524,11 +4459,6 @@
       (project "torso"
         (path "/2b64a8dd-5496-4850-a451-d3cda7fb4592"
           (reference "#PWR025") (unit 1)
-        )
-      )
-      (project "torso"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR072") (unit 1)
         )
       )
     )

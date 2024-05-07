@@ -452,7 +452,7 @@
   (symbol (lib_id "Device:R") (at 128.27 50.8 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 1aa48c5c-3efc-4b6a-a7b3-233b804380b5)
-    (property "Reference" "R35" (at 133.35 50.8 90)
+    (property "Reference" "R31" (at 133.35 50.8 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10k" (at 130.81 50.8 90)
@@ -468,9 +468,6 @@
     (pin "2" (uuid 9cee2adf-c520-42f1-81be-e2bb3e135255))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R35") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
           (reference "R31") (unit 1)
         )
@@ -517,7 +514,7 @@
   (symbol (lib_id "power:+3V3") (at 92.71 62.23 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5939b95a-ba96-45a5-b3fa-15bbf9af3639)
-    (property "Reference" "#PWR053" (at 96.52 62.23 0)
+    (property "Reference" "#PWR072" (at 96.52 62.23 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3V3" (at 88.9 62.23 90)
@@ -532,9 +529,6 @@
     (pin "1" (uuid 6bfc9463-9c52-4cf6-b0c8-ed04b9751ac9))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR053") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
           (reference "#PWR072") (unit 1)
         )
@@ -550,7 +544,7 @@
   (symbol (lib_id "Device:R") (at 125.73 50.8 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 5a7b172a-0048-4b1c-8e01-47355a4fe945)
-    (property "Reference" "R35" (at 123.19 50.8 90)
+    (property "Reference" "R27" (at 123.19 50.8 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10k" (at 120.65 50.8 90)
@@ -566,9 +560,6 @@
     (pin "2" (uuid dd29e3e0-b0a8-4eed-bb55-ac8009fbb7be))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R35") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
           (reference "R27") (unit 1)
         )
@@ -584,7 +575,7 @@
   (symbol (lib_id "power:GND") (at 92.71 59.69 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 80263bed-508d-4e46-8e85-25ad4a90caa7)
-    (property "Reference" "#PWR050" (at 86.36 59.69 0)
+    (property "Reference" "#PWR073" (at 86.36 59.69 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 88.9 59.69 90)
@@ -599,9 +590,6 @@
     (pin "1" (uuid 349770aa-db56-4e4f-a565-0387b48a4c6c))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR050") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
           (reference "#PWR073") (unit 1)
         )
@@ -617,7 +605,7 @@
   (symbol (lib_id "power:+3V3") (at 92.71 64.77 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a1f2f6d0-6c0c-4f1a-b0d2-ac9cf79d67ba)
-    (property "Reference" "#PWR053" (at 96.52 64.77 0)
+    (property "Reference" "#PWR049" (at 96.52 64.77 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3V3" (at 88.9 64.77 90)
@@ -632,9 +620,6 @@
     (pin "1" (uuid 9343550e-8d51-40ea-b3bb-a917621db0c9))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR053") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
           (reference "#PWR049") (unit 1)
         )
@@ -678,9 +663,6 @@
     (pin "9" (uuid 0045eb75-d9d7-423e-ae95-f565ae8b2c50))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "U5") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/75c4e4b3-beb7-4244-8d6d-015c4334d3f8"
           (reference "U5") (unit 1)
         )

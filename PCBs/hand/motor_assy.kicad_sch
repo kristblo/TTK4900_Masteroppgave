@@ -946,7 +946,7 @@
   (symbol (lib_id "Device:R") (at 163.83 138.43 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 24cc3c08-edc6-4a3f-aad3-d02dbf1e39eb)
-    (property "Reference" "R2_IPROPI" (at 166.37 137.16 0)
+    (property "Reference" "R_IPROPI2" (at 166.37 137.16 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "510Ohm" (at 166.37 139.7 0)
@@ -962,9 +962,6 @@
     (pin "2" (uuid c358b8d7-653b-43c3-8e4c-35ac40a59b77))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R2_IPROPI") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
           (reference "R_IPROPI2") (unit 1)
         )
@@ -1011,7 +1008,7 @@
   (symbol (lib_id "Device:C") (at 104.14 92.71 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 3ae7cee1-57a9-4cc6-988c-8634c696e675)
-    (property "Reference" "C3" (at 95.25 91.44 0)
+    (property "Reference" "C13" (at 95.25 91.44 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100nF" (at 95.25 93.98 0)
@@ -1027,9 +1024,6 @@
     (pin "2" (uuid 2b29b3d1-a110-4a83-b12b-a3d3679d94fc))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C3") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
           (reference "C13") (unit 1)
         )
@@ -1108,7 +1102,7 @@
   (symbol (lib_id "Device:R") (at 179.07 80.01 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid cf64c1e2-5d1c-4b7b-9cf8-fad74a7a9a14)
-    (property "Reference" "R1_IPROPI" (at 179.07 73.66 90)
+    (property "Reference" "R_EN1" (at 179.07 73.66 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "40k" (at 179.07 76.2 90)
@@ -1124,9 +1118,6 @@
     (pin "2" (uuid 0b812acf-5399-4bd4-9d0b-131b35bdda93))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R1_IPROPI") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
           (reference "R_EN1") (unit 1)
         )
@@ -1142,7 +1133,7 @@
   (symbol (lib_id "Device:C") (at 104.14 120.65 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid d5b6fa1a-495f-4960-8ad4-af1889c8d527)
-    (property "Reference" "C4" (at 95.25 119.38 0)
+    (property "Reference" "C14" (at 95.25 119.38 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100nF" (at 95.25 121.92 0)
@@ -1158,9 +1149,6 @@
     (pin "2" (uuid efb33fd1-7dd5-41b8-b405-ebcf453b69b3))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C4") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
           (reference "C14") (unit 1)
         )
@@ -1207,7 +1195,7 @@
   (symbol (lib_id "Device:R") (at 163.83 110.49 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid f47c5a93-4353-477b-92de-7a14798e4ee6)
-    (property "Reference" "R1_IPROPI" (at 166.37 109.22 0)
+    (property "Reference" "R_IPROPI1" (at 166.37 109.22 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "510Ohm" (at 166.37 111.76 0)
@@ -1223,9 +1211,6 @@
     (pin "2" (uuid 2dfbada3-e1ca-4142-8301-58813bc15640))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R1_IPROPI") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
           (reference "R_IPROPI1") (unit 1)
         )

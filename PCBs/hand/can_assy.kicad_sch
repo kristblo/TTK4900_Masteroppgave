@@ -337,9 +337,6 @@
     (pin "2" (uuid 5eb56543-f39c-4549-8e8e-fd00e3459962))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "CAN_TRM1") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/73e6264d-85c4-4968-a5ba-d9fbf9e6139a"
           (reference "CAN_TRM1") (unit 1)
         )
@@ -371,9 +368,6 @@
     (pin "2" (uuid 0131a687-17c7-4d79-bf97-958e37e4f9ce))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C1") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/73e6264d-85c4-4968-a5ba-d9fbf9e6139a"
           (reference "C1") (unit 1)
         )
@@ -405,9 +399,6 @@
     (pin "2" (uuid a0bbb5f4-a23f-414b-ad0c-33a7d743f5bb))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C3") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/73e6264d-85c4-4968-a5ba-d9fbf9e6139a"
           (reference "C3") (unit 1)
         )
@@ -445,9 +436,6 @@
     (pin "8" (uuid 1deef7b9-db67-466f-8148-c6be761e8c07))
     (instances
       (project "hand"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "U1") (unit 1)
-        )
         (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/73e6264d-85c4-4968-a5ba-d9fbf9e6139a"
           (reference "U1") (unit 1)
         )
