@@ -1,0 +1,55 @@
+<mxfile host="Electron" modified="2024-05-20T20:30:02.091Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="nczYMgjXHhx5TnQC03VA" version="24.4.0" type="device">
+  <diagram name="Page-1" id="UY7y5RHjmD1T6t_Ltbfn">
+    <mxGraphModel dx="1195" dy="703" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="583" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-1" value="Accelerometer driver structure" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="30" y="30" width="290" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="nBkLkYZSpvVAuI87cz-1-2" target="nBkLkYZSpvVAuI87cz-1-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-2" value="Accelerometer descriptor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="70" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="nBkLkYZSpvVAuI87cz-1-4" target="nBkLkYZSpvVAuI87cz-1-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-4" value="Read &amp;lt;axis&amp;gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="220" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-5" value="I2C transmit&lt;div&gt;[HAL]&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="500" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="nBkLkYZSpvVAuI87cz-1-6" target="nBkLkYZSpvVAuI87cz-1-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-6" value="I2C receive&lt;div&gt;[HAL]&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="480" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="nBkLkYZSpvVAuI87cz-1-10" target="nBkLkYZSpvVAuI87cz-1-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-14" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="70" y="190" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-10" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;" vertex="1" parent="nBkLkYZSpvVAuI87cz-1-14">
+          <mxGeometry width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-11" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;" vertex="1" parent="nBkLkYZSpvVAuI87cz-1-14">
+          <mxGeometry x="10" y="10" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-12" value="Accelerometer specific addresses" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;" vertex="1" parent="nBkLkYZSpvVAuI87cz-1-14">
+          <mxGeometry x="20" y="20" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="nBkLkYZSpvVAuI87cz-1-15" target="nBkLkYZSpvVAuI87cz-1-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nBkLkYZSpvVAuI87cz-1-15" value="Read register" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="360" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -228,7 +228,7 @@ void motor_driver_update_power(motor_descriptor* motor)
 void motor_driver_set_power(motor_descriptor* motor, uint8_t direction, double power)
 {
 
-  double mPower = power > (double)(motor->voltagePctCap) ? (double)(motor2.voltagePctCap) : power;
+  double mPower = power > (double)(motor->voltagePctCap) ? (double)(motor->voltagePctCap) : power;
   if(direction)
   {
     motor_driver_go_forward(mPower, motor->motorTimer, motor->motorPolarity);
