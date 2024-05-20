@@ -53,7 +53,8 @@ void uart_parse_hmi_input(char* input,
                       uint8_t bufferLength, 
                       uint8_t* bufferPos);
 
-
+/// @brief DEPRECATED, replaced by ROS interface
+/// @param input 
 void uart_parse_ros_input(char* input);
 
 /// @brief Handles incoming UART data when the peripheral is used as HMI
