@@ -18,7 +18,7 @@
   * via the CAN bus. This makes accelerometer data inherent to joint control,
   * not the accelerometer driver itself.
   * 
-  * Private functions are not descibed individually, but correspond to their
+  * Private functions are not described individually, but correspond to their
   * public counterparts. They take a joint controller descriptor struct as 
   * argument, and are called by the public functions.
   *
@@ -409,7 +409,7 @@ uint8_t controller_interface_get_acc_poll();
 
 
 /// @brief Public function to read the timer driven motor poll flag
-/// @return Status of the accelerometer poll flag
+/// @return Status of the motor poll flag
 uint8_t controller_interface_get_mtr_poll();
 
 

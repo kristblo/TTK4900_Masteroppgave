@@ -158,7 +158,7 @@ uint8_t motor_interface_get_moving(uint8_t motorSelect);
 
 /// @brief Lets the user set the motor power setting directly
 /// @param motorSelect 0 or 1 for motor1 or motor2 respectively
-/// @param direction 0 or 1 for forwards or backwards, respectively
+/// @param direction 0 or 1 for backwards or forwards, respectively
 /// @param power percentage of input voltage
 void motor_interface_set_power(uint8_t motorSelect, uint8_t direction, double power);
 

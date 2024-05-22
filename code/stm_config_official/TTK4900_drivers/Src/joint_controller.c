@@ -21,7 +21,7 @@ static joint_controller_descriptor joint0 =
 
 static joint_controller_descriptor joint1 =
 {
-  .hasAccelerometer = 0,
+  .hasAccelerometer = 0, //Was set to 0 for demonstration in public, very unsafe when activated
   .posSetpoint = 0,
   .posCurrent = 0,
   .posError = 0,
@@ -566,7 +566,9 @@ void joint_controller_update_power(joint_controller_descriptor* joint)
   }
 
   //Prevents sticky joints by keeping the integrator
-  //term from exceeding 100
+  //term from exceeding 100.
+  //TODO: Fix! This will never let the error decrease after passing 100.
+  //Could be as simple as joint->intError + intErrorSummand > 100
   if(fabs(joint->intError) <= 100)
   {
     joint->intError += intErrorSummand;
