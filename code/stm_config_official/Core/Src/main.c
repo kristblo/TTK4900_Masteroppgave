@@ -121,6 +121,7 @@ int main(void)
   MX_ADC1_Init();
   MX_TIM4_Init();
   MX_TIM7_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
 #if (HW_INTERFACE == UART_INTERFACE)  && (SW_INTERFACE == CMD_MODE_TERMINAL)  
   uart_send_string("Peripheral init complete\n\r");
@@ -156,6 +157,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uart_send_string("hello world\n\r");
   HAL_Delay(2000);
   HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 1);
 
@@ -164,16 +166,24 @@ int main(void)
   accl_interface_set_byte(0x11, 0b01110000); //Init rotation 250dps
 #endif
 
+#if ACTIVE_UNIT == TORSO
+  uint32_t mainLoopStart;
+  uint32_t mainLoopStop;
+#endif
+
+
+
   while (1)
   {
-
-
-#if (ACTIVE_UNIT == TORSO) && (SW_INTERFACE == CMD_MODE_ROS)
+#if (ACTIVE_UNIT == TORSO) && (SW_INTERFACE == CMD_MODE_ROS)    
     if(ros_interface_get_newMsgFlag() == 1)
     {
       ros_interface_parse_input();
       ros_interface_clear_newMsgFlag();
     }
+
+    HAL_TIM_Base_Start(&htim6);
+    mainLoopStart = TIM6->CNT;
 #endif    
     
     can_rx_executive();
@@ -253,6 +263,10 @@ int main(void)
     }
     
     
+    adc_interface_update_current(0);
+    adc_interface_update_current(1);
+
+
 #if ACTIVE_UNIT == TORSO
     if(controller_interface_get_acc_poll() == 1)
     {
@@ -260,8 +274,15 @@ int main(void)
       controller_interface_clear_acc_poll();
     }
 
+    mainLoopStop = TIM6->CNT; //HAL_TIM_ReadCapturedValue(&htim6, TIM_CHANNEL_ALL);
+    HAL_TIM_Base_Stop(&htim6);
+    TIM6->CNT = 0; //just to be sure;
+    uint32_t mainLoopTime = mainLoopStop - mainLoopStart;
+
     if((controller_interface_get_upd_telemetry() == 1))
     {
+      
+      // SHOULDER POSITION TELEMETRY
       float shoulderPos = controller_interface_get_position(1);
       float shoulderSp = controller_interface_get_setpoint(1);
       float shoulderCurrent = adc_interface_get_current(1);
@@ -272,13 +293,19 @@ int main(void)
 
       char* telemetry[128];
       sprintf(telemetry, "%i;%i;%i\r", posAsInt, spAsInt, currentAsInt);
-      uart_send_string(telemetry);      
+      uart_send_string(telemetry);
+      // SHOULDER POSITION TELEMETRY END
+
+      // MAIN LOOP TIMER TELEMETRY
+      // char* telemetry[64];
+      // sprintf(telemetry, "%i\r", mainLoopTime);
+      // uart_send_string(telemetry);
+      // MAIN LOOP TIMER TELEMETRY END
+
       controller_interface_clear_upd_telemetry();
     }
 #endif
     
-    adc_interface_update_current(0);
-    adc_interface_update_current(1);
     
     /* USER CODE END WHILE */
 
