@@ -134,9 +134,9 @@ int main(void)
   HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
   HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
 
-  HAL_TIM_Base_Start_IT(&htim2);
-  HAL_TIM_Base_Start_IT(&htim4);
-  HAL_TIM_Base_Start_IT(&htim7);//Telemetry timer
+  HAL_TIM_Base_Start_IT(&htim2);//CAN timer interrupt
+  HAL_TIM_Base_Start_IT(&htim4);//Controller update timer interrupt
+  HAL_TIM_Base_Start_IT(&htim7);//Telemetry (UART) timer interrupt
 
   HAL_CAN_Start(&hcan);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);

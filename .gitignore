@@ -22,7 +22,7 @@ _autosave-*
 fp-info-cache
 *#auto_saved_files#*
 *#*
-
+*.bkp
 
 #Kicad netlist files
 *.net
