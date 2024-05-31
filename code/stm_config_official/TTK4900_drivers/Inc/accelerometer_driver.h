@@ -1,5 +1,22 @@
 #ifndef ACCELEROMETER_DRIVER_H
 #define ACCELEROMETER_DRIVER_H
+/**
+  ******************************************************************************
+  * @file    accelerometer_driver.h
+  * @brief   This file contains all the function prototypes and struct
+  *           definitions for the accelerometer_driver.c file
+  *        
+  ******************************************************************************
+  * @attention
+  *
+  * IMU driver for the TTK4900 Master project of Kristian Blom, spring
+  * semester of 2024. The driver specifies a struct of relevant register
+  * addresses from the LSM6DSM IMU as well as functions using the I2C
+  * peripheral to read these addresses.
+  *
+  ******************************************************************************
+  */
+
 
 #include "uart_driver.h"
 #include "unit_config.h"
