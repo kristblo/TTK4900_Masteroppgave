@@ -6,7 +6,7 @@
 
   (title_block
     (title "Motor driver assembly")
-    (rev "1.1")
+    (rev "Mk1.1")
   )
 
   (lib_symbols
@@ -1123,7 +1123,7 @@
   (symbol (lib_id "Device:R") (at 167.64 104.14 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 0de44cb9-7ece-4d1e-ae0c-b48ceeaf6982)
-    (property "Reference" "R1_IPROPI" (at 170.18 102.87 0)
+    (property "Reference" "R1_IPROPI1" (at 170.18 102.87 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "510Ohm" (at 170.18 105.41 0)
@@ -1139,14 +1139,6 @@
     (pin "2" (uuid 83cef964-cde2-48bb-aa28-8316e9b41633))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R1_IPROPI") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "R_IPROPI1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "R1_IPROPI1") (unit 1)
         )
@@ -1157,7 +1149,7 @@
   (symbol (lib_id "Device:C") (at 114.3 114.3 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 2c3017f4-5b50-44f2-a76f-8d94f2afb299)
-    (property "Reference" "C2_MTR1" (at 118.11 113.03 0)
+    (property "Reference" "C_MTR2" (at 118.11 113.03 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "220muF" (at 118.11 115.57 0)
@@ -1173,14 +1165,6 @@
     (pin "2" (uuid fe3199d9-ecaa-4e39-adc1-756177db953c))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C2_MTR1") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "C_MTR2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "C_MTR2") (unit 1)
         )
@@ -1191,7 +1175,7 @@
   (symbol (lib_id "Device:C") (at 114.3 85.09 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 4e763c79-4618-45e4-82dc-99106d4594b4)
-    (property "Reference" "C1_MTR0" (at 118.11 83.82 0)
+    (property "Reference" "C_MTR1" (at 118.11 83.82 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "330muF" (at 118.11 86.36 0)
@@ -1206,14 +1190,6 @@
     (pin "1" (uuid 3751f356-aa65-413d-87f2-ff4f4cc15422))
     (pin "2" (uuid f6f2d79a-c6b7-4f5d-bfd9-4dfc0a45b8b3))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C1_MTR0") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "C_MTR1") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "C_MTR1") (unit 1)
@@ -1248,11 +1224,6 @@
     (pin "8" (uuid 2b1af676-3782-4f72-9d4f-1cf06a79449c))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "MTR_DRV2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "MTR_DRV2") (unit 1)
         )
@@ -1280,14 +1251,6 @@
     (pin "3" (uuid b208da63-b20f-4fcf-be25-372efc482c64))
     (pin "4" (uuid e9fd9532-e6ad-4ffd-b44d-75ee9657a8ae))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "JV-3S-KT1") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "JV-3S-KT1") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "JV-3S-KT1") (unit 1)
@@ -1322,11 +1285,6 @@
     (pin "9" (uuid 888df78f-8356-41db-9480-d8db70975ddb))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "MTR_DRV1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "MTR_DRV1") (unit 1)
         )
@@ -1353,14 +1311,6 @@
     (pin "2" (uuid ed63316d-d49f-46e1-815d-1038b65de2f8))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C4") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "C14") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "C4") (unit 1)
         )
@@ -1371,7 +1321,7 @@
   (symbol (lib_id "Device:Q_NIGBT_CGE") (at 128.27 68.58 270) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid b06740dc-1de0-49f5-aa26-0a8aae0ace30)
-    (property "Reference" "Q1_RLY_CTRL" (at 127 63.5 0)
+    (property "Reference" "Q1_RLY_CTRL1" (at 127 63.5 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "Q_NIGBT_CGE" (at 129.54 63.5 0)
@@ -1388,14 +1338,6 @@
     (pin "3" (uuid fc997551-db40-4762-a392-e115dd1cb726))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "Q1_RLY_CTRL") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "RLY_CTRL1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "Q1_RLY_CTRL1") (unit 1)
         )
@@ -1406,7 +1348,7 @@
   (symbol (lib_id "70543-0001:705430001") (at 67.31 114.3 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid bbe760da-e441-42a1-b2b3-a9ddd531d6d6)
-    (property "Reference" "J2_MTR1" (at 73.66 113.03 90)
+    (property "Reference" "MTR2" (at 73.66 113.03 90)
       (effects (font (size 1.524 1.524)) (justify right))
     )
     (property "Value" "705430001" (at 73.66 115.57 90)
@@ -1422,14 +1364,6 @@
     (pin "2" (uuid 5586af2e-fa48-4d97-9dc0-77b49cabb35d))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "J2_MTR1") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "MTR2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "MTR2") (unit 1)
         )
@@ -1440,7 +1374,7 @@
   (symbol (lib_name "705430001_1") (lib_id "70543-0001:705430001") (at 67.31 86.36 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid c08d85b9-1bb2-4124-9ea9-059f54b1258e)
-    (property "Reference" "J1_MTR0" (at 73.66 85.09 90)
+    (property "Reference" "MTR1" (at 73.66 85.09 90)
       (effects (font (size 1.524 1.524)) (justify right))
     )
     (property "Value" "705430001" (at 73.66 87.63 90)
@@ -1456,14 +1390,6 @@
     (pin "2" (uuid 9bb1099a-7348-4c7f-9c96-254ad05107e4))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "J1_MTR0") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "MTR1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "MTR1") (unit 1)
         )
@@ -1474,7 +1400,7 @@
   (symbol (lib_id "Device:R") (at 167.64 132.08 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ce4e174c-8aab-4752-9d39-a393f6b1ac44)
-    (property "Reference" "R2_IPROPI" (at 170.18 130.81 0)
+    (property "Reference" "R2_IPROPI1" (at 170.18 130.81 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "510Ohm" (at 170.18 133.35 0)
@@ -1489,14 +1415,6 @@
     (pin "1" (uuid 95e47221-e555-45ec-84dc-e18f84f03734))
     (pin "2" (uuid f21cbdaf-92ca-4a71-8806-a6171afc342e))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R2_IPROPI") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "R_IPROPI2") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "R2_IPROPI1") (unit 1)
@@ -1555,14 +1473,6 @@
     (pin "2" (uuid 232639e9-3770-48cb-b936-cd81681e8a94))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C3") (unit 1)
-        )
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "C13") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "C3") (unit 1)
         )
@@ -1589,11 +1499,6 @@
     (pin "2" (uuid 197da73e-d8c4-41a3-bf7e-69752d94840c))
     (pin "3" (uuid 76030479-7ea5-4f40-8d30-cb361497c510))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d/710f463d-d939-4835-b806-0bed34cabba5"
-          (reference "RLY_CTL_DBG1") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/23dd3c4a-da1f-44ef-acfb-616759cf75b9"
           (reference "RLY_CTL_DBG1") (unit 1)

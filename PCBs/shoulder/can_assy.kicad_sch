@@ -6,7 +6,7 @@
 
   (title_block
     (title "CAN assembly")
-    (rev "1.1")
+    (rev "Mk1.1")
   )
 
   (lib_symbols
@@ -326,7 +326,7 @@
   (symbol (lib_id "Device:C") (at 120.65 67.31 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 1ccde933-7dcd-4162-8916-8ba61b02090e)
-    (property "Reference" "C3" (at 124.46 66.04 0)
+    (property "Reference" "C9" (at 124.46 66.04 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "100nF" (at 124.46 68.58 0)
@@ -342,11 +342,6 @@
     (pin "2" (uuid 9ad887e6-29e5-49ea-861c-cb3035d4bc8e))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C3") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/38d303e4-1bac-45b0-bb1f-2ed94c6162e0"
           (reference "C9") (unit 1)
         )
@@ -357,7 +352,7 @@
   (symbol (lib_id "Device:C") (at 90.17 68.58 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 57266cf1-b499-4ce3-98de-0e25354bd1f4)
-    (property "Reference" "C1" (at 90.17 60.96 90)
+    (property "Reference" "C8" (at 90.17 60.96 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "100nF" (at 90.17 63.5 90)
@@ -373,11 +368,6 @@
     (pin "2" (uuid 72b62689-6f39-4638-9553-48b2148931bb))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/38d303e4-1bac-45b0-bb1f-2ed94c6162e0"
           (reference "C8") (unit 1)
         )
@@ -388,7 +378,7 @@
   (symbol (lib_id "TJA1057BT:TJA1057GT_3J") (at 106.68 76.2 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid cdb9e043-f3d8-4e90-8f34-139471c78f72)
-    (property "Reference" "U1" (at 106.68 62.23 0)
+    (property "Reference" "U3" (at 106.68 62.23 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "TJA1057GT/3J" (at 106.68 64.77 0)
@@ -409,11 +399,6 @@
     (pin "7" (uuid 86886b53-3d05-4855-b6a2-fa9a584516d2))
     (pin "8" (uuid 6108b41f-610d-4800-a4e1-d2e43cbc4228))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "U1") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/38d303e4-1bac-45b0-bb1f-2ed94c6162e0"
           (reference "U3") (unit 1)
@@ -440,11 +425,6 @@
     (pin "1" (uuid 804584ff-b3bb-43fe-9d2b-f2adc9d3ba90))
     (pin "2" (uuid a89d595c-97cb-4385-acf4-c83787929360))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "CAN_TRM1") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/38d303e4-1bac-45b0-bb1f-2ed94c6162e0"
           (reference "CAN_TRM1") (unit 1)

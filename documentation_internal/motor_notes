@@ -1,4 +1,0 @@
-Motor notes:
-40 mm dia may correspond to DC040B-2, length of 56mm -> Tcs of 0.033 Nm. Counterpoint: DC040B-2 is 48V max, while original part is 30V and 24V.
-
-30 mm dia may correspond to DC030B-3, length of 60mm and two-wire interface -> Tcs of 0.018 Nm. Counterpoint: DC030B is 48V max, while original part is 30V.

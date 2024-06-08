@@ -4,6 +4,11 @@
 
   (paper "A5")
 
+  (title_block
+    (title "Rail PCB")
+    (rev "Mk1.2")
+  )
+
   (lib_symbols
     (symbol "CDSC706:CDSC706-0504C" (pin_names (offset 0.254)) (in_bom yes) (on_board yes)
       (property "Reference" "CR" (at 16.51 10.16 0)

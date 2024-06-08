@@ -4,6 +4,11 @@
 
   (paper "A4")
 
+  (title_block
+    (title "Torso PCB")
+    (rev "Mk1.2")
+  )
+
   (lib_symbols
     (symbol "Conn_01x04_2" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
       (property "Reference" "PWR_CAN_OUT1" (at 0 -11.43 0)

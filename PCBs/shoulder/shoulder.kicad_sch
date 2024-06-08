@@ -5,8 +5,8 @@
   (paper "A4")
 
   (title_block
-    (title "Shoulder")
-    (rev "1.1")
+    (title "Shoulder PCB")
+    (rev "Mk1.1")
   )
 
   (lib_symbols
@@ -2397,11 +2397,6 @@
     (pin "4" (uuid 7bb84482-bae2-41d2-9d59-0596a8781353))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "PWR_CAN_IN1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "PWR_CAN_IN1") (unit 1)
         )
@@ -2412,7 +2407,7 @@
   (symbol (lib_id "Device:C") (at 83.82 119.38 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0b08c3b4-090c-41db-a42c-a8fa862f0f03)
-    (property "Reference" "C9" (at 86.36 118.11 90)
+    (property "Reference" "C21" (at 86.36 118.11 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "100nF" (at 87.63 120.65 90)
@@ -2427,11 +2422,6 @@
     (pin "1" (uuid ef81a3d9-6936-4d29-bdc9-b49eecca670d))
     (pin "2" (uuid 3053c86b-226a-44d8-8a84-83f7130aec2d))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C9") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "C21") (unit 1)
@@ -2461,11 +2451,6 @@
     (pin "4" (uuid 8c7b8fcb-aa10-48e6-8b0e-839381ea52a2))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "PWR_CAN_OUT1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "PWR_CAN_OUT1") (unit 1)
         )
@@ -2476,7 +2461,7 @@
   (symbol (lib_id "Device:R") (at 154.94 140.97 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0efb03e1-9177-4ad8-94f6-634c6e08e6ce)
-    (property "Reference" "R2" (at 154.94 133.35 90)
+    (property "Reference" "R15" (at 154.94 133.35 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "40kOhm" (at 153.67 129.54 90)
@@ -2492,11 +2477,6 @@
     (pin "2" (uuid f14170b8-e436-48a8-ae1b-ebfbf8dc8859))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "R15") (unit 1)
         )
@@ -2507,7 +2487,7 @@
   (symbol (lib_id "power:+3V3") (at 163.83 179.07 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 124f47b3-86e0-42af-a9de-435401c01367)
-    (property "Reference" "#PWR068" (at 163.83 182.88 0)
+    (property "Reference" "#PWR027" (at 163.83 182.88 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3V3" (at 163.83 173.99 0)
@@ -2521,11 +2501,6 @@
     )
     (pin "1" (uuid 876a3253-15ea-46b1-9fe0-885f045172b6))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR068") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR027") (unit 1)
@@ -2562,7 +2537,7 @@
   (symbol (lib_id "power:GND") (at 170.18 144.78 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 14cc850b-5d3b-4267-b876-e4778907b360)
-    (property "Reference" "#PWR023" (at 170.18 151.13 0)
+    (property "Reference" "#PWR038" (at 170.18 151.13 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 170.18 149.86 0)
@@ -2576,11 +2551,6 @@
     )
     (pin "1" (uuid 311bd6a4-e27a-414f-a484-19c3a26e1636))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR023") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR038") (unit 1)
@@ -2617,7 +2587,7 @@
   (symbol (lib_id "power:GND") (at 154.94 144.78 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 1e4567eb-b807-43b2-8a65-33b088b96dc0)
-    (property "Reference" "#PWR023" (at 154.94 151.13 0)
+    (property "Reference" "#PWR033" (at 154.94 151.13 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 154.94 149.86 0)
@@ -2631,11 +2601,6 @@
     )
     (pin "1" (uuid 31d7a7ba-fd57-44a1-afa5-237890675253))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR023") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR033") (unit 1)
@@ -2672,7 +2637,7 @@
   (symbol (lib_id "Device:C") (at 83.82 104.14 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 29fea7ce-2bce-4c79-ae3e-762078c56bfe)
-    (property "Reference" "C6" (at 86.36 102.87 90)
+    (property "Reference" "C18" (at 86.36 102.87 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10nF" (at 87.63 105.41 90)
@@ -2687,11 +2652,6 @@
     (pin "1" (uuid a7744e3a-762d-41e4-a584-c3011fecffaf))
     (pin "2" (uuid 96046f94-4b68-4a96-98c1-68846dd75b59))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C6") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "C18") (unit 1)
@@ -2719,11 +2679,6 @@
     (pin "2" (uuid 3155efc8-ac32-4520-a846-4b4af57028eb))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "UART1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "UART1") (unit 1)
         )
@@ -2734,7 +2689,7 @@
   (symbol (lib_id "power:+48V") (at 35.56 55.88 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 3568381f-a49e-4ae3-8147-88f54ef3e2ef)
-    (property "Reference" "#PWR05" (at 31.75 55.88 0)
+    (property "Reference" "#PWR019" (at 31.75 55.88 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+48V" (at 39.37 55.88 90)
@@ -2749,11 +2704,6 @@
     (pin "1" (uuid 5a1baa81-10ec-46d7-a7ec-16cfc2510d09))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR05") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR019") (unit 1)
         )
@@ -2764,7 +2714,7 @@
   (symbol (lib_id "power:GND") (at 172.72 69.85 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 37fdf5d6-b199-47b2-a5e6-f9316cee0036)
-    (property "Reference" "#PWR023" (at 172.72 63.5 0)
+    (property "Reference" "#PWR036" (at 172.72 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 172.72 64.77 0)
@@ -2779,11 +2729,6 @@
     (pin "1" (uuid 55ca99d9-ba4a-420a-ad23-3d0982e222c9))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR023") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR036") (unit 1)
         )
@@ -2794,7 +2739,7 @@
   (symbol (lib_id "Device:R") (at 172.72 73.66 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 3db98054-1dc3-486d-a201-2baeb70178d3)
-    (property "Reference" "R2" (at 172.72 81.28 90)
+    (property "Reference" "R18" (at 172.72 81.28 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "40kOhm" (at 173.99 85.09 90)
@@ -2809,11 +2754,6 @@
     (pin "1" (uuid 5c6420de-a086-4617-b2f4-a40e38794ecd))
     (pin "2" (uuid 7b14474b-76b0-4632-9242-37232f71efa2))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R2") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "R18") (unit 1)
@@ -2844,11 +2784,6 @@
     (pin "5" (uuid 06973580-f4f6-4e94-9400-d1606fac8761))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "SRL_FLASH1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "SRL_FLASH1") (unit 1)
         )
@@ -2859,7 +2794,7 @@
   (symbol (lib_id "Device:C") (at 83.82 114.3 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4763ac5c-0a2d-4b4f-b229-2958b3d66698)
-    (property "Reference" "C8" (at 86.36 113.03 90)
+    (property "Reference" "C20" (at 86.36 113.03 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "100nF" (at 87.63 115.57 90)
@@ -2875,11 +2810,6 @@
     (pin "2" (uuid ee0c1bb5-398f-4dd2-abb3-e5e4623172ee))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C8") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "C20") (unit 1)
         )
@@ -2890,7 +2820,7 @@
   (symbol (lib_id "Device:R") (at 190.5 73.66 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 488e1e8a-6eba-41a4-a35b-817720b8aeb5)
-    (property "Reference" "R2" (at 190.5 81.28 90)
+    (property "Reference" "R21" (at 190.5 81.28 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "40kOhm" (at 191.77 85.09 90)
@@ -2906,11 +2836,6 @@
     (pin "2" (uuid 375c55c6-b652-4e42-9d19-1b7d688ce36d))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "R21") (unit 1)
         )
@@ -2921,7 +2846,7 @@
   (symbol (lib_id "power:GND") (at 80.01 114.3 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 48fa902b-378f-4f42-b6f6-230fd2d75f11)
-    (property "Reference" "#PWR014" (at 73.66 114.3 0)
+    (property "Reference" "#PWR015" (at 73.66 114.3 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 76.2 114.3 90)
@@ -2935,11 +2860,6 @@
     )
     (pin "1" (uuid 1185f010-62fa-4d36-92e2-93b31c11d672))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR014") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR015") (unit 1)
@@ -3000,11 +2920,6 @@
     (pin "9" (uuid e00404b6-e857-4a3a-9619-b3967e34b370))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "ENC2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "ENC2") (unit 1)
         )
@@ -3015,7 +2930,7 @@
   (symbol (lib_id "power:GND") (at 190.5 69.85 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 4fafade3-7b23-425f-9acb-b585e1e4d308)
-    (property "Reference" "#PWR023" (at 190.5 63.5 0)
+    (property "Reference" "#PWR039" (at 190.5 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 190.5 64.77 0)
@@ -3030,11 +2945,6 @@
     (pin "1" (uuid a97446cc-7e53-4b37-8ecd-d60370a68849))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR023") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR039") (unit 1)
         )
@@ -3045,7 +2955,7 @@
   (symbol (lib_id "Device:C") (at 83.82 124.46 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 537801fa-8738-49bb-91b0-b76cf4fde1b7)
-    (property "Reference" "C10" (at 86.36 123.19 90)
+    (property "Reference" "C22" (at 86.36 123.19 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "100nF" (at 87.63 125.73 90)
@@ -3061,11 +2971,6 @@
     (pin "2" (uuid d063d3b4-e273-4e86-99f9-f3ef4920f59d))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C10") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "C22") (unit 1)
         )
@@ -3076,7 +2981,7 @@
   (symbol (lib_id "Device:D_Zener") (at 92.71 90.17 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 587c3330-02fd-4ce7-b675-ddd02ebeffb2)
-    (property "Reference" "D2" (at 95.25 88.9 0)
+    (property "Reference" "D8" (at 95.25 88.9 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "D_Zener" (at 97.79 91.44 0)
@@ -3092,11 +2997,6 @@
     (pin "2" (uuid 87a0bac3-a1e2-46ec-aff2-40cdd105b6c0))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "D2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "D8") (unit 1)
         )
@@ -3107,7 +3007,7 @@
   (symbol (lib_id "power:+5V") (at 22.86 107.95 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 58e10caa-9129-47fe-b540-cd2a5cc840a2)
-    (property "Reference" "#PWR02" (at 26.67 107.95 0)
+    (property "Reference" "#PWR025" (at 26.67 107.95 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 17.78 107.95 0)
@@ -3122,11 +3022,6 @@
     (pin "1" (uuid 272c7dbb-0813-4dda-8cdc-a1e5c3041429))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR02") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR025") (unit 1)
         )
@@ -3137,7 +3032,7 @@
   (symbol (lib_id "power:GND") (at 111.76 69.85 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5e7a967e-ccb4-43c7-a249-24b405c199aa)
-    (property "Reference" "#PWR023" (at 111.76 63.5 0)
+    (property "Reference" "#PWR030" (at 111.76 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 111.76 64.77 0)
@@ -3152,11 +3047,6 @@
     (pin "1" (uuid 369aaf38-159d-4a5d-bf34-d5d3f32b5638))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR023") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR030") (unit 1)
         )
@@ -3167,7 +3057,7 @@
   (symbol (lib_id "power:GND") (at 127 69.85 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 652e6d8d-560c-47a2-9a19-4bd6f1ad9e77)
-    (property "Reference" "#PWR023" (at 127 63.5 0)
+    (property "Reference" "#PWR031" (at 127 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 127 64.77 0)
@@ -3182,11 +3072,6 @@
     (pin "1" (uuid 1d74929f-cbaa-4780-a594-d0e2011d4824))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR023") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR031") (unit 1)
         )
@@ -3197,7 +3082,7 @@
   (symbol (lib_id "power:GND") (at 162.56 69.85 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 6570690c-2f77-4b1a-bc89-d1bf88791573)
-    (property "Reference" "#PWR023" (at 162.56 63.5 0)
+    (property "Reference" "#PWR034" (at 162.56 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 162.56 64.77 0)
@@ -3212,11 +3097,6 @@
     (pin "1" (uuid 93c5d250-6e01-46e4-912d-b907989955fc))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR023") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR034") (unit 1)
         )
@@ -3227,7 +3107,7 @@
   (symbol (lib_id "power:GND") (at 22.86 92.71 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 6910ecaa-8ce6-4123-9125-78cdad85c9bb)
-    (property "Reference" "#PWR03" (at 16.51 92.71 0)
+    (property "Reference" "#PWR024" (at 16.51 92.71 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 17.78 92.71 0)
@@ -3241,11 +3121,6 @@
     )
     (pin "1" (uuid 7ef4e3f5-f77e-4201-bce3-e5491b683696))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR03") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR024") (unit 1)
@@ -3330,7 +3205,7 @@
   (symbol (lib_id "power:GND") (at 149.86 69.85 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 79c74aa8-80d6-4470-8ca7-f2ffc4d8d753)
-    (property "Reference" "#PWR023" (at 149.86 63.5 0)
+    (property "Reference" "#PWR032" (at 149.86 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 149.86 64.77 0)
@@ -3344,11 +3219,6 @@
     )
     (pin "1" (uuid c630334a-f45d-43ad-ac0b-88466dd6f2dd))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR023") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR032") (unit 1)
@@ -3384,11 +3254,6 @@
     (pin "9" (uuid b7d4bb69-4d42-4d5d-958b-efbeaf3f68a7))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "ENC1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "ENC1") (unit 1)
         )
@@ -3399,7 +3264,7 @@
   (symbol (lib_id "Device:C") (at 83.82 99.06 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 7cce594a-9b6b-4f65-8577-84866edc533e)
-    (property "Reference" "C5" (at 88.9 97.79 90)
+    (property "Reference" "C17" (at 88.9 97.79 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1muF" (at 88.9 100.33 90)
@@ -3414,11 +3279,6 @@
     (pin "1" (uuid c685158f-1d9c-4bcb-99be-0662b0d0bbae))
     (pin "2" (uuid 021d77cf-0595-4545-a346-fc3ddb2af0d2))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C5") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "C17") (unit 1)
@@ -3455,7 +3315,7 @@
   (symbol (lib_id "power:GND") (at 35.56 82.55 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 85f6f543-bfea-417d-ab23-11203c4b231c)
-    (property "Reference" "#PWR08" (at 41.91 82.55 0)
+    (property "Reference" "#PWR022" (at 41.91 82.55 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 39.37 82.55 90)
@@ -3469,11 +3329,6 @@
     )
     (pin "1" (uuid 1af24b95-062d-4980-a38a-f0ad941918b0))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR08") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR022") (unit 1)
@@ -3535,7 +3390,7 @@
   (symbol (lib_id "Device:R") (at 127 73.66 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 8e37fb6c-5df2-4a7e-bcfc-931eb8bc306f)
-    (property "Reference" "R2" (at 127 81.28 90)
+    (property "Reference" "R13" (at 127 81.28 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "40kOhm" (at 128.27 85.09 90)
@@ -3551,11 +3406,6 @@
     (pin "2" (uuid ba933b95-2f3f-4032-8c01-37e81792cf2b))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "R13") (unit 1)
         )
@@ -3566,7 +3416,7 @@
   (symbol (lib_id "power:GND") (at 35.56 63.5 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9012950a-1974-4284-bfa2-0922ccfdd74d)
-    (property "Reference" "#PWR06" (at 41.91 63.5 0)
+    (property "Reference" "#PWR020" (at 41.91 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 39.37 63.5 90)
@@ -3581,11 +3431,6 @@
     (pin "1" (uuid 03a15414-da4a-4646-96fa-2fa55d6e9c2e))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR06") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR020") (unit 1)
         )
@@ -3596,7 +3441,7 @@
   (symbol (lib_id "Device:R") (at 111.76 73.66 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 92aed491-ae95-4f0d-9edf-f26b3b7fe18a)
-    (property "Reference" "R2" (at 111.76 81.28 90)
+    (property "Reference" "R12" (at 111.76 81.28 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "40kOhm" (at 113.03 85.09 90)
@@ -3612,11 +3457,6 @@
     (pin "2" (uuid e745e7d5-b7ce-4681-aa23-0f675e298803))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "R12") (unit 1)
         )
@@ -3627,7 +3467,7 @@
   (symbol (lib_id "power:GND") (at 158.75 179.07 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9b35adff-38ae-4e52-85d0-0e03de5648e3)
-    (property "Reference" "#PWR069" (at 158.75 172.72 0)
+    (property "Reference" "#PWR028" (at 158.75 172.72 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 158.75 173.99 0)
@@ -3642,11 +3482,6 @@
     (pin "1" (uuid 79ba529e-0b83-46bb-87e7-bdd131ccb868))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR069") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR028") (unit 1)
         )
@@ -3657,7 +3492,7 @@
   (symbol (lib_id "Device:R") (at 160.02 140.97 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9c21a03c-290d-49fb-b864-69d57c866ed5)
-    (property "Reference" "R2" (at 160.02 133.35 90)
+    (property "Reference" "R19" (at 160.02 133.35 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "40kOhm" (at 158.75 129.54 90)
@@ -3673,11 +3508,6 @@
     (pin "2" (uuid 48748234-c7f6-4b6b-8aa5-961d6df722a6))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "R19") (unit 1)
         )
@@ -3688,7 +3518,7 @@
   (symbol (lib_id "power:GND") (at 22.86 113.03 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9d5f9865-39ee-4dc7-a36c-bbc8856484c3)
-    (property "Reference" "#PWR04" (at 16.51 113.03 0)
+    (property "Reference" "#PWR026" (at 16.51 113.03 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 17.78 113.03 0)
@@ -3702,11 +3532,6 @@
     )
     (pin "1" (uuid 9255928e-fe0c-4ff9-829b-2e14b0f17536))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR04") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR026") (unit 1)
@@ -3792,7 +3617,7 @@
   (symbol (lib_id "power:+48V") (at 35.56 74.93 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid b1a3227d-e059-41a7-b976-cd81331d5703)
-    (property "Reference" "#PWR07" (at 31.75 74.93 0)
+    (property "Reference" "#PWR021" (at 31.75 74.93 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+48V" (at 39.37 74.93 90)
@@ -3807,11 +3632,6 @@
     (pin "1" (uuid 41d42aee-495a-4457-8868-ad70db241469))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR07") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR021") (unit 1)
         )
@@ -3822,7 +3642,7 @@
   (symbol (lib_id "power:GND") (at 170.18 69.85 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid bce1ccc4-3337-4e80-8c8b-502e126af89f)
-    (property "Reference" "#PWR023" (at 170.18 63.5 0)
+    (property "Reference" "#PWR035" (at 170.18 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 170.18 64.77 0)
@@ -3837,11 +3657,6 @@
     (pin "1" (uuid d7716513-dfed-426a-a6fa-28e1da284aac))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR023") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR035") (unit 1)
         )
@@ -3852,7 +3667,7 @@
   (symbol (lib_id "Device:R") (at 170.18 73.66 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid be9e6b6e-cd25-488f-8011-056fa22beb98)
-    (property "Reference" "R2" (at 170.18 81.28 90)
+    (property "Reference" "R17" (at 170.18 81.28 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "40kOhm" (at 171.45 85.09 90)
@@ -3868,11 +3683,6 @@
     (pin "2" (uuid aa34d512-c52d-4c51-a3c1-9f646ef2e29d))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "R17") (unit 1)
         )
@@ -3883,7 +3693,7 @@
   (symbol (lib_id "Device:R") (at 149.86 73.66 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid bed99ce6-c296-4226-a582-623e4e53b836)
-    (property "Reference" "R2" (at 149.86 81.28 90)
+    (property "Reference" "R14" (at 149.86 81.28 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "40kOhm" (at 151.13 85.09 90)
@@ -3899,11 +3709,6 @@
     (pin "2" (uuid 31b4cef4-096b-4253-a109-f89aa4f8d32f))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "R14") (unit 1)
         )
@@ -3914,7 +3719,7 @@
   (symbol (lib_id "power:+5V") (at 22.86 87.63 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid bf03fb1a-b025-447b-8b9c-1fd023c7b349)
-    (property "Reference" "#PWR01" (at 26.67 87.63 0)
+    (property "Reference" "#PWR023" (at 26.67 87.63 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 17.78 87.63 0)
@@ -3928,11 +3733,6 @@
     )
     (pin "1" (uuid 764f6148-8806-42be-b7ce-f2c2800bc089))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR01") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR023") (unit 1)
@@ -3969,7 +3769,7 @@
   (symbol (lib_id "Device:R") (at 162.56 73.66 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid cbbdd393-9c30-46db-a4f1-065997db180e)
-    (property "Reference" "R2" (at 162.56 81.28 90)
+    (property "Reference" "R16" (at 162.56 81.28 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "40kOhm" (at 163.83 85.09 90)
@@ -3984,11 +3784,6 @@
     (pin "1" (uuid 8783a2e7-3d90-412b-9d28-2896d7207445))
     (pin "2" (uuid 6b697959-8369-4136-8d8f-fc4cde3d17f2))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R2") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "R16") (unit 1)
@@ -4025,7 +3820,7 @@
   (symbol (lib_id "Device:R") (at 170.18 140.97 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid cef1831f-89e9-4f95-ab9f-cb304d1c98fc)
-    (property "Reference" "R2" (at 170.18 133.35 90)
+    (property "Reference" "R20" (at 170.18 133.35 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "40kOhm" (at 168.91 129.54 90)
@@ -4041,11 +3836,6 @@
     (pin "2" (uuid d15daf2c-d365-44e0-955b-f69894686e1e))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R2") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "R20") (unit 1)
         )
@@ -4056,7 +3846,7 @@
   (symbol (lib_id "Device:C") (at 83.82 109.22 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid d16bf5f8-f330-4030-a704-2d6e1be752cf)
-    (property "Reference" "C7" (at 86.36 107.95 90)
+    (property "Reference" "C19" (at 86.36 107.95 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "100nF" (at 87.63 110.49 90)
@@ -4071,11 +3861,6 @@
     (pin "1" (uuid d9afdf36-cfc4-476f-986b-dc4510c50af9))
     (pin "2" (uuid b15f63c3-8f1d-490d-bf99-c9b36aabc371))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C7") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "C19") (unit 1)
@@ -4112,7 +3897,7 @@
   (symbol (lib_id "power:GND") (at 160.02 144.78 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid db101fbd-565c-43ec-9f04-f3c47cd51ab2)
-    (property "Reference" "#PWR023" (at 160.02 151.13 0)
+    (property "Reference" "#PWR037" (at 160.02 151.13 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 160.02 149.86 0)
@@ -4126,11 +3911,6 @@
     )
     (pin "1" (uuid 2a126747-9512-470f-b757-10b0c6aa1008))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "#PWR023") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "#PWR037") (unit 1)
@@ -4191,7 +3971,7 @@
   (symbol (lib_id "Device:LED") (at 83.82 90.17 0) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid ea342147-2321-451d-8af0-bc13591707eb)
-    (property "Reference" "D1" (at 87.63 86.36 0)
+    (property "Reference" "D7" (at 87.63 86.36 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "LED" (at 87.63 88.9 0)
@@ -4206,11 +3986,6 @@
     (pin "1" (uuid 603b562f-3c57-4b4e-b66f-43596c6a6266))
     (pin "2" (uuid 601c7044-88af-4281-a985-109393bfb0c9))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "D1") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "D7") (unit 1)
@@ -4247,7 +4022,7 @@
   (symbol (lib_id "Device:C") (at 83.82 93.98 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid fbf3a7de-240c-4219-9909-bfd42b9832a4)
-    (property "Reference" "C4" (at 88.9 92.71 90)
+    (property "Reference" "C16" (at 88.9 92.71 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "4.7muF" (at 88.9 95.25 90)
@@ -4262,11 +4037,6 @@
     (pin "1" (uuid 41d11ac3-2a5c-441b-8ab7-a4d1027d8eac))
     (pin "2" (uuid 6d32b128-93ac-42d4-a343-0a4ec9b210e6))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C4") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b"
           (reference "C16") (unit 1)
