@@ -6,7 +6,7 @@
 
   (title_block
     (title "Oscillator and reset assembly")
-    (rev "1.1")
+    (rev "Mk1.1")
   )
 
   (lib_symbols
@@ -532,7 +532,7 @@
   (symbol (lib_id "Device:C") (at 99.06 45.72 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 1f33f1a8-431a-4b25-a908-95ad3423836b)
-    (property "Reference" "C2" (at 97.79 43.18 90)
+    (property "Reference" "C5" (at 97.79 43.18 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "100nF" (at 100.33 41.91 90)
@@ -547,11 +547,6 @@
     (pin "1" (uuid 2cf2c68f-fea7-4361-ad53-f0d91a71726e))
     (pin "2" (uuid a15792c3-954f-4218-941e-8239987abfc3))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C2") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/6be0f257-0828-42e7-90f4-699eb509c9fd"
           (reference "C5") (unit 1)
@@ -581,11 +576,6 @@
     (pin "4" (uuid 149ac24d-7792-4145-9622-e045c1856266))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "SW1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/6be0f257-0828-42e7-90f4-699eb509c9fd"
           (reference "SW1") (unit 1)
         )
@@ -596,7 +586,7 @@
   (symbol (lib_id "Device:R") (at 104.14 64.77 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 8174a2e8-8827-401a-b00b-4c7f9f411914)
-    (property "Reference" "R4" (at 105.41 59.69 0)
+    (property "Reference" "R6" (at 105.41 59.69 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "340Ohm" (at 102.87 54.61 0)
@@ -612,11 +602,6 @@
     (pin "2" (uuid 21f9ffa4-6163-41fc-a3a5-2c34d41d1fbc))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R4") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/6be0f257-0828-42e7-90f4-699eb509c9fd"
           (reference "R6") (unit 1)
         )
@@ -627,7 +612,7 @@
   (symbol (lib_id "Device:R") (at 91.44 87.63 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a689ddd0-8eed-4421-bbfe-029aa939df05)
-    (property "Reference" "R1" (at 91.44 81.28 90)
+    (property "Reference" "R7" (at 91.44 81.28 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10kOhm" (at 91.44 83.82 90)
@@ -643,11 +628,6 @@
     (pin "2" (uuid add1a11a-e850-4de8-9a02-0926436da305))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "R1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/6be0f257-0828-42e7-90f4-699eb509c9fd"
           (reference "R7") (unit 1)
         )
@@ -658,7 +638,7 @@
   (symbol (lib_id "Device:C") (at 93.98 64.77 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid b6d35686-3f2a-4844-879d-410ecb562944)
-    (property "Reference" "C11" (at 91.44 66.04 90)
+    (property "Reference" "C6" (at 91.44 66.04 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "20pF" (at 90.17 63.5 90)
@@ -673,11 +653,6 @@
     (pin "1" (uuid 79720aef-e38e-47dc-bd99-cd59a855fb6d))
     (pin "2" (uuid 6aa2a760-8691-4e70-b746-6c6f9a3912eb))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C11") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/6be0f257-0828-42e7-90f4-699eb509c9fd"
           (reference "C6") (unit 1)
@@ -705,11 +680,6 @@
     (pin "2" (uuid 3e574ce4-09e7-4933-914c-32923b0b0b47))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "XTAL1") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/6be0f257-0828-42e7-90f4-699eb509c9fd"
           (reference "XTAL1") (unit 1)
         )
@@ -720,7 +690,7 @@
   (symbol (lib_id "Device:C") (at 93.98 74.93 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid ce7e3ed1-3f1b-4729-8c91-becfca8792a1)
-    (property "Reference" "C12" (at 91.44 76.2 90)
+    (property "Reference" "C7" (at 91.44 76.2 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "20pF" (at 90.17 73.66 90)
@@ -736,11 +706,6 @@
     (pin "2" (uuid 82ef9c93-ab92-44f7-aa1c-fc41a5ed2217))
     (instances
       (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "C12") (unit 1)
-        )
-      )
-      (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/6be0f257-0828-42e7-90f4-699eb509c9fd"
           (reference "C7") (unit 1)
         )
@@ -751,7 +716,7 @@
   (symbol (lib_id "Jumper:Jumper_2_Open") (at 101.6 87.63 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid f4f3a4b0-7859-4c0b-b8fd-57b2116c5c66)
-    (property "Reference" "BOOT0" (at 101.6 81.28 0)
+    (property "Reference" "BOOT1" (at 101.6 81.28 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "BOOTMODE" (at 101.6 83.82 0)
@@ -766,11 +731,6 @@
     (pin "1" (uuid 82e20520-644b-46d3-9540-880f6d3dfca0))
     (pin "2" (uuid 995c9f44-e544-4af6-9ee0-89aa7ad870a1))
     (instances
-      (project "shoulder"
-        (path "/5df167e9-440d-40dc-8690-43ffe4e4c50d"
-          (reference "BOOT0") (unit 1)
-        )
-      )
       (project "shoulder"
         (path "/dd0c7be8-ccf1-412d-960e-d6705c0e249b/6be0f257-0828-42e7-90f4-699eb509c9fd"
           (reference "BOOT1") (unit 1)

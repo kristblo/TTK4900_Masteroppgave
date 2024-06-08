@@ -478,3 +478,16 @@ It doesn't really make sense. Direction of forces means the acc should measure i
 Also added a timer interrupt on timer7 for telemetry, 50Hz. Currently sends shoulder pos, sp and current. Got fairly good data for grabbing and dropping bottle, and susequent spazzing.
 
 Set hasAccelerometer to 0 for shoulder. The arm is now quite stable, strengthening the hypothesis.
+
+
+###240524
+Added test logs for main loop time and shoulder movement.
+Used timer6 with a prescaler of 0, probably about 180us per main loop.
+main loop.log: disregard, prescaler of 18.
+main loop 0psctim.log: initial test with prescaler of 0 in idle state and no input.
+main loop idle receiving moveit: idle state, receiving state updates from moveit.
+main loop oper receiving moveit: operational state, receiving orders from moveit.
+shoulder 0.7 elbow 1.5: moving shoulder to 0.7 rads and elbow to 1.5 rads. Telemetry from shoulder only.
+shoulder 0.7 elbow 1.5: shoulder to 0.7 rads while elbow is const 1.5 rads.
+shoulder 0.7 elbow ext: shoulder to 0.7 while elbow is fully extended.
+

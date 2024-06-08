@@ -210,7 +210,7 @@ void can_cmd_handle_regReq(uint32_t id, uint8_t* inData);
 /// @brief Handles an incoming motor setpoint
 /// @param id Incoming CAN ID
 /// @param inData Incoming CAN data
-void can_cmd_handle_jointSp(uint32_t id, uint8_t* inData);
+void can_cmd_handle_motorSp(uint32_t id, uint8_t* inData);
 
 
 /// @brief Handles an incoming request for accelerometer axis data

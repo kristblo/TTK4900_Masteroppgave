@@ -1,0 +1,40 @@
+<mxfile host="Electron" modified="2024-05-25T14:32:45.199Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.8 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="IJEBkrfZ8_HYvoaY83AJ" version="24.4.8" type="device">
+  <diagram name="Page-1" id="Uc4ejgZUqq5yKl2UvD8w">
+    <mxGraphModel dx="1195" dy="703" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="583" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="-F1g1yeEprU6yHQST6bi-1" value="Serial comms structure" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-F1g1yeEprU6yHQST6bi-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-F1g1yeEprU6yHQST6bi-2" target="-F1g1yeEprU6yHQST6bi-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-F1g1yeEprU6yHQST6bi-2" value="Control message" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="40" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-F1g1yeEprU6yHQST6bi-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-F1g1yeEprU6yHQST6bi-3" target="-F1g1yeEprU6yHQST6bi-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-F1g1yeEprU6yHQST6bi-3" value="32 byte array" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="355" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-F1g1yeEprU6yHQST6bi-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-F1g1yeEprU6yHQST6bi-4" target="-F1g1yeEprU6yHQST6bi-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-F1g1yeEprU6yHQST6bi-4" value="Parse input" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="198" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-F1g1yeEprU6yHQST6bi-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-F1g1yeEprU6yHQST6bi-5" target="-F1g1yeEprU6yHQST6bi-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-F1g1yeEprU6yHQST6bi-5" value="Write serial port" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="513" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-F1g1yeEprU6yHQST6bi-9" value="Computer serial interface" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="670" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

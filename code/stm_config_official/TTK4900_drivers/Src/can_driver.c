@@ -184,7 +184,7 @@ void can_cmd_handle_regReq(uint32_t id, uint8_t* inData)
 }
 
 
-void can_cmd_handle_jointSp(uint32_t id, uint8_t* inData)
+void can_cmd_handle_motorSp(uint32_t id, uint8_t* inData)
 {
   uint8_t motorSelect = (uint8_t)(id >> CAN_MOTOR_CMD_OFFSET) & 1;
   if(inData[0] == 'e')
@@ -350,22 +350,18 @@ void can_cmd_handle_pinchTwistSp(uint32_t id, uint8_t* inData)
 
 }
 
-
-//////////////////////////////////////////////////
-///////LOOK HERE THERE'S A TEMPLATE CALLBACK//////
-/////////////////////////////////////////////////
 void can_driver_cmd_rxTEMPLATE(uint32_t id, uint8_t* inData)
 {
-  //Template for rx callbacks
+  //Template for rx handlers
   uint8_t cmd = (uint8_t)(id & 0x1F);
-  if(cmd == num_types) //Change this enum name
+  if(cmd == num_types)
   {
 
   }
   else
   {
 #if GLOBAL_DEBUG
-    uart_send_string("RECEIVED WRONG COMMAND FOR THIS HANDLER: RXn\n\r"); //And this number
+    uart_send_string("RECEIVED COMMAND FOR THIS HANDLER: RXn\n\r");
 #endif
   }  
 }
@@ -455,7 +451,7 @@ void can_driver_cmd_rx5(uint32_t id, uint8_t* inData)
 
   if(cmd == JOINT_POS_SP)
   {
-    can_cmd_handle_jointSp(id, inData);
+    can_cmd_handle_motorSp(id, inData);
   }
   else
   {

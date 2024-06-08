@@ -65,7 +65,7 @@ typedef struct
   /// @brief The MCU timer peripheral which registers the motor's encoder
   TIM_TypeDef* encoderTimer;
 
-  /// @brief Relation between number of encoder click per mm or rad of movement
+  /// @brief Relation between number of encoder clicks per mm or rad of movement
   int32_t resolution;
 
   /// @brief Motor's torque constant in Nm/A, from datasheet
@@ -100,7 +100,7 @@ typedef struct
 //Public functions
 //////////////////
 
-/// @brief Set to zero the motor encoder counters
+/// @brief Set to zero the motor encoder counters. This function is absolutely cursed, for whatever reason. Avoid, debug and/or reimplement.
 /// @param motorSelect 0 or 1 for motor1 or motor2 respectively
 void motor_interface_zero(uint8_t motorSelect);
 

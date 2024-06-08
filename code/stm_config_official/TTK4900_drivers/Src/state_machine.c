@@ -145,7 +145,7 @@ void state_calibrate_shoulder()
     }
     else if(controller_interface_get_error(1) == 0)
     {
-      //error will never be exactly 0 after a true init
+      //error will never be exactly 0 after a true calibration
       //=> set the error to 10 rads to avoid triggering the
       //twist calib before the shoulder has updated even once
       controller_interface_set_error(1, 10);

@@ -558,6 +558,9 @@ void joint_controller_update_power(joint_controller_descriptor* joint)
     double kptiGain = 1 - (exponent/(1+exponent));
     float adjustedKpti = (joint->KpTi)*(float)kptiGain;
   
+    //This is effectively Kpti^2, realised about one week
+    //before handing in my thesis. FML.
+    //TODO: Fix and test
     intErrorSummand = (adjustedKpti*(joint->KpTi)*error);
   }
   else
