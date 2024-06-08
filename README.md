@@ -7,19 +7,19 @@ The main branch presents the project as it was at the end of the project's imple
 
 The censure branch presents a curated version of project items deemed relevant to censure. Should the censor(s) find the main branch unnecessarily cluttered, this branch may be of interest.
 
-###Directory: PCBs
+### Directory: PCBs
 Contains KiCad PCB design files.
 
-###Directory: code/ros
+### Directory: code/ros
 Contains all code pertaining to ROS nodes and their configuration.
 
-###Directory: code/stm config official
+### Directory: code/stm config official
 Contains all code pertaining to arm onboard software modules.
 
-###Directory: documentation external
+### Directory: documentation external
 Contains hardware datasheets, application notes etc. for units used in the project. Most of these are cited as sources in the report.
 
-###Directory: documentation internal
+### Directory: documentation internal
 Contains documentation generated for the project.
 
 The file journal.md contains notes taken during development.
