@@ -29,7 +29,7 @@ class Hmi : public rclcpp::Node
     while(1)
     {
       std::cout << "ORCA_term: ";
-      std::getline(std::cin, input);  node->read_serial();
+      std::getline(std::cin, input);  //node->read_serial();
       
       if(input == "exit")
       {
