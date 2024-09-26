@@ -8,7 +8,7 @@ controller_manager:
 
 
     orca_hand_controller:
-      type: position_controllers/GripperActionController
+      type: joint_trajectory_controller/JointTrajectoryController
 
 
     joint_state_broadcaster:
@@ -27,13 +27,13 @@ orca_arm_controller:
     state_interfaces:
       - position
     allow_nonzero_velocity_at_trajectory_end: true
-
 orca_hand_controller:
   ros__parameters:
-    joints: 
+    joints:
       - joint_twist_gripper0
       - joint_twist_gripper1
     command_interfaces:
       - position
     state_interfaces:
-      - position      
+      - position
+    allow_nonzero_velocity_at_trajectory_end: true

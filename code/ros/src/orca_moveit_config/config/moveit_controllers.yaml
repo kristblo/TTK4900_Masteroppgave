@@ -20,11 +20,11 @@ moveit_simple_controller_manager:
     action_ns: follow_joint_trajectory
     default: true
   orca_hand_controller:
-    type: GripperCommand
-    action_ns: gripper_cmd
-    default: true    
+    type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
+    default: true
     joints:
       - joint_twist_gripper0
       - joint_twist_gripper1
-    action_ns: gripper_cmd
+    action_ns: follow_joint_trajectory
     default: true
