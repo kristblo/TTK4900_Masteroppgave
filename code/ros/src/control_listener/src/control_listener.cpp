@@ -15,15 +15,18 @@ class CtrlListener : public rclcpp::Node
   public:
   CtrlListener() : Node("control_listener")
   {
-    subscription_ = this->create_subscription<control_msgs::msg::JointTrajectoryControllerState>(
-      "orca_arm_controller/controller_state", 10, std::bind(&CtrlListener::topic_callback, this, _1));
+    armSubscription_ = this->create_subscription<control_msgs::msg::JointTrajectoryControllerState>(
+      "orca_arm_controller/controller_state", 10, std::bind(&CtrlListener::arm_ctrl_state_callback, this, _1));
+    handSubscription_ = this->create_subscription<control_msgs::msg::JointTrajectoryControllerState>(
+      "orca_hand_controller/controller_state", 10, std::bind(&CtrlListener::hand_ctrl_state_callback, this, _1));
+    
     publisher_ = this->create_publisher<orca_ctrl_msgs::msg::Ctrl>("orca_ctrl", 10);
     timer_ = this->create_wall_timer(10ms, std::bind(&CtrlListener::timer_callback, this));    
 
   }
 
   private:
-  void topic_callback(const control_msgs::msg::JointTrajectoryControllerState &msg) //const
+  void arm_ctrl_state_callback(const control_msgs::msg::JointTrajectoryControllerState &msg) //const
   {
     //RCLCPP_INFO(this->get_logger(), "Got state: '%fl'", msg.reference.positions[0]);
     //this->positions = msg.reference.positions[0];
@@ -32,6 +35,14 @@ class CtrlListener : public rclcpp::Node
       this->positions[i] = msg.reference.positions[i];
     }
   }
+
+  void hand_ctrl_state_callback(const control_msgs::msg::JointTrajectoryControllerState &msg) //const
+  {
+    //RCLCPP_INFO(this->get_logger(), "Got state: '%fl'", msg.reference.positions[0]);
+    //this->positions = msg.reference.positions[0];
+    this->positions[5] = msg.reference.positions[0];
+  }
+
   void timer_callback()
   {
     auto message = orca_ctrl_msgs::msg::Ctrl();
@@ -51,16 +62,19 @@ class CtrlListener : public rclcpp::Node
     message.pos_elbow     = this->positions[2];
     message.pos_wrist     = this->positions[3];
     message.pos_twist     = this->positions[4];
+    message.pos_halfpinch = this->positions[5];
     
-    RCLCPP_INFO(this->get_logger(), "Publishing message: '%s'", message.msgtype.c_str());
+    RCLCPP_INFO(this->get_logger(), "Publishing message: '%s', %f, %f, %f, %f", 
+      message.msgtype.c_str(), message.pos_rail, message.pos_shoulder, message.pos_twist, message.pos_halfpinch);
     publisher_->publish(message);
   }
 
-  double positions[5];
+  double positions[6];
 
   rclcpp::TimerBase::SharedPtr timer_;
   rclcpp::Publisher<orca_ctrl_msgs::msg::Ctrl>::SharedPtr publisher_;
-  rclcpp::Subscription<control_msgs::msg::JointTrajectoryControllerState>::SharedPtr subscription_;
+  rclcpp::Subscription<control_msgs::msg::JointTrajectoryControllerState>::SharedPtr armSubscription_;
+  rclcpp::Subscription<control_msgs::msg::JointTrajectoryControllerState>::SharedPtr handSubscription_;
 };
 
 int main(int argc, char* argv[])

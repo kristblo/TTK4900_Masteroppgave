@@ -5,3 +5,4 @@ float32 pos_shoulder
 float32 pos_elbow
 float32 pos_wrist
 float32 pos_twist
+float32 pos_halfpinch
