@@ -7,7 +7,7 @@ moveit_setup_assistant_config:
   package_settings:
     author_name: kristblo
     author_email: kristblo@stud.ntnu.no
-    generated_timestamp: 1727366669
+    generated_timestamp: 1727441649
   control_xacro:
     command:
       - position
