@@ -192,11 +192,11 @@ mtc::Task MTCTaskNode::createTask()
     stage->setMonitoredStage(current_state_ptr); //Hook into current stage
 
     Eigen::Isometry3d grasp_frame_transform;
-    Eigen::Quaterniond q = Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitX()) *
+    Eigen::Quaterniond q = Eigen::AngleAxisd(M_PI/2, Eigen::Vector3d::UnitX()) *
                           Eigen::AngleAxisd(0, Eigen::Vector3d::UnitY()) *
-                          Eigen::AngleAxisd(0, Eigen::Vector3d::UnitZ());
+                          Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitZ());
     grasp_frame_transform.linear() = q.matrix();
-    grasp_frame_transform.translation().z() = 0.15;
+    grasp_frame_transform.translation().z() = 0.05;
 
     //Compute IK
     auto wrapper = std::make_unique<mtc::stages::ComputeIK>("grasp pose IK", std::move(stage));
@@ -251,6 +251,12 @@ mtc::Task MTCTaskNode::createTask()
   task.add(std::move(grasp));
 
 }
+
+// {
+//   auto grasp = std::make_unique<mtc::SerialContainer>("pick object");
+//   task.properties().exposeTo(grasp->properties(), {"eef", "group", "ik_frame"});
+//   grasp->properties().configureInitFrom(mtc::Stage::PARENT, {"eef", "group", "ik_frame"});
+// }
 
 
 {
@@ -328,9 +334,11 @@ mtc::Task MTCTaskNode::createTask()
     // Set retreat direction
     geometry_msgs::msg::Vector3Stamped vec;
     vec.header.frame_id = "world";
-    vec.vector.x = -0.5;
+    vec.vector.z = 0.3;
     stage->setDirection(vec);
     place->insert(std::move(stage));
+    task.add(std::move(place));
+  
   }
 
   {
@@ -340,7 +348,12 @@ mtc::Task MTCTaskNode::createTask()
     task.add(std::move(stage));
   }  
 
-  task.add(std::move(place));
+  {
+    auto stage = std::make_unique<mtc::stages::MoveTo>("closed", interpolation_planner);
+    stage->setGroup(hand_group_name);
+    stage->setGoal("closed");
+    task.add(std::move(stage));
+  }  
 
 }
 
