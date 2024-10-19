@@ -58,7 +58,7 @@ void MTCTaskNode::setupPlanningScene()
 
   geometry_msgs::msg::Pose pose;
   pose.position.x = 0.5;
-  pose.position.y = -0.25;
+  pose.position.y = -0.35;
   pose.position.z = 0.2;
   pose.orientation.w = 1.0;
   object.pose = pose;
@@ -194,9 +194,9 @@ mtc::Task MTCTaskNode::createTask()
     Eigen::Isometry3d grasp_frame_transform;
     Eigen::Quaterniond q = Eigen::AngleAxisd(M_PI/2, Eigen::Vector3d::UnitX()) *
                           Eigen::AngleAxisd(0, Eigen::Vector3d::UnitY()) *
-                          Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitZ());
+                          Eigen::AngleAxisd(0, Eigen::Vector3d::UnitZ());
     grasp_frame_transform.linear() = q.matrix();
-    grasp_frame_transform.translation().z() = 0.05;
+    grasp_frame_transform.translation().z() = 0.07;
 
     //Compute IK
     auto wrapper = std::make_unique<mtc::stages::ComputeIK>("grasp pose IK", std::move(stage));
@@ -252,13 +252,149 @@ mtc::Task MTCTaskNode::createTask()
 
 }
 
-// {
-//   auto grasp = std::make_unique<mtc::SerialContainer>("pick object");
-//   task.properties().exposeTo(grasp->properties(), {"eef", "group", "ik_frame"});
-//   grasp->properties().configureInitFrom(mtc::Stage::PARENT, {"eef", "group", "ik_frame"});
-// }
+
+//Attempt to rotate object (relative to its top) before placing
+{
+  auto stage_move_to_rotate = std::make_unique<mtc::stages::Connect>(
+      "move to rotate",
+      mtc::stages::Connect::GroupPlannerVector{ { arm_group_name, sampling_planner }//,
+                                                /*{ hand_group_name, sampling_planner }*/ }); //Results in complaints about not having a controller for all joints
+  stage_move_to_rotate->setTimeout(5.0);
+  stage_move_to_rotate->properties().configureInitFrom(mtc::Stage::PARENT);
+  task.add(std::move(stage_move_to_rotate));
+}
 
 
+{
+  auto rotate = std::make_unique<mtc::SerialContainer>("rotate object");
+  task.properties().exposeTo(rotate->properties(), {"eef", "group", "ik_frame"});
+  rotate->properties().configureInitFrom(mtc::Stage::PARENT, {"eef", "group", "ik_frame"});
+
+
+  {
+    // Sample place pose waypoint
+    auto stage = std::make_unique<mtc::stages::GeneratePlacePose>("generate waypoint pose");
+    stage->properties().configureInitFrom(mtc::Stage::PARENT);
+    stage->properties().set("marker_ns", "waypoint_pose");
+    stage->setObject("object");
+
+    geometry_msgs::msg::PoseStamped target_pose_msg;
+    target_pose_msg.header.frame_id = "object";
+    target_pose_msg.pose.position.z = 0.25;
+    target_pose_msg.pose.position.x = -0.3;
+    target_pose_msg.pose.orientation.w = 1;
+    stage->setPose(target_pose_msg);
+    stage->setMonitoredStage(attach_object_stage);  // Hook into attach_object_stage
+
+    // Compute IK
+    auto wrapper =
+        std::make_unique<mtc::stages::ComputeIK>("waypoint pose IK", std::move(stage));
+    wrapper->setMaxIKSolutions(2);
+    wrapper->setMinSolutionDistance(1.0);
+    wrapper->setIKFrame("object");
+    wrapper->properties().configureInitFrom(mtc::Stage::PARENT, { "eef", "group" });
+    wrapper->properties().configureInitFrom(mtc::Stage::INTERFACE, { "target_pose" });
+    rotate->insert(std::move(wrapper));
+  }
+
+  {
+    auto stage_connect_move_flip = std::make_unique<mtc::stages::Connect>(
+        "connect movement anf flip",
+        mtc::stages::Connect::GroupPlannerVector{ { arm_group_name, sampling_planner }//,
+                                                  /*{ hand_group_name, sampling_planner }*/ }); //Results in complaints about not having a controller for all joints
+    stage_connect_move_flip->setTimeout(5.0);
+    stage_connect_move_flip->properties().configureInitFrom(mtc::Stage::PARENT);
+    rotate->insert(std::move(stage_connect_move_flip));
+  }
+
+  {
+    // Sample place pose waypoint
+    auto stage = std::make_unique<mtc::stages::GeneratePlacePose>("generate flip pose");
+    stage->properties().configureInitFrom(mtc::Stage::PARENT);
+    stage->properties().set("marker_ns", "flip_pose");
+    stage->setObject("object");
+
+    geometry_msgs::msg::PoseStamped target_pose_msg;
+    target_pose_msg.header.frame_id = "object";
+    target_pose_msg.pose.position.z = 0.25;
+    target_pose_msg.pose.position.x = -0.3;    
+    target_pose_msg.pose.orientation.y = -0.8;
+    target_pose_msg.pose.orientation.w = 1;
+    stage->setPose(target_pose_msg);
+    stage->setMonitoredStage(attach_object_stage);  // Hook into attach_object_stage
+
+    // Compute IK
+    auto wrapper =
+        std::make_unique<mtc::stages::ComputeIK>("flip pose IK", std::move(stage));
+    wrapper->setMaxIKSolutions(2);
+    wrapper->setMinSolutionDistance(1.0);
+    wrapper->setIKFrame("object");
+    wrapper->properties().configureInitFrom(mtc::Stage::PARENT, { "eef", "group" });
+    wrapper->properties().configureInitFrom(mtc::Stage::INTERFACE, { "target_pose" });
+    rotate->insert(std::move(wrapper));
+  }
+
+  {
+    auto stage_connect_flip_unflip = std::make_unique<mtc::stages::Connect>(
+        "connect flip and unflip",
+        mtc::stages::Connect::GroupPlannerVector{ { arm_group_name, sampling_planner }//,
+                                                  /*{ hand_group_name, sampling_planner }*/ }); //Results in complaints about not having a controller for all joints
+    stage_connect_flip_unflip->setTimeout(5.0);
+    stage_connect_flip_unflip->properties().configureInitFrom(mtc::Stage::PARENT);
+    rotate->insert(std::move(stage_connect_flip_unflip));
+  }
+
+
+  {
+    auto stage = std::make_unique<mtc::stages::GeneratePlacePose>("generate unflip bottle pose");
+    stage->properties().configureInitFrom(mtc::Stage::PARENT);
+    stage->properties().set("marker_ns","unflip_pose");
+    stage->setObject("object");
+
+    geometry_msgs::msg::PoseStamped target_pose_msg;
+    target_pose_msg.header.frame_id = "object";
+    target_pose_msg.pose.position.z = 0.25;
+    target_pose_msg.pose.position.x = -0.3;
+    target_pose_msg.pose.orientation.y = 0;
+    target_pose_msg.pose.orientation.w = 1;
+    stage->setPose(target_pose_msg);
+    stage->setMonitoredStage(attach_object_stage);  // Hook into attach_object_stage
+
+    // Compute IK
+    auto wrapper =
+        std::make_unique<mtc::stages::ComputeIK>("unflip pose IK", std::move(stage));
+    wrapper->setMaxIKSolutions(2);
+    wrapper->setMinSolutionDistance(1.0);
+    wrapper->setIKFrame("object");
+    wrapper->properties().configureInitFrom(mtc::Stage::PARENT, { "eef", "group" });
+    wrapper->properties().configureInitFrom(mtc::Stage::INTERFACE, { "target_pose" });
+    rotate->insert(std::move(wrapper));    
+
+  }
+
+  {
+    auto stage = std::make_unique<mtc::stages::MoveRelative>("retreat_from_pour", cartesian_planner);
+    stage->properties().configureInitFrom(mtc::Stage::PARENT, { "group" });
+    stage->setMinMaxDistance(0.1, 0.3);
+    stage->setIKFrame(hand_frame);
+    stage->properties().set("marker_ns", "retreat_from_pour");
+
+    // Set retreat direction
+    geometry_msgs::msg::Vector3Stamped vec;
+    vec.header.frame_id = "world";
+    vec.vector.x = 0.2;
+    stage->setDirection(vec);
+    rotate->insert(std::move(stage));
+    //task.add(std::move(rotate));
+  
+  }
+
+  task.add(std::move(rotate));
+
+
+}
+
+//Place stage
 {
   auto stage_move_to_place = std::make_unique<mtc::stages::Connect>(
       "move to place",
@@ -284,7 +420,7 @@ mtc::Task MTCTaskNode::createTask()
 
     geometry_msgs::msg::PoseStamped target_pose_msg;
     target_pose_msg.header.frame_id = "object";
-    target_pose_msg.pose.position.x = -0.5;
+    target_pose_msg.pose.position.x = 0.0;
     target_pose_msg.pose.orientation.w = 1;
     stage->setPose(target_pose_msg);
     stage->setMonitoredStage(attach_object_stage);  // Hook into attach_object_stage
