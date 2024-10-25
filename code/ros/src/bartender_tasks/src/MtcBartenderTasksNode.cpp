@@ -1,83 +1,21 @@
-#include <cstdio>
-#include <vector>
+#include "MtcBartenderTasksNode.h"
 
 
-#include <rclcpp/rclcpp.hpp>
-#include <moveit/planning_scene/planning_scene.h>
-#include <moveit/planning_scene_interface/planning_scene_interface.h>
-#include <moveit/task_constructor/task.h>
-#include <moveit/task_constructor/solvers.h>
-#include <moveit/task_constructor/stages.h>
-
-
-#if __has_include(<tf2_geometry_msgs/tf2_geometry_msgs.hpp>)
-#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
-#else
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
-#endif
-#if __has_include(<tf2_eigen/tf2_eigen.hpp>)
-#include <tf2_eigen/tf2_eigen.hpp>
-#else
-#include <tf2_eigen/tf2_eigen.h>
-#endif
-
-static const rclcpp::Logger LOGGER = rclcpp::get_logger("mtc_tutorial");
-namespace mtc = moveit::task_constructor;
-
-
-
-class MTCTaskNode
-{
-public:
-  MTCTaskNode(const rclcpp::NodeOptions& options);
-
-  rclcpp::node_interfaces::NodeBaseInterface::SharedPtr getNodeBaseInterface();
-
-  void doTask();
-
-  void setupPlanningScene();
-
-  void setupPlanningSceneMultiObj(); //Test creating multiple objects in an array
-
-private:
-  // Compose an MTC task from a series of stages.
-  mtc::Task createTask();
-  mtc::Task task_;
-  rclcpp::Node::SharedPtr node_;
-};
-
-rclcpp::node_interfaces::NodeBaseInterface::SharedPtr MTCTaskNode::getNodeBaseInterface()
+rclcpp::node_interfaces::NodeBaseInterface::SharedPtr MtcBartenderTasksNode::getNodeBaseInterface()
 {
   return node_->get_node_base_interface();
 }
 
-MTCTaskNode::MTCTaskNode(const rclcpp::NodeOptions& options)
-  : node_{ std::make_shared<rclcpp::Node>("mtc_node", options) }
+MtcBartenderTasksNode::MtcBartenderTasksNode(const rclcpp::NodeOptions& options)
+  : node_{std::make_shared<rclcpp::Node>("bartender_node", options)}
 {
+  //node_->declare_parameter("objName", "bottle0"); //name, default val
+  std::string arg_value = node_->get_parameter("objName").get_value<std::string>();
+  RCLCPP_INFO(node_->get_logger(), "Received argument: %s", arg_value.c_str());
+  this->objectName = arg_value;
 }
 
-void MTCTaskNode::setupPlanningScene()
-{
-  moveit_msgs::msg::CollisionObject object;
-  object.id = "object";
-  object.header.frame_id = "world";
-  object.primitives.resize(1);
-  object.primitives[0].type = shape_msgs::msg::SolidPrimitive::CYLINDER;
-  object.primitives[0].dimensions = { 0.15, 0.02 };
-
-  geometry_msgs::msg::Pose pose;
-  pose.position.x = 0.5;
-  pose.position.y = -0.35;
-  pose.position.z = 0.2;
-  pose.orientation.w = 1.0;
-  object.pose = pose;
-
-  moveit::planning_interface::PlanningSceneInterface psi;
-  psi.applyCollisionObject(object);
-}
-
-
-void MTCTaskNode::setupPlanningSceneMultiObj()
+void MtcBartenderTasksNode::setUpPlanningScene()
 {
   std::vector<moveit_msgs::msg::CollisionObject> collisionObjects;
   collisionObjects.resize(5);
@@ -110,13 +48,17 @@ void MTCTaskNode::setupPlanningSceneMultiObj()
 
 }
 
-void MTCTaskNode::doTask()
-{
-  task_ = createTask();
+
+////Disable the warning until we find a use for bottleNo
+//#pragma GCC diagnostic push
+//#pragma GCC diagnostic ignored "-Wunused-parameter"
+void MtcBartenderTasksNode::doPickTask(std::string objectName)
+{  
+  pickTask_ = createPickTask(objectName);
 
   try
   {
-    task_.init();
+    pickTask_.init();
   }
   catch (mtc::InitStageException& e)
   {
@@ -124,47 +66,86 @@ void MTCTaskNode::doTask()
     return;
   }
 
-  if (!task_.plan(5))
+  if (!pickTask_.plan(5))
   {
-    RCLCPP_ERROR_STREAM(LOGGER, "Task planning failed");
+    RCLCPP_ERROR_STREAM(LOGGER, "Pick task planning failed");
     return;
   }
-  task_.introspection().publishSolution(*task_.solutions().front());
+  pickTask_.introspection().publishSolution(*pickTask_.solutions().front());
 
-  auto result = task_.execute(*task_.solutions().front());
+  auto result = pickTask_.execute(*pickTask_.solutions().front());
   if (result.val != moveit_msgs::msg::MoveItErrorCodes::SUCCESS)
   {
-    RCLCPP_ERROR_STREAM(LOGGER, "Task execution failed");
+    RCLCPP_ERROR_STREAM(LOGGER, "Pick task execution failed");
     return;
   }
 
   return;
+
+}
+//#pragma GCC diagnostic pop
+
+void MtcBartenderTasksNode::doPourTask(std::string objectName)
+{
+
+  pourTask_ = createPourTask(objectName);
+
+  try
+  {
+    pourTask_.init();
+  }
+  catch (mtc::InitStageException& e)
+  {
+    RCLCPP_ERROR_STREAM(LOGGER, e);
+    return;
+  }
+
+  if (!pourTask_.plan(5))
+  {
+    RCLCPP_ERROR_STREAM(LOGGER, "Pour task planning failed");
+    return;
+  }
+  pourTask_.introspection().publishSolution(*pourTask_.solutions().front());
+
+  auto result = pourTask_.execute(*pourTask_.solutions().front());
+  if (result.val != moveit_msgs::msg::MoveItErrorCodes::SUCCESS)
+  {
+    RCLCPP_ERROR_STREAM(LOGGER, "Pour task execution failed");
+    return;
+  }
+
+  return;
+
+
 }
 
-mtc::Task MTCTaskNode::createTask()
+void MtcBartenderTasksNode::doPlaceTask()
 {
-  mtc::Task task;
-  task.stages()->setName("demo task");
-  task.loadRobotModel(node_);
+
+}
+
+mtc::Task MtcBartenderTasksNode::createPickTask(std::string objectName)
+{
+  mtc::Task pickTask;
+  pickTask.stages()->setName("Pick bottle");
+  pickTask.loadRobotModel(node_);
 
   const auto& arm_group_name = "orca_arm";
   const auto& hand_group_name = "orca_hand";
   const auto& hand_frame = "link_twist";
 
-  // Set task properties
-  task.setProperty("group", arm_group_name);
-  task.setProperty("eef", "gripper");
-  task.setProperty("ik_frame", hand_frame);
+  pickTask.setProperty("group", arm_group_name);
+  pickTask.setProperty("eef", "gripper");
+  pickTask.setProperty("ik_frame", hand_frame);
 
-// Disable warnings for this line, as it's a variable that's set but not used in this example
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
-  mtc::Stage* current_state_ptr = nullptr;  // Forward current_state on to grasp pose generator
+  mtc::Stage* current_state_ptr = nullptr; //Forward current_state on to grasp pose generator
 #pragma GCC diagnostic pop
 
   auto stage_state_current = std::make_unique<mtc::stages::CurrentState>("current");
   current_state_ptr = stage_state_current.get();
-  task.add(std::move(stage_state_current));
+  pickTask.add(std::move(stage_state_current));
 
   auto sampling_planner = std::make_shared<mtc::solvers::PipelinePlanner>(node_);
   auto interpolation_planner = std::make_shared<mtc::solvers::JointInterpolationPlanner>();
@@ -174,20 +155,12 @@ mtc::Task MTCTaskNode::createTask()
   cartesian_planner->setMaxAccelerationScalingFactor(1.0);
   cartesian_planner->setStepSize(.01);
 
-  
-  //First stage: open the hand
+  //First stage: open hand
   auto stage_open_hand =
       std::make_unique<mtc::stages::MoveTo>("open hand", interpolation_planner);
   stage_open_hand->setGroup(hand_group_name);
   stage_open_hand->setGoal("open");
-  task.add(std::move(stage_open_hand));
-
-  //Test, just for fun. Works immediately after open hand
-  // auto stage_arm_ready =
-  //     std::make_unique<mtc::stages::MoveTo>("arm ready", interpolation_planner);
-  // stage_arm_ready->setGroup(arm_group_name);
-  // stage_arm_ready->setGoal("ready");
-  // task.add(std::move(stage_arm_ready));
+  pickTask.add(std::move(stage_open_hand));
 
 
   //Second stage: move to pick
@@ -197,19 +170,20 @@ mtc::Task MTCTaskNode::createTask()
 
   stage_move_to_pick->setTimeout(5.0);
   stage_move_to_pick->properties().configureInitFrom(mtc::Stage::PARENT);
-  task.add(std::move(stage_move_to_pick));
+  pickTask.add(std::move(stage_move_to_pick));
 
   //Stage object
-  mtc::Stage* attach_object_stage = nullptr; //Forward attach_object_stage to place pose generator
+  this->attach_object_stage = nullptr; //Forward attach_object_stage to place pose generator
+
 
 {
-  auto grasp = std::make_unique<mtc::SerialContainer>("pick bottle0");
-  task.properties().exposeTo(grasp->properties(), {"eef", "group", "ik_frame"});
+  auto grasp = std::make_unique<mtc::SerialContainer>("pick object");
+  pickTask.properties().exposeTo(grasp->properties(), {"eef", "group", "ik_frame"});
   grasp->properties().configureInitFrom(mtc::Stage::PARENT, {"eef", "group", "ik_frame"});
 
   {
-    auto stage = std::make_unique<mtc::stages::MoveRelative>("approach bottle0", cartesian_planner);
-    stage->properties().set("marker_ns", "approach bottle0");
+    auto stage = std::make_unique<mtc::stages::MoveRelative>("approach object", cartesian_planner);
+    stage->properties().set("marker_ns", "approach object");
     stage->properties().set("link", hand_frame);
     stage->properties().configureInitFrom(mtc::Stage::PARENT, {"group"});
     stage->setMinMaxDistance(0.1, 0.15);
@@ -229,7 +203,7 @@ mtc::Task MTCTaskNode::createTask()
     stage->properties().configureInitFrom(mtc::Stage::PARENT);
     stage->properties().set("marker_ns", "grasp_pose");
     stage->setPreGraspPose("open");
-    stage->setObject("bottle0");
+    stage->setObject(objectName);
     stage->setAngleDelta(M_PI / 12);
     stage->setMonitoredStage(current_state_ptr); //Hook into current stage
 
@@ -251,9 +225,9 @@ mtc::Task MTCTaskNode::createTask()
   }
 
   {
-    auto stage = std::make_unique<mtc::stages::ModifyPlanningScene>("allow collision (hand,bottle0)");
-    stage->allowCollisions("bottle0",
-                          task.getRobotModel()
+    auto stage = std::make_unique<mtc::stages::ModifyPlanningScene>("allow collision (hand,object)");
+    stage->allowCollisions(objectName,
+                          pickTask.getRobotModel()
                               ->getJointModelGroup(hand_group_name)
                               ->getLinkModelNamesWithCollisionGeometry(),
                           true);
@@ -268,15 +242,15 @@ mtc::Task MTCTaskNode::createTask()
   }
 
   {
-    auto stage = std::make_unique<mtc::stages::ModifyPlanningScene>("attach bottle0");
-    stage->attachObject("bottle0", hand_frame);
-    attach_object_stage = stage.get();
+    auto stage = std::make_unique<mtc::stages::ModifyPlanningScene>("attach object");
+    stage->attachObject(objectName, hand_frame);
+    this->attach_object_stage = stage.get();
     grasp->insert(std::move(stage));
   }
 
 
   {
-    auto stage = std::make_unique<mtc::stages::MoveRelative>("lift bottle0", cartesian_planner);
+    auto stage = std::make_unique<mtc::stages::MoveRelative>("lift object", cartesian_planner);
     stage->properties().configureInitFrom(mtc::Stage::PARENT, { "group" });
     stage->setMinMaxDistance(0.1, 0.3);
     stage->setIKFrame(hand_frame);
@@ -290,9 +264,10 @@ mtc::Task MTCTaskNode::createTask()
     grasp->insert(std::move(stage));
   }
 
-  task.add(std::move(grasp));
+  pickTask.add(std::move(grasp));
 
 }
+
 
 
 //Attempt to rotate bottle0 (relative to its top) before placing
@@ -303,13 +278,13 @@ mtc::Task MTCTaskNode::createTask()
                                                 /*{ hand_group_name, sampling_planner }*/ }); //Results in complaints about not having a controller for all joints
   stage_move_to_rotate->setTimeout(2.0);
   stage_move_to_rotate->properties().configureInitFrom(mtc::Stage::PARENT);
-  task.add(std::move(stage_move_to_rotate));
+  pickTask.add(std::move(stage_move_to_rotate));
 }
 
 
 {
   auto rotate = std::make_unique<mtc::SerialContainer>("rotate bottle0");
-  task.properties().exposeTo(rotate->properties(), {"eef", "group", "ik_frame"});
+  pickTask.properties().exposeTo(rotate->properties(), {"eef", "group", "ik_frame"});
   rotate->properties().configureInitFrom(mtc::Stage::PARENT, {"eef", "group", "ik_frame"});
 
 
@@ -318,11 +293,11 @@ mtc::Task MTCTaskNode::createTask()
     auto stage = std::make_unique<mtc::stages::GeneratePlacePose>("generate waypoint pose");
     stage->properties().configureInitFrom(mtc::Stage::PARENT);
     stage->properties().set("marker_ns", "waypoint_pose");
-    stage->setObject("bottle0");
+    stage->setObject(objectName);
 
     geometry_msgs::msg::PoseStamped target_pose_msg;
-    target_pose_msg.header.frame_id = "bottle0";
-    target_pose_msg.pose.position.z = 0.0;
+    target_pose_msg.header.frame_id = objectName;
+    target_pose_msg.pose.position.z = 0.3;
     target_pose_msg.pose.position.x = -0.9;
     target_pose_msg.pose.orientation.w = 1;
     stage->setPose(target_pose_msg);
@@ -333,7 +308,7 @@ mtc::Task MTCTaskNode::createTask()
         std::make_unique<mtc::stages::ComputeIK>("waypoint pose IK", std::move(stage));
     wrapper->setMaxIKSolutions(2);
     wrapper->setMinSolutionDistance(1.0);
-    wrapper->setIKFrame("bottle0");
+    wrapper->setIKFrame(objectName);
     wrapper->properties().configureInitFrom(mtc::Stage::PARENT, { "eef", "group" });
     wrapper->properties().configureInitFrom(mtc::Stage::INTERFACE, { "target_pose" });
     rotate->insert(std::move(wrapper));
@@ -354,10 +329,10 @@ mtc::Task MTCTaskNode::createTask()
     auto stage = std::make_unique<mtc::stages::GeneratePlacePose>("generate flip pose");
     stage->properties().configureInitFrom(mtc::Stage::PARENT);
     stage->properties().set("marker_ns", "flip_pose");
-    stage->setObject("bottle0");
+    stage->setObject(objectName);
 
     geometry_msgs::msg::PoseStamped target_pose_msg;
-    target_pose_msg.header.frame_id = "bottle0";
+    target_pose_msg.header.frame_id = objectName;
     target_pose_msg.pose.position.z = 0.08; //offset with half the bottle height
     target_pose_msg.pose.position.x = -0.9;    
     //target_pose_msg.pose.orientation.y = -0.8;
@@ -378,7 +353,7 @@ mtc::Task MTCTaskNode::createTask()
         std::make_unique<mtc::stages::ComputeIK>("flip pose IK", std::move(stage));
     wrapper->setMaxIKSolutions(2);
     wrapper->setMinSolutionDistance(1.0);
-    wrapper->setIKFrame(flip_frame_transform, "bottle0");
+    wrapper->setIKFrame(flip_frame_transform, objectName);
     //wrapper->setIKFrame(flip_frame_transform, hand_frame);
     wrapper->properties().configureInitFrom(mtc::Stage::PARENT, { "eef", "group" });
     wrapper->properties().configureInitFrom(mtc::Stage::INTERFACE, { "target_pose" });
@@ -416,10 +391,10 @@ mtc::Task MTCTaskNode::createTask()
     auto stage = std::make_unique<mtc::stages::GeneratePlacePose>("generate unflip bottle pose");
     stage->properties().configureInitFrom(mtc::Stage::PARENT);
     stage->properties().set("marker_ns","unflip_pose");
-    stage->setObject("bottle0");
+    stage->setObject(objectName);
 
     geometry_msgs::msg::PoseStamped target_pose_msg;
-    target_pose_msg.header.frame_id = "bottle0";
+    target_pose_msg.header.frame_id = objectName;
     target_pose_msg.pose.position.z = 0.20;
     target_pose_msg.pose.position.x = -0.9;
     target_pose_msg.pose.orientation.y = 0;
@@ -432,7 +407,7 @@ mtc::Task MTCTaskNode::createTask()
         std::make_unique<mtc::stages::ComputeIK>("unflip pose IK", std::move(stage));
     wrapper->setMaxIKSolutions(2);
     wrapper->setMinSolutionDistance(1.0);
-    wrapper->setIKFrame("bottle0");
+    wrapper->setIKFrame(objectName);
     wrapper->properties().configureInitFrom(mtc::Stage::PARENT, { "eef", "group" });
     wrapper->properties().configureInitFrom(mtc::Stage::INTERFACE, { "target_pose" });
     rotate->insert(std::move(wrapper));    
@@ -456,12 +431,12 @@ mtc::Task MTCTaskNode::createTask()
   
   }
 
-  task.add(std::move(rotate));
+  pickTask.add(std::move(rotate));
 
 
 }
 
-//Place stage
+/////////////////////////////PLACE///////////////////
 {
   auto stage_move_to_place = std::make_unique<mtc::stages::Connect>(
       "move to place",
@@ -469,12 +444,12 @@ mtc::Task MTCTaskNode::createTask()
                                                 /*{ hand_group_name, sampling_planner }*/ }); //Results in complaints about not having a controller for all joints
   stage_move_to_place->setTimeout(5.0);
   stage_move_to_place->properties().configureInitFrom(mtc::Stage::PARENT);
-  task.add(std::move(stage_move_to_place));
+  pickTask.add(std::move(stage_move_to_place));
 }
 
 {
   auto place = std::make_unique<mtc::SerialContainer>("place bottle0");
-  task.properties().exposeTo(place->properties(), { "eef", "group", "ik_frame" });
+  pickTask.properties().exposeTo(place->properties(), { "eef", "group", "ik_frame" });
   place->properties().configureInitFrom(mtc::Stage::PARENT,
                                         { "eef", "group", "ik_frame" });
 
@@ -483,10 +458,10 @@ mtc::Task MTCTaskNode::createTask()
     auto stage = std::make_unique<mtc::stages::GeneratePlacePose>("generate place pose");
     stage->properties().configureInitFrom(mtc::Stage::PARENT);
     stage->properties().set("marker_ns", "place_pose");
-    stage->setObject("bottle0");
+    stage->setObject(objectName);
 
     geometry_msgs::msg::PoseStamped target_pose_msg;
-    target_pose_msg.header.frame_id = "bottle0";
+    target_pose_msg.header.frame_id = objectName;
     target_pose_msg.pose.position.x = 0.0;
     target_pose_msg.pose.orientation.w = 1;
     stage->setPose(target_pose_msg);
@@ -497,7 +472,7 @@ mtc::Task MTCTaskNode::createTask()
         std::make_unique<mtc::stages::ComputeIK>("place pose IK", std::move(stage));
     wrapper->setMaxIKSolutions(2);
     wrapper->setMinSolutionDistance(1.0);
-    wrapper->setIKFrame("bottle0");
+    wrapper->setIKFrame(objectName);
     wrapper->properties().configureInitFrom(mtc::Stage::PARENT, { "eef", "group" });
     wrapper->properties().configureInitFrom(mtc::Stage::INTERFACE, { "target_pose" });
     place->insert(std::move(wrapper));
@@ -512,9 +487,9 @@ mtc::Task MTCTaskNode::createTask()
 
   {
     auto stage =
-        std::make_unique<mtc::stages::ModifyPlanningScene>("forbid collision (hand,bottle0)");
-    stage->allowCollisions("bottle0",
-                          task.getRobotModel()
+        std::make_unique<mtc::stages::ModifyPlanningScene>("forbid collision (hand,bottle)");
+    stage->allowCollisions(objectName,
+                          pickTask.getRobotModel()
                               ->getJointModelGroup(hand_group_name)
                               ->getLinkModelNamesWithCollisionGeometry(),
                           false);
@@ -523,7 +498,7 @@ mtc::Task MTCTaskNode::createTask()
 
   {
     auto stage = std::make_unique<mtc::stages::ModifyPlanningScene>("detach bottle0");
-    stage->detachObject("bottle0", hand_frame);
+    stage->detachObject(objectName, hand_frame);
     place->insert(std::move(stage));
   }
 
@@ -540,7 +515,7 @@ mtc::Task MTCTaskNode::createTask()
     vec.vector.z = 0.3;
     stage->setDirection(vec);
     place->insert(std::move(stage));
-    task.add(std::move(place));
+    pickTask.add(std::move(place));
   
   }
 
@@ -548,43 +523,142 @@ mtc::Task MTCTaskNode::createTask()
     auto stage = std::make_unique<mtc::stages::MoveTo>("return home", interpolation_planner);
     stage->properties().configureInitFrom(mtc::Stage::PARENT, { "group" });
     stage->setGoal("calibrated");
-    task.add(std::move(stage));
+    pickTask.add(std::move(stage));
   }  
 
   {
     auto stage = std::make_unique<mtc::stages::MoveTo>("closed", interpolation_planner);
     stage->setGroup(hand_group_name);
     stage->setGoal("closed");
-    task.add(std::move(stage));
+    pickTask.add(std::move(stage));
   }  
 
 }
 
-  return task;
+
+  return pickTask;
 }
 
-
-int main(int argc, char** argv)
+mtc::Task MtcBartenderTasksNode::createPourTask(std::string objectName)
 {
-  rclcpp::init(argc, argv);
+  mtc::Task pourTask;
+  pourTask.stages()->setName("Pour bottle");
+  pourTask.loadRobotModel(node_);
 
-  rclcpp::NodeOptions options;
-  options.automatically_declare_parameters_from_overrides(true);
+  const auto& arm_group_name = "orca_arm";
+  const auto& hand_group_name = "orca_hand";
+  const auto& hand_frame = "link_twist";
 
-  auto mtc_task_node = std::make_shared<MTCTaskNode>(options);
-  rclcpp::executors::MultiThreadedExecutor executor;
+  pourTask.setProperty("group", arm_group_name);
+  pourTask.setProperty("eef", "gripper");
+  pourTask.setProperty("ik_frame", hand_frame);
 
-  auto spin_thread = std::make_unique<std::thread>([&executor, &mtc_task_node]() {
-    executor.add_node(mtc_task_node->getNodeBaseInterface());
-    executor.spin();
-    executor.remove_node(mtc_task_node->getNodeBaseInterface());
-  });
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+  mtc::Stage* current_state_ptr = nullptr; //Forward current_state on to grasp pose generator
+  mtc::Stage* attach_object_stage = nullptr;
 
-  //mtc_task_node->setupPlanningScene();
-  mtc_task_node->setupPlanningSceneMultiObj();
-  mtc_task_node->doTask();
+#pragma GCC diagnostic pop
 
-  spin_thread->join();
-  rclcpp::shutdown();
-  return 0;
+  auto stage_state_current = std::make_unique<mtc::stages::CurrentState>("current");
+  current_state_ptr = stage_state_current.get();
+  pourTask.add(std::move(stage_state_current));
+
+  auto sampling_planner = std::make_shared<mtc::solvers::PipelinePlanner>(node_);
+  auto interpolation_planner = std::make_shared<mtc::solvers::JointInterpolationPlanner>();
+
+  auto cartesian_planner = std::make_shared<mtc::solvers::CartesianPath>();
+  cartesian_planner->setMaxVelocityScalingFactor(1.0);
+  cartesian_planner->setMaxAccelerationScalingFactor(1.0);
+  cartesian_planner->setStepSize(.01);
+
+{
+  auto stage = std::make_unique<mtc::stages::ModifyPlanningScene>("allow collision (hand,object)");
+  stage->allowCollisions(objectName,
+                        pourTask.getRobotModel()
+                            ->getJointModelGroup(hand_group_name)
+                            ->getLinkModelNamesWithCollisionGeometry(),
+                        true);
+  pourTask.add(std::move(stage));
 }
+
+
+// {
+//   auto stage = std::make_unique<mtc::stages::ModifyPlanningScene>("reattach bottle0");
+//   stage->attachObject("bottle0", hand_frame);
+//   attach_object_stage = stage.get();
+//   pourTask.add(std::move(stage));
+// }
+
+
+{
+  auto unrotate = std::make_unique<mtc::SerialContainer>("rotate bottle0");
+  pourTask.properties().exposeTo(unrotate->properties(), {"eef", "group", "ik_frame"});
+  unrotate->properties().configureInitFrom(mtc::Stage::PARENT, {"eef", "group", "ik_frame"});
+
+  {
+    auto stage = std::make_unique<mtc::stages::MoveRelative>("complete pour", cartesian_planner);
+    stage->properties().configureInitFrom(mtc::Stage::PARENT, { "group" });
+    stage->setMinMaxDistance(0.1, 0.2);
+    stage->setIKFrame(hand_frame);
+    stage->properties().set("marker_ns", "retreat_from_pour");
+
+    // Set retreat direction
+    geometry_msgs::msg::Vector3Stamped vec;
+    vec.header.frame_id = "world";
+    vec.vector.z = 0.1;
+    stage->setDirection(vec);
+    unrotate->insert(std::move(stage));
+    attach_object_stage = stage.get();
+    //task.add(std::move(rotate));
+  
+  }
+
+  // {
+  //   auto stage_connect_flip_unflip = std::make_unique<mtc::stages::Connect>(
+  //       "connect flip and unflip",
+  //       mtc::stages::Connect::GroupPlannerVector{ { arm_group_name, sampling_planner }//,
+  //                                                 /*{ hand_group_name, sampling_planner }*/ }); //Results in complaints about not having a controller for all joints
+  //   stage_connect_flip_unflip->setTimeout(2.0);
+  //   stage_connect_flip_unflip->properties().configureInitFrom(mtc::Stage::PARENT);
+  //   unrotate->insert(std::move(stage_connect_flip_unflip));
+  // }
+  
+  pourTask.add(std::move(unrotate));
+
+  auto stage_open_hand =
+      std::make_unique<mtc::stages::MoveTo>("open hand", interpolation_planner);
+  stage_open_hand->setGroup(hand_group_name);
+  stage_open_hand->setGoal("open");
+  pourTask.add(std::move(stage_open_hand));
+
+
+  {
+    auto stage = std::make_unique<mtc::stages::MoveTo>("return home", interpolation_planner);
+    stage->properties().configureInitFrom(mtc::Stage::PARENT, { "group" });
+    stage->setGoal("calibrated");
+    pourTask.add(std::move(stage));
+  }  
+
+  {
+    auto stage = std::make_unique<mtc::stages::MoveTo>("closed", interpolation_planner);
+    stage->setGroup(hand_group_name);
+    stage->setGoal("closed");
+    pourTask.add(std::move(stage));
+  }  
+
+}
+
+
+
+
+  return pourTask;
+}
+
+mtc::Task MtcBartenderTasksNode::createPlaceTask()
+{
+  mtc::Task placeTask;
+
+  return placeTask;
+}
+
