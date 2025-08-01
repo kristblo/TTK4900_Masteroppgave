@@ -156,6 +156,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uart_send_string("hello world\n\r");
   HAL_Delay(2000);
   HAL_GPIO_WritePin(RELAY_EN_GPIO_Port, RELAY_EN_Pin, 1);
 
@@ -171,6 +172,7 @@ int main(void)
 #if (ACTIVE_UNIT == TORSO) && (SW_INTERFACE == CMD_MODE_ROS)
     if(ros_interface_get_newMsgFlag() == 1)
     {
+      //uart_send_string("about to parse ros input\n\r");
       ros_interface_parse_input();
       ros_interface_clear_newMsgFlag();
     }
@@ -203,7 +205,7 @@ int main(void)
         {
           //motor_interface_zero(1);
           char debug[64];
-          sprintf(debug, "\nerror: %i\n\r", (int32_t)(controller_interface_get_error(1)*1000));
+          sprintf(debug, "\nFinal shoulder calibration error: %i\n\r", (int32_t)(controller_interface_get_error(1)*1000));
           uart_send_string(debug);          
 
           motor_interface_set_total_count(1, 0);
@@ -264,15 +266,18 @@ int main(void)
     {
       float shoulderPos = controller_interface_get_position(1);
       float shoulderSp = controller_interface_get_setpoint(1);
-      float shoulderCurrent = adc_interface_get_current(1);
+      float shoulderEr = controller_interface_get_error(1);
+
 
       int32_t posAsInt = (int32_t)(shoulderPos*1000);
       int32_t spAsInt = (int32_t)(shoulderSp*1000);
-      int32_t currentAsInt = (int32_t)(shoulderCurrent*1000);
+      int32_t erAsInt = (int32_t)(shoulderEr*1000);
+      int32_t totalCount = motor_interface_get_total_count(1);
+
 
       char* telemetry[128];
-      sprintf(telemetry, "%i;%i;%i\r", posAsInt, spAsInt, currentAsInt);
-      uart_send_string(telemetry);      
+      sprintf(telemetry, "%i;%i;%i\r", totalCount, spAsInt, erAsInt);
+      //uart_send_string(telemetry);      
       controller_interface_clear_upd_telemetry();
     }
 #endif

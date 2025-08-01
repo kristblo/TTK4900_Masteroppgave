@@ -2,7 +2,7 @@
 
 static uint8_t uartRosRxBuffer[32];
 static uint8_t newRosMsgFlag = 0;
-float pos_pinch = 0; //TODO: Fix MoveIt so that it can send pinch references!
+//float pos_pinch = 0; //TODO: Fix MoveIt so that it can send pinch references!
 
 void ros_interface_set_rxBuffer(uint8_t* inData)
 {
@@ -21,6 +21,7 @@ void ros_interface_clear_rxBuffer()
 
 void ros_interface_set_newMsgFlag()
 {
+  //uart_send_string("set newmsg\n\r");
   newRosMsgFlag = 1;
 }
 
@@ -36,8 +37,6 @@ void ros_interface_clear_newMsgFlag()
 
 void ros_interface_parse_input()
 {
-  
-  char* debug[64];
 
   const int HEADEROFFSET = 3;
   char* header[HEADEROFFSET+1];//strcmp requires string+eof
@@ -51,6 +50,7 @@ void ros_interface_parse_input()
     float pos_elbow   ;// = &uartRosRxBuffer[HEADEROFFSET + 8];
     float pos_wrist   ;// = &uartRosRxBuffer[HEADEROFFSET + 12];
     float pos_twist   ;// = &uartRosRxBuffer[HEADEROFFSET + 16];
+    float pos_pinch   ;// added after fixing RViz setup
 
     memcpy(&pos_rail, &uartRosRxBuffer[HEADEROFFSET], 4);
     controller_interface_set_setpoint(0, (pos_rail)*1000); //ROS outputs mm
@@ -61,6 +61,7 @@ void ros_interface_parse_input()
     memcpy(&pos_elbow, &uartRosRxBuffer[HEADEROFFSET + 8], 4);
     memcpy(&pos_wrist, &uartRosRxBuffer[HEADEROFFSET + 12], 4);
     memcpy(&pos_twist, &uartRosRxBuffer[HEADEROFFSET + 16 ], 4);
+    memcpy(&pos_pinch, &uartRosRxBuffer[HEADEROFFSET + 20], 4);
     
     uint8_t shoulderData[8];
     memcpy(&shoulderData[0], &pos_wrist, 4);
@@ -68,12 +69,13 @@ void ros_interface_parse_input()
     uint32_t id = (2 << CAN_MOTOR_CMD_OFFSET) | WRIST_ELBOW_SP;
     can_interface_queue_tx(WRIST_ELBOW_SP, shoulderData, id);
 
+    pos_pinch = pos_pinch*1000;
     uint8_t handData[8];
     memcpy(&handData[0], &pos_pinch, 4);
     memcpy(&handData[4], &pos_twist, 4);
 
     // char* debug[64];
-    // sprintf(debug, "Reading pinchpos: %i\n\r", (int)(pos_pinch));
+    // sprintf(debug, "Writing pinchpos: %i\n\r", (int)(pos_pinch));
     // uart_send_string(debug);
 
     id = (4 << CAN_MOTOR_CMD_OFFSET) | PINCH_TWIST_SP;
@@ -82,6 +84,7 @@ void ros_interface_parse_input()
   }
   else if((int)strcmp(header, "str") == 0)
   {
+    uart_send_string("got str message\n\r");
     char* headerLessMsg[64]; //must be 64 byte
     memcpy(headerLessMsg, &uartRosRxBuffer[3], 29);
     uart_send_string(headerLessMsg);
@@ -91,5 +94,5 @@ void ros_interface_parse_input()
 
 void ros_interface_set_pinchPos(float pos)
 {
-  pos_pinch = pos;
+  //pos_pinch = pos;
 }

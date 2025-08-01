@@ -157,14 +157,14 @@ void motor_interface_set_total_count(uint8_t motorSelect, int32_t count)
 
 int32_t motor_interface_get_total_count(uint8_t motorSelect)
 {
-  if(motorSelect == 0)
-  {
-    return motor_driver_get_total_cnt(&motor1);
-  }
-  else if(motorSelect == 1)
-  {
-    return motor_driver_get_total_cnt(&motor2);
-  }
+  // if(motorSelect == 0)
+  // {
+  //   return motor_driver_get_total_cnt(&motor1);
+  // }
+  // else if(motorSelect == 1)
+  // {
+  //   return motor_driver_get_total_cnt(&motor2);
+  // }
 
   return motor_driver_get_total_cnt(motors[motorSelect]);
 }
@@ -272,11 +272,12 @@ int32_t motor_driver_get_setpoint(motor_descriptor* motor)
 
 int32_t motor_driver_get_total_cnt(motor_descriptor* motor)
 {
+  
   return motor->encoderTotalCount;
 }
 
 uint16_t motor_driver_get_encoder_cnt(motor_descriptor* motor)
-{
+{  
   return (motor->encoderTimer)->CNT;
 }
 

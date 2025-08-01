@@ -34,9 +34,9 @@ void MtcBartenderTasksNode::setUpPlanningScene()
     collisionObjects[i].primitives[0].dimensions = {0.15, 0.02}; //h,r
 
     geometry_msgs::msg::Pose pose;
-    pose.position.x = 0.5 - (i * 0.1);
+    pose.position.x = 0.5 - (i * 0.15);
     pose.position.y = -0.35;
-    pose.position.z = 0.2;
+    pose.position.z = 0.10;
     pose.orientation.w = 1.0;
     collisionObjects[i].pose = pose;
 
@@ -297,7 +297,7 @@ mtc::Task MtcBartenderTasksNode::createPickTask(std::string objectName)
 
     geometry_msgs::msg::PoseStamped target_pose_msg;
     target_pose_msg.header.frame_id = objectName;
-    target_pose_msg.pose.position.z = 0.3;
+    target_pose_msg.pose.position.z = 0.4;
     target_pose_msg.pose.position.x = -0.9;
     target_pose_msg.pose.orientation.w = 1;
     stage->setPose(target_pose_msg);
@@ -447,11 +447,54 @@ mtc::Task MtcBartenderTasksNode::createPickTask(std::string objectName)
   pickTask.add(std::move(stage_move_to_place));
 }
 
+
+
+
+
 {
   auto place = std::make_unique<mtc::SerialContainer>("place bottle0");
   pickTask.properties().exposeTo(place->properties(), { "eef", "group", "ik_frame" });
   place->properties().configureInitFrom(mtc::Stage::PARENT,
                                         { "eef", "group", "ik_frame" });
+
+  {
+    // Sample place pose waypoint
+    auto stage = std::make_unique<mtc::stages::GeneratePlacePose>("generate waypoint pose");
+    stage->properties().configureInitFrom(mtc::Stage::PARENT);
+    stage->properties().set("marker_ns", "waypoint_pose");
+    stage->setObject(objectName);
+
+    geometry_msgs::msg::PoseStamped target_pose_msg;
+    target_pose_msg.header.frame_id = objectName;
+    target_pose_msg.pose.position.z = 0.4;
+    target_pose_msg.pose.position.x = 0.0;
+    target_pose_msg.pose.orientation.w = 1;
+    stage->setPose(target_pose_msg);
+    stage->setMonitoredStage(attach_object_stage);  // Hook into attach_object_stage
+
+    // Compute IK
+    auto wrapper =
+        std::make_unique<mtc::stages::ComputeIK>("waypoint pose IK", std::move(stage));
+    wrapper->setMaxIKSolutions(2);
+    wrapper->setMinSolutionDistance(1.0);
+    wrapper->setIKFrame(objectName);
+    wrapper->properties().configureInitFrom(mtc::Stage::PARENT, { "eef", "group" });
+    wrapper->properties().configureInitFrom(mtc::Stage::INTERFACE, { "target_pose" });
+    place->insert(std::move(wrapper));
+  }
+
+
+  {
+    auto stage_move_to_place = std::make_unique<mtc::stages::Connect>(
+        "move to place2",
+        mtc::stages::Connect::GroupPlannerVector{ { arm_group_name, sampling_planner }//,
+                                                  /*{ hand_group_name, sampling_planner }*/ }); //Results in complaints about not having a controller for all joints
+    stage_move_to_place->setTimeout(5.0);
+    stage_move_to_place->properties().configureInitFrom(mtc::Stage::PARENT);
+    place->insert(std::move(stage_move_to_place));
+  }
+
+
 
   {
     // Sample place pose
