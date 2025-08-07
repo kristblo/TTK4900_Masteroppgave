@@ -121,6 +121,7 @@ class SerialCommunicator : public rclcpp::Node
       this->float_to_bytes(&serialized[headerOffset + 8], &(this->lastMessage.pos_elbow));
       this->float_to_bytes(&serialized[headerOffset + 12], &(this->lastMessage.pos_wrist));
       this->float_to_bytes(&serialized[headerOffset + 16], &(this->lastMessage.pos_twist));
+      this->float_to_bytes(&serialized[headerOffset + 20], &(this->lastMessage.pos_halfpinch));
 
       float test;
       memcpy(&test, &serialized[headerOffset], 4);

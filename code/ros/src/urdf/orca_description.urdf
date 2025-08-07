@@ -210,18 +210,21 @@
       <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.05" iyz="0.0" izz="0.05"/>
     </inertial>
     <visual name="gripper0_visual">
-      <origin xyz="-0.019 0.0 0.01" rpy="0.0 0.0 0.0"/>
+      <origin xyz="-0.019 0.0 0.075" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.038 0.013 0.02"/>
+        <!-- <box size="0.038 0.013 0.02"/>  -->
+        <box size="0.038 0.013 0.15"/> 
       </geometry>
-      <material name="light_gray">
-        <color rgba="0.63 0.63 0.63 1.0"/>
+      <material name="red">
+        <!-- <color rgba="0.63 0.63 0.63 1.0"/> -->
+        <color rgba="1.0 0.0 0.0 1.0"/>
       </material>
     </visual>
     <collision>
-      <origin xyz="-0.019 0.0 0.01" rpy="0.0 0.0 0.0"/>
+      <origin xyz="-0.019 0.0 0.075" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.038 0.013 0.02"/>
+        <!-- <box size="0.038 0.013 0.02"/> -->
+        <box size="0.038 0.013 0.15"/> 
       </geometry>
     </collision>
   </link>
@@ -241,18 +244,21 @@
       <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.05" iyz="0.0" izz="0.05"/>
     </inertial>
     <visual name="gripper1_visual">
-      <origin xyz="0.019 0.0 0.01" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0.019 0.0 0.075" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.038 0.013 0.02"/>
+        <!-- <box size="0.038 0.013 0.02"/> -->
+        <box size="0.038 0.013 0.15"/> 
       </geometry>
-      <material name="light_gray">
-        <color rgba="0.63 0.63 0.63 1.0"/>
+      <material name="blue">
+        <!-- <color rgba="0.63 0.63 0.63 1.0"/> -->
+        <color rgba="0.0 0.0 1.0 1.0"/>
       </material>
     </visual>
     <collision>
-      <origin xyz="0.019 0.0 0.01" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0.019 0.0 0.075" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.038 0.013 0.02"/>
+        <!-- <box size="0.038 0.013 0.02"/> -->
+        <box size="0.038 0.013 0.15"/> 
       </geometry>
     </collision>
   </link>

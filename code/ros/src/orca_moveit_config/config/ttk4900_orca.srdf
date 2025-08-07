@@ -19,8 +19,8 @@
         <joint name="joint_hand_twist"/>
     </group>
     <group name="orca_hand">
-        <link name="link_gripper0"/>
-        <link name="link_gripper1"/>
+        <joint name="joint_twist_gripper0"/>
+        <joint name="joint_twist_gripper1"/>
     </group>
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
     <group_state name="calibrated" group="orca_arm">
@@ -37,6 +37,13 @@
     <group_state name="closed" group="orca_hand">
         <joint name="joint_twist_gripper0" value="0"/>
         <joint name="joint_twist_gripper1" value="0"/>
+    </group_state>
+    <group_state name="ready" group="orca_arm">
+        <joint name="joint_base_torso" value="0"/>
+        <joint name="joint_hand_twist" value="0"/>
+        <joint name="joint_lower_arm_hand" value="-1.5028"/>
+        <joint name="joint_torso_upper_arm" value="1.2348"/>
+        <joint name="joint_upper_lower_arm" value="-1.9475"/>
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="gripper" parent_link="link_twist" group="orca_hand"/>

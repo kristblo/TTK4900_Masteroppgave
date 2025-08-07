@@ -99,6 +99,7 @@ void state_calibrate_rail()
 {
   // motor_interface_zero(0);
   // motor_interface_set_total_count(0, 0);
+      
 
   controller_interface_set_power(0, 20);
   while(state_interface_get_es_flag() == 0)

@@ -62,7 +62,7 @@ class CtrlListener : public rclcpp::Node
     message.pos_elbow     = this->positions[2];
     message.pos_wrist     = this->positions[3];
     message.pos_twist     = this->positions[4];
-    message.pos_halfpinch = this->positions[5];
+    message.pos_halfpinch = (this->positions[5])*2; //Dumbassery due to bad pinch definition. RViz outputs half value
     
     RCLCPP_INFO(this->get_logger(), "Publishing message: '%s', %f, %f, %f, %f", 
       message.msgtype.c_str(), message.pos_rail, message.pos_shoulder, message.pos_twist, message.pos_halfpinch);
